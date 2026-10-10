@@ -1,10 +1,12 @@
+<img src="mlab-seo/assets/images/icon-128x128.png" width="64" height="64" alt="" align="right">
+
 # MomentumLab SEO
 
 Suchmaschinen- und KI-Optimierung für WordPress: Titel, Meta-Beschreibungen, Google-Vorschau mit SEO-Check, Social-Vorschauen, schema.org, Sitemap, robots.txt und llms.txt.
 
 | | |
 |---|---|
-| Aktuelle Version | 1.1.0 |
+| Aktuelle Version | 1.1.1 |
 | WordPress | ab 6.5, getestet bis 7.1 |
 | PHP | ab 8.0 |
 | Lizenz | GPL-2.0-or-later |
@@ -43,7 +45,7 @@ Die GitHub Action [`release.yml`](.github/workflows/release.yml) läuft bei jede
 mlab-seo/            Quellcode des Plugins (Inhalt des ZIPs)
   mlab-seo.php       Plugin-Datei mit Header und Version
   includes/          PHP-Klassen (u. a. Updater)
-  assets/            JavaScript und CSS
+  assets/            JavaScript, CSS und Plugin-Icon (images/)
   languages/         Deutsche Übersetzungen (.l10n.php)
   readme.txt         Readme im WordPress-Format
   CHANGELOG.md       Änderungen pro Version
@@ -56,6 +58,7 @@ Funktionen, Hooks und Datenschutz sind in [`mlab-seo/readme.txt`](mlab-seo/readm
 
 | Version | Datum | Änderungen |
 |---|---|---|
+| 1.1.1 | 2026-10-10 | Plugin-Icon |
 | 1.1.0 | 2026-10-10 | Automatische Updates aus den GitHub-Releases |
 | 1.0.0 | 2026-10-10 | Erste Version |
 

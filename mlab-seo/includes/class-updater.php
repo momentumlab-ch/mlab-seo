@@ -103,6 +103,7 @@ final class Updater {
 			'tested'       => $release['tested'] ?? '',
 			'requires'     => $release['requires'] ?? '',
 			'requires_php' => $release['requires_php'] ?? '',
+			'icons'        => $this->icons(),
 		);
 	}
 
@@ -150,6 +151,7 @@ final class Updater {
 			'tested'        => $tested,
 			'last_updated'  => $updated,
 			'download_link' => $package,
+			'icons'         => $this->icons(),
 			'sections'      => array(
 				'description' => $this->markdown_to_html( $about ),
 				'changelog'   => $this->markdown_to_html( $changelog ),
@@ -331,6 +333,20 @@ final class Updater {
 		$html = $in_list ? $html . '</ul>' : $html;
 
 		return (string) preg_replace( '/`([^`]+)`/', '<code>$1</code>', $html );
+	}
+
+	/**
+	 * Plugin icons shown under Dashboard > Updates and in the details dialog.
+	 *
+	 * @return string[]
+	 */
+	private function icons() {
+		$base = MLAB_SEO_URL . 'assets/images/';
+		return array(
+			'svg' => $base . 'icon.svg',
+			'1x'  => $base . 'icon-128x128.png',
+			'2x'  => $base . 'icon-256x256.png',
+		);
 	}
 
 	/**

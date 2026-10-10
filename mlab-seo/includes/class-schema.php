@@ -84,6 +84,13 @@ final class Schema {
 				) : null,
 			);
 
+			// FAQ blocks: on an FAQ page the questions belong to the page itself.
+			$faq = FAQ::for_post( $post_id );
+			if ( $faq && 'FAQPage' === $page['@type'] ) {
+				$page['mainEntity'] = FAQ::questions( $faq );
+				$faq                = array();
+			}
+
 			$crumbs = Breadcrumbs::list_items( Breadcrumbs::for_post( $post_id ) );
 			if ( $crumbs ) {
 				$page['breadcrumb'] = array( '@id' => $url . '#breadcrumb' );
@@ -96,6 +103,18 @@ final class Schema {
 					'itemListElement' => $crumbs,
 				);
 			}
+
+			if ( $faq ) {
+				$graph[] = array(
+					'@type'      => 'FAQPage',
+					'@id'        => $url . '#faq',
+					'url'        => $url,
+					'isPartOf'   => array( '@id' => $url . '#webpage' ),
+					'inLanguage' => Settings::language(),
+					'mainEntity' => FAQ::questions( $faq ),
+				);
+			}
+			$graph = array_merge( $graph, Media::video_schema( $post_id, $seo ) );
 
 			if ( 'post' === get_post_type( $post_id ) ) {
 				$author   = (int) get_post_field( 'post_author', $post_id );

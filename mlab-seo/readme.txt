@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,6 +20,10 @@ Free
 * Social previews: Open Graph and X cards with a per-page image, featured image or default image.
 * schema.org as one JSON-LD graph: publisher (organisation or person, with logo, address and profiles), website, web page with page type, breadcrumbs, blog posts.
 * Readability check: long sentences and long paragraphs.
+* FAQ block: questions and answers as an accordion, with FAQPage schema for Google, ChatGPT, Perplexity and other AI assistants.
+* Content check: lists indexable pages with fewer than 100 (thin) or 300 (short) words, with a warning in the status.
+* Image sitemap (/sitemap-images.xml) and video sitemap (/sitemap-videos.xml) for YouTube, Vimeo and uploaded videos, plus VideoObject schema.
+* hreflang for websites with one site or domain per language (for example DE, EN, FR): the address of each translation per page. Off while WPML, Polylang or TranslatePress handle it.
 * Social title and description per page, separate from the Google snippet.
 * noindex, nofollow and canonical URL per page. Search and 404 pages are noindex.
 * SEO title, meta description and noindex for categories, tags and other taxonomies. Archive pages 2, 3 … get their own title and canonical URL.
@@ -64,6 +68,12 @@ Developer hooks
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.3.0 =
+* New: FAQ block with FAQPage schema.
+* New: image and video sitemaps, VideoObject schema for embedded videos.
+* New: hreflang links to the translations of a page.
+* New: content check for thin pages (Settings › SEO › Content) and a stricter word check in the editor.
 
 = 1.2.0 =
 * New: import from Yoast SEO, Rank Math, SEOPress and All in One SEO.

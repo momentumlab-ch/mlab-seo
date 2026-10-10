@@ -118,6 +118,11 @@ final class Settings {
 			'sitemap_users'    => 0,
 			'sitemap_taxonomy' => 0,
 			'sitemap_types'    => array( 'page' ),
+			'sitemap_images'   => 1,
+			'sitemap_videos'   => 1,
+			// Languages.
+			'hreflang_langs'   => '',
+			'hreflang_default' => '',
 		);
 	}
 
@@ -224,7 +229,7 @@ final class Settings {
 		foreach ( array( 'default_image', 'org_logo' ) as $k ) {
 			$out[ $k ] = isset( $in[ $k ] ) ? absint( $in[ $k ] ) : 0;
 		}
-		foreach ( array( 'remove_generator', 'llms_enabled', 'llms_full', 'sitemap_users', 'sitemap_taxonomy', 'attachment_pages', 'indexnow' ) as $k ) {
+		foreach ( array( 'remove_generator', 'llms_enabled', 'llms_full', 'sitemap_users', 'sitemap_taxonomy', 'attachment_pages', 'indexnow', 'sitemap_images', 'sitemap_videos' ) as $k ) {
 			$out[ $k ] = empty( $in[ $k ] ) ? 0 : 1;
 		}
 
@@ -233,6 +238,10 @@ final class Settings {
 		$out['org_type']    = isset( $in['org_type'] ) && in_array( $in['org_type'], self::ORG_TYPES, true ) ? $in['org_type'] : 'Organization';
 		$out['org_country'] = strtoupper( mb_substr( $out['org_country'], 0, 2 ) );
 		$out['og_locale']   = preg_match( '/^[a-z]{2}_[A-Z]{2}$/', $out['og_locale'] ) ? $out['og_locale'] : '';
+
+		$out['hreflang_langs']   = isset( $in['hreflang_langs'] ) ? implode( ', ', Hreflang::parse( sanitize_text_field( wp_unslash( $in['hreflang_langs'] ) ) ) ) : '';
+		$x_default               = isset( $in['hreflang_default'] ) ? sanitize_text_field( wp_unslash( $in['hreflang_default'] ) ) : '';
+		$out['hreflang_default'] = in_array( $x_default, array_merge( array( Hreflang::own() ), Hreflang::parse( $out['hreflang_langs'] ) ), true ) ? $x_default : '';
 
 		// Redirect setting is saved with the redirect rules; keep it otherwise.
 		$out['auto_redirect'] = array_key_exists( 'auto_redirect', $in ) ? ( empty( $in['auto_redirect'] ) ? 0 : 1 ) : (int) ( self::get( 'auto_redirect' ) ?? 1 );

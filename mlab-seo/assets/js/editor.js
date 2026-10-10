@@ -49,6 +49,7 @@
 			data.slug = select.getEditedPostSlug ? select.getEditedPostSlug() || '' : '';
 			data.url = select.getPermalink ? select.getPermalink() || '' : '';
 			data.featured = select.getEditedPostAttribute( 'featured_media' ) || 0;
+			data.content += faqText();
 			return data;
 		}
 		data.title = $( '#title' ).val() || '';
@@ -61,6 +62,26 @@
 		data.url = $( '#sample-permalink a' ).attr( 'href' ) || '';
 		data.featured = parseInt( $( '#_thumbnail_id' ).val(), 10 ) > 0 ? 1 : 0;
 		return data;
+	}
+
+	/* FAQ blocks are rendered on the server; add their text for the checks. */
+	function faqText() {
+		var blockEditor = wp.data.select( 'core/block-editor' );
+		var html = '';
+		function walk( blocks ) {
+			( blocks || [] ).forEach( function ( block ) {
+				if ( 'mlab-seo/faq' === block.name ) {
+					( block.attributes.items || [] ).forEach( function ( item ) {
+						html += ' <h3>' + ( item.question || '' ) + '</h3> <p>' + ( item.answer || '' ) + '</p> ';
+					} );
+				}
+				walk( block.innerBlocks );
+			} );
+		}
+		if ( blockEditor && blockEditor.getBlocks ) {
+			walk( blockEditor.getBlocks() );
+		}
+		return html;
 	}
 
 	function textWidth( text ) {
@@ -156,7 +177,7 @@
 			add( 'ok', t.noFocus );
 		}
 
-		add( words >= 300 ? 'good' : 'ok', fmt( words >= 300 ? t.words : t.wordsLow, words ) );
+		add( words >= 300 ? 'good' : ( words < 100 ? 'bad' : 'ok' ), fmt( words >= 300 ? t.words : ( words < 100 ? t.wordsThin : t.wordsLow ), words ) );
 		if ( doc.find( 'h1' ).length ) {
 			add( 'bad', t.h1 );
 		}

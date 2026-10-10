@@ -115,6 +115,8 @@ final class Meta_Box {
 					'sentences'      => __( 'Most sentences are short and easy to read.', 'mlab-seo' ),
 					/* translators: %s: share of long sentences in percent. */
 					'sentencesLong'  => __( '%s %% of the sentences have more than 20 words. Shorter sentences are easier to read.', 'mlab-seo' ),
+					/* translators: %d: number of words. */
+					'wordsThin'      => __( 'The text has only %d words. The page is thin: add text or hide it from search engines.', 'mlab-seo' ),
 					/* translators: %d: number of paragraphs. */
 					'paragraphsLong' => __( '%d paragraph(s) with more than 150 words. Split long paragraphs.', 'mlab-seo' ),
 					'removeSub'      => __( 'Remove', 'mlab-seo' ),
@@ -245,6 +247,17 @@ final class Meta_Box {
 						<option value="hide" <?php selected( Post_Meta::get( $id, 'llms' ), 'hide' ); ?>><?php esc_html_e( 'Do not list', 'mlab-seo' ); ?></option>
 					</select>
 				</p>
+				<?php if ( Hreflang::languages() && ! Hreflang::handled_elsewhere() ) : ?>
+					<?php $translations = Hreflang::for_post( $id ); ?>
+					<p class="mlab-seo__label"><?php esc_html_e( 'Translations (hreflang)', 'mlab-seo' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Address of this page in the other languages. Leave empty when there is no translation.', 'mlab-seo' ); ?></p>
+					<?php foreach ( Hreflang::languages() as $code ) : ?>
+						<p>
+							<label for="mlab-seo-hreflang-<?php echo esc_attr( $code ); ?>" class="mlab-seo__label"><?php echo esc_html( $code ); ?></label>
+							<input type="url" class="widefat" id="mlab-seo-hreflang-<?php echo esc_attr( $code ); ?>" name="mlab_seo_hreflang[<?php echo esc_attr( $code ); ?>]" value="<?php echo esc_attr( $translations[ $code ] ?? '' ); ?>" placeholder="https://" />
+						</p>
+					<?php endforeach; ?>
+				<?php endif; ?>
 			</div>
 
 			<div class="mlab-seo__panel" data-panel="schema" role="tabpanel" hidden>
@@ -378,6 +391,14 @@ final class Meta_Box {
 				update_post_meta( $post_id, Post_Meta::PREFIX . 'event', $event );
 			} else {
 				delete_post_meta( $post_id, Post_Meta::PREFIX . 'event' );
+			}
+		}
+		if ( Hreflang::languages() && isset( $_POST['mlab_seo_hreflang'] ) ) {
+			$translations = Hreflang::sanitize( wp_unslash( $_POST['mlab_seo_hreflang'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitised in Hreflang::sanitize().
+			if ( $translations ) {
+				update_post_meta( $post_id, Post_Meta::PREFIX . 'hreflang', $translations );
+			} else {
+				delete_post_meta( $post_id, Post_Meta::PREFIX . 'hreflang' );
 			}
 		}
 		Crawlers::flush_cache();

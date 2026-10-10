@@ -3,6 +3,16 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.3.0] - 2026-10-10
+
+### Added
+- FAQ block (`mlab-seo/faq`): questions and answers as `<details>` accordion, rendered on the server. The questions go into the schema.org graph as FAQPage (on a page of type FAQPage directly into the page node) and into llms-full.txt as headings.
+- Image sitemap `/sitemap-images.xml` (social, featured and content images) and video sitemap `/sitemap-videos.xml` (YouTube, Vimeo, uploaded videos), both listed in robots.txt and switchable under Sitemap.
+- VideoObject schema for the videos of a page.
+- hreflang: list the other languages under General; each page gets a field per language for the address of its translation, plus an optional x-default. Skipped while WPML, Polylang or TranslatePress is active.
+- Content tab: indexable pages under 300 words, rated thin below 100 words, with images count and edit links; status warning for thin pages.
+- Editor: pages under 100 words count as a problem in the SEO check; FAQ block text counts towards the word checks.
+
 ## [1.2.0] - 2026-10-10
 
 ### Added

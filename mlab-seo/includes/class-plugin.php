@@ -48,6 +48,10 @@ final class Plugin {
 		( new Post_Meta() )->hooks();
 		( new Breadcrumbs() )->hooks();
 		( new IndexNow() )->hooks();
+		( new FAQ() )->hooks();
+		( new Media() )->hooks();
+		( new Hreflang() )->hooks();
+		( new Content_Audit() )->hooks();
 		( new License() )->hooks();
 		( new Head() )->hooks();
 		( new Crawlers() )->hooks();

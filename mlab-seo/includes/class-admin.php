@@ -254,6 +254,12 @@ final class Admin {
 			? array( 'good', __( 'The website uses HTTPS.', 'mlab-seo' ) )
 			: array( 'bad', __( 'The website does not use HTTPS.', 'mlab-seo' ) );
 
+		$thin = Content_Audit::thin_count();
+		if ( $thin ) {
+			/* translators: 1: number of pages, 2: minimum number of words. */
+			$items[] = array( 'ok', sprintf( _n( '%1$d page has fewer than %2$d words. Search engines and AI assistants find little to show for it (see Content).', '%1$d pages have fewer than %2$d words. Search engines and AI assistants find little to show for them (see Content).', $thin, 'mlab-seo' ), $thin, Content_Audit::THIN ) );
+		}
+
 		foreach ( self::other_seo_plugins() as $name ) {
 			/* translators: %s: plugin name. */
 			$items[] = array( 'bad', sprintf( __( '%s is active as well. Two SEO plugins print duplicate titles and tags. Import its data under Import, then deactivate it.', 'mlab-seo' ), $name ) );
@@ -389,6 +395,7 @@ final class Admin {
 			'ai'        => __( 'AI & crawlers', 'mlab-seo' ),
 			'sitemap'   => __( 'Sitemap', 'mlab-seo' ),
 			'redirects' => __( 'Redirects', 'mlab-seo' ),
+			'content'   => __( 'Content', 'mlab-seo' ),
 			'import'    => __( 'Import', 'mlab-seo' ),
 			'license'   => $pro ? __( 'Licence', 'mlab-seo' ) : __( 'Get Pro', 'mlab-seo' ),
 		);
@@ -406,6 +413,9 @@ final class Admin {
 				</ul>
 				<p>
 					<a href="<?php echo esc_url( home_url( '/wp-sitemap.xml' ) ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'View sitemap', 'mlab-seo' ); ?></a>
+					<?php foreach ( Media::sitemap_urls() as $media_url ) : ?>
+						· <a href="<?php echo esc_url( $media_url ); ?>" target="_blank" rel="noopener"><?php echo esc_html( basename( $media_url ) ); ?></a>
+					<?php endforeach; ?>
 					<?php if ( $s['llms_enabled'] ) : ?>
 						· <a href="<?php echo esc_url( Crawlers::llms_url() ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'View llms.txt', 'mlab-seo' ); ?></a>
 					<?php endif; ?>
@@ -450,6 +460,27 @@ final class Admin {
 						$this->text_row( 'verify_yandex', __( 'Yandex', 'mlab-seo' ) );
 						$this->text_row( 'verify_pinterest', __( 'Pinterest', 'mlab-seo' ) );
 						?>
+					</table>
+
+					<h2><?php esc_html_e( 'Languages (hreflang)', 'mlab-seo' ); ?></h2>
+					<p><?php esc_html_e( 'For websites with a separate site or domain per language. Enter the other languages; each page then gets a field for the address of its translation. Set the links on the other language sites too, so the pages point to each other.', 'mlab-seo' ); ?></p>
+					<?php if ( Hreflang::handled_elsewhere() ) : ?>
+						<p class="description"><?php esc_html_e( 'A multilingual plugin (WPML, Polylang or TranslatePress) is active and prints hreflang itself. These settings are not used.', 'mlab-seo' ); ?></p>
+					<?php endif; ?>
+					<table class="form-table" role="presentation">
+						<?php
+						/* translators: %s: language code of this website, for example de-CH. */
+						$this->text_row( 'hreflang_langs', __( 'Other languages', 'mlab-seo' ), sprintf( __( 'Language codes separated by commas, for example en, fr. This website: %s.', 'mlab-seo' ), Hreflang::own() ), 'text', 'en, fr' );
+						?>
+						<tr><th scope="row"><label for="mlab-seo-hreflang_default"><?php esc_html_e( 'Default language (x-default)', 'mlab-seo' ); ?></label></th><td>
+							<select id="mlab-seo-hreflang_default" name="mlab_seo[hreflang_default]">
+								<option value=""><?php esc_html_e( 'None', 'mlab-seo' ); ?></option>
+								<?php foreach ( array_merge( array( Hreflang::own() ), Hreflang::languages() ) as $code ) : ?>
+									<option value="<?php echo esc_attr( $code ); ?>" <?php selected( $s['hreflang_default'], $code ); ?>><?php echo esc_html( $code ); ?></option>
+								<?php endforeach; ?>
+							</select>
+							<p class="description"><?php esc_html_e( 'The version for visitors whose language is not offered.', 'mlab-seo' ); ?></p>
+						</td></tr>
 					</table>
 				</section>
 
@@ -554,6 +585,8 @@ final class Admin {
 						<?php
 						$this->checkbox_row( 'sitemap_taxonomy', __( 'Categories and tags', 'mlab-seo' ), __( 'Include archive pages of categories and tags', 'mlab-seo' ) );
 						$this->checkbox_row( 'sitemap_users', __( 'Authors', 'mlab-seo' ), __( 'Include author pages (shows user names, not recommended)', 'mlab-seo' ) );
+						$this->checkbox_row( 'sitemap_images', __( 'Image sitemap', 'mlab-seo' ), __( 'List the images of every page in /sitemap-images.xml (for Google Images)', 'mlab-seo' ) );
+						$this->checkbox_row( 'sitemap_videos', __( 'Video sitemap', 'mlab-seo' ), __( 'List YouTube, Vimeo and uploaded videos in /sitemap-videos.xml (for Google video results)', 'mlab-seo' ) );
 						?>
 					</table>
 				</section>
@@ -591,6 +624,10 @@ final class Admin {
 
 			<section class="mlab-seo-tab" data-tab="redirects" hidden>
 				<?php $this->render_redirects( $pro ); ?>
+			</section>
+
+			<section class="mlab-seo-tab" data-tab="content" hidden>
+				<?php $this->render_content(); ?>
 			</section>
 
 			<section class="mlab-seo-tab" data-tab="import" hidden>
@@ -660,6 +697,45 @@ final class Admin {
 				<?php endif; ?>
 			</fieldset>
 		</form>
+		<?php
+	}
+
+	/**
+	 * Content tab: pages with little text.
+	 */
+	private function render_content() {
+		$rows = Content_Audit::results();
+		?>
+		<p>
+			<?php
+			/* translators: 1: minimum number of words, 2: recommended number of words. */
+			echo esc_html( sprintf( __( 'Indexable pages with little text. Below %1$d words a page is thin: it rarely ranks and gives AI assistants nothing to quote. From about %2$d words a page can answer a question well.', 'mlab-seo' ), Content_Audit::THIN, Content_Audit::SHORT ) );
+			?>
+		</p>
+		<p><?php esc_html_e( 'For each page: add an introduction, answers to typical questions (FAQ block) or descriptions of images and tables. Pages that only serve visitors, like a gallery without text, can also be hidden from search engines (noindex).', 'mlab-seo' ); ?></p>
+		<?php if ( $rows ) : ?>
+			<table class="widefat striped">
+				<thead><tr><th><?php esc_html_e( 'Page', 'mlab-seo' ); ?></th><th><?php esc_html_e( 'Words', 'mlab-seo' ); ?></th><th><?php esc_html_e( 'Images', 'mlab-seo' ); ?></th><th><?php esc_html_e( 'Rating', 'mlab-seo' ); ?></th></tr></thead>
+				<tbody>
+					<?php foreach ( $rows as $row ) : ?>
+						<tr>
+							<td><a href="<?php echo esc_url( (string) get_edit_post_link( $row['id'] ) ); ?>"><?php echo esc_html( Context::plain_title( $row['id'] ) ); ?></a> <span class="description">(<?php echo esc_html( (string) get_post_type_object( (string) get_post_type( $row['id'] ) )->labels->singular_name ); ?>)</span></td>
+							<td><?php echo (int) $row['words']; ?></td>
+							<td><?php echo (int) $row['images']; ?></td>
+							<td>
+								<?php if ( $row['words'] < Content_Audit::THIN ) : ?>
+									<span class="mlab-seo-badge is-bad"><?php esc_html_e( 'Thin', 'mlab-seo' ); ?></span>
+								<?php else : ?>
+									<span class="mlab-seo-badge is-ok"><?php esc_html_e( 'Short', 'mlab-seo' ); ?></span>
+								<?php endif; ?>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		<?php else : ?>
+			<p><span class="mlab-seo-badge is-good"><?php esc_html_e( 'Good', 'mlab-seo' ); ?></span> <?php esc_html_e( 'All indexable pages have enough text.', 'mlab-seo' ); ?></p>
+		<?php endif; ?>
 		<?php
 	}
 

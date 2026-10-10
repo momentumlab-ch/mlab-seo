@@ -35,6 +35,93 @@ final class Redirects {
 	public function hooks() {
 		add_action( 'template_redirect', array( $this, 'maybe_redirect' ), 1 );
 		add_action( 'template_redirect', array( $this, 'log_404' ), 99 );
+		add_action( 'template_redirect', array( $this, 'attachment_page' ), 5 );
+		add_action( 'post_updated', array( $this, 'slug_changed' ), 10, 3 );
+	}
+
+	/**
+	 * Sends attachment pages (thin content) to the file itself.
+	 */
+	public function attachment_page() {
+		if ( ! is_attachment() || Settings::get( 'attachment_pages' ) ) {
+			return;
+		}
+		$url = wp_get_attachment_url( get_queried_object_id() );
+		if ( $url ) {
+			wp_redirect( $url, 301, 'MomentumLab SEO' ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- Media files may live on a CDN.
+			exit;
+		}
+	}
+
+	/**
+	 * Adds a 301 redirect when the address of a published post changes (Pro).
+	 *
+	 * @param int      $post_id Post ID.
+	 * @param \WP_Post $after   Post after the update.
+	 * @param \WP_Post $before  Post before the update.
+	 */
+	public function slug_changed( $post_id, $after, $before ) {
+		if ( ! License::is_pro() || ! Settings::get( 'auto_redirect' ) ) {
+			return;
+		}
+		if ( 'publish' !== $before->post_status || 'publish' !== $after->post_status || ! in_array( $after->post_type, Post_Meta::post_types(), true ) ) {
+			return;
+		}
+		if ( $before->post_name === $after->post_name && $before->post_parent === $after->post_parent ) {
+			return;
+		}
+		$old = self::normalize( (string) get_permalink( $before ) );
+		$new = (string) get_permalink( $after );
+		if ( '/' === $old || self::normalize( $new ) === $old ) {
+			return;
+		}
+		$base = rtrim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
+		if ( '' !== $base && str_starts_with( $old, mb_strtolower( $base ) . '/' ) ) {
+			$old = substr( $old, strlen( $base ) );
+		}
+		$target = (string) wp_parse_url( $new, PHP_URL_PATH );
+		if ( '' !== $base && str_starts_with( $target, $base . '/' ) ) {
+			$target = substr( $target, strlen( $base ) );
+		}
+		self::add( $old, $target );
+	}
+
+	/**
+	 * Adds or updates a rule. Rules that pointed to the old address now point to the new one,
+	 * and a rule for the new address is removed, so there are no chains or loops.
+	 *
+	 * @param string $from Old path.
+	 * @param string $to   Target path or URL.
+	 * @param int    $code HTTP status.
+	 */
+	public static function add( $from, $to, $code = 301 ) {
+		$from  = self::normalize( $from );
+		$to_n  = self::normalize( $to );
+		$rules = array();
+		$found = false;
+		foreach ( self::rules() as $rule ) {
+			if ( $rule['from'] === $to_n ) {
+				continue;
+			}
+			if ( str_starts_with( $rule['to'], '/' ) && self::normalize( $rule['to'] ) === $from ) {
+				$rule['to'] = $to;
+			}
+			if ( $rule['from'] === $from ) {
+				$rule['to']   = $to;
+				$rule['code'] = $code;
+				$found        = true;
+			}
+			$rules[] = $rule;
+		}
+		if ( ! $found ) {
+			$rules[] = array(
+				'from' => $from,
+				'to'   => $to,
+				'code' => $code,
+				'hits' => 0,
+			);
+		}
+		update_option( self::OPTION, $rules, true );
 	}
 
 	/**

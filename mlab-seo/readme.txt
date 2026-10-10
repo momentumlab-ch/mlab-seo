@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,7 +19,16 @@ Free
 * SEO check with score: title and description length, focus keyword in title, description, first paragraph, URL and subheadings, keyword density, text length, headings, image alt texts, internal and external links, social image. The score shows as a column in the page list.
 * Social previews: Open Graph and X cards with a per-page image, featured image or default image.
 * schema.org as one JSON-LD graph: publisher (organisation or person, with logo, address and profiles), website, web page with page type, breadcrumbs, blog posts.
+* Readability check: long sentences and long paragraphs.
+* Social title and description per page, separate from the Google snippet.
 * noindex, nofollow and canonical URL per page. Search and 404 pages are noindex.
+* SEO title, meta description and noindex for categories, tags and other taxonomies. Archive pages 2, 3 … get their own title and canonical URL.
+* Breadcrumbs with category for posts, in schema.org and as visible navigation: shortcode `[mlab_seo_breadcrumbs]` or `mlab_seo_breadcrumbs()` in the theme.
+* Local SEO for local businesses: opening hours, map position and price range in schema.org.
+* Site verification for Google Search Console, Bing, Yandex and Pinterest.
+* IndexNow: new and changed pages are reported to Bing (also used by ChatGPT search and Copilot), Yandex, Seznam and Naver right after saving.
+* Attachment pages redirect to the file.
+* Import from Yoast SEO, Rank Math, SEOPress and All in One SEO, with a warning while another SEO plugin is active.
 * XML sitemap tuning: choose content types, hide author pages (they expose user names), leave out noindex pages, add last-modified dates.
 * robots.txt with an allow or block switch for each AI crawler (GPTBot, ClaudeBot, PerplexityBot, Google-Extended and more).
 * llms.txt: a Markdown summary of the website for AI assistants with key facts and all pages, built from the SEO descriptions.
@@ -31,12 +40,13 @@ Pro (licence key)
 * Events in Google results: event type, dates, venue, status, tickets, price and sub-events.
 * Custom schema.org (JSON-LD) per page, for example FAQ, product or recipe.
 * Redirect manager (301, 302, 410) with hit counter.
+* Automatic redirect when the address of a published page changes.
 * 404 log with one-click redirect.
 * llms-full.txt: the full text of all pages as Markdown for AI.
 
 Privacy and security
 
-* No tracking, no external requests except the licence check (key, site URL and plugin version, once a day while a key is set), the access check the administrator starts and the update check against the public GitHub releases of the plugin (when WordPress checks for updates, no site data is sent).
+* No tracking, no external requests except the licence check (key, site URL and plugin version, once a day while a key is set), the access check the administrator starts, IndexNow when switched on (the addresses of changed pages, sent to api.indexnow.org) and the update check against the public GitHub releases of the plugin (when WordPress checks for updates, no site data is sent).
 * All forms use nonces and capability checks (`manage_options` for settings, `edit_post` for the SEO box). All input is sanitised, all output escaped.
 
 Developer hooks
@@ -46,6 +56,7 @@ Developer hooks
 * `mlab_seo_schema_graph` – the schema.org graph.
 * `mlab_seo_llms_txt` – llms.txt content.
 * `mlab_seo_post_types` – post types with the SEO box.
+* `mlab_seo_taxonomies` – taxonomies with SEO fields.
 * `mlab_seo_settings_capability` – capability for the settings (default `manage_options`).
 * `mlab_seo_is_pro` – unlock Pro, for example for agency-hosted sites.
 * `mlab_seo_license_endpoint` – licence server URL.
@@ -53,6 +64,13 @@ Developer hooks
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.2.0 =
+* New: import from Yoast SEO, Rank Math, SEOPress and All in One SEO.
+* New: SEO title, meta description and noindex for categories, tags and other taxonomies.
+* New: IndexNow, breadcrumbs, local SEO, site verification, social title and description, readability check.
+* New (Pro): automatic redirect when a page address changes.
+* Fix: own title and canonical URL for archive pages 2, 3 …; language codes like de_CH_informal are output as de_CH.
 
 = 1.1.1 =
 * New: plugin icon, shown under Dashboard > Updates and in the details dialog.

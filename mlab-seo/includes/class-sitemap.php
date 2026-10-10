@@ -22,6 +22,7 @@ final class Sitemap {
 		add_filter( 'wp_sitemaps_post_types', array( $this, 'filter_post_types' ) );
 		add_filter( 'wp_sitemaps_posts_query_args', array( $this, 'exclude_noindex' ) );
 		add_filter( 'wp_sitemaps_posts_entry', array( $this, 'entry' ), 10, 2 );
+		add_filter( 'wp_sitemaps_taxonomies_query_args', array( $this, 'exclude_noindex' ) );
 	}
 
 	/**
@@ -61,9 +62,9 @@ final class Sitemap {
 	}
 
 	/**
-	 * Leaves out posts marked noindex.
+	 * Leaves out posts and terms marked noindex.
 	 *
-	 * @param array $args WP_Query arguments.
+	 * @param array $args WP_Query or WP_Term_Query arguments.
 	 * @return array
 	 */
 	public function exclude_noindex( $args ) {

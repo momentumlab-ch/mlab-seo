@@ -34,6 +34,7 @@ final class Admin {
 		add_action( 'admin_post_mlab_seo_redirects', array( $this, 'handle_redirects' ) );
 		add_action( 'admin_post_mlab_seo_license', array( $this, 'handle_license' ) );
 		add_action( 'admin_post_mlab_seo_check', array( $this, 'handle_check' ) );
+		add_action( 'admin_post_mlab_seo_import', array( $this, 'handle_import' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( MLAB_SEO_FILE ), array( $this, 'action_links' ) );
 	}
 
@@ -145,6 +146,12 @@ final class Admin {
 		$this->verify();
 		check_admin_referer( 'mlab_seo_redirects' );
 		if ( License::is_pro() ) {
+			// Stored directly: the other settings are already sanitised.
+			$stored                  = get_option( Settings::OPTION, array() );
+			$stored                  = is_array( $stored ) ? $stored : array();
+			$stored['auto_redirect'] = empty( $_POST['mlab_seo_auto_redirect'] ) ? 0 : 1;
+			update_option( Settings::OPTION, $stored, true );
+			Settings::flush();
 			$rows = isset( $_POST['mlab_seo_redirects'] ) && is_array( $_POST['mlab_seo_redirects'] ) ? $_POST['mlab_seo_redirects'] : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Sanitised and unslashed in Redirects::save().
 			Redirects::save( $rows );
 		}
@@ -180,6 +187,28 @@ final class Admin {
 	}
 
 	/**
+	 * Imports SEO data from another plugin.
+	 */
+	public function handle_import() {
+		$this->verify();
+		check_admin_referer( 'mlab_seo_import' );
+		$source = isset( $_POST['mlab_seo_import_source'] ) ? sanitize_key( wp_unslash( $_POST['mlab_seo_import_source'] ) ) : '';
+		$result = Import::run( $source, ! empty( $_POST['mlab_seo_import_overwrite'] ) );
+		wp_safe_redirect(
+			add_query_arg(
+				array(
+					'page'            => self::PAGE,
+					'mlab_seo_notice' => 'imported',
+					'mlab_seo_posts'  => $result['posts'],
+					'mlab_seo_terms'  => $result['terms'],
+				),
+				admin_url( 'admin.php' )
+			) . '#import'
+		);
+		exit;
+	}
+
+	/**
 	 * Notice after a form was sent.
 	 */
 	private function notice() {
@@ -190,6 +219,15 @@ final class Admin {
 			'license_ok'      => array( 'success', __( 'Licence activated. Pro features are unlocked.', 'mlab-seo' ) ),
 			'license_failed'  => array( 'error', License::data()['message'] ? License::data()['message'] : __( 'The licence could not be activated.', 'mlab-seo' ) ),
 			'license_removed' => array( 'success', __( 'Licence key removed.', 'mlab-seo' ) ),
+			'imported'        => array(
+				'success',
+				sprintf(
+					/* translators: 1: number of pages and posts, 2: number of categories and tags. */
+					__( 'Import finished: %1$d pages and posts, %2$d categories and tags updated.', 'mlab-seo' ),
+					isset( $_GET['mlab_seo_posts'] ) ? absint( $_GET['mlab_seo_posts'] ) : 0, // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display only.
+					isset( $_GET['mlab_seo_terms'] ) ? absint( $_GET['mlab_seo_terms'] ) : 0 // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display only.
+				),
+			),
 		);
 		if ( isset( $messages[ $notice ] ) ) {
 			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', esc_attr( $messages[ $notice ][0] ), esc_html( $messages[ $notice ][1] ) );
@@ -216,6 +254,11 @@ final class Admin {
 			? array( 'good', __( 'The website uses HTTPS.', 'mlab-seo' ) )
 			: array( 'bad', __( 'The website does not use HTTPS.', 'mlab-seo' ) );
 
+		foreach ( self::other_seo_plugins() as $name ) {
+			/* translators: %s: plugin name. */
+			$items[] = array( 'bad', sprintf( __( '%s is active as well. Two SEO plugins print duplicate titles and tags. Import its data under Import, then deactivate it.', 'mlab-seo' ), $name ) );
+		}
+
 		$check = get_transient( self::CHECK_TRANSIENT );
 		if ( is_array( $check ) ) {
 			$blocked = array();
@@ -230,6 +273,28 @@ final class Admin {
 				: array( 'good', __( 'Search engines and AI crawlers can reach the website.', 'mlab-seo' ) );
 		}
 		return $items;
+	}
+
+	/**
+	 * Other active SEO plugins.
+	 *
+	 * @return string[] Plugin names.
+	 */
+	public static function other_seo_plugins() {
+		$plugins = array(
+			'WPSEO_VERSION'             => 'Yoast SEO',
+			'RANK_MATH_VERSION'         => 'Rank Math',
+			'SEOPRESS_VERSION'          => 'SEOPress',
+			'AIOSEO_VERSION'            => 'All in One SEO',
+			'THE_SEO_FRAMEWORK_VERSION' => 'The SEO Framework',
+		);
+		$found   = array();
+		foreach ( $plugins as $constant => $name ) {
+			if ( defined( $constant ) ) {
+				$found[] = $name;
+			}
+		}
+		return $found;
 	}
 
 	/**
@@ -324,6 +389,7 @@ final class Admin {
 			'ai'        => __( 'AI & crawlers', 'mlab-seo' ),
 			'sitemap'   => __( 'Sitemap', 'mlab-seo' ),
 			'redirects' => __( 'Redirects', 'mlab-seo' ),
+			'import'    => __( 'Import', 'mlab-seo' ),
 			'license'   => $pro ? __( 'Licence', 'mlab-seo' ) : __( 'Get Pro', 'mlab-seo' ),
 		);
 		?>
@@ -371,6 +437,18 @@ final class Admin {
 						$this->text_row( 'og_locale', __( 'Language for social media', 'mlab-seo' ), __( 'For example de_CH. Empty: the WordPress language.', 'mlab-seo' ), 'text', get_locale() );
 						$this->text_row( 'twitter_site', __( 'X (Twitter) account', 'mlab-seo' ), '', 'text', '@account' );
 						$this->checkbox_row( 'remove_generator', __( 'Source code', 'mlab-seo' ), __( 'Hide the WordPress version', 'mlab-seo' ) );
+						$this->checkbox_row( 'attachment_pages', __( 'Attachment pages', 'mlab-seo' ), __( 'Keep the pages WordPress creates for every uploaded file (not recommended: thin content). Off: they redirect to the file.', 'mlab-seo' ) );
+						?>
+					</table>
+
+					<h2><?php esc_html_e( 'Site verification', 'mlab-seo' ); ?></h2>
+					<p><?php esc_html_e( 'Confirms that you own the website, for example in Google Search Console. Paste the code or the whole meta tag.', 'mlab-seo' ); ?></p>
+					<table class="form-table" role="presentation">
+						<?php
+						$this->text_row( 'verify_google', __( 'Google Search Console', 'mlab-seo' ) );
+						$this->text_row( 'verify_bing', __( 'Bing Webmaster Tools', 'mlab-seo' ) );
+						$this->text_row( 'verify_yandex', __( 'Yandex', 'mlab-seo' ) );
+						$this->text_row( 'verify_pinterest', __( 'Pinterest', 'mlab-seo' ) );
 						?>
 					</table>
 				</section>
@@ -397,6 +475,10 @@ final class Admin {
 						$this->text_row( 'org_city', __( 'City', 'mlab-seo' ) );
 						$this->text_row( 'org_region', __( 'Region', 'mlab-seo' ), __( 'For example the canton: BE.', 'mlab-seo' ) );
 						$this->text_row( 'org_country', __( 'Country code', 'mlab-seo' ), '', 'text', 'CH' );
+						$this->textarea_row( 'org_hours', __( 'Opening hours', 'mlab-seo' ), __( 'For local businesses. One rule per line, for example: Mo-Fr 08:00-12:00, 13:30-17:30 or Sa 09:00-16:00.', 'mlab-seo' ), 3 );
+						$this->text_row( 'org_lat', __( 'Latitude', 'mlab-seo' ), '', 'text', '46.9480' );
+						$this->text_row( 'org_lng', __( 'Longitude', 'mlab-seo' ), __( 'For local businesses: the position on the map, for example from Google Maps (right-click on the place).', 'mlab-seo' ), 'text', '7.4474' );
+						$this->text_row( 'org_price_range', __( 'Price range', 'mlab-seo' ), __( 'For local businesses, for example $$ or CHF 20–50.', 'mlab-seo' ) );
 						$this->textarea_row( 'org_same_as', __( 'Profiles', 'mlab-seo' ), __( 'One URL per line: Instagram, Facebook, LinkedIn, Wikipedia …', 'mlab-seo' ) );
 						$this->textarea_row( 'org_extra', __( 'Additional properties (JSON)', 'mlab-seo' ), __( 'Optional, for experts: properties merged into the publisher, for example {"sport": "Skimo"}.', 'mlab-seo' ), 3, 'code' );
 						?>
@@ -422,6 +504,26 @@ final class Admin {
 						<?php
 						$this->textarea_row( 'robots_extra', __( 'Additional robots.txt rules', 'mlab-seo' ), '', 3, 'code' );
 						?>
+					</table>
+
+					<h2><?php esc_html_e( 'IndexNow', 'mlab-seo' ); ?></h2>
+					<p><?php esc_html_e( 'Tells Bing, Yandex, Seznam and Naver about new and changed pages right after saving, instead of waiting for the next crawl. Bing also feeds ChatGPT search and Copilot.', 'mlab-seo' ); ?></p>
+					<table class="form-table" role="presentation">
+						<?php $this->checkbox_row( 'indexnow', __( 'IndexNow', 'mlab-seo' ), __( 'Submit changed pages automatically', 'mlab-seo' ) ); ?>
+						<?php if ( $s['indexnow'] && '' !== $s['indexnow_key'] ) : ?>
+							<tr><th scope="row"><?php esc_html_e( 'Key file', 'mlab-seo' ); ?></th><td>
+								<a href="<?php echo esc_url( IndexNow::key_url() ); ?>" target="_blank" rel="noopener"><code><?php echo esc_html( $s['indexnow_key'] ); ?>.txt</code></a>
+								<?php
+								$last = get_option( IndexNow::LAST );
+								if ( ! IndexNow::active() ) {
+									echo '<p class="description">' . esc_html__( 'Paused: submissions only run on a public production website.', 'mlab-seo' ) . '</p>';
+								} elseif ( is_array( $last ) ) {
+									/* translators: 1: date and time, 2: number of addresses. */
+									echo '<p class="description">' . esc_html( sprintf( __( 'Last submission: %1$s (%2$d addresses)', 'mlab-seo' ), wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), (int) $last['time'] ), count( (array) $last['urls'] ) ) ) . '</p>';
+								}
+								?>
+							</td></tr>
+						<?php endif; ?>
 					</table>
 
 					<h2><?php esc_html_e( 'llms.txt', 'mlab-seo' ); ?></h2>
@@ -491,6 +593,10 @@ final class Admin {
 				<?php $this->render_redirects( $pro ); ?>
 			</section>
 
+			<section class="mlab-seo-tab" data-tab="import" hidden>
+				<?php $this->render_import(); ?>
+			</section>
+
 			<section class="mlab-seo-tab" data-tab="license" hidden>
 				<?php $this->render_license( $pro ); ?>
 			</section>
@@ -517,6 +623,7 @@ final class Admin {
 			<input type="hidden" name="action" value="mlab_seo_redirects" />
 			<?php wp_nonce_field( 'mlab_seo_redirects' ); ?>
 			<fieldset <?php disabled( ! $pro ); ?>>
+				<p><label><input type="checkbox" name="mlab_seo_auto_redirect" value="1" <?php checked( (bool) Settings::get( 'auto_redirect' ) ); ?> /> <?php esc_html_e( 'Add a redirect automatically when the address of a published page changes', 'mlab-seo' ); ?></label></p>
 				<table class="widefat striped mlab-seo-redirects">
 					<thead><tr><th><?php esc_html_e( 'Old address', 'mlab-seo' ); ?></th><th><?php esc_html_e( 'Target', 'mlab-seo' ); ?></th><th><?php esc_html_e( 'Type', 'mlab-seo' ); ?></th><th><?php esc_html_e( 'Hits', 'mlab-seo' ); ?></th><th><span class="screen-reader-text"><?php esc_html_e( 'Remove', 'mlab-seo' ); ?></span></th></tr></thead>
 					<tbody>
@@ -557,6 +664,35 @@ final class Admin {
 	}
 
 	/**
+	 * Import tab.
+	 */
+	private function render_import() {
+		$counts = Import::detect();
+		?>
+		<p><?php esc_html_e( 'Switching from another SEO plugin? Take over SEO titles, meta descriptions, focus keywords, noindex and nofollow, canonical URLs and social titles, descriptions and images. Categories and tags are included for Yoast SEO, Rank Math and SEOPress.', 'mlab-seo' ); ?></p>
+		<p><?php esc_html_e( 'The data of the other plugin is not changed, so you can repeat the import. Title variables like %%title%% are replaced by their values; titles that only repeat the default pattern are left empty, so the MomentumLab SEO default applies.', 'mlab-seo' ); ?></p>
+		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+			<input type="hidden" name="action" value="mlab_seo_import" />
+			<?php wp_nonce_field( 'mlab_seo_import' ); ?>
+			<table class="widefat striped mlab-seo-bots">
+				<thead><tr><th><?php esc_html_e( 'Import from', 'mlab-seo' ); ?></th><th><?php esc_html_e( 'Plugin', 'mlab-seo' ); ?></th><th><?php esc_html_e( 'Pages with data', 'mlab-seo' ); ?></th></tr></thead>
+				<tbody>
+					<?php foreach ( Import::SOURCES as $key => $source ) : ?>
+						<tr>
+							<td><input type="radio" id="mlab-seo-import-<?php echo esc_attr( $key ); ?>" name="mlab_seo_import_source" value="<?php echo esc_attr( $key ); ?>" <?php disabled( 0 === $counts[ $key ] ); ?> /></td>
+							<td><label for="mlab-seo-import-<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $source['label'] ); ?></label></td>
+							<td><?php echo $counts[ $key ] ? (int) $counts[ $key ] : '<span aria-hidden="true">–</span><span class="screen-reader-text">' . esc_html__( 'No data found', 'mlab-seo' ) . '</span>'; ?></td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+			<p><label><input type="checkbox" name="mlab_seo_import_overwrite" value="1" /> <?php esc_html_e( 'Overwrite values already set in MomentumLab SEO', 'mlab-seo' ); ?></label></p>
+			<?php submit_button( __( 'Import now', 'mlab-seo' ), 'primary', 'submit', false, array_sum( $counts ) ? array() : array( 'disabled' => 'disabled' ) ); ?>
+		</form>
+		<?php
+	}
+
+	/**
 	 * Licence tab.
 	 *
 	 * @param bool $pro Pro active.
@@ -576,6 +712,8 @@ final class Admin {
 					<li><?php esc_html_e( 'schema.org: publisher, website, page, breadcrumbs, articles', 'mlab-seo' ); ?></li>
 					<li><?php esc_html_e( 'Sitemap, robots.txt, AI crawler control, llms.txt', 'mlab-seo' ); ?></li>
 					<li><?php esc_html_e( 'Access check for search engines and AI crawlers', 'mlab-seo' ); ?></li>
+					<li><?php esc_html_e( 'SEO for categories and tags, breadcrumbs, IndexNow', 'mlab-seo' ); ?></li>
+					<li><?php esc_html_e( 'Import from Yoast SEO, Rank Math, SEOPress and All in One SEO', 'mlab-seo' ); ?></li>
 				</ul>
 			</div>
 			<div class="mlab-seo-plan is-pro">
@@ -584,6 +722,7 @@ final class Admin {
 					<li><?php esc_html_e( 'Events in Google results (date, place, tickets, sub-events)', 'mlab-seo' ); ?></li>
 					<li><?php esc_html_e( 'Custom schema.org per page (FAQ, products, recipes …)', 'mlab-seo' ); ?></li>
 					<li><?php esc_html_e( 'Redirect manager (301, 302, 410) with hit counter', 'mlab-seo' ); ?></li>
+					<li><?php esc_html_e( 'Automatic redirect when a page address changes', 'mlab-seo' ); ?></li>
 					<li><?php esc_html_e( '404 log with one-click redirect', 'mlab-seo' ); ?></li>
 					<li><?php esc_html_e( 'llms-full.txt: the whole website as text for AI', 'mlab-seo' ); ?></li>
 					<li><?php esc_html_e( 'Updates and support by MomentumLab', 'mlab-seo' ); ?></li>

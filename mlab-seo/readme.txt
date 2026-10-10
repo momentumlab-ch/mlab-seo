@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,7 +36,7 @@ Pro (licence key)
 
 Privacy and security
 
-* No tracking, no external requests except the licence check (key, site URL and plugin version, once a day while a key is set) and the access check the administrator starts.
+* No tracking, no external requests except the licence check (key, site URL and plugin version, once a day while a key is set), the access check the administrator starts and the update check against the public GitHub releases of the plugin (when WordPress checks for updates, no site data is sent).
 * All forms use nonces and capability checks (`manage_options` for settings, `edit_post` for the SEO box). All input is sanitised, all output escaped.
 
 Developer hooks
@@ -49,9 +49,13 @@ Developer hooks
 * `mlab_seo_settings_capability` – capability for the settings (default `manage_options`).
 * `mlab_seo_is_pro` – unlock Pro, for example for agency-hosted sites.
 * `mlab_seo_license_endpoint` – licence server URL.
+* `mlab_seo_update_repository` – GitHub repository that is checked for updates (default `momentumlab-ch/wp-mlab-seo`).
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.1.0 =
+* New: WordPress checks the GitHub releases of the plugin for updates. New versions appear under Dashboard > Updates and on the Plugins page and can be installed with one click or by auto-update.
 
 = 1.0.0 =
 * First release.

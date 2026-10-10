@@ -3,6 +3,12 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.1.0] - 2026-10-10
+
+### Added
+- Updates from the GitHub releases of this repository: new versions appear under Dashboard > Updates and on the Plugins page, with release notes under "View details", and can be installed with one click or by auto-update.
+- Filter `mlab_seo_update_repository` to point the update check at another repository.
+
 ## [1.0.0] - 2026-10-10
 
 ### Added

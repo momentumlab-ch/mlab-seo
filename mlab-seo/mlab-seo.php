@@ -1,0 +1,42 @@
+<?php
+/**
+ * Plugin Name:       MomentumLab SEO
+ * Plugin URI:        https://momentumlab.ch/
+ * Description:       Search engine and AI optimisation: titles, meta descriptions, Google preview with SEO check, social previews, schema.org, sitemap, robots.txt and llms.txt for AI assistants.
+ * Version:           1.0.0
+ * Requires at least: 6.5
+ * Requires PHP:      8.0
+ * Author:            MomentumLab
+ * Author URI:        https://momentumlab.ch/
+ * License:           GPL-2.0-or-later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:       mlab-seo
+ * Domain Path:       /languages
+ *
+ * @package MomentumLab\SEO
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+define( 'MLAB_SEO_VERSION', '1.0.0' );
+define( 'MLAB_SEO_FILE', __FILE__ );
+define( 'MLAB_SEO_DIR', plugin_dir_path( __FILE__ ) );
+define( 'MLAB_SEO_URL', plugin_dir_url( __FILE__ ) );
+
+require_once MLAB_SEO_DIR . 'includes/class-settings.php';
+require_once MLAB_SEO_DIR . 'includes/class-license.php';
+require_once MLAB_SEO_DIR . 'includes/class-post-meta.php';
+require_once MLAB_SEO_DIR . 'includes/class-context.php';
+require_once MLAB_SEO_DIR . 'includes/class-head.php';
+require_once MLAB_SEO_DIR . 'includes/class-schema.php';
+require_once MLAB_SEO_DIR . 'includes/class-crawlers.php';
+require_once MLAB_SEO_DIR . 'includes/class-sitemap.php';
+require_once MLAB_SEO_DIR . 'includes/class-redirects.php';
+require_once MLAB_SEO_DIR . 'includes/class-meta-box.php';
+require_once MLAB_SEO_DIR . 'includes/class-admin.php';
+require_once MLAB_SEO_DIR . 'includes/class-plugin.php';
+
+\MomentumLab\SEO\Plugin::instance();
+
+register_activation_hook( __FILE__, array( '\MomentumLab\SEO\Plugin', 'activate' ) );
+register_deactivation_hook( __FILE__, array( '\MomentumLab\SEO\Plugin', 'deactivate' ) );

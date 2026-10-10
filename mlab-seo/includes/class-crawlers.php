@@ -43,6 +43,7 @@ final class Crawlers {
 	 */
 	public static function flush_cache() {
 		delete_transient( self::FULL_CACHE );
+		Media::flush_cache();
 	}
 
 	/**
@@ -85,6 +86,9 @@ final class Crawlers {
 		}
 		if ( get_option( 'blog_public' ) ) {
 			$out .= "\nSitemap: " . home_url( '/wp-sitemap.xml' ) . "\n";
+			foreach ( Media::sitemap_urls() as $url ) {
+				$out .= 'Sitemap: ' . $url . "\n";
+			}
 		}
 		return $out;
 	}
@@ -268,6 +272,7 @@ final class Crawlers {
 		$html = self::remove_noise( strip_shortcodes( $html ) );
 		$html = preg_replace( '#<(script|style|form|svg|noscript)\b.*?</\1>#is', '', $html );
 		$html = preg_replace( '#<br\s*/?>#i', ' ', $html );
+		$html = preg_replace( '#<summary[^>]*>(.*?)</summary>#is', '<h3>$1</h3>', $html );
 		$html = preg_replace( '#</(span|small|time|div|p|li|td|th|h[1-6])>#i', '$0 ', $html );
 		$html = preg_replace_callback(
 			'#<h([1-6])[^>]*>(.*?)</h\1>#is',

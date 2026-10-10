@@ -110,6 +110,18 @@ final class Post_Meta {
 					},
 				)
 			);
+			register_post_meta(
+				$type,
+				self::PREFIX . 'hreflang',
+				array(
+					'type'          => 'object',
+					'single'        => true,
+					'show_in_rest'  => false,
+					'auth_callback' => function ( $allowed, $meta_key, $post_id ) {
+						return current_user_can( 'edit_post', $post_id );
+					},
+				)
+			);
 		}
 	}
 

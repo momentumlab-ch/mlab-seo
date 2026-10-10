@@ -112,6 +112,11 @@ final class Meta_Box {
 					'noindex'        => __( 'This page is hidden from search engines (noindex).', 'mlab-seo' ),
 					'image'          => __( 'There is an image for social media and search previews.', 'mlab-seo' ),
 					'imageNo'        => __( 'No image for social media. Set a social image or a featured image.', 'mlab-seo' ),
+					'sentences'      => __( 'Most sentences are short and easy to read.', 'mlab-seo' ),
+					/* translators: %s: share of long sentences in percent. */
+					'sentencesLong'  => __( '%s %% of the sentences have more than 20 words. Shorter sentences are easier to read.', 'mlab-seo' ),
+					/* translators: %d: number of paragraphs. */
+					'paragraphsLong' => __( '%d paragraph(s) with more than 150 words. Split long paragraphs.', 'mlab-seo' ),
 					'removeSub'      => __( 'Remove', 'mlab-seo' ),
 				),
 			)
@@ -196,6 +201,14 @@ final class Meta_Box {
 
 			<div class="mlab-seo__panel" data-panel="social" role="tabpanel" hidden>
 				<p class="description"><?php esc_html_e( 'Shown when the page is shared on Facebook, LinkedIn, WhatsApp, X and in messengers. Without an own image the featured image or the default image from the settings is used.', 'mlab-seo' ); ?></p>
+				<p>
+					<label for="mlab-seo-og-title" class="mlab-seo__label"><?php esc_html_e( 'Social title', 'mlab-seo' ); ?></label>
+					<input type="text" class="widefat" id="mlab-seo-og-title" name="mlab_seo[og_title]" value="<?php echo esc_attr( Post_Meta::get( $id, 'og_title' ) ); ?>" placeholder="<?php esc_attr_e( 'Empty: the SEO title', 'mlab-seo' ); ?>" />
+				</p>
+				<p>
+					<label for="mlab-seo-og-desc" class="mlab-seo__label"><?php esc_html_e( 'Social description', 'mlab-seo' ); ?></label>
+					<textarea class="widefat" rows="2" id="mlab-seo-og-desc" name="mlab_seo[og_desc]" placeholder="<?php esc_attr_e( 'Empty: the meta description', 'mlab-seo' ); ?>"><?php echo esc_textarea( Post_Meta::get( $id, 'og_desc' ) ); ?></textarea>
+				</p>
 				<div class="mlab-seo__image">
 					<div class="mlab-seo__image-preview"><?php echo $img ? '<img src="' . esc_url( $img['url'] ) . '" alt="" />' : ''; ?></div>
 					<input type="hidden" name="mlab_seo[image]" id="mlab-seo-image" value="<?php echo esc_attr( (string) $image ); ?>" />

@@ -6,7 +6,7 @@ Suchmaschinen- und KI-Optimierung für WordPress: Titel, Meta-Beschreibungen, Go
 
 | | |
 |---|---|
-| Aktuelle Version | 1.1.1 |
+| Aktuelle Version | 1.2.0 |
 | WordPress | ab 6.5, getestet bis 7.1 |
 | PHP | ab 8.0 |
 | Lizenz | GPL-2.0-or-later |
@@ -58,6 +58,7 @@ Funktionen, Hooks und Datenschutz sind in [`mlab-seo/readme.txt`](mlab-seo/readm
 
 | Version | Datum | Änderungen |
 |---|---|---|
+| 1.2.0 | 2026-10-10 | Import aus Yoast, Rank Math, SEOPress und AIOSEO, SEO für Kategorien, IndexNow, Breadcrumbs, Local SEO, Social-Titel, Lesbarkeits-Check |
 | 1.1.1 | 2026-10-10 | Plugin-Icon |
 | 1.1.0 | 2026-10-10 | Automatische Updates aus den GitHub-Releases |
 | 1.0.0 | 2026-10-10 | Erste Version |

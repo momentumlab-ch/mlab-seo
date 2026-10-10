@@ -40,7 +40,22 @@ final class Settings {
 	/**
 	 * Types (schema.org) offered for the publisher.
 	 */
-	const ORG_TYPES = array( 'Organization', 'SportsOrganization', 'NGO', 'Corporation', 'LocalBusiness', 'EducationalOrganization', 'GovernmentOrganization', 'Person' );
+	const ORG_TYPES = array( 'Organization', 'SportsOrganization', 'NGO', 'Corporation', 'EducationalOrganization', 'GovernmentOrganization', 'Person', 'LocalBusiness', 'ProfessionalService', 'Store', 'Restaurant', 'Hotel', 'MedicalBusiness', 'Dentist', 'LegalService', 'FinancialService', 'RealEstateAgent', 'HealthAndBeautyBusiness', 'HomeAndConstructionBusiness', 'AutomotiveBusiness', 'SportsActivityLocation' );
+
+	/**
+	 * Publisher types that are local businesses (get opening hours, geo and price range).
+	 */
+	const LOCAL_TYPES = array( 'LocalBusiness', 'ProfessionalService', 'Store', 'Restaurant', 'Hotel', 'MedicalBusiness', 'Dentist', 'LegalService', 'FinancialService', 'RealEstateAgent', 'HealthAndBeautyBusiness', 'HomeAndConstructionBusiness', 'AutomotiveBusiness', 'SportsActivityLocation' );
+
+	/**
+	 * Site verification services (setting key => meta tag name).
+	 */
+	const VERIFY = array(
+		'verify_google'    => 'google-site-verification',
+		'verify_bing'      => 'msvalidate.01',
+		'verify_yandex'    => 'yandex-verification',
+		'verify_pinterest' => 'p:domain_verify',
+	);
 
 	/**
 	 * Cached settings.
@@ -65,6 +80,11 @@ final class Settings {
 			'og_locale'        => '',
 			'twitter_site'     => '',
 			'remove_generator' => 1,
+			'attachment_pages' => 0,
+			'verify_google'    => '',
+			'verify_bing'      => '',
+			'verify_yandex'    => '',
+			'verify_pinterest' => '',
 			// Publisher.
 			'org_type'         => 'Organization',
 			'org_name'         => '',
@@ -79,6 +99,10 @@ final class Settings {
 			'org_country'      => '',
 			'org_same_as'      => '',
 			'org_extra'        => '',
+			'org_hours'        => '',
+			'org_lat'          => '',
+			'org_lng'          => '',
+			'org_price_range'  => '',
 			// AI and crawlers.
 			'ai_bots'          => array_fill_keys( array_keys( self::AI_BOTS ), 1 ),
 			'llms_enabled'     => 1,
@@ -86,6 +110,10 @@ final class Settings {
 			'llms_facts'       => '',
 			'llms_full'        => 0,
 			'robots_extra'     => '',
+			'indexnow'         => 0,
+			'indexnow_key'     => '',
+			// Redirects.
+			'auto_redirect'    => 1,
 			// Sitemap.
 			'sitemap_users'    => 0,
 			'sitemap_taxonomy' => 0,
@@ -150,8 +178,21 @@ final class Settings {
 	 * @return string
 	 */
 	public static function language() {
+		return str_replace( '_', '-', self::locale() );
+	}
+
+	/**
+	 * Content locale as language_TERRITORY (de_CH), without variants like _informal.
+	 *
+	 * @return string
+	 */
+	public static function locale() {
 		$locale = (string) self::get( 'og_locale' );
-		return str_replace( '_', '-', '' !== $locale ? $locale : get_locale() );
+		if ( '' !== $locale ) {
+			return $locale;
+		}
+		$parts = explode( '_', get_locale() );
+		return implode( '_', array_slice( $parts, 0, 2 ) );
 	}
 
 	/**
@@ -174,16 +215,16 @@ final class Settings {
 		$d   = self::defaults();
 		$out = array();
 
-		foreach ( array( 'separator', 'site_name', 'home_title', 'og_locale', 'twitter_site', 'org_name', 'org_alt_name', 'org_phone', 'org_street', 'org_zip', 'org_city', 'org_region', 'org_country' ) as $k ) {
+		foreach ( array( 'separator', 'site_name', 'home_title', 'og_locale', 'twitter_site', 'org_name', 'org_alt_name', 'org_phone', 'org_street', 'org_zip', 'org_city', 'org_region', 'org_country', 'org_price_range' ) as $k ) {
 			$out[ $k ] = isset( $in[ $k ] ) ? sanitize_text_field( wp_unslash( $in[ $k ] ) ) : $d[ $k ];
 		}
-		foreach ( array( 'home_description', 'llms_summary', 'llms_facts', 'org_same_as', 'robots_extra' ) as $k ) {
+		foreach ( array( 'home_description', 'llms_summary', 'llms_facts', 'org_same_as', 'robots_extra', 'org_hours' ) as $k ) {
 			$out[ $k ] = isset( $in[ $k ] ) ? sanitize_textarea_field( wp_unslash( $in[ $k ] ) ) : $d[ $k ];
 		}
 		foreach ( array( 'default_image', 'org_logo' ) as $k ) {
 			$out[ $k ] = isset( $in[ $k ] ) ? absint( $in[ $k ] ) : 0;
 		}
-		foreach ( array( 'remove_generator', 'llms_enabled', 'llms_full', 'sitemap_users', 'sitemap_taxonomy' ) as $k ) {
+		foreach ( array( 'remove_generator', 'llms_enabled', 'llms_full', 'sitemap_users', 'sitemap_taxonomy', 'attachment_pages', 'indexnow' ) as $k ) {
 			$out[ $k ] = empty( $in[ $k ] ) ? 0 : 1;
 		}
 
@@ -192,6 +233,25 @@ final class Settings {
 		$out['org_type']    = isset( $in['org_type'] ) && in_array( $in['org_type'], self::ORG_TYPES, true ) ? $in['org_type'] : 'Organization';
 		$out['org_country'] = strtoupper( mb_substr( $out['org_country'], 0, 2 ) );
 		$out['og_locale']   = preg_match( '/^[a-z]{2}_[A-Z]{2}$/', $out['og_locale'] ) ? $out['og_locale'] : '';
+
+		// Redirect setting is saved with the redirect rules; keep it otherwise.
+		$out['auto_redirect'] = array_key_exists( 'auto_redirect', $in ) ? ( empty( $in['auto_redirect'] ) ? 0 : 1 ) : (int) ( self::get( 'auto_redirect' ) ?? 1 );
+
+		foreach ( array( 'org_lat', 'org_lng' ) as $k ) {
+			$value     = isset( $in[ $k ] ) ? str_replace( ',', '.', sanitize_text_field( wp_unslash( $in[ $k ] ) ) ) : '';
+			$out[ $k ] = is_numeric( $value ) && abs( (float) $value ) <= 180 ? $value : '';
+		}
+
+		foreach ( array_keys( self::VERIFY ) as $k ) {
+			$out[ $k ] = isset( $in[ $k ] ) ? self::verification_code( wp_unslash( (string) $in[ $k ] ) ) : '';
+		}
+
+		// The IndexNow key is generated once and kept; it is not part of the form.
+		$key                 = isset( $in['indexnow_key'] ) ? (string) $in['indexnow_key'] : (string) self::get( 'indexnow_key' );
+		$out['indexnow_key'] = preg_match( '/^[a-f0-9]{32}$/', $key ) ? $key : '';
+		if ( $out['indexnow'] && '' === $out['indexnow_key'] ) {
+			$out['indexnow_key'] = bin2hex( random_bytes( 16 ) );
+		}
 
 		$same_as = array();
 		foreach ( preg_split( '/\R/', $out['org_same_as'] ) as $url ) {
@@ -219,5 +279,18 @@ final class Settings {
 		$out['sitemap_types'] = array_values( array_intersect( $types, array_keys( get_post_types( array( 'public' => true ) ) ) ) );
 
 		return $out;
+	}
+
+	/**
+	 * Verification code from a code or a pasted meta tag.
+	 *
+	 * @param string $raw Raw input.
+	 * @return string
+	 */
+	private static function verification_code( $raw ) {
+		if ( preg_match( '/content=["\']([^"\']+)["\']/i', $raw, $m ) ) {
+			$raw = $m[1];
+		}
+		return preg_replace( '/[^A-Za-z0-9_\-=.+\/]/', '', trim( $raw ) );
 	}
 }

@@ -84,7 +84,7 @@ final class Schema {
 				) : null,
 			);
 
-			$crumbs = self::breadcrumbs( $post_id );
+			$crumbs = Breadcrumbs::list_items( Breadcrumbs::for_post( $post_id ) );
 			if ( $crumbs ) {
 				$page['breadcrumb'] = array( '@id' => $url . '#breadcrumb' );
 			}
@@ -98,8 +98,10 @@ final class Schema {
 			}
 
 			if ( 'post' === get_post_type( $post_id ) ) {
-				$author  = (int) get_post_field( 'post_author', $post_id );
-				$graph[] = self::clean(
+				$author   = (int) get_post_field( 'post_author', $post_id );
+				$category = get_the_category( $post_id );
+				$words    = count( preg_split( '/\s+/u', trim( wp_strip_all_tags( excerpt_remove_blocks( strip_shortcodes( (string) get_post_field( 'post_content', $post_id ) ) ) ) ), -1, PREG_SPLIT_NO_EMPTY ) );
+				$graph[]  = self::clean(
 					array(
 						'@type'            => 'BlogPosting',
 						'@id'              => $url . '#article',
@@ -108,10 +110,13 @@ final class Schema {
 						'datePublished'    => get_post_time( 'c', true, $post_id ),
 						'dateModified'     => get_post_modified_time( 'c', true, $post_id ),
 						'image'            => $img ? $img['url'] : null,
-						'author'           => array(
+						'inLanguage'       => Settings::language(),
+						'articleSection'   => $category ? wp_list_pluck( $category, 'name' ) : null,
+						'wordCount'        => $words ? $words : null,
+						'author'           => $author ? array(
 							'@type' => 'Person',
 							'name'  => get_the_author_meta( 'display_name', $author ),
-						),
+						) : null,
 						'publisher'        => $publisher ? array( '@id' => $publisher['@id'] ) : null,
 					)
 				);
@@ -169,6 +174,20 @@ final class Schema {
 			'address'       => self::address( $s['org_street'], $s['org_zip'], $s['org_city'], $s['org_country'], $s['org_region'] ),
 			'sameAs'        => Settings::lines( 'org_same_as' ),
 		);
+		if ( in_array( $type, Settings::LOCAL_TYPES, true ) ) {
+			$node['openingHoursSpecification'] = self::opening_hours( (string) $s['org_hours'] );
+			$node['priceRange']                = $s['org_price_range'];
+			if ( '' !== $s['org_lat'] && '' !== $s['org_lng'] ) {
+				$node['geo'] = array(
+					'@type'     => 'GeoCoordinates',
+					'latitude'  => (float) $s['org_lat'],
+					'longitude' => (float) $s['org_lng'],
+				);
+			}
+			if ( $logo ) {
+				$node['image'] = $logo['url'];
+			}
+		}
 		if ( $logo ) {
 			$node[ 'Person' === $type ? 'image' : 'logo' ] = array(
 				'@type'  => 'ImageObject',
@@ -183,6 +202,68 @@ final class Schema {
 			$node = array_merge( $node, $extra );
 		}
 		return self::clean( $node );
+	}
+
+	/**
+	 * Opening hours from lines like "Mo-Fr 08:00-12:00, 13:30-17:30" or "Sa 09:00-16:00".
+	 *
+	 * @param string $text One rule per line.
+	 * @return array OpeningHoursSpecification nodes.
+	 */
+	public static function opening_hours( $text ) {
+		$names = array(
+			'mo' => 'Monday',
+			'tu' => 'Tuesday',
+			'we' => 'Wednesday',
+			'th' => 'Thursday',
+			'fr' => 'Friday',
+			'sa' => 'Saturday',
+			'su' => 'Sunday',
+		);
+		// German abbreviations.
+		$alias = array(
+			'di' => 'tu',
+			'mi' => 'we',
+			'do' => 'th',
+			'so' => 'su',
+		);
+		$keys  = array_keys( $names );
+		$specs = array();
+		foreach ( preg_split( '/\R/', $text ) as $line ) {
+			if ( ! preg_match( '/^\s*([a-z,\-\s]+?)\s+(\d.*)$/i', trim( $line ), $m ) ) {
+				continue;
+			}
+			$days = array();
+			foreach ( explode( ',', strtolower( str_replace( ' ', '', str_ireplace( array( ' bis ', ' to ' ), '-', $m[1] ) ) ) ) as $part ) {
+				$range = array_map(
+					function ( $d ) use ( $alias ) {
+						$d = substr( $d, 0, 2 );
+						return $alias[ $d ] ?? $d;
+					},
+					explode( '-', $part )
+				);
+				$from  = array_search( $range[0], $keys, true );
+				$to    = array_search( end( $range ), $keys, true );
+				if ( false === $from || false === $to ) {
+					continue;
+				}
+				for ( $i = $from; $i <= ( $to >= $from ? $to : $to + 7 ); $i++ ) {
+					$days[] = $names[ $keys[ $i % 7 ] ];
+				}
+			}
+			if ( ! $days || ! preg_match_all( '/(\d{1,2})[:.](\d{2})\s*-\s*(\d{1,2})[:.](\d{2})/', $m[2], $times, PREG_SET_ORDER ) ) {
+				continue;
+			}
+			foreach ( $times as $t ) {
+				$specs[] = array(
+					'@type'     => 'OpeningHoursSpecification',
+					'dayOfWeek' => array_values( array_unique( $days ) ),
+					'opens'     => sprintf( '%02d:%s', $t[1], $t[2] ),
+					'closes'    => sprintf( '%02d:%s', $t[3], $t[4] ),
+				);
+			}
+		}
+		return $specs;
 	}
 
 	/**
@@ -209,46 +290,6 @@ final class Schema {
 				'addressCountry'  => $country,
 			)
 		);
-	}
-
-	/**
-	 * Breadcrumb items for a post (home, ancestors, post). Empty on the front page.
-	 *
-	 * @param int $post_id Post ID.
-	 * @return array
-	 */
-	private static function breadcrumbs( $post_id ) {
-		if ( 'page' === get_option( 'show_on_front' ) && (int) get_option( 'page_on_front' ) === $post_id ) {
-			return array();
-		}
-		$front = (int) get_option( 'page_on_front' );
-		$items = array(
-			array(
-				'name' => $front ? Context::plain_title( $front ) : __( 'Home', 'mlab-seo' ),
-				'url'  => home_url( '/' ),
-			),
-		);
-		foreach ( array_reverse( get_post_ancestors( $post_id ) ) as $ancestor ) {
-			$items[] = array(
-				'name' => Context::plain_title( $ancestor ),
-				'url'  => get_permalink( $ancestor ),
-			);
-		}
-		$items[] = array(
-			'name' => Context::plain_title( $post_id ),
-			'url'  => get_permalink( $post_id ),
-		);
-
-		$list = array();
-		foreach ( $items as $i => $item ) {
-			$list[] = array(
-				'@type'    => 'ListItem',
-				'position' => $i + 1,
-				'name'     => $item['name'],
-				'item'     => $item['url'],
-			);
-		}
-		return $list;
 	}
 
 	/**

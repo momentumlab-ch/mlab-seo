@@ -3,6 +3,11 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.1.1] - 2026-10-10
+
+### Added
+- Plugin icon (search result with magnifying glass), shown under Dashboard > Updates and in the details dialog.
+
 ## [1.1.0] - 2026-10-10
 
 ### Added

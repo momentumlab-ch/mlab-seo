@@ -34,6 +34,8 @@ final class Post_Meta {
 		'llms'        => 'string',
 		'schema'      => 'string',
 		'score'       => 'integer',
+		'og_title'    => 'string',
+		'og_desc'     => 'string',
 	);
 
 	/**
@@ -155,6 +157,7 @@ final class Post_Meta {
 			case 'llms':
 				return in_array( $value, array( 'optional', 'hide' ), true ) ? $value : '';
 			case 'description':
+			case 'og_desc':
 				return sanitize_textarea_field( (string) $value );
 			case 'schema':
 				$json = json_decode( (string) $value, true );

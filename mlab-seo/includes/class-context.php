@@ -24,7 +24,7 @@ final class Context {
 	/**
 	 * SEO data of the current request.
 	 *
-	 * @return array{post_id:int,title:string,description:string,image:int,url:string,noindex:bool,nofollow:bool,og_type:string}
+	 * @return array{post_id:int,title:string,description:string,image:int,url:string,noindex:bool,nofollow:bool,og_type:string,og_title:string,og_desc:string}
 	 */
 	public static function current() {
 		if ( null !== self::$current ) {
@@ -42,6 +42,8 @@ final class Context {
 			'noindex'     => false,
 			'nofollow'    => false,
 			'og_type'     => 'website',
+			'og_title'    => '',
+			'og_desc'     => '',
 		);
 
 		if ( is_front_page() && ! is_page() ) {
@@ -52,10 +54,12 @@ final class Context {
 			$id   = is_home() ? (int) get_option( 'page_for_posts' ) : get_queried_object_id();
 			$data = array_merge( $data, self::for_post( $id ) );
 		} elseif ( is_category() || is_tag() || is_tax() ) {
-			$term                = get_queried_object();
-			$data['title']       = single_term_title( '', false ) . $sep . $site;
-			$data['description'] = wp_trim_words( wp_strip_all_tags( term_description() ), 30, '…' );
-			$data['url']         = get_term_link( $term );
+			$data = array_merge( $data, self::for_term( get_queried_object() ) );
+		} elseif ( is_post_type_archive() ) {
+			$type          = get_query_var( 'post_type' );
+			$type          = is_array( $type ) ? reset( $type ) : $type;
+			$data['title'] = post_type_archive_title( '', false ) . $sep . $site;
+			$data['url']   = (string) get_post_type_archive_link( $type );
 		} elseif ( is_search() || is_404() ) {
 			$data['noindex'] = true;
 		} elseif ( is_author() || is_date() ) {
@@ -67,6 +71,18 @@ final class Context {
 		}
 		if ( is_wp_error( $data['url'] ) ) {
 			$data['url'] = '';
+		}
+
+		// Archive pages 2, 3 …: own title and a self-referencing canonical URL.
+		$paged = (int) get_query_var( 'paged' );
+		if ( $paged > 1 && ! is_singular() && ! $data['noindex'] ) {
+			if ( '' !== $data['title'] ) {
+				/* translators: %d: page number. */
+				$data['title'] .= $sep . sprintf( __( 'Page %d', 'mlab-seo' ), $paged );
+			}
+			if ( '' !== $data['url'] ) {
+				$data['url'] = self::paged_url( $data['url'], $paged );
+			}
 		}
 
 		/**
@@ -124,7 +140,51 @@ final class Context {
 			'noindex'     => Post_Meta::get( $post_id, 'noindex' ),
 			'nofollow'    => Post_Meta::get( $post_id, 'nofollow' ),
 			'og_type'     => $is_front || 'page' === get_post_type( $post_id ) ? 'website' : 'article',
+			'og_title'    => Post_Meta::get( $post_id, 'og_title' ),
+			'og_desc'     => Post_Meta::get( $post_id, 'og_desc' ),
 		);
+	}
+
+	/**
+	 * SEO data of a category, tag or other term.
+	 *
+	 * @param \WP_Term $term Term.
+	 * @return array
+	 */
+	public static function for_term( $term ) {
+		if ( ! $term instanceof \WP_Term ) {
+			return array();
+		}
+		$title       = Term_Meta::get( $term->term_id, 'title' );
+		$description = Term_Meta::get( $term->term_id, 'description' );
+		if ( '' === $title ) {
+			$title = html_entity_decode( $term->name, ENT_QUOTES | ENT_HTML5, 'UTF-8' ) . ' ' . Settings::get( 'separator' ) . ' ' . Settings::site_name();
+		}
+		if ( '' === $description ) {
+			$description = wp_trim_words( wp_strip_all_tags( $term->description ), 30, '…' );
+		}
+		$url = get_term_link( $term );
+		return array(
+			'title'       => $title,
+			'description' => $description,
+			'url'         => is_wp_error( $url ) ? '' : $url,
+			'noindex'     => (bool) Term_Meta::get( $term->term_id, 'noindex' ),
+		);
+	}
+
+	/**
+	 * URL of page n of an archive.
+	 *
+	 * @param string $url   URL of the first page.
+	 * @param int    $paged Page number.
+	 * @return string
+	 */
+	public static function paged_url( $url, $paged ) {
+		global $wp_rewrite;
+		if ( $wp_rewrite && $wp_rewrite->using_permalinks() && ! str_contains( $url, '?' ) ) {
+			return trailingslashit( $url ) . user_trailingslashit( $wp_rewrite->pagination_base . '/' . $paged, 'paged' );
+		}
+		return add_query_arg( 'paged', $paged, $url );
 	}
 
 	/**

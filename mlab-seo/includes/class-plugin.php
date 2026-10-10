@@ -46,6 +46,8 @@ final class Plugin {
 		add_action( 'init', array( $this, 'maybe_upgrade' ), 20 );
 
 		( new Post_Meta() )->hooks();
+		( new Breadcrumbs() )->hooks();
+		( new IndexNow() )->hooks();
 		( new License() )->hooks();
 		( new Head() )->hooks();
 		( new Crawlers() )->hooks();
@@ -55,6 +57,7 @@ final class Plugin {
 
 		if ( is_admin() ) {
 			( new Meta_Box() )->hooks();
+			( new Term_Meta() )->hooks();
 			( new Admin() )->hooks();
 		}
 	}

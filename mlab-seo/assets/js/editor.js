@@ -162,6 +162,28 @@
 		}
 		add( doc.find( 'h2,h3' ).length ? 'good' : 'ok', doc.find( 'h2,h3' ).length ? t.headings : t.headingsNo );
 
+		/* Readability: long sentences and long paragraphs. */
+		if ( words >= 100 ) {
+			var sentences = [];
+			doc.find( 'p, li' ).each( function () {
+				sentences = sentences.concat( $( this ).text().split( /[.!?…]+(?:\s|$)/ ) );
+			} );
+			sentences = sentences.filter( function ( x ) {
+				return $.trim( x ).split( /\s+/ ).length > 2;
+			} );
+			var long = sentences.filter( function ( x ) {
+				return $.trim( x ).split( /\s+/ ).length > 20;
+			} ).length;
+			var share = sentences.length ? Math.round( long * 100 / sentences.length ) : 0;
+			add( share > 25 ? 'ok' : 'good', share > 25 ? fmt( t.sentencesLong, share ) : t.sentences );
+			var longParagraphs = doc.find( 'p' ).filter( function () {
+				return $.trim( $( this ).text() ).split( /\s+/ ).length > 150;
+			} ).length;
+			if ( longParagraphs ) {
+				add( 'ok', fmt( t.paragraphsLong, longParagraphs ) );
+			}
+		}
+
 		var missingAlt = doc.find( 'img' ).filter( function () {
 			return ! $.trim( $( this ).attr( 'alt' ) || '' );
 		} ).length;

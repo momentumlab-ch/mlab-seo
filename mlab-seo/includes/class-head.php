@@ -99,13 +99,14 @@ final class Head {
 			printf( '<link rel="canonical" href="%s" />' . "\n", esc_url( $seo['url'] ) );
 		}
 
-		$locale = (string) Settings::get( 'og_locale' );
-		$tags[] = array( 'property', 'og:type', $seo['og_type'] );
-		$tags[] = array( 'property', 'og:site_name', Settings::site_name() );
-		$tags[] = array( 'property', 'og:locale', '' !== $locale ? $locale : get_locale() );
-		$tags[] = array( 'property', 'og:title', $title );
-		if ( '' !== $seo['description'] ) {
-			$tags[] = array( 'property', 'og:description', $seo['description'] );
+		$og_title = '' !== ( $seo['og_title'] ?? '' ) ? $seo['og_title'] : $title;
+		$og_desc  = '' !== ( $seo['og_desc'] ?? '' ) ? $seo['og_desc'] : $seo['description'];
+		$tags[]   = array( 'property', 'og:type', $seo['og_type'] );
+		$tags[]   = array( 'property', 'og:site_name', Settings::site_name() );
+		$tags[]   = array( 'property', 'og:locale', Settings::locale() );
+		$tags[]   = array( 'property', 'og:title', $og_title );
+		if ( '' !== $og_desc ) {
+			$tags[] = array( 'property', 'og:description', $og_desc );
 		}
 		if ( '' !== $seo['url'] ) {
 			$tags[] = array( 'property', 'og:url', $seo['url'] );
@@ -115,9 +116,9 @@ final class Head {
 			$tags[] = array( 'property', 'article:modified_time', get_post_modified_time( 'c', true, $seo['post_id'] ) );
 		}
 		$tags[] = array( 'name', 'twitter:card', $img ? 'summary_large_image' : 'summary' );
-		$tags[] = array( 'name', 'twitter:title', $title );
-		if ( '' !== $seo['description'] ) {
-			$tags[] = array( 'name', 'twitter:description', $seo['description'] );
+		$tags[] = array( 'name', 'twitter:title', $og_title );
+		if ( '' !== $og_desc ) {
+			$tags[] = array( 'name', 'twitter:description', $og_desc );
 		}
 		$handle = ltrim( (string) Settings::get( 'twitter_site' ), '@' );
 		if ( '' !== $handle ) {
@@ -131,6 +132,15 @@ final class Head {
 			if ( '' !== $img['alt'] ) {
 				$tags[] = array( 'property', 'og:image:alt', $img['alt'] );
 				$tags[] = array( 'name', 'twitter:image:alt', $img['alt'] );
+			}
+		}
+
+		if ( is_front_page() ) {
+			foreach ( Settings::VERIFY as $key => $name ) {
+				$code = (string) Settings::get( $key );
+				if ( '' !== $code ) {
+					$tags[] = array( 'name', $name, $code );
+				}
 			}
 		}
 

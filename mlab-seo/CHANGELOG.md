@@ -3,6 +3,28 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.2.0] - 2026-10-10
+
+### Added
+- Import from Yoast SEO, Rank Math, SEOPress and All in One SEO (titles, descriptions, focus keyword, noindex, nofollow, canonical, social fields; categories and tags for Yoast, Rank Math and SEOPress). Title variables are resolved; default patterns are left empty.
+- Status warning while another SEO plugin is active.
+- SEO title, meta description and noindex for categories, tags and other public taxonomies; noindex terms are left out of the sitemap.
+- IndexNow: changed pages are reported to Bing, Yandex, Seznam and Naver right after saving (opt-in, production sites only).
+- Breadcrumbs: posts show their category in the schema.org breadcrumbs; visible navigation with `[mlab_seo_breadcrumbs]` or `mlab_seo_breadcrumbs()`.
+- Local SEO: more business types, opening hours, map position and price range in the publisher schema.
+- Site verification for Google Search Console, Bing, Yandex and Pinterest.
+- Social title and description per page.
+- Readability checks for long sentences and long paragraphs.
+- Blog posts: language, category and word count in the schema.
+- Attachment pages redirect to the file (can be switched off).
+- Pro: automatic 301 redirect when the address of a published page changes, without chains.
+- Filter `mlab_seo_taxonomies`.
+
+### Fixed
+- Archive pages 2, 3 … had the title and canonical URL of page 1.
+- Locales with a variant (de_CH_informal, de_DE_formal) produced invalid og:locale and inLanguage values.
+- Post type archives had no canonical URL.
+
 ## [1.1.1] - 2026-10-10
 
 ### Added

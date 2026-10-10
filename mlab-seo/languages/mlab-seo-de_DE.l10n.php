@@ -4,8 +4,9 @@ return array(
 	'domain' => 'mlab-seo',
 	'plural-forms' => 'nplurals=2; plural=n != 1;',
 	'language' => 'de_DE',
-	'project-id-version' => 'MomentumLab SEO 1.0.0',
+	'project-id-version' => 'MomentumLab SEO 1.1.0',
 	'messages' => array(
+		'The update folder could not be renamed.' => 'Der Update-Ordner konnte nicht umbenannt werden.',
 		'MomentumLab SEO' => 'MomentumLab SEO',
 		'SEO' => 'SEO',
 		'Settings' => 'Einstellungen',

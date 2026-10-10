@@ -51,6 +51,7 @@ final class Plugin {
 		( new Crawlers() )->hooks();
 		( new Sitemap() )->hooks();
 		( new Redirects() )->hooks();
+		( new Updater() )->hooks();
 
 		if ( is_admin() ) {
 			( new Meta_Box() )->hooks();

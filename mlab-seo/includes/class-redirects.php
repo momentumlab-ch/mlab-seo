@@ -30,6 +30,11 @@ final class Redirects {
 	const LOG_SIZE = 100;
 
 	/**
+	 * Option with 404 paths that are not logged any more.
+	 */
+	const IGNORE = 'mlab_seo_404_ignore';
+
+	/**
 	 * Registers hooks.
 	 */
 	public function hooks() {
@@ -228,8 +233,11 @@ final class Redirects {
 			return;
 		}
 		$path = self::request_path();
-		if ( preg_match( '#\.(php|env|git|sql|bak|zip)$|^/wp-(admin|includes|content)/#i', $path ) ) {
+		if ( preg_match( '#\.(php|env|git|sql|bak|zip)$|^/wp-(admin|includes|content)/|^/\.well-known/#i', $path ) ) {
 			return; // Bot probes, not real visitors.
+		}
+		if ( in_array( $path, self::ignored(), true ) ) {
+			return;
 		}
 		$log = get_option( self::LOG, array() );
 		$log = is_array( $log ) ? $log : array();
@@ -241,6 +249,10 @@ final class Redirects {
 				'count' => 1,
 				'last'  => time(),
 			);
+		}
+		$ref = self::referrer();
+		if ( '' !== $ref ) {
+			$log[ $path ]['ref'] = $ref;
 		}
 		if ( count( $log ) > self::LOG_SIZE ) {
 			uasort(
@@ -255,9 +267,162 @@ final class Redirects {
 	}
 
 	/**
+	 * Where the visitor came from: the path on this site (a broken internal link) or the other host.
+	 *
+	 * @return string
+	 */
+	public static function referrer() {
+		$ref  = wp_get_raw_referer();
+		$host = $ref ? (string) wp_parse_url( $ref, PHP_URL_HOST ) : '';
+		if ( '' === $host ) {
+			return '';
+		}
+		if ( wp_parse_url( home_url(), PHP_URL_HOST ) === $host ) {
+			return self::normalize( $ref );
+		}
+		return mb_substr( sanitize_text_field( $host ), 0, 100 );
+	}
+
+	/**
+	 * Paths that are not logged any more.
+	 *
+	 * @return list<string>
+	 */
+	public static function ignored() {
+		$list = get_option( self::IGNORE, array() );
+		return is_array( $list ) ? array_values( $list ) : array();
+	}
+
+	/**
+	 * Stops logging a path and removes it from the log.
+	 *
+	 * @param string $path Path.
+	 */
+	public static function ignore( $path ) {
+		$path = self::normalize( $path );
+		$list = self::ignored();
+		if ( '/' !== $path && ! in_array( $path, $list, true ) ) {
+			$list[] = $path;
+			update_option( self::IGNORE, array_slice( $list, -200 ), false );
+		}
+		self::forget( $path );
+	}
+
+	/**
+	 * Removes a path from the 404 log.
+	 *
+	 * @param string $path Path.
+	 */
+	public static function forget( $path ) {
+		$log = get_option( self::LOG, array() );
+		if ( is_array( $log ) && isset( $log[ $path ] ) ) {
+			unset( $log[ $path ] );
+			update_option( self::LOG, $log, false );
+		}
+	}
+
+	/**
+	 * Redirects a logged 404 path to a target and removes it from the log.
+	 *
+	 * @param string $path   Path.
+	 * @param string $target Target path or URL.
+	 * @return bool
+	 */
+	public static function fix( $path, $target ) {
+		$path   = self::normalize( $path );
+		$target = trim( sanitize_text_field( $target ) );
+		$target = str_starts_with( $target, '/' ) ? $target : esc_url_raw( $target, array( 'https', 'http' ) );
+		if ( '/' === $path || '' === $target || self::normalize( $target ) === $path ) {
+			return false;
+		}
+		self::add( $path, $target );
+		self::forget( $path );
+		return true;
+	}
+
+	/**
+	 * Suggested target for a missing path: a published page with the same address name, else the best
+	 * search hit for the words of the address, else the nearest existing parent address.
+	 *
+	 * @param string $path Missing path.
+	 * @return string Target path, or '' without a good guess.
+	 */
+	public static function suggest( $path ) {
+		$parts = array_values( array_filter( explode( '/', self::normalize( $path ) ) ) );
+		$slug  = sanitize_title( (string) end( $parts ) );
+		if ( '' === $slug ) {
+			return '';
+		}
+		$types = array_values( get_post_types( array( 'public' => true ) ) );
+		$found = get_posts(
+			array(
+				'name'           => $slug,
+				'post_type'      => $types,
+				'post_status'    => 'publish',
+				'posts_per_page' => 1,
+				'fields'         => 'ids',
+			)
+		);
+		if ( ! $found ) {
+			// Search for the words, then keep only an address that is clearly similar (not just any page with "grindelwald").
+			$words = trim( (string) preg_replace( '/[-_\d]+/', ' ', $slug ) );
+			$hits  = strlen( $words ) >= 4 ? get_posts(
+				array(
+					's'              => $words,
+					'post_type'      => $types,
+					'post_status'    => 'publish',
+					'posts_per_page' => 10,
+				)
+			) : array();
+			$best  = 0;
+			foreach ( $hits as $hit ) {
+				similar_text( $slug, $hit->post_name, $percent );
+				if ( $percent >= 60 && $percent > $best ) {
+					$best  = $percent;
+					$found = array( $hit->ID );
+				}
+			}
+		}
+		if ( $found ) {
+			$url = (string) get_permalink( (int) $found[0] );
+			return (string) wp_parse_url( $url, PHP_URL_PATH );
+		}
+		while ( count( $parts ) > 1 ) {
+			array_pop( $parts );
+			$parent = '/' . implode( '/', $parts ) . '/';
+			$page   = get_page_by_path( implode( '/', $parts ) );
+			if ( $page && 'publish' === $page->post_status ) {
+				return $parent;
+			}
+		}
+		return '';
+	}
+
+	/**
+	 * Removes logged paths that work again: a redirect exists now, or a page was published at that address.
+	 */
+	public static function tidy_log() {
+		$log = get_option( self::LOG, array() );
+		if ( ! is_array( $log ) || ! $log ) {
+			return;
+		}
+		$rules = wp_list_pluck( self::rules(), 'from' );
+		$clean = array_filter(
+			$log,
+			function ( $path ) use ( $rules ) {
+				return ! in_array( $path, $rules, true ) && ! url_to_postid( home_url( user_trailingslashit( $path ) ) ) && '/' !== $path;
+			},
+			ARRAY_FILTER_USE_KEY
+		);
+		if ( count( $clean ) !== count( $log ) ) {
+			update_option( self::LOG, $clean, false );
+		}
+	}
+
+	/**
 	 * 404 log, most frequent first.
 	 *
-	 * @return array<string,array{count:int,last:int}>
+	 * @return array<string,array{count:int,last:int,ref?:string}>
 	 */
 	public static function log() {
 		$log = get_option( self::LOG, array() );

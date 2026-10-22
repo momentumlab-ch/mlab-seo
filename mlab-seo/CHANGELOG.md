@@ -3,6 +3,15 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.4.0] - 2026-10-22
+
+### Added
+- Pro: 404 watcher. Each logged address gets a suggested target (same address name, a clearly similar address, or the nearest existing parent page) and a one-click "Redirect" button; "Ignore" stops logging an address. The log records where visitors came from: a page of the site (a broken internal link) or another website.
+- Pro: broken links. Once a week the links on indexable pages (rendered blocks included) and in visible menus are checked in the background, 15 links per minute, so WP-Cron stays short. Only clear errors count: 404, 410, no answer, and server errors on the own site. Results in the Content tab and as a status message; "Check links now" starts a run.
+
+### Changed
+- The 404 log leaves out `/.well-known/` requests and removes addresses that work again (a redirect exists or a page was published there).
+
 ## [1.3.0] - 2026-10-10
 
 ### Added

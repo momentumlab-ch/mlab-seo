@@ -14,7 +14,7 @@ if ( defined( 'MLAB_SEO_KEEP_DATA' ) && MLAB_SEO_KEEP_DATA ) {
 	return;
 }
 
-foreach ( array( 'mlab_seo_settings', 'mlab_seo_license', 'mlab_seo_redirects', 'mlab_seo_404_log', 'mlab_seo_version', 'mlab_seo_indexnow_last' ) as $mlab_seo_option ) {
+foreach ( array( 'mlab_seo_settings', 'mlab_seo_license', 'mlab_seo_redirects', 'mlab_seo_404_log', 'mlab_seo_404_ignore', 'mlab_seo_link_check', 'mlab_seo_version', 'mlab_seo_indexnow_last' ) as $mlab_seo_option ) {
 	delete_option( $mlab_seo_option );
 }
 delete_transient( 'mlab_seo_llms_full' );
@@ -24,6 +24,8 @@ delete_transient( 'mlab_seo_media_' . md5( 'sitemap-images.xml' ) );
 delete_transient( 'mlab_seo_media_' . md5( 'sitemap-videos.xml' ) );
 delete_site_transient( 'mlab_seo_github_release' );
 wp_clear_scheduled_hook( 'mlab_seo_license_check' );
+wp_clear_scheduled_hook( 'mlab_seo_link_check_week' );
+wp_unschedule_hook( 'mlab_seo_link_check_batch' );
 foreach ( array( 'title', 'description', 'focus', 'image', 'noindex', 'nofollow', 'canonical', 'page_type', 'llms', 'schema', 'score', 'event', 'og_title', 'og_desc', 'hreflang' ) as $mlab_seo_field ) {
 	delete_post_meta_by_key( '_mlab_seo_' . $mlab_seo_field );
 }

@@ -57,6 +57,7 @@ final class Plugin {
 		( new Crawlers() )->hooks();
 		( new Sitemap() )->hooks();
 		( new Redirects() )->hooks();
+		( new Link_Check() )->hooks();
 		( new Updater() )->hooks();
 
 		if ( is_admin() ) {
@@ -88,6 +89,7 @@ final class Plugin {
 	 */
 	public static function deactivate() {
 		wp_clear_scheduled_hook( License::CRON );
+		Link_Check::unschedule();
 	}
 
 	/**

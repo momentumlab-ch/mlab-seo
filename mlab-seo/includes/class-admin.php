@@ -35,6 +35,7 @@ final class Admin {
 		add_action( 'admin_post_mlab_seo_license', array( $this, 'handle_license' ) );
 		add_action( 'admin_post_mlab_seo_check', array( $this, 'handle_check' ) );
 		add_action( 'admin_post_mlab_seo_import', array( $this, 'handle_import' ) );
+		add_action( 'admin_post_mlab_seo_link_check', array( $this, 'handle_link_check' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( MLAB_SEO_FILE ), array( $this, 'action_links' ) );
 	}
 
@@ -154,6 +155,18 @@ final class Admin {
 			Settings::flush();
 			$rows = isset( $_POST['mlab_seo_redirects'] ) && is_array( $_POST['mlab_seo_redirects'] ) ? $_POST['mlab_seo_redirects'] : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Sanitised and unslashed in Redirects::save().
 			Redirects::save( $rows );
+			// One click in the 404 list: redirect to the suggested (or edited) target, or stop logging the address.
+			$fix = isset( $_POST['mlab_seo_404_fix'] ) ? sanitize_text_field( wp_unslash( $_POST['mlab_seo_404_fix'] ) ) : '';
+			if ( '' !== $fix ) {
+				$targets = isset( $_POST['mlab_seo_404_target'] ) && is_array( $_POST['mlab_seo_404_target'] ) ? wp_unslash( $_POST['mlab_seo_404_target'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitised in Redirects::fix().
+				$target  = (string) ( $targets[ md5( $fix ) ] ?? '' );
+				$this->back( 'redirects', Redirects::fix( $fix, $target ) ? 'redirect_added' : 'no_target' );
+			}
+			$ignore = isset( $_POST['mlab_seo_404_ignore'] ) ? sanitize_text_field( wp_unslash( $_POST['mlab_seo_404_ignore'] ) ) : '';
+			if ( '' !== $ignore ) {
+				Redirects::ignore( $ignore );
+				$this->back( 'redirects', 'ignored' );
+			}
 		}
 		if ( ! empty( $_POST['mlab_seo_clear_log'] ) ) {
 			delete_option( Redirects::LOG );
@@ -184,6 +197,18 @@ final class Admin {
 		check_admin_referer( 'mlab_seo_check' );
 		set_transient( self::CHECK_TRANSIENT, array( time(), Crawlers::access_check() ), WEEK_IN_SECONDS );
 		$this->back( 'ai', 'checked' );
+	}
+
+	/**
+	 * Starts the broken link check now (Pro).
+	 */
+	public function handle_link_check() {
+		$this->verify();
+		check_admin_referer( 'mlab_seo_link_check' );
+		if ( License::is_pro() && ! Link_Check::running() ) {
+			Link_Check::start();
+		}
+		$this->back( 'content', 'links_started' );
 	}
 
 	/**
@@ -219,6 +244,10 @@ final class Admin {
 			'license_ok'      => array( 'success', __( 'Licence activated. Pro features are unlocked.', 'mlab-seo' ) ),
 			'license_failed'  => array( 'error', License::data()['message'] ? License::data()['message'] : __( 'The licence could not be activated.', 'mlab-seo' ) ),
 			'license_removed' => array( 'success', __( 'Licence key removed.', 'mlab-seo' ) ),
+			'redirect_added'  => array( 'success', __( 'Redirect added. The address was removed from the 404 list.', 'mlab-seo' ) ),
+			'no_target'       => array( 'error', __( 'Please enter a target for the redirect.', 'mlab-seo' ) ),
+			'ignored'         => array( 'success', __( 'The address is not logged any more.', 'mlab-seo' ) ),
+			'links_started'   => array( 'success', __( 'The link check runs in the background and takes a few minutes. Reload this page later.', 'mlab-seo' ) ),
 			'imported'        => array(
 				'success',
 				sprintf(
@@ -258,6 +287,12 @@ final class Admin {
 		if ( $thin ) {
 			/* translators: 1: number of pages, 2: minimum number of words. */
 			$items[] = array( 'ok', sprintf( _n( '%1$d page has fewer than %2$d words. Search engines and AI assistants find little to show for it (see Content).', '%1$d pages have fewer than %2$d words. Search engines and AI assistants find little to show for them (see Content).', $thin, 'mlab-seo' ), $thin, Content_Audit::THIN ) );
+		}
+
+		$broken = License::is_pro() ? count( Link_Check::broken() ) : 0;
+		if ( $broken ) {
+			/* translators: %d: number of links. */
+			$items[] = array( 'ok', sprintf( _n( '%d link leads nowhere (see Content).', '%d links lead nowhere (see Content).', $broken, 'mlab-seo' ), $broken ) );
 		}
 
 		foreach ( self::other_seo_plugins() as $name ) {
@@ -649,6 +684,7 @@ final class Admin {
 	 * @param bool $pro Pro active.
 	 */
 	private function render_redirects( $pro ) {
+		Redirects::tidy_log();
 		$rules = Redirects::rules();
 		$log   = Redirects::log();
 		?>
@@ -683,11 +719,30 @@ final class Admin {
 
 				<h2><?php esc_html_e( 'Pages not found (404)', 'mlab-seo' ); ?></h2>
 				<?php if ( $log ) : ?>
-					<table class="widefat striped">
-						<thead><tr><th><?php esc_html_e( 'Address', 'mlab-seo' ); ?></th><th><?php esc_html_e( 'Requests', 'mlab-seo' ); ?></th><th><?php esc_html_e( 'Last', 'mlab-seo' ); ?></th><th></th></tr></thead>
+					<p class="description"><?php esc_html_e( 'Addresses that led nowhere, with a suggested target. Check the target and click "Redirect": the redirect is added and the address leaves the list. "Ignore" stops logging an address, for example for bot requests.', 'mlab-seo' ); ?></p>
+					<table class="widefat striped mlab-seo-404">
+						<thead><tr><th><?php esc_html_e( 'Address', 'mlab-seo' ); ?></th><th><?php esc_html_e( 'Requests', 'mlab-seo' ); ?></th><th><?php esc_html_e( 'Last', 'mlab-seo' ); ?></th><th><?php esc_html_e( 'Redirect to', 'mlab-seo' ); ?></th><th></th></tr></thead>
 						<tbody>
 							<?php foreach ( array_slice( $log, 0, 30, true ) as $path => $row ) : ?>
-								<tr><td><code><?php echo esc_html( $path ); ?></code></td><td><?php echo (int) $row['count']; ?></td><td><?php echo esc_html( wp_date( get_option( 'date_format' ), (int) $row['last'] ) ); ?></td><td><button type="button" class="button-link mlab-seo-log-use" data-path="<?php echo esc_attr( $path ); ?>"><?php esc_html_e( 'Redirect', 'mlab-seo' ); ?></button></td></tr>
+								<?php
+								$ref = (string) ( $row['ref'] ?? '' );
+								?>
+								<tr>
+									<td><code><?php echo esc_html( $path ); ?></code>
+									<?php if ( '' !== $ref ) : ?>
+										<br /><span class="description">
+										<?php
+										/* translators: %s: page or website the visitor came from */
+										echo esc_html( sprintf( str_starts_with( $ref, '/' ) ? __( 'Broken link on %s', 'mlab-seo' ) : __( 'Link from %s', 'mlab-seo' ), $ref ) );
+										?>
+										</span>
+									<?php endif; ?>
+									</td>
+									<td><?php echo (int) $row['count']; ?></td>
+									<td><?php echo esc_html( wp_date( get_option( 'date_format' ), (int) $row['last'] ) ); ?></td>
+									<td><input type="text" class="widefat" name="mlab_seo_404_target[<?php echo esc_attr( md5( $path ) ); ?>]" value="<?php echo esc_attr( Redirects::suggest( $path ) ); ?>" placeholder="/neue-seite/" aria-label="<?php esc_attr_e( 'Redirect to', 'mlab-seo' ); ?>" /></td>
+									<td class="mlab-seo-404__actions"><button type="submit" class="button button-small" name="mlab_seo_404_fix" value="<?php echo esc_attr( $path ); ?>"><?php esc_html_e( 'Redirect', 'mlab-seo' ); ?></button> <button type="submit" class="button-link" name="mlab_seo_404_ignore" value="<?php echo esc_attr( $path ); ?>"><?php esc_html_e( 'Ignore', 'mlab-seo' ); ?></button></td>
+								</tr>
 							<?php endforeach; ?>
 						</tbody>
 					</table>
@@ -735,6 +790,71 @@ final class Admin {
 			</table>
 		<?php else : ?>
 			<p><span class="mlab-seo-badge is-good"><?php esc_html_e( 'Good', 'mlab-seo' ); ?></span> <?php esc_html_e( 'All indexable pages have enough text.', 'mlab-seo' ); ?></p>
+		<?php endif; ?>
+		<?php
+		$this->render_links();
+	}
+
+	/**
+	 * Broken links (Pro), below the content check.
+	 */
+	private function render_links() {
+		$pro   = License::is_pro();
+		$state = Link_Check::state();
+		?>
+		<h2><?php esc_html_e( 'Broken links', 'mlab-seo' ); ?><?php echo $pro ? '' : ' <span class="mlab-seo__pro">Pro</span>'; ?></h2>
+		<p><?php esc_html_e( 'Once a week all links on indexable pages and in the menus are checked in the background. Listed are links to pages that do not exist (404) or were deleted (410), and links to websites that do not answer.', 'mlab-seo' ); ?></p>
+		<?php if ( ! $pro ) : ?>
+			<?php return; ?>
+		<?php endif; ?>
+		<?php if ( $state['queue'] ) : ?>
+			<p class="description">
+				<?php
+				/* translators: 1: links checked, 2: links in total. */
+				echo esc_html( sprintf( __( 'Check in progress: %1$d of %2$d links.', 'mlab-seo' ), $state['total'] - count( $state['queue'] ), $state['total'] ) );
+				?>
+			</p>
+		<?php elseif ( $state['checked'] ) : ?>
+			<p class="description">
+				<?php
+				/* translators: %s: date and time. */
+				echo esc_html( sprintf( __( 'Last check: %s', 'mlab-seo' ), wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $state['checked'] ) ) );
+				?>
+			</p>
+		<?php endif; ?>
+		<?php $broken = Link_Check::broken(); ?>
+		<?php if ( $broken ) : ?>
+			<table class="widefat striped">
+				<thead><tr><th><?php esc_html_e( 'Link', 'mlab-seo' ); ?></th><th><?php esc_html_e( 'Problem', 'mlab-seo' ); ?></th><th><?php esc_html_e( 'On', 'mlab-seo' ); ?></th></tr></thead>
+				<tbody>
+					<?php foreach ( array_slice( $broken, 0, 50, true ) as $url => $row ) : ?>
+						<tr>
+							<td><a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener"><code><?php echo esc_html( $url ); ?></code></a></td>
+							<td><?php echo esc_html( 'offline' === $row['code'] ? __( 'No answer', 'mlab-seo' ) : ( '410' === $row['code'] ? __( 'Deleted (410)', 'mlab-seo' ) : ( '404' === $row['code'] ? __( 'Not found (404)', 'mlab-seo' ) : __( 'Server error', 'mlab-seo' ) . ' (' . $row['code'] . ')' ) ) ); ?></td>
+							<td>
+								<?php
+								$links = array();
+								foreach ( $row['pages'] as $id ) {
+									$links[] = 0 === $id
+										? '<a href="' . esc_url( admin_url( 'nav-menus.php' ) ) . '">' . esc_html__( 'Menu', 'mlab-seo' ) . '</a>'
+										: '<a href="' . esc_url( (string) get_edit_post_link( $id ) ) . '">' . esc_html( Context::plain_title( $id ) ) . '</a>';
+								}
+								echo wp_kses_post( implode( ', ', $links ) );
+								?>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		<?php elseif ( $state['checked'] ) : ?>
+			<p><span class="mlab-seo-badge is-good"><?php esc_html_e( 'Good', 'mlab-seo' ); ?></span> <?php esc_html_e( 'No broken links found.', 'mlab-seo' ); ?></p>
+		<?php endif; ?>
+		<?php if ( ! $state['queue'] ) : ?>
+			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+				<input type="hidden" name="action" value="mlab_seo_link_check" />
+				<?php wp_nonce_field( 'mlab_seo_link_check' ); ?>
+				<p><?php submit_button( __( 'Check links now', 'mlab-seo' ), 'secondary', 'submit', false ); ?></p>
+			</form>
 		<?php endif; ?>
 		<?php
 	}

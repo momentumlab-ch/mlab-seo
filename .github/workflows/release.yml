@@ -1,17 +1,14 @@
-# Publishes a GitHub release with the plugin archive whenever main carries a
-# plugin version that has no release yet. Installed sites pick the release up
-# through the plugin's update check.
-#
-# It also runs for a pushed v* tag or a release published on GitHub, and can
-# be started by hand under Actions > Release > Run workflow.
+# Release-Automatik: baut <slug>.zip, sobald main eine Version trägt, die noch kein Release hat.
+# Läuft auch bei einem Tag v*.*.* und von Hand (Actions > Release > Run workflow).
+# Der Slug ist mlab-seo (nicht der Repo-Name wp-mlab-seo). Die Hauptdatei heisst mlab-seo.php.
+# Zusätzlich zu mlab-seo.zip wird mlab-seo-<version>.zip angehängt: Websites mit 1.4.x
+# finden ihr erstes Update nur unter diesem Namen.
 name: Release
 
 on:
   push:
     branches: [main]
-    tags: ['v*']
-  release:
-    types: [published]
+    tags: ['v*.*.*']
   workflow_dispatch:
 
 permissions:
@@ -19,68 +16,97 @@ permissions:
 
 concurrency:
   group: release
+  cancel-in-progress: false
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.release.tag_name || github.ref }}
 
-      - name: Read version
+      - name: Version lesen und prüfen
         id: version
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLUG: mlab-seo
         run: |
-          header=$(sed -n 's/^ \* Version:[[:space:]]*//p' mlab-seo/mlab-seo.php)
-          constant=$(sed -n "s/^define( 'MLAB_SEO_VERSION', '\(.*\)' );/\1/p" mlab-seo/mlab-seo.php)
-          if [ "$header" != "$constant" ]; then
-            echo "::error::Plugin header version $header and MLAB_SEO_VERSION $constant differ."
+          set -euo pipefail
+          if [ -f "$SLUG.php" ]; then HEADER="$SLUG.php"; else HEADER="style.css"; fi
+          VERSION=$(grep -m1 -E '^[[:space:]*]*Version:' "$HEADER" | sed 's/.*Version:[[:space:]]*//; s/[[:space:]]*$//')
+          TAG="v$VERSION"
+          if [ "$GITHUB_REF_TYPE" = "tag" ] && [ "$GITHUB_REF_NAME" != "$TAG" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME passt nicht zur Version $VERSION"
             exit 1
           fi
-          tag="v$header"
-          if [ "${{ github.ref_type }}" = "tag" ] || [ -n "${{ github.event.release.tag_name }}" ]; then
-            pushed="${{ github.event.release.tag_name || github.ref_name }}"
-            if [ "$pushed" != "$tag" ]; then
-              echo "::error::Tag $pushed does not match plugin version $header."
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if ASSETS=$(gh release view "$TAG" --json assets --jq '.assets[].name' 2>/dev/null); then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            case "$ASSETS" in *"$SLUG.zip"*) echo "skip=true" >> "$GITHUB_OUTPUT" ;; esac
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: ZIP bauen und prüfen
+        if: steps.version.outputs.skip != 'true'
+        env:
+          SLUG: mlab-seo
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          STAGE="$RUNNER_TEMP/stage"
+          mkdir -p "$STAGE/$SLUG"
+          tar --exclude-from=.distignore -cf - . | tar -xf - -C "$STAGE/$SLUG"
+
+          if [ -f "$STAGE/$SLUG/readme.txt" ]; then
+            STABLE=$(grep -m1 -i '^Stable tag:' "$STAGE/$SLUG/readme.txt" | sed 's/^[^:]*:[[:space:]]*//; s/[[:space:]]*$//' || true)
+            if [ "$STABLE" != "$VERSION" ]; then
+              echo "::error::Stable tag in readme.txt ($STABLE) passt nicht zur Version ($VERSION)"
               exit 1
             fi
           fi
-          echo "tag=$tag" >> "$GITHUB_OUTPUT"
-          echo "version=$header" >> "$GITHUB_OUTPUT"
 
-      - name: Check for an existing release
-        id: existing
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          if gh release view "${{ steps.version.outputs.tag }}" --json assets --jq '.assets[].name' 2>/dev/null \
-            | grep -qx "mlab-seo-${{ steps.version.outputs.version }}.zip"; then
-            echo "Release ${{ steps.version.outputs.tag }} already has its archive."
-            echo "done=true" >> "$GITHUB_OUTPUT"
+          CONSTANT=$(grep -m1 -oE "define\( *'[A-Z_]*_VERSION', *'[^']*'" "$STAGE/$SLUG/$SLUG.php" "$STAGE/$SLUG/functions.php" 2>/dev/null | sed "s/.*'\([^']*\)'$/\1/" | head -n 1 || true)
+          if [ -n "$CONSTANT" ] && [ "$CONSTANT" != "$VERSION" ]; then
+            echo "::error::Versionskonstante ($CONSTANT) passt nicht zur Version ($VERSION)"
+            exit 1
           fi
 
-      - name: Build archive
-        if: steps.existing.outputs.done != 'true'
-        run: |
-          git archive --format=zip --prefix=mlab-seo/ \
-            -o "mlab-seo-${{ steps.version.outputs.version }}.zip" HEAD:mlab-seo
-
-      - name: Release notes from CHANGELOG.md
-        if: steps.existing.outputs.done != 'true'
-        run: |
-          awk -v v="${{ steps.version.outputs.version }}" '
-            /^## \[/ { if (found) exit; if (index($0, "[" v "]")) { found=1; next } }
-            found' mlab-seo/CHANGELOG.md > notes.md
-
-      - name: Create or update release
-        if: steps.existing.outputs.done != 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          tag="${{ steps.version.outputs.tag }}"
-          zip="mlab-seo-${{ steps.version.outputs.version }}.zip"
-          if gh release view "$tag" >/dev/null 2>&1; then
-            gh release upload "$tag" "$zip" --clobber
-          else
-            gh release create "$tag" "$zip" --target "$GITHUB_SHA" --title "$tag" --notes-file notes.md
+          (cd "$STAGE" && zip -qr "$GITHUB_WORKSPACE/$SLUG.zip" "$SLUG")
+          unzip -Z1 "$GITHUB_WORKSPACE/$SLUG.zip" > "$RUNNER_TEMP/zip-list.txt"
+          if grep -qE '(^|/)(wp-config[^/]*\.php|\.env[^/]*)$' "$RUNNER_TEMP/zip-list.txt"; then
+            echo "::error::ZIP enthält eine Konfigurations- oder Secret-Datei (wp-config, .env)"
+            exit 1
           fi
+          TOP=$(cut -d/ -f1 "$RUNNER_TEMP/zip-list.txt" | sort -u)
+          if [ "$TOP" != "$SLUG" ]; then
+            echo "::error::ZIP hat nicht genau einen Ordner oben namens $SLUG: $TOP"
+            exit 1
+          fi
+
+          SIZE=$(stat -c%s "$GITHUB_WORKSPACE/$SLUG.zip")
+          if [ "$SIZE" -gt 8388608 ]; then
+            echo "::warning::ZIP ist grösser als 8 MB ($SIZE Bytes). Viele Hostings haben dort ein Upload-Limit."
+          fi
+
+      - name: Release anlegen oder ZIP ergänzen
+        if: steps.version.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLUG: mlab-seo
+          VERSION: ${{ steps.version.outputs.version }}
+          EXISTS: ${{ steps.version.outputs.exists }}
+        run: |
+          set -euo pipefail
+          TAG="v$VERSION"
+          ZIP="$GITHUB_WORKSPACE/$SLUG.zip"
+          LEGACY="$GITHUB_WORKSPACE/$SLUG-$VERSION.zip"
+          cp "$ZIP" "$LEGACY"
+          if [ "$EXISTS" = "true" ]; then
+            gh release upload "$TAG" "$ZIP" "$LEGACY" --clobber
+            exit 0
+          fi
+          awk -v v="$VERSION" '
+            /^## / { if (found) exit; x = $2; gsub(/[][]/, "", x); if (x == v) { found = 1; next } }
+            found' CHANGELOG.md > "$RUNNER_TEMP/notes.md" 2>/dev/null || true
+          [ -s "$RUNNER_TEMP/notes.md" ] || echo "Änderungen: siehe CHANGELOG.md." > "$RUNNER_TEMP/notes.md"
+          gh release create "$TAG" "$ZIP" "$LEGACY" --target "$GITHUB_SHA" --title "$TAG" --notes-file "$RUNNER_TEMP/notes.md"

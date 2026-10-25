@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,9 @@ Developer hooks
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.4.1 =
+* Fix: the XML sitemap no longer uses an XSL stylesheet, so Chrome no longer warns that XSLT is being removed. Browsers show the plain XML; search engines are not affected.
 
 = 1.4.0 =
 * New (Pro): 404 watcher. Each missing address gets a suggested target and a one-click redirect; "Ignore" stops logging an address. Shows where visitors came from (broken link on a page of the site, or another website).

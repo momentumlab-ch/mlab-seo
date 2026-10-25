@@ -6,7 +6,7 @@ Suchmaschinen- und KI-Optimierung für WordPress: Titel, Meta-Beschreibungen, Go
 
 | | |
 |---|---|
-| Aktuelle Version | 1.3.0 |
+| Aktuelle Version | 1.4.1 |
 | WordPress | ab 6.5, getestet bis 7.1 |
 | PHP | ab 8.0 |
 | Lizenz | GPL-2.0-or-later |
@@ -58,6 +58,8 @@ Funktionen, Hooks und Datenschutz sind in [`mlab-seo/readme.txt`](mlab-seo/readm
 
 | Version | Datum | Änderungen |
 |---|---|---|
+| 1.4.1 | 2026-10-25 | Sitemap ohne XSL-Stylesheet (keine XSLT-Warnung in Chrome) |
+| 1.4.0 | 2026-10-22 | 404-Wächter mit 1-Klick-Weiterleitung, Prüfung defekter Links |
 | 1.3.0 | 2026-10-10 | FAQ-Block mit Schema, Bilder- und Video-Sitemap, hreflang, Inhalts-Check für dünne Seiten |
 | 1.2.0 | 2026-10-10 | Import aus Yoast, Rank Math, SEOPress und AIOSEO, SEO für Kategorien, IndexNow, Breadcrumbs, Local SEO, Social-Titel, Lesbarkeits-Check |
 | 1.1.1 | 2026-10-10 | Plugin-Icon |

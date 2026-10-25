@@ -8,6 +8,14 @@ The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaki
 ### Added
 - Editor: the Google preview shows rich snippets from the schema.org data of the page: the breadcrumb path in the URL line, the date before the description of blog posts, up to three FAQ questions from FAQ blocks, up to three event dates (Pro) and rating stars from an `aggregateRating` in the additional schema (Pro). Everything updates while typing. A note below the preview names the rich snippets found and says that Google decides itself whether to show them; with FAQ it adds that Google shows FAQ snippets only for a few websites. Pages set to noindex show no rich snippets.
 
+## [1.4.2] - 2026-10-25
+
+### Fixed
+- `/sitemap.xml`, `/sitemaps.xml`, `/sitemap_index.xml` and `/sitemap-index.xml` redirect (301) to `wp-sitemap.xml` before WordPress runs its main query. Before, all but `/sitemap.xml` ended in a full 404 page, which on large sites took seconds; Bing Webmaster Tools reported "The request has timed out". Addresses submitted from Yoast SEO or Rank Math (`sitemap_index.xml`) keep working after switching.
+
+### Added
+- The Sitemap tab shows the address to submit in Google Search Console and Bing Webmaster Tools.
+
 ## [1.4.1] - 2026-10-25
 
 ### Fixed

@@ -72,6 +72,10 @@ Developer hooks
 = 1.5.0 =
 * New: the Google preview shows rich snippets as Google may display them: breadcrumb path instead of the URL, date for blog posts, FAQ questions, event dates (Pro) and rating stars from the additional schema (Pro). A note below the preview lists the rich snippets the page provides.
 
+= 1.4.2 =
+* Fix: common sitemap addresses (/sitemap.xml, /sitemaps.xml, /sitemap_index.xml, /sitemap-index.xml) now redirect straight to wp-sitemap.xml instead of ending in a slow 404 page. Bing Webmaster Tools reported a timeout for such addresses.
+* The Sitemap tab shows the address to submit in Google Search Console and Bing Webmaster Tools.
+
 = 1.4.1 =
 * Fix: the XML sitemap no longer uses an XSL stylesheet, so Chrome no longer warns that XSLT is being removed. Browsers show the plain XML; search engines are not affected.
 

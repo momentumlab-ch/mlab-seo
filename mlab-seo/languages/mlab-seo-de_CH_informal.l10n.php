@@ -91,6 +91,7 @@ return array(
 		'llms-full.txt' => 'llms-full.txt',
 		'Also provide the full text of all pages as /llms-full.txt' => 'Zusätzlich den ganzen Text aller Seiten als /llms-full.txt bereitstellen',
 		'WordPress creates the XML sitemap. Here you choose what goes in. Pages set to noindex are left out automatically.' => 'WordPress erstellt die XML-Sitemap. Hier wählst du, was hineinkommt. Seiten mit «noindex» werden automatisch weggelassen.',
+		'Address to submit in Google Search Console and Bing Webmaster Tools:' => 'Adresse für die Google Search Console und die Bing Webmaster Tools:',
 		'Content types' => 'Inhaltstypen',
 		'Categories and tags' => 'Kategorien und Schlagwörter',
 		'Include archive pages of categories and tags' => 'Archivseiten von Kategorien und Schlagwörtern aufnehmen',

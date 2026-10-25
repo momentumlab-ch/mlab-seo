@@ -6,7 +6,7 @@ Suchmaschinen- und KI-Optimierung für WordPress: Titel, Meta-Beschreibungen, Go
 
 | | |
 |---|---|
-| Aktuelle Version | 1.6.0 |
+| Aktuelle Version | 1.6.1 |
 | WordPress | ab 6.5, getestet bis 7.1 |
 | PHP | ab 8.0 |
 | Lizenz | GPL-2.0-or-later |
@@ -56,6 +56,7 @@ Funktionen, Hooks und Datenschutz sind in [`readme.txt`](readme.txt) beschrieben
 
 | Version | Datum | Änderungen |
 |---|---|---|
+| 1.6.1 | 2026-10-25 | FAQ-Block im Editor über Übersetzungsdateien, interne Aufräumarbeiten |
 | 1.6.0 | 2026-10-25 | Titel-Vorlagen mit Variablen, Schnellbearbeitung, Robots-Regeln, Hauptkategorie, Archive, Link- und Bild-Filter, WooCommerce-Schema, Regex-Weiterleitungen und Import aus Rank Math, Updates über Plugin Update Checker |
 | 1.5.0 | 2026-10-25 | Rich Snippets in der Google-Vorschau |
 | 1.4.2 | 2026-10-25 | Gängige Sitemap-Adressen leiten direkt auf wp-sitemap.xml weiter |

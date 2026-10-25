@@ -3,6 +3,14 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.6.1] - 2026-10-25
+
+### Behoben
+- Der FAQ-Block im Editor wird über die Übersetzungsdateien übersetzt, wie es die Vorgabe verlangt.
+
+### Intern
+- Lange Funktionen in `inc/` gekürzt (Post-Meta, Schema, Meta-Box, Admin-Hinweise), ohne Änderung am Verhalten.
+
 ## [1.6.0] - 2026-10-25
 
 ### Neu

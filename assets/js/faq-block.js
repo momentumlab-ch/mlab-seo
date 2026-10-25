@@ -11,7 +11,17 @@
 	var el = wp.element.createElement;
 	var be = wp.blockEditor;
 	var c = wp.components;
-	var t = window.mlabSeoFaq || {};
+	var __ = wp.i18n.__;
+	var t = {
+		title: __( 'FAQ (MomentumLab SEO)', 'mlab-seo' ),
+		description: __( 'Questions and answers with FAQ schema for Google and AI assistants.', 'mlab-seo' ),
+		question: __( 'Question', 'mlab-seo' ),
+		answer: __( 'Answer', 'mlab-seo' ),
+		add: __( 'Add question', 'mlab-seo' ),
+		remove: __( 'Remove question', 'mlab-seo' ),
+		up: __( 'Move up', 'mlab-seo' ),
+		open: __( 'Show answers open', 'mlab-seo' )
+	};
 
 	wp.blocks.registerBlockType( 'mlab-seo/faq', {
 		apiVersion: 3,

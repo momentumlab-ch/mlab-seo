@@ -58,7 +58,6 @@ final class Meta_Box {
 		if ( ! in_array( $hook, array( 'post.php', 'post-new.php' ), true ) || ! $screen || ! in_array( $screen->post_type, Post_Meta::post_types(), true ) ) {
 			return;
 		}
-		$post = get_post();
 		wp_enqueue_media();
 		wp_enqueue_style( 'mlab-seo-admin', MLAB_SEO_URL . 'assets/css/admin.css', array(), Admin::asset_version( 'assets/css/admin.css' ) );
 		wp_enqueue_script(
@@ -82,7 +81,7 @@ final class Meta_Box {
 				'pro'          => License::is_pro(),
 				'homeUrl'      => home_url( '/' ),
 				'titlePattern' => Titles::post_type( $screen->post_type )['title'],
-				'vars'         => self::variable_values( $post ),
+				'vars'         => self::variable_values( get_post() ),
 			)
 		);
 	}

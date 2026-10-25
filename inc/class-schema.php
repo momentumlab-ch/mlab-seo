@@ -183,13 +183,26 @@ final class Schema {
 					'inLanguage'       => Settings::language(),
 					'articleSection'   => $sections ? $sections : null,
 					'wordCount'        => $words ? $words : null,
-					'author'           => $author ? array(
-						'@type' => 'Person',
-						'name'  => get_the_author_meta( 'display_name', $author ),
-					) : null,
+					'author'           => self::article_author( $author ),
 					'publisher'        => $publisher ? array( '@id' => $publisher['@id'] ) : null,
 				)
 			),
+		);
+	}
+
+	/**
+	 * Author node of an article.
+	 *
+	 * @param int $author_id User ID, 0 when unknown.
+	 * @return array|null
+	 */
+	private static function article_author( $author_id ) {
+		if ( ! $author_id ) {
+			return null;
+		}
+		return array(
+			'@type' => 'Person',
+			'name'  => get_the_author_meta( 'display_name', $author_id ),
 		);
 	}
 

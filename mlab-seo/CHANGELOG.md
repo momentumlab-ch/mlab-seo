@@ -3,6 +3,11 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.4.1] - 2026-10-25
+
+### Fixed
+- `wp-sitemap.xml` and its sub-sitemaps are served without the XSL stylesheet of WordPress. Chrome is removing XSLT and showed a warning on these pages. Browsers now show the plain XML; search engines read sitemaps without the stylesheet anyway.
+
 ## [1.4.0] - 2026-10-22
 
 ### Added

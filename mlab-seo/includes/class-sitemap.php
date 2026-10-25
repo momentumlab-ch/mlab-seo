@@ -23,6 +23,9 @@ final class Sitemap {
 		add_filter( 'wp_sitemaps_posts_query_args', array( $this, 'exclude_noindex' ) );
 		add_filter( 'wp_sitemaps_posts_entry', array( $this, 'entry' ), 10, 2 );
 		add_filter( 'wp_sitemaps_taxonomies_query_args', array( $this, 'exclude_noindex' ) );
+		// No XSL stylesheet: Chrome is removing XSLT and warns on pages that use it.
+		add_filter( 'wp_sitemaps_stylesheet_url', '__return_false' );
+		add_filter( 'wp_sitemaps_stylesheet_index_url', '__return_false' );
 	}
 
 	/**

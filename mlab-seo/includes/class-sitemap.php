@@ -15,9 +15,15 @@ defined( 'ABSPATH' ) || exit;
 final class Sitemap {
 
 	/**
+	 * Common sitemap addresses of other plugins and guesses, sent to the core index.
+	 */
+	const ALIASES = array( '/sitemap.xml', '/sitemaps.xml', '/sitemap_index.xml', '/sitemap-index.xml' );
+
+	/**
 	 * Registers hooks.
 	 */
 	public function hooks() {
+		add_action( 'parse_request', array( $this, 'redirect_alias' ), 0 );
 		add_filter( 'wp_sitemaps_add_provider', array( $this, 'providers' ), 10, 2 );
 		add_filter( 'wp_sitemaps_post_types', array( $this, 'filter_post_types' ) );
 		add_filter( 'wp_sitemaps_posts_query_args', array( $this, 'exclude_noindex' ) );
@@ -26,6 +32,19 @@ final class Sitemap {
 		// No XSL stylesheet: Chrome is removing XSLT and warns on pages that use it.
 		add_filter( 'wp_sitemaps_stylesheet_url', '__return_false' );
 		add_filter( 'wp_sitemaps_stylesheet_index_url', '__return_false' );
+	}
+
+	/**
+	 * Redirects common sitemap addresses to wp-sitemap.xml before WordPress
+	 * runs the main query, so they do not end in a slow 404 page that
+	 * crawlers such as Bing give up on.
+	 */
+	public function redirect_alias() {
+		if ( ! in_array( Redirects::request_path(), self::ALIASES, true ) || ! wp_sitemaps_get_server()->sitemaps_enabled() ) {
+			return;
+		}
+		wp_safe_redirect( home_url( '/wp-sitemap.xml' ), 301, 'MomentumLab SEO' );
+		exit;
 	}
 
 	/**

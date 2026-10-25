@@ -3,6 +3,14 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.4.2] - 2026-10-25
+
+### Fixed
+- `/sitemap.xml`, `/sitemaps.xml`, `/sitemap_index.xml` and `/sitemap-index.xml` redirect (301) to `wp-sitemap.xml` before WordPress runs its main query. Before, all but `/sitemap.xml` ended in a full 404 page, which on large sites took seconds; Bing Webmaster Tools reported "The request has timed out". Addresses submitted from Yoast SEO or Rank Math (`sitemap_index.xml`) keep working after switching.
+
+### Added
+- The Sitemap tab shows the address to submit in Google Search Console and Bing Webmaster Tools.
+
 ## [1.4.1] - 2026-10-25
 
 ### Fixed

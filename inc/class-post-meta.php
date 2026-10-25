@@ -98,9 +98,7 @@ final class Post_Meta {
 						'type'              => $data_type,
 						'single'            => true,
 						'show_in_rest'      => 'schema' !== $field,
-						'sanitize_callback' => function ( $value ) use ( $field ) {
-							return Post_Meta::sanitize_field( $field, $value );
-						},
+						'sanitize_callback' => fn ( $value ) => Post_Meta::sanitize_field( $field, $value ),
 						'auth_callback'     => array( self::class, 'can_edit' ),
 					)
 				);
@@ -195,11 +193,21 @@ final class Post_Meta {
 			case 'og_desc':
 				return sanitize_textarea_field( (string) $value );
 			case 'schema':
-				$json = json_decode( (string) $value, true );
-				return is_array( $json ) ? (string) wp_json_encode( $json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT ) : '';
+				return self::sanitize_schema( $value );
 			default:
 				return sanitize_text_field( (string) $value );
 		}
+	}
+
+	/**
+	 * Sanitises the custom schema JSON: only valid JSON is kept, re-encoded.
+	 *
+	 * @param mixed $value Raw JSON string.
+	 * @return string Empty when the JSON is invalid.
+	 */
+	private static function sanitize_schema( $value ) {
+		$json = json_decode( (string) $value, true );
+		return is_array( $json ) ? (string) wp_json_encode( $json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT ) : '';
 	}
 
 	/**
@@ -212,12 +220,8 @@ final class Post_Meta {
 		if ( ! is_array( $in ) || '' === trim( (string) ( $in['name'] ?? '' ) ) ) {
 			return array();
 		}
-		$text = function ( $key ) use ( $in ) {
-			return isset( $in[ $key ] ) ? sanitize_text_field( (string) $in[ $key ] ) : '';
-		};
-		$url  = function ( $key ) use ( $in ) {
-			return isset( $in[ $key ] ) ? esc_url_raw( (string) $in[ $key ], array( 'https', 'http' ) ) : '';
-		};
+		$text = fn ( $key ) => isset( $in[ $key ] ) ? sanitize_text_field( (string) $in[ $key ] ) : '';
+		$url  = fn ( $key ) => isset( $in[ $key ] ) ? esc_url_raw( (string) $in[ $key ], array( 'https', 'http' ) ) : '';
 
 		return array(
 			'type'        => in_array( $in['type'] ?? '', self::EVENT_TYPES, true ) ? $in['type'] : 'Event',

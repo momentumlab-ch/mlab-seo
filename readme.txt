@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,10 @@ Developer hooks
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.6.1 =
+* Behoben: Der FAQ-Block im Editor wird über die Übersetzungsdateien übersetzt.
+* Intern: Lange Funktionen gekürzt, keine Änderung am Verhalten.
 
 = 1.6.0 =
 * Neu: Vorlagen für SEO-Titel und Meta-Beschreibung pro Inhaltstyp und Taxonomie, mit Variablen wie %title%, %sep% und %sitename%.

@@ -51,7 +51,7 @@ final class FAQ {
 	 */
 	public function register() {
 		wp_register_script( 'mlab-seo-faq-block', MLAB_SEO_URL . 'assets/js/faq-block.js', array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-i18n' ), Admin::asset_version( 'assets/js/faq-block.js' ), true );
-		self::localize_editor_script();
+		wp_set_script_translations( 'mlab-seo-faq-block', 'mlab-seo', MLAB_SEO_DIR . 'languages' );
 		register_block_type(
 			self::BLOCK,
 			array(
@@ -76,28 +76,6 @@ final class FAQ {
 						'padding' => true,
 					),
 				),
-			)
-		);
-	}
-
-	/**
-	 * Passes the editor strings to the block script.
-	 *
-	 * @return void
-	 */
-	private static function localize_editor_script() {
-		wp_localize_script(
-			'mlab-seo-faq-block',
-			'mlabSeoFaq',
-			array(
-				'title'       => __( 'FAQ (MomentumLab SEO)', 'mlab-seo' ),
-				'description' => __( 'Questions and answers with FAQ schema for Google and AI assistants.', 'mlab-seo' ),
-				'question'    => __( 'Question', 'mlab-seo' ),
-				'answer'      => __( 'Answer', 'mlab-seo' ),
-				'add'         => __( 'Add question', 'mlab-seo' ),
-				'remove'      => __( 'Remove question', 'mlab-seo' ),
-				'up'          => __( 'Move up', 'mlab-seo' ),
-				'open'        => __( 'Show answers open', 'mlab-seo' ),
 			)
 		);
 	}

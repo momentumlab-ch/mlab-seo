@@ -261,7 +261,19 @@ final class Admin {
 	 */
 	public function notice() {
 		$notice   = isset( $_GET['mlab_seo_notice'] ) ? sanitize_key( wp_unslash( $_GET['mlab_seo_notice'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display only.
-		$messages = array(
+		$messages = self::notice_messages();
+		if ( isset( $messages[ $notice ] ) ) {
+			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', esc_attr( $messages[ $notice ][0] ), esc_html( $messages[ $notice ][1] ) );
+		}
+	}
+
+	/**
+	 * Notice texts by notice key: array( type, text ).
+	 *
+	 * @return array<string,array{0:string,1:string}>
+	 */
+	private static function notice_messages() {
+		return array(
 			'saved'              => array( 'success', __( 'Settings saved.', 'mlab-seo' ) ),
 			'checked'            => array( 'success', __( 'Access check finished.', 'mlab-seo' ) ),
 			'license_ok'         => array( 'success', __( 'Licence activated. Pro features are unlocked.', 'mlab-seo' ) ),
@@ -286,9 +298,6 @@ final class Admin {
 				),
 			),
 		);
-		if ( isset( $messages[ $notice ] ) ) {
-			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', esc_attr( $messages[ $notice ][0] ), esc_html( $messages[ $notice ][1] ) );
-		}
 	}
 
 	/**

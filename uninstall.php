@@ -1,0 +1,35 @@
+<?php
+/**
+ * Uninstall: removes settings, licence, redirects, the 404 log and all SEO fields.
+ *
+ * @package MomentumLab\SEO
+ */
+
+defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
+
+/**
+ * Set MLAB_SEO_KEEP_DATA to true in wp-config.php to keep all SEO data on uninstall.
+ */
+if ( defined( 'MLAB_SEO_KEEP_DATA' ) && MLAB_SEO_KEEP_DATA ) {
+	return;
+}
+
+foreach ( array( 'mlab_seo_settings', 'mlab_seo_license', 'mlab_seo_redirects', 'mlab_seo_404_log', 'mlab_seo_404_ignore', 'mlab_seo_link_check', 'mlab_seo_version', 'mlab_seo_indexnow_last' ) as $mlab_seo_option ) {
+	delete_option( $mlab_seo_option );
+}
+delete_transient( 'mlab_seo_llms_full' );
+delete_transient( 'mlab_seo_access_check' );
+delete_transient( 'mlab_seo_content_audit' );
+delete_transient( 'mlab_seo_media_' . md5( 'sitemap-images.xml' ) );
+delete_transient( 'mlab_seo_media_' . md5( 'sitemap-videos.xml' ) );
+delete_site_transient( 'mlab_seo_github_release' );
+delete_site_option( 'external_updates-mlab-seo' );
+wp_clear_scheduled_hook( 'mlab_seo_license_check' );
+wp_clear_scheduled_hook( 'mlab_seo_link_check_week' );
+wp_unschedule_hook( 'mlab_seo_link_check_batch' );
+foreach ( array( 'title', 'description', 'focus', 'image', 'noindex', 'nofollow', 'canonical', 'page_type', 'llms', 'schema', 'score', 'event', 'og_title', 'og_desc', 'hreflang', 'robots', 'primary_term', 'breadcrumb', 'article_type' ) as $mlab_seo_field ) {
+	delete_post_meta_by_key( '_mlab_seo_' . $mlab_seo_field );
+}
+foreach ( array( 'title', 'description', 'noindex', 'og_title', 'og_desc', 'image', 'breadcrumb' ) as $mlab_seo_field ) {
+	delete_metadata( 'term', 0, '_mlab_seo_' . $mlab_seo_field, '', true );
+}

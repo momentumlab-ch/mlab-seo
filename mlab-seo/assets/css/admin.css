@@ -119,6 +119,35 @@
 	line-height: 1.3;
 }
 .mlab-seo__serp-desc { color: #4d5156; font-size: 14px; line-height: 1.58; }
+.mlab-seo__serp-date { color: #70757a; }
+.mlab-seo__serp-rating { margin-top: 2px; color: #70757a; font-size: 14px; }
+.mlab-seo__serp-stars { color: #e7711b; letter-spacing: 1px; }
+.mlab-seo__serp-events { margin-top: 6px; font-size: 14px; line-height: 1.6; }
+.mlab-seo__serp-event {
+	display: grid;
+	grid-template-columns: minmax(0, 9em) minmax(0, 1fr) minmax(0, 10em);
+	gap: 12px;
+	color: #4d5156;
+}
+.mlab-seo__serp-event span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mlab-seo__serp-event span:nth-child(2) { color: #1a0dab; }
+@media (max-width: 600px) {
+	.mlab-seo__serp-event { grid-template-columns: minmax(0, 11em) minmax(0, 1fr); }
+	.mlab-seo__serp-event span:nth-child(3) { display: none; }
+}
+.mlab-seo__serp-faq { margin: 8px 0 0; padding: 0; list-style: none; }
+.mlab-seo__serp-faq li {
+	display: flex;
+	justify-content: space-between;
+	gap: 8px;
+	margin: 0;
+	padding: 8px 0;
+	border-top: 1px solid #ebebeb;
+	color: #202124;
+	font-size: 14px;
+}
+.mlab-seo__serp-faq li::after { content: "⌄"; color: #70757a; }
+.mlab-seo__rich-note { max-width: 600px; margin: -8px 0 16px; }
 .mlab-seo__meter {
 	display: block;
 	height: 4px;

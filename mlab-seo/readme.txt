@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.4.1
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,9 @@ Developer hooks
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.5.0 =
+* New: the Google preview shows rich snippets as Google may display them: breadcrumb path instead of the URL, date for blog posts, FAQ questions, event dates (Pro) and rating stars from the additional schema (Pro). A note below the preview lists the rich snippets the page provides.
 
 = 1.4.1 =
 * Fix: the XML sitemap no longer uses an XSL stylesheet, so Chrome no longer warns that XSLT is being removed. Browsers show the plain XML; search engines are not affected.

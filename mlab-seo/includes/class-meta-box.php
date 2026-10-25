@@ -61,6 +61,8 @@ final class Meta_Box {
 				'separator' => Settings::get( 'separator' ),
 				'siteName'  => Settings::site_name(),
 				'homeUrl'   => home_url( '/' ),
+				'locale'    => str_replace( '_', '-', get_user_locale() ),
+				'pro'       => License::is_pro(),
 				'i18n'      => array(
 					'good'           => __( 'Good', 'mlab-seo' ),
 					'improve'        => __( 'Can be improved', 'mlab-seo' ),
@@ -120,6 +122,17 @@ final class Meta_Box {
 					/* translators: %d: number of paragraphs. */
 					'paragraphsLong' => __( '%d paragraph(s) with more than 150 words. Split long paragraphs.', 'mlab-seo' ),
 					'removeSub'      => __( 'Remove', 'mlab-seo' ),
+					'richBreadcrumb' => __( 'Breadcrumbs', 'mlab-seo' ),
+					'richFaq'        => __( 'FAQ', 'mlab-seo' ),
+					'richEvent'      => __( 'Event', 'mlab-seo' ),
+					'richRating'     => __( 'Rating stars', 'mlab-seo' ),
+					/* translators: %s: list of rich snippet types. */
+					'richFound'      => __( 'Rich snippets from the schema.org data: %s. Google decides itself whether it shows them.', 'mlab-seo' ),
+					'richFaqNote'    => __( 'Google shows FAQ snippets only for a few websites (for example authorities and health sites). AI assistants still use the questions.', 'mlab-seo' ),
+					/* translators: %s: rating value, e.g. 4.5. */
+					'rating'         => __( 'Rating: %s', 'mlab-seo' ),
+					/* translators: %d: number of ratings. */
+					'ratingCount'    => __( '%d ratings', 'mlab-seo' ),
 				),
 			)
 		);
@@ -139,6 +152,8 @@ final class Meta_Box {
 		$fallback = Context::for_post( $id );
 		$img      = Context::image( $image, 'medium' );
 		$pro      = License::is_pro();
+		$crumbs   = wp_list_pluck( array_slice( Breadcrumbs::for_post( $id ), 1, -1 ), 'name' );
+		$date     = $this->preview_date( $post );
 		$event    = array_merge(
 			array(
 				'type'        => 'Event',
@@ -174,11 +189,13 @@ final class Meta_Box {
 
 			<div class="mlab-seo__panel is-active" data-panel="seo" role="tabpanel">
 				<p class="mlab-seo__label"><?php esc_html_e( 'Google preview', 'mlab-seo' ); ?></p>
-				<div class="mlab-seo__serp" aria-live="polite">
+				<div class="mlab-seo__serp" aria-live="polite" data-crumbs="<?php echo esc_attr( (string) wp_json_encode( $crumbs ) ); ?>" data-date="<?php echo esc_attr( $date ); ?>">
 					<div class="mlab-seo__serp-site"><span class="mlab-seo__serp-name"><?php echo esc_html( Settings::site_name() ); ?></span><span class="mlab-seo__serp-url"><?php echo esc_html( $fallback['url'] ); ?></span></div>
 					<div class="mlab-seo__serp-title"></div>
-					<div class="mlab-seo__serp-desc"></div>
+					<div class="mlab-seo__serp-desc"><span class="mlab-seo__serp-date"></span><span class="mlab-seo__serp-text"></span></div>
+					<div class="mlab-seo__serp-rich"></div>
 				</div>
+				<p class="description mlab-seo__rich-note" hidden></p>
 
 				<p>
 					<label for="mlab-seo-title" class="mlab-seo__label"><?php esc_html_e( 'SEO title', 'mlab-seo' ); ?></label>
@@ -332,6 +349,20 @@ final class Meta_Box {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Date that Google shows before the description of a blog post.
+	 *
+	 * @param \WP_Post $post Post.
+	 * @return string Empty for other post types.
+	 */
+	private function preview_date( $post ) {
+		if ( 'post' !== $post->post_type ) {
+			return '';
+		}
+		/* translators: Date format in the Google preview, see https://www.php.net/manual/datetime.format.php */
+		return (string) wp_date( _x( 'M j, Y', 'Google preview date', 'mlab-seo' ), (int) get_post_time( 'U', true, $post ) );
 	}
 
 	/**

@@ -1,10 +1,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: MomentumLab SEO 1.5.0\n"
-"Report-Msgid-Bugs-To: https://github.com/momentumlab-ch/wp-mlab-seo/issues\n"
-"POT-Creation-Date: 2026-10-25T11:40:44+00:00\n"
-"PO-Revision-Date: 2026-10-25 12:00+0100\n"
+"Project-Id-Version: MomentumLab SEO 1.6.0\n"
+"Report-Msgid-Bugs-To: https://github.com/momentumlab-ch/mlab-seo/issues\n"
+"POT-Creation-Date: 2026-10-25T11:46:36+00:00\n"
+"PO-Revision-Date: 2026-10-25 13:00+0100\n"
 "Last-Translator: MomentumLab <support@momentumlab.ch>\n"
 "Language-Team: German\n"
 "Language: de_DE_formal\n"
@@ -43,7 +43,7 @@ msgstr ""
 msgid "MomentumLab"
 msgstr "MomentumLab"
 
-#: inc/class-admin.php:73 inc/class-meta-box.php:216
+#: inc/class-admin.php:73 inc/class-meta-box.php:234
 msgid "SEO"
 msgstr "SEO"
 
@@ -349,11 +349,18 @@ msgstr "Der Lizenzserver war nicht erreichbar."
 msgid "This licence key is not valid."
 msgstr "Dieser Lizenzschlüssel ist ungültig."
 
-#: inc/class-meta-box.php:232
+#. translators: Date format in the Google preview, see
+#. https://www.php.net/manual/datetime.format.php
+#: inc/class-meta-box.php:139
+msgctxt "Google preview date"
+msgid "M j, Y"
+msgstr "d.m.Y"
+
+#: inc/class-meta-box.php:250
 msgid "noindex"
 msgstr "noindex"
 
-#: inc/class-meta-box.php:237
+#: inc/class-meta-box.php:255
 msgid "Not checked yet"
 msgstr "Noch nicht geprüft"
 
@@ -440,7 +447,7 @@ msgstr "Aktuelles Jahr"
 msgid "Current month"
 msgstr "Aktueller Monat"
 
-#: inc/class-titles.php:76 parts/meta-box/panel-seo.php:34
+#: inc/class-titles.php:76 parts/meta-box/panel-seo.php:36
 #: parts/quick-edit.php:18
 msgid "Focus keyword"
 msgstr "Fokus-Keyword"
@@ -912,7 +919,7 @@ msgstr "Prüfung läuft: %1$d von %2$d Links."
 msgid "Link"
 msgstr "Link"
 
-#: parts/admin/links.php:43 assets/js/editor.js:262
+#: parts/admin/links.php:43 assets/js/editor.js:397
 msgid "Problem"
 msgstr "Problem"
 
@@ -929,7 +936,7 @@ msgid "Menu"
 msgstr "Menü"
 
 #: parts/admin/links.php:65 parts/admin/tab-content.php:43
-#: assets/js/editor.js:262
+#: assets/js/editor.js:397
 msgid "Good"
 msgstr "Gut"
 
@@ -1476,13 +1483,13 @@ msgid "Show variables"
 msgstr "Variablen anzeigen"
 
 #: parts/admin/tab-titles.php:42 parts/admin/tab-titles.php:66
-#: parts/meta-box/panel-seo.php:22 parts/quick-edit.php:14
+#: parts/meta-box/panel-seo.php:24 parts/quick-edit.php:14
 #: parts/term-fields.php:19
 msgid "SEO title"
 msgstr "SEO-Titel"
 
 #: parts/admin/tab-titles.php:44 parts/admin/tab-titles.php:68
-#: parts/meta-box/panel-seo.php:28 parts/quick-edit.php:16
+#: parts/meta-box/panel-seo.php:30 parts/quick-edit.php:16
 #: parts/term-fields.php:24
 msgid "Meta description"
 msgstr "Meta-Beschreibung"
@@ -1694,11 +1701,11 @@ msgstr ""
 msgid "Google preview"
 msgstr "Google-Vorschau"
 
-#: parts/meta-box/panel-seo.php:35
+#: parts/meta-box/panel-seo.php:37
 msgid "The search term this page should be found for"
 msgstr "Der Suchbegriff, unter dem diese Seite gefunden werden soll"
 
-#: parts/meta-box/panel-seo.php:37
+#: parts/meta-box/panel-seo.php:39
 msgid "SEO check"
 msgstr "SEO-Check"
 
@@ -1749,37 +1756,83 @@ msgid "Social image"
 msgstr "Social-Bild"
 
 #. translators: %d: number of characters.
-#: assets/js/editor.js:126 assets/js/editor.js:129
+#: assets/js/editor.js:131 assets/js/editor.js:134
 #, js-format
 msgid "%d characters"
 msgstr "%d Zeichen"
 
 #. translators: %d: width in pixels.
-#: assets/js/editor.js:126
+#: assets/js/editor.js:131
 #, js-format
 msgid "about %d px of 580 px"
 msgstr "etwa %d px von 580 px"
 
-#: assets/js/editor.js:154 assets/js/editor.js:249
+#: assets/js/editor.js:143
+msgid "Breadcrumbs"
+msgstr "Breadcrumbs"
+
+#: assets/js/editor.js:154
+msgid "Rating stars"
+msgstr "Bewertungssterne"
+
+#: assets/js/editor.js:159
+msgid "Event"
+msgstr "Event"
+
+#: assets/js/editor.js:164
+msgid "FAQ"
+msgstr "FAQ"
+
+#. translators: %s: list of rich snippet types.
+#: assets/js/editor.js:170
+#, js-format
+msgid ""
+"Rich snippets from the schema.org data: %s. Google decides itself whether it"
+" shows them."
+msgstr ""
+"Rich Snippets aus den schema.org-Daten: %s. Ob Google sie zeigt, entscheidet"
+" Google selbst."
+
+#: assets/js/editor.js:170
+msgid ""
+"Google shows FAQ snippets only for a few websites (for example authorities "
+"and health sites). AI assistants still use the questions."
+msgstr ""
+"Google zeigt FAQ-Snippets nur noch bei wenigen Websites (etwa Behörden und "
+"Gesundheitsseiten). KI-Assistenten nutzen die Fragen weiterhin."
+
+#. translators: %s: rating value, e.g. 4.5.
+#: assets/js/editor.js:246
+#, js-format
+msgid "Rating: %s"
+msgstr "Bewertung: %s"
+
+#. translators: %d: number of ratings.
+#: assets/js/editor.js:246
+#, js-format
+msgid "%d ratings"
+msgstr "%d Bewertungen"
+
+#: assets/js/editor.js:289 assets/js/editor.js:384
 msgid "This page is hidden from search engines (noindex)."
 msgstr "Diese Seite ist für Suchmaschinen ausgeblendet (noindex)."
 
-#: assets/js/editor.js:157
+#: assets/js/editor.js:292
 msgid "The title is too long and will be cut off in Google."
 msgstr "Der Titel ist zu lang und wird bei Google abgeschnitten."
 
-#: assets/js/editor.js:157
+#: assets/js/editor.js:292
 msgid ""
 "The title is very short. Use the space for a clear description of the page."
 msgstr ""
 "Der Titel ist sehr kurz. Nutze den Platz für eine klare Beschreibung der "
 "Seite."
 
-#: assets/js/editor.js:157
+#: assets/js/editor.js:292
 msgid "The title fits into the Google result (up to about 580 px)."
 msgstr "Der Titel passt ins Google-Ergebnis (bis etwa 580 px)."
 
-#: assets/js/editor.js:159
+#: assets/js/editor.js:294
 msgid ""
 "No meta description: Google picks a text itself. Write one that invites a "
 "click."
@@ -1787,94 +1840,94 @@ msgstr ""
 "Keine Meta-Beschreibung: Google wählt selbst einen Text. Schreib eine, die "
 "zum Klicken einlädt."
 
-#: assets/js/editor.js:161
+#: assets/js/editor.js:296
 msgid ""
 "The meta description is longer than 160 characters and will be cut off."
 msgstr ""
 "Die Meta-Beschreibung ist länger als 160 Zeichen und wird abgeschnitten."
 
-#: assets/js/editor.js:163
+#: assets/js/editor.js:298
 msgid "The meta description is short. Aim for 120 to 160 characters."
 msgstr "Die Meta-Beschreibung ist kurz. Ziel sind 120 bis 160 Zeichen."
 
-#: assets/js/editor.js:165
+#: assets/js/editor.js:300
 msgid "The meta description has a good length (120 to 160 characters)."
 msgstr "Die Meta-Beschreibung hat eine gute Länge (120 bis 160 Zeichen)."
 
-#: assets/js/editor.js:177
+#: assets/js/editor.js:312
 msgid "The focus keyword is in the SEO title."
 msgstr "Das Fokus-Keyword steht im SEO-Titel."
 
-#: assets/js/editor.js:177
+#: assets/js/editor.js:312
 msgid "Put the focus keyword into the SEO title, ideally near the start."
 msgstr "Nimm das Fokus-Keyword in den SEO-Titel auf, am besten am Anfang."
 
-#: assets/js/editor.js:178
+#: assets/js/editor.js:313
 msgid "The focus keyword is in the meta description."
 msgstr "Das Fokus-Keyword steht in der Meta-Beschreibung."
 
-#: assets/js/editor.js:178
+#: assets/js/editor.js:313
 msgid "Use the focus keyword in the meta description."
 msgstr "Verwende das Fokus-Keyword in der Meta-Beschreibung."
 
-#: assets/js/editor.js:179
+#: assets/js/editor.js:314
 msgid "The focus keyword appears in the first paragraph."
 msgstr "Das Fokus-Keyword steht im ersten Absatz."
 
-#: assets/js/editor.js:179
+#: assets/js/editor.js:314
 msgid "Mention the focus keyword in the first paragraph."
 msgstr "Erwähne das Fokus-Keyword im ersten Absatz."
 
-#: assets/js/editor.js:182
+#: assets/js/editor.js:317
 msgid "The focus keyword is in the URL."
 msgstr "Das Fokus-Keyword steht in der URL."
 
-#: assets/js/editor.js:182
+#: assets/js/editor.js:317
 msgid "The URL does not contain the focus keyword."
 msgstr "Die URL enthält das Fokus-Keyword nicht."
 
-#: assets/js/editor.js:184
+#: assets/js/editor.js:319
 msgid "The focus keyword appears in a subheading."
 msgstr "Das Fokus-Keyword steht in einer Zwischenüberschrift."
 
-#: assets/js/editor.js:184
+#: assets/js/editor.js:319
 msgid "Use the focus keyword in at least one subheading (H2 or H3)."
 msgstr ""
 "Verwende das Fokus-Keyword in mindestens einer Zwischenüberschrift (H2 oder "
 "H3)."
 
 #. translators: %s: keyword density in percent.
-#: assets/js/editor.js:186
+#: assets/js/editor.js:321
 #, js-format
 msgid "Keyword density %s %% is low. Use the keyword a few more times."
 msgstr ""
 "Keyword-Dichte %s %% ist tief. Verwende das Keyword noch ein paar Mal."
 
 #. translators: %s: keyword density in percent.
-#: assets/js/editor.js:186
+#: assets/js/editor.js:321
 #, js-format
 msgid "Keyword density %s %% is high. This can look like keyword stuffing."
 msgstr ""
 "Keyword-Dichte %s %% ist hoch. Das kann nach Keyword-Stuffing aussehen."
 
 #. translators: %s: keyword density in percent.
-#: assets/js/editor.js:186
+#: assets/js/editor.js:321
 #, js-format
 msgid "Keyword density %s %% is fine."
 msgstr "Keyword-Dichte %s %% ist gut."
 
-#: assets/js/editor.js:189 assets/js/editor.js:249
+#: assets/js/editor.js:324 assets/js/editor.js:384
 msgid "Set a focus keyword to see the keyword checks."
 msgstr "Setze ein Fokus-Keyword, um die Keyword-Prüfungen zu sehen."
 
 #. translators: %d: number of words.
-#: assets/js/editor.js:192
+#: assets/js/editor.js:327
 #, js-format
 msgid "The text has %d words."
 msgstr "Der Text hat %d Wörter."
 
 #. translators: %d: number of words.
-#: assets/js/editor.js:192
+#: assets/js/editor.js:327
 #, js-format
 msgid ""
 "The text has only %d words. The page is thin: add text or hide it from "
@@ -1884,13 +1937,13 @@ msgstr ""
 " für Suchmaschinen aus."
 
 #. translators: %d: number of words.
-#: assets/js/editor.js:192
+#: assets/js/editor.js:327
 #, js-format
 msgid "The text has only %d words. Pages with at least 300 words rank better."
 msgstr ""
 "Der Text hat nur %d Wörter. Seiten mit mindestens 300 Wörtern ranken besser."
 
-#: assets/js/editor.js:194
+#: assets/js/editor.js:329
 msgid ""
 "The text contains its own H1. The page title already is the H1, use H2 "
 "instead."
@@ -1898,18 +1951,18 @@ msgstr ""
 "Der Text enthält eine eigene H1. Der Seitentitel ist bereits die H1, "
 "verwende stattdessen H2."
 
-#: assets/js/editor.js:196
+#: assets/js/editor.js:331
 msgid "The text is structured with subheadings."
 msgstr "Der Text ist mit Zwischenüberschriften gegliedert."
 
-#: assets/js/editor.js:196
+#: assets/js/editor.js:331
 msgid "Add subheadings (H2) so readers and search engines can scan the page."
 msgstr ""
 "Füge Zwischenüberschriften (H2) ein, damit Leser und Suchmaschinen die Seite"
 " überblicken."
 
 #. translators: %s: share of long sentences in percent.
-#: assets/js/editor.js:211
+#: assets/js/editor.js:346
 #, js-format
 msgid ""
 "%s %% of the sentences have more than 20 words. Shorter sentences are easier"
@@ -1918,18 +1971,18 @@ msgstr ""
 "%s %% der Sätze haben mehr als 20 Wörter. Kürzere Sätze sind leichter zu "
 "lesen."
 
-#: assets/js/editor.js:211
+#: assets/js/editor.js:346
 msgid "Most sentences are short and easy to read."
 msgstr "Die meisten Sätze sind kurz und gut lesbar."
 
 #. translators: %d: number of paragraphs.
-#: assets/js/editor.js:216
+#: assets/js/editor.js:351
 #, js-format
 msgid "%d paragraph(s) with more than 150 words. Split long paragraphs."
 msgstr "%d Absatz/Absätze mit mehr als 150 Wörtern. Teile lange Absätze auf."
 
 #. translators: %d: number of images.
-#: assets/js/editor.js:224
+#: assets/js/editor.js:359
 #, js-format
 msgid ""
 "%d image(s) without alternative text. Search engines and screen readers need"
@@ -1938,45 +1991,45 @@ msgstr ""
 "%d Bild(er) ohne Alternativtext. Suchmaschinen und Screenreader brauchen "
 "ihn."
 
-#: assets/js/editor.js:224
+#: assets/js/editor.js:359
 msgid "All images have an alternative text."
 msgstr "Alle Bilder haben einen Alternativtext."
 
-#: assets/js/editor.js:241
+#: assets/js/editor.js:376
 msgid "The page links to other pages of the website."
 msgstr "Die Seite verlinkt auf andere Seiten der Website."
 
-#: assets/js/editor.js:241
+#: assets/js/editor.js:376
 msgid "Add at least one link to another page of the website."
 msgstr "Füge mindestens einen Link auf eine andere Seite der Website ein."
 
-#: assets/js/editor.js:242
+#: assets/js/editor.js:377
 msgid "The page links to external sources."
 msgstr "Die Seite verlinkt auf externe Quellen."
 
-#: assets/js/editor.js:242
+#: assets/js/editor.js:377
 msgid "No external links. A link to a trusted source can help."
 msgstr ""
 "Keine externen Links. Ein Link auf eine vertrauenswürdige Quelle kann "
 "helfen."
 
-#: assets/js/editor.js:245
+#: assets/js/editor.js:380
 msgid "There is an image for social media and search previews."
 msgstr "Es gibt ein Bild für Social Media und Suchvorschauen."
 
-#: assets/js/editor.js:245
+#: assets/js/editor.js:380
 msgid "No image for social media. Set a social image or a featured image."
 msgstr ""
 "Kein Bild für Social Media. Setze ein Social-Bild oder ein Beitragsbild."
 
-#: assets/js/editor.js:262
+#: assets/js/editor.js:397
 msgid "Can be improved"
 msgstr "Verbesserbar"
 
-#: assets/js/editor.js:294
+#: assets/js/editor.js:429
 msgid "Choose social image"
 msgstr "Bild für Social Media wählen"
 
-#: assets/js/editor.js:295 assets/js/settings.js:45
+#: assets/js/editor.js:430 assets/js/settings.js:45
 msgid "Use this image"
 msgstr "Dieses Bild verwenden"

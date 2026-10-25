@@ -12,11 +12,13 @@ defined( 'ABSPATH' ) || exit;
 ?>
 <div class="mlab-seo__panel is-active" data-panel="seo" role="tabpanel">
 	<p class="mlab-seo__label"><?php esc_html_e( 'Google preview', 'mlab-seo' ); ?></p>
-	<div class="mlab-seo__serp" aria-live="polite">
+	<div class="mlab-seo__serp" aria-live="polite" data-crumbs="<?php echo esc_attr( (string) wp_json_encode( $crumbs ) ); ?>" data-date="<?php echo esc_attr( $date ); ?>">
 		<div class="mlab-seo__serp-site"><span class="mlab-seo__serp-name"><?php echo esc_html( Settings::site_name() ); ?></span><span class="mlab-seo__serp-url"><?php echo esc_html( $fallback['url'] ); ?></span></div>
 		<div class="mlab-seo__serp-title"></div>
-		<div class="mlab-seo__serp-desc"></div>
+		<div class="mlab-seo__serp-desc"><span class="mlab-seo__serp-date"></span><span class="mlab-seo__serp-text"></span></div>
+		<div class="mlab-seo__serp-rich"></div>
 	</div>
+	<p class="description mlab-seo__rich-note" hidden></p>
 
 	<p>
 		<label for="mlab-seo-seo-title" class="mlab-seo__label"><?php esc_html_e( 'SEO title', 'mlab-seo' ); ?></label>

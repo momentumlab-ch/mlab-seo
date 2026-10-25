@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: MomentumLab SEO 1.5.0\n"
-"Report-Msgid-Bugs-To: https://github.com/momentumlab-ch/wp-mlab-seo/issues\n"
+"Project-Id-Version: MomentumLab SEO 1.6.0\n"
+"Report-Msgid-Bugs-To: https://github.com/momentumlab-ch/mlab-seo/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-25T11:40:44+00:00\n"
+"POT-Creation-Date: 2026-10-25T11:46:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: mlab-seo\n"
@@ -41,7 +41,7 @@ msgid "MomentumLab"
 msgstr ""
 
 #: inc/class-admin.php:73
-#: inc/class-meta-box.php:216
+#: inc/class-meta-box.php:234
 msgid "SEO"
 msgstr ""
 
@@ -314,11 +314,17 @@ msgstr ""
 msgid "This licence key is not valid."
 msgstr ""
 
-#: inc/class-meta-box.php:232
+#. translators: Date format in the Google preview, see https://www.php.net/manual/datetime.format.php
+#: inc/class-meta-box.php:139
+msgctxt "Google preview date"
+msgid "M j, Y"
+msgstr ""
+
+#: inc/class-meta-box.php:250
 msgid "noindex"
 msgstr ""
 
-#: inc/class-meta-box.php:237
+#: inc/class-meta-box.php:255
 msgid "Not checked yet"
 msgstr ""
 
@@ -414,7 +420,7 @@ msgid "Current month"
 msgstr ""
 
 #: inc/class-titles.php:76
-#: parts/meta-box/panel-seo.php:34
+#: parts/meta-box/panel-seo.php:36
 #: parts/quick-edit.php:18
 msgid "Focus keyword"
 msgstr ""
@@ -830,7 +836,7 @@ msgid "Link"
 msgstr ""
 
 #: parts/admin/links.php:43
-#: assets/js/editor.js:262
+#: assets/js/editor.js:397
 msgid "Problem"
 msgstr ""
 
@@ -848,7 +854,7 @@ msgstr ""
 
 #: parts/admin/links.php:65
 #: parts/admin/tab-content.php:43
-#: assets/js/editor.js:262
+#: assets/js/editor.js:397
 msgid "Good"
 msgstr ""
 
@@ -1307,7 +1313,7 @@ msgstr ""
 
 #: parts/admin/tab-titles.php:42
 #: parts/admin/tab-titles.php:66
-#: parts/meta-box/panel-seo.php:22
+#: parts/meta-box/panel-seo.php:24
 #: parts/quick-edit.php:14
 #: parts/term-fields.php:19
 msgid "SEO title"
@@ -1315,7 +1321,7 @@ msgstr ""
 
 #: parts/admin/tab-titles.php:44
 #: parts/admin/tab-titles.php:68
-#: parts/meta-box/panel-seo.php:28
+#: parts/meta-box/panel-seo.php:30
 #: parts/quick-edit.php:16
 #: parts/term-fields.php:24
 msgid "Meta description"
@@ -1513,11 +1519,11 @@ msgstr ""
 msgid "Google preview"
 msgstr ""
 
-#: parts/meta-box/panel-seo.php:35
+#: parts/meta-box/panel-seo.php:37
 msgid "The search term this page should be found for"
 msgstr ""
 
-#: parts/meta-box/panel-seo.php:37
+#: parts/meta-box/panel-seo.php:39
 msgid "SEO check"
 msgstr ""
 
@@ -1567,203 +1573,241 @@ msgid "Social image"
 msgstr ""
 
 #. translators: %d: number of characters.
-#: assets/js/editor.js:126
-#: assets/js/editor.js:129
+#: assets/js/editor.js:131
+#: assets/js/editor.js:134
 #, js-format
 msgid "%d characters"
 msgstr ""
 
 #. translators: %d: width in pixels.
-#: assets/js/editor.js:126
+#: assets/js/editor.js:131
 #, js-format
 msgid "about %d px of 580 px"
 msgstr ""
 
+#: assets/js/editor.js:143
+msgid "Breadcrumbs"
+msgstr ""
+
 #: assets/js/editor.js:154
-#: assets/js/editor.js:249
-msgid "This page is hidden from search engines (noindex)."
-msgstr ""
-
-#: assets/js/editor.js:157
-msgid "The title is too long and will be cut off in Google."
-msgstr ""
-
-#: assets/js/editor.js:157
-msgid "The title is very short. Use the space for a clear description of the page."
-msgstr ""
-
-#: assets/js/editor.js:157
-msgid "The title fits into the Google result (up to about 580 px)."
+msgid "Rating stars"
 msgstr ""
 
 #: assets/js/editor.js:159
+msgid "Event"
+msgstr ""
+
+#: assets/js/editor.js:164
+msgid "FAQ"
+msgstr ""
+
+#. translators: %s: list of rich snippet types.
+#: assets/js/editor.js:170
+#, js-format
+msgid "Rich snippets from the schema.org data: %s. Google decides itself whether it shows them."
+msgstr ""
+
+#: assets/js/editor.js:170
+msgid "Google shows FAQ snippets only for a few websites (for example authorities and health sites). AI assistants still use the questions."
+msgstr ""
+
+#. translators: %s: rating value, e.g. 4.5.
+#: assets/js/editor.js:246
+#, js-format
+msgid "Rating: %s"
+msgstr ""
+
+#. translators: %d: number of ratings.
+#: assets/js/editor.js:246
+#, js-format
+msgid "%d ratings"
+msgstr ""
+
+#: assets/js/editor.js:289
+#: assets/js/editor.js:384
+msgid "This page is hidden from search engines (noindex)."
+msgstr ""
+
+#: assets/js/editor.js:292
+msgid "The title is too long and will be cut off in Google."
+msgstr ""
+
+#: assets/js/editor.js:292
+msgid "The title is very short. Use the space for a clear description of the page."
+msgstr ""
+
+#: assets/js/editor.js:292
+msgid "The title fits into the Google result (up to about 580 px)."
+msgstr ""
+
+#: assets/js/editor.js:294
 msgid "No meta description: Google picks a text itself. Write one that invites a click."
 msgstr ""
 
-#: assets/js/editor.js:161
+#: assets/js/editor.js:296
 msgid "The meta description is longer than 160 characters and will be cut off."
 msgstr ""
 
-#: assets/js/editor.js:163
+#: assets/js/editor.js:298
 msgid "The meta description is short. Aim for 120 to 160 characters."
 msgstr ""
 
-#: assets/js/editor.js:165
+#: assets/js/editor.js:300
 msgid "The meta description has a good length (120 to 160 characters)."
 msgstr ""
 
-#: assets/js/editor.js:177
+#: assets/js/editor.js:312
 msgid "The focus keyword is in the SEO title."
 msgstr ""
 
-#: assets/js/editor.js:177
+#: assets/js/editor.js:312
 msgid "Put the focus keyword into the SEO title, ideally near the start."
 msgstr ""
 
-#: assets/js/editor.js:178
+#: assets/js/editor.js:313
 msgid "The focus keyword is in the meta description."
 msgstr ""
 
-#: assets/js/editor.js:178
+#: assets/js/editor.js:313
 msgid "Use the focus keyword in the meta description."
 msgstr ""
 
-#: assets/js/editor.js:179
+#: assets/js/editor.js:314
 msgid "The focus keyword appears in the first paragraph."
 msgstr ""
 
-#: assets/js/editor.js:179
+#: assets/js/editor.js:314
 msgid "Mention the focus keyword in the first paragraph."
 msgstr ""
 
-#: assets/js/editor.js:182
+#: assets/js/editor.js:317
 msgid "The focus keyword is in the URL."
 msgstr ""
 
-#: assets/js/editor.js:182
+#: assets/js/editor.js:317
 msgid "The URL does not contain the focus keyword."
 msgstr ""
 
-#: assets/js/editor.js:184
+#: assets/js/editor.js:319
 msgid "The focus keyword appears in a subheading."
 msgstr ""
 
-#: assets/js/editor.js:184
+#: assets/js/editor.js:319
 msgid "Use the focus keyword in at least one subheading (H2 or H3)."
 msgstr ""
 
 #. translators: %s: keyword density in percent.
-#: assets/js/editor.js:186
+#: assets/js/editor.js:321
 #, js-format
 msgid "Keyword density %s %% is low. Use the keyword a few more times."
 msgstr ""
 
 #. translators: %s: keyword density in percent.
-#: assets/js/editor.js:186
+#: assets/js/editor.js:321
 #, js-format
 msgid "Keyword density %s %% is high. This can look like keyword stuffing."
 msgstr ""
 
 #. translators: %s: keyword density in percent.
-#: assets/js/editor.js:186
+#: assets/js/editor.js:321
 #, js-format
 msgid "Keyword density %s %% is fine."
 msgstr ""
 
-#: assets/js/editor.js:189
-#: assets/js/editor.js:249
+#: assets/js/editor.js:324
+#: assets/js/editor.js:384
 msgid "Set a focus keyword to see the keyword checks."
 msgstr ""
 
 #. translators: %d: number of words.
-#: assets/js/editor.js:192
+#: assets/js/editor.js:327
 #, js-format
 msgid "The text has %d words."
 msgstr ""
 
 #. translators: %d: number of words.
-#: assets/js/editor.js:192
+#: assets/js/editor.js:327
 #, js-format
 msgid "The text has only %d words. The page is thin: add text or hide it from search engines."
 msgstr ""
 
 #. translators: %d: number of words.
-#: assets/js/editor.js:192
+#: assets/js/editor.js:327
 #, js-format
 msgid "The text has only %d words. Pages with at least 300 words rank better."
 msgstr ""
 
-#: assets/js/editor.js:194
+#: assets/js/editor.js:329
 msgid "The text contains its own H1. The page title already is the H1, use H2 instead."
 msgstr ""
 
-#: assets/js/editor.js:196
+#: assets/js/editor.js:331
 msgid "The text is structured with subheadings."
 msgstr ""
 
-#: assets/js/editor.js:196
+#: assets/js/editor.js:331
 msgid "Add subheadings (H2) so readers and search engines can scan the page."
 msgstr ""
 
 #. translators: %s: share of long sentences in percent.
-#: assets/js/editor.js:211
+#: assets/js/editor.js:346
 #, js-format
 msgid "%s %% of the sentences have more than 20 words. Shorter sentences are easier to read."
 msgstr ""
 
-#: assets/js/editor.js:211
+#: assets/js/editor.js:346
 msgid "Most sentences are short and easy to read."
 msgstr ""
 
 #. translators: %d: number of paragraphs.
-#: assets/js/editor.js:216
+#: assets/js/editor.js:351
 #, js-format
 msgid "%d paragraph(s) with more than 150 words. Split long paragraphs."
 msgstr ""
 
 #. translators: %d: number of images.
-#: assets/js/editor.js:224
+#: assets/js/editor.js:359
 #, js-format
 msgid "%d image(s) without alternative text. Search engines and screen readers need it."
 msgstr ""
 
-#: assets/js/editor.js:224
+#: assets/js/editor.js:359
 msgid "All images have an alternative text."
 msgstr ""
 
-#: assets/js/editor.js:241
+#: assets/js/editor.js:376
 msgid "The page links to other pages of the website."
 msgstr ""
 
-#: assets/js/editor.js:241
+#: assets/js/editor.js:376
 msgid "Add at least one link to another page of the website."
 msgstr ""
 
-#: assets/js/editor.js:242
+#: assets/js/editor.js:377
 msgid "The page links to external sources."
 msgstr ""
 
-#: assets/js/editor.js:242
+#: assets/js/editor.js:377
 msgid "No external links. A link to a trusted source can help."
 msgstr ""
 
-#: assets/js/editor.js:245
+#: assets/js/editor.js:380
 msgid "There is an image for social media and search previews."
 msgstr ""
 
-#: assets/js/editor.js:245
+#: assets/js/editor.js:380
 msgid "No image for social media. Set a social image or a featured image."
 msgstr ""
 
-#: assets/js/editor.js:262
+#: assets/js/editor.js:397
 msgid "Can be improved"
 msgstr ""
 
-#: assets/js/editor.js:294
+#: assets/js/editor.js:429
 msgid "Choose social image"
 msgstr ""
 
-#: assets/js/editor.js:295
+#: assets/js/editor.js:430
 #: assets/js/settings.js:45
 msgid "Use this image"
 msgstr ""

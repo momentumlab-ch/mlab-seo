@@ -78,6 +78,8 @@ final class Meta_Box {
 			array(
 				'separator'    => Settings::get( 'separator' ),
 				'siteName'     => Settings::site_name(),
+				'locale'       => str_replace( '_', '-', get_user_locale() ),
+				'pro'          => License::is_pro(),
 				'homeUrl'      => home_url( '/' ),
 				'titlePattern' => Titles::post_type( $screen->post_type )['title'],
 				'vars'         => self::variable_values( $post ),
@@ -116,9 +118,25 @@ final class Meta_Box {
 		$img      = Context::image( $image, 'medium' );
 		$pro      = License::is_pro();
 		$event    = array_merge( self::empty_event(), Post_Meta::get( $id, 'event' ) );
+		$crumbs   = wp_list_pluck( array_slice( Breadcrumbs::for_post( $id ), 1, -1 ), 'name' );
+		$date     = self::preview_date( $post );
 
 		wp_nonce_field( self::NONCE, self::NONCE );
 		include MLAB_SEO_DIR . 'parts/meta-box/box.php';
+	}
+
+	/**
+	 * Date that Google shows before the description of a blog post.
+	 *
+	 * @param \WP_Post $post Post.
+	 * @return string Empty for other post types.
+	 */
+	private static function preview_date( $post ) {
+		if ( 'post' !== $post->post_type ) {
+			return '';
+		}
+		/* translators: Date format in the Google preview, see https://www.php.net/manual/datetime.format.php */
+		return (string) wp_date( _x( 'M j, Y', 'Google preview date', 'mlab-seo' ), (int) get_post_time( 'U', true, $post ) );
 	}
 
 	/**

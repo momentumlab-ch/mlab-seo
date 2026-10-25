@@ -6,7 +6,7 @@ Suchmaschinen- und KI-Optimierung für WordPress: Titel, Meta-Beschreibungen, Go
 
 | | |
 |---|---|
-| Aktuelle Version | 1.5.0 |
+| Aktuelle Version | 1.6.0 |
 | WordPress | ab 6.5, getestet bis 7.1 |
 | PHP | ab 8.0 |
 | Lizenz | GPL-2.0-or-later |
@@ -14,7 +14,7 @@ Suchmaschinen- und KI-Optimierung für WordPress: Titel, Meta-Beschreibungen, Go
 
 ## Installation
 
-1. Die neueste `mlab-seo.zip` herunterladen aus den [Releases](https://github.com/momentumlab-ch/wp-mlab-seo/releases).
+1. Die neueste `mlab-seo.zip` herunterladen aus den [Releases](https://github.com/momentumlab-ch/mlab-seo/releases).
 2. In WordPress unter **Plugins › Installieren › Plugin hochladen** die ZIP-Datei wählen und installieren.
 3. Das Plugin aktivieren. Die Einstellungen erscheinen im Menü **SEO**.
 
@@ -25,7 +25,7 @@ Updates laufen über die Update-Funktion von WordPress mit dem [Plugin Update Ch
 - WordPress fragt das neueste Release dieses Repos ab. Als Update gilt nur die angehängte Datei `mlab-seo.zip`.
 - Neue Versionen erscheinen unter **Dashboard › Aktualisierungen** und auf der Plugin-Seite, mit Changelog unter «Details ansehen». Auto-Updates lassen sich pro Plugin einschalten.
 - Das Repo ist öffentlich, ein Token ist nicht nötig. Optional (etwa bei vielen Websites hinter einer IP) in `wp-config.php`: `define( 'MLAB_SEO_GITHUB_TOKEN', '…' );`
-- Websites mit 1.4.x suchen mit dem alten Updater noch nach `mlab-seo-<version>.zip`. Die Release-Action hängt diese Datei deshalb zusätzlich an. Ab 1.5.0 übernimmt der Plugin Update Checker.
+- Websites mit 1.4.x und 1.5.0 suchen mit dem alten Updater noch nach `mlab-seo-<version>.zip`. Die Release-Action hängt diese Datei deshalb zusätzlich an. Ab 1.6.0 übernimmt der Plugin Update Checker.
 
 ### Neue Version veröffentlichen
 
@@ -56,7 +56,8 @@ Funktionen, Hooks und Datenschutz sind in [`readme.txt`](readme.txt) beschrieben
 
 | Version | Datum | Änderungen |
 |---|---|---|
-| 1.5.0 | 2026-10-25 | Titel-Vorlagen mit Variablen, Schnellbearbeitung, Robots-Regeln, Hauptkategorie, Archive, Link- und Bild-Filter, WooCommerce-Schema, Regex-Weiterleitungen und Import aus Rank Math, Updates über Plugin Update Checker |
+| 1.6.0 | 2026-10-25 | Titel-Vorlagen mit Variablen, Schnellbearbeitung, Robots-Regeln, Hauptkategorie, Archive, Link- und Bild-Filter, WooCommerce-Schema, Regex-Weiterleitungen und Import aus Rank Math, Updates über Plugin Update Checker |
+| 1.5.0 | 2026-10-25 | Rich Snippets in der Google-Vorschau |
 | 1.4.2 | 2026-10-25 | Gängige Sitemap-Adressen leiten direkt auf wp-sitemap.xml weiter |
 | 1.4.1 | 2026-10-25 | Sitemap ohne XSL-Stylesheet (keine XSLT-Warnung in Chrome) |
 | 1.4.0 | 2026-10-22 | 404-Wächter mit 1-Klick-Weiterleitung, Prüfung defekter Links |

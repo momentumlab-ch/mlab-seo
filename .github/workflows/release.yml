@@ -1,7 +1,7 @@
 # Release-Automatik: baut <slug>.zip, sobald main eine Version trägt, die noch kein Release hat.
 # Läuft auch bei einem Tag v*.*.* und von Hand (Actions > Release > Run workflow).
-# Der Slug ist mlab-seo (nicht der Repo-Name wp-mlab-seo). Die Hauptdatei heisst mlab-seo.php.
-# Zusätzlich zu mlab-seo.zip wird mlab-seo-<version>.zip angehängt: Websites mit 1.4.x
+# Der Slug ist mlab-seo. Die Hauptdatei heisst mlab-seo.php.
+# Zusätzlich zu mlab-seo.zip wird mlab-seo-<version>.zip angehängt: Websites mit 1.4.x und 1.5.0
 # finden ihr erstes Update nur unter diesem Namen.
 name: Release
 

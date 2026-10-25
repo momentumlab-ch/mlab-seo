@@ -28,7 +28,7 @@ function mlab_seo_register_updater(): void {
 	}
 
 	$checker = PucFactory::buildUpdateChecker(
-		'https://github.com/momentumlab-ch/wp-mlab-seo/',
+		'https://github.com/momentumlab-ch/mlab-seo/',
 		dirname( __DIR__ ) . '/mlab-seo.php',
 		'mlab-seo'
 	);

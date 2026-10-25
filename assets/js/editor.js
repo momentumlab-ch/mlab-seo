@@ -76,16 +76,14 @@
 		return data;
 	}
 
-	/* FAQ blocks are rendered on the server; add their text for the checks. */
-	function faqText() {
-		var blockEditor = wp.data.select( 'core/block-editor' );
-		var html = '';
+	/* FAQ blocks are rendered on the server; read their items from the block editor. */
+	function faqItems() {
+		var blockEditor = window.wp && wp.data && wp.data.select ? wp.data.select( 'core/block-editor' ) : null;
+		var items = [];
 		function walk( blocks ) {
 			( blocks || [] ).forEach( function ( block ) {
 				if ( 'mlab-seo/faq' === block.name ) {
-					( block.attributes.items || [] ).forEach( function ( item ) {
-						html += ' <h3>' + ( item.question || '' ) + '</h3> <p>' + ( item.answer || '' ) + '</p> ';
-					} );
+					items = items.concat( block.attributes.items || [] );
 				}
 				walk( block.innerBlocks );
 			} );
@@ -93,7 +91,16 @@
 		if ( blockEditor && blockEditor.getBlocks ) {
 			walk( blockEditor.getBlocks() );
 		}
-		return html;
+		return items.filter( function ( item ) {
+			return $.trim( item.question || '' ) && $.trim( item.answer || '' );
+		} );
+	}
+
+	/* FAQ text counts towards the checks. */
+	function faqText() {
+		return faqItems().map( function ( item ) {
+			return ' <h3>' + item.question + '</h3> <p>' + item.answer + '</p> ';
+		} ).join( '' );
 	}
 
 	function textWidth( text ) {
@@ -117,10 +124,8 @@
 		var width = textWidth( title );
 
 		$box.find( '.mlab-seo__serp-title' ).text( width > 580 ? title.slice( 0, Math.floor( title.length * 570 / width ) ) + ' …' : title );
-		$box.find( '.mlab-seo__serp-desc' ).text( desc.length > 160 ? desc.slice( 0, 157 ) + ' …' : desc );
-		if ( ed.url ) {
-			$box.find( '.mlab-seo__serp-url' ).text( isFront ? cfg.homeUrl : ed.url );
-		}
+		$box.find( '.mlab-seo__serp-text' ).text( desc.length > 160 ? desc.slice( 0, 157 ) + ' …' : desc );
+		richSnippets( ed );
 
 		meter( 'title', width / 580, width > 580 ? 'bad' : ( title.length < 30 ? 'ok' : 'good' ) );
 		$box.find( '[data-hint="title"]' ).text( fmt( /* translators: %d: number of characters. */ __( '%d characters', 'mlab-seo' ), title.length ) + ' · ' + fmt( /* translators: %d: width in pixels. */ __( 'about %d px of 580 px', 'mlab-seo' ), width ) );
@@ -129,6 +134,136 @@
 		$box.find( '[data-hint="description"]' ).text( fmt( /* translators: %d: number of characters. */ __( '%d characters', 'mlab-seo' ), dl ) );
 
 		checks( ed, title, ownDesc, focus );
+	}
+
+	/* Rich snippets: breadcrumbs, date, FAQ, event dates and rating stars, as Google may show them. */
+	function richSnippets( ed ) {
+		var noindex = $( '#mlab-seo-noindex' ).is( ':checked' );
+		var $rich = $box.find( '.mlab-seo__serp-rich' ).empty();
+		var found = urlLine( ed, noindex ) ? [ __( 'Breadcrumbs', 'mlab-seo' ) ] : [];
+		var date = $box.find( '.mlab-seo__serp' ).data( 'date' );
+
+		$box.find( '.mlab-seo__serp-date' ).text( date ? date + ' — ' : '' );
+		if ( noindex ) {
+			$box.find( '.mlab-seo__rich-note' ).prop( 'hidden', true );
+			return;
+		}
+
+		var stars = ratingLine();
+		if ( stars ) {
+			found.push( __( 'Rating stars', 'mlab-seo' ) );
+			$rich.append( stars );
+		}
+		var events = eventRows();
+		if ( events.length ) {
+			found.push( __( 'Event', 'mlab-seo' ) );
+			$rich.append( $( '<div class="mlab-seo__serp-events">' ).append( events ) );
+		}
+		var faq = faqItems();
+		if ( faq.length ) {
+			found.push( __( 'FAQ', 'mlab-seo' ) );
+			$rich.append( $( '<ul class="mlab-seo__serp-faq">' ).append( faq.slice( 0, 3 ).map( function ( item ) {
+				return $( '<li>' ).text( $( '<div>' ).html( item.question ).text() );
+			} ) ) );
+		}
+		$box.find( '.mlab-seo__rich-note' )
+			.text( found.length ? fmt( /* translators: %s: list of rich snippet types. */ __( 'Rich snippets from the schema.org data: %s. Google decides itself whether it shows them.', 'mlab-seo' ), found.join( ', ' ) ) + ( faq.length ? ' ' + __( 'Google shows FAQ snippets only for a few websites (for example authorities and health sites). AI assistants still use the questions.', 'mlab-seo' ) : '' ) : '' )
+			.prop( 'hidden', ! found.length );
+	}
+
+	/* URL line: the breadcrumb path when the page has one. Returns true for breadcrumbs. */
+	function urlLine( ed, noindex ) {
+		var crumbs = noindex || isFront ? [] : ( $box.find( '.mlab-seo__serp' ).data( 'crumbs' ) || [] ).concat( ed.title ? [ ed.title ] : [] );
+		var $url = $box.find( '.mlab-seo__serp-url' );
+		if ( crumbs.length ) {
+			$url.text( [ cfg.homeUrl.replace( /\/$/, '' ) ].concat( crumbs ).join( ' › ' ) );
+		} else if ( ed.url || isFront ) {
+			$url.text( isFront ? cfg.homeUrl : ed.url );
+		}
+		return crumbs.length > 0;
+	}
+
+	/* Event dates (Pro): up to three sub-events, or the event itself. */
+	function eventRows() {
+		function field( key ) {
+			return $.trim( $( '#mlab-seo-event-' + key ).val() || '' );
+		}
+		if ( ! cfg.pro || ! field( 'name' ) || ! field( 'start' ) ) {
+			return [];
+		}
+		var venue = field( 'location' ) || field( 'city' );
+		var rows = $box.find( '.mlab-seo__subs tbody tr' ).map( function () {
+			var $in = $( this ).find( 'input' );
+			return { name: $.trim( $in.eq( 0 ).val() ), start: $.trim( $in.eq( 1 ).val() ), venue: $.trim( $in.eq( 2 ).val() ) || venue };
+		} ).get().filter( function ( row ) {
+			return row.name && row.start;
+		} );
+		if ( ! rows.length ) {
+			rows = [ { name: field( 'name' ), start: field( 'start' ), venue: venue } ];
+		}
+		return rows.slice( 0, 3 ).map( function ( row ) {
+			return $( '<div class="mlab-seo__serp-event">' ).append( [ eventDate( row.start ), row.name, row.venue ].map( function ( cell ) {
+				return $( '<span>' ).text( cell );
+			} ) );
+		} );
+	}
+
+	function eventDate( value ) {
+		var m = /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}))?/.exec( value );
+		if ( ! m ) {
+			return value;
+		}
+		var opts = { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' };
+		if ( m[ 4 ] ) {
+			opts.hour = '2-digit';
+			opts.minute = '2-digit';
+		}
+		try {
+			return new Intl.DateTimeFormat( cfg.locale, opts ).format( new Date( Date.UTC( +m[ 1 ], m[ 2 ] - 1, +m[ 3 ], +( m[ 4 ] || 0 ), +( m[ 5 ] || 0 ) ) ) );
+		} catch ( e ) {
+			return value;
+		}
+	}
+
+	/* Rating stars (Pro): an aggregateRating anywhere in the additional schema. */
+	function ratingLine() {
+		var json;
+		try {
+			json = cfg.pro ? JSON.parse( $( '#mlab-seo-schema' ).val() || 'null' ) : null;
+		} catch ( e ) {
+			return null;
+		}
+		var r = findRating( json );
+		var value = r ? parseFloat( String( r.ratingValue ).replace( ',', '.' ) ) : NaN;
+		if ( isNaN( value ) ) {
+			return null;
+		}
+		var best = parseFloat( r.bestRating ) || 5;
+		var full = Math.max( 0, Math.min( 5, Math.round( value * 5 / best ) ) );
+		var count = parseInt( r.ratingCount || r.reviewCount, 10 );
+		return $( '<div class="mlab-seo__serp-rating">' )
+			.append( $( '<span class="mlab-seo__serp-stars" aria-hidden="true">' ).text( '★★★★★'.slice( 0, full ) + '☆☆☆☆☆'.slice( 0, 5 - full ) ) )
+			.append( document.createTextNode( ' ' + fmt( /* translators: %s: rating value, e.g. 4.5. */ __( 'Rating: %s', 'mlab-seo' ), value.toLocaleString( cfg.locale ) ) + ( count ? ' · ' + fmt( /* translators: %d: number of ratings. */ __( '%d ratings', 'mlab-seo' ), count ) : '' ) ) );
+	}
+
+	function findRating( node ) {
+		if ( ! node || 'object' !== typeof node ) {
+			return null;
+		}
+		if ( 'AggregateRating' === node[ '@type' ] ) {
+			return node;
+		}
+		if ( node.aggregateRating && 'object' === typeof node.aggregateRating ) {
+			return node.aggregateRating;
+		}
+		var keys = Object.keys( node );
+		for ( var i = 0; i < keys.length; i++ ) {
+			var hit = findRating( node[ keys[ i ] ] );
+			if ( hit ) {
+				return hit;
+			}
+		}
+		return null;
 	}
 
 	function meter( name, ratio, state ) {
@@ -330,5 +465,6 @@
 		} else {
 			$tr.find( 'input' ).val( '' );
 		}
+		schedule();
 	} );
 }( jQuery ) );

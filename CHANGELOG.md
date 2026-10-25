@@ -3,7 +3,7 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
-## [1.5.0] - 2026-10-25
+## [1.6.0] - 2026-10-25
 
 ### Neu
 - Vorlagen für SEO-Titel und Meta-Beschreibung pro Inhaltstyp und Taxonomie (Reiter «Titel & Meta»), mit Variablen wie `%title%`, `%sep%`, `%sitename%`, `%category%` und `%currentyear%`. Die Schreibweise von Rank Math und Yoast wird erkannt.
@@ -24,6 +24,11 @@ The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaki
 
 ### Behoben
 - SEO-Felder von Kategorien und Schlagwörtern wurden nicht gespeichert.
+
+## [1.5.0] - 2026-10-25
+
+### Added
+- Editor: the Google preview shows rich snippets from the schema.org data of the page: the breadcrumb path in the URL line, the date before the description of blog posts, up to three FAQ questions from FAQ blocks, up to three event dates (Pro) and rating stars from an `aggregateRating` in the additional schema (Pro). Everything updates while typing. A note below the preview names the rich snippets found and says that Google decides itself whether to show them; with FAQ it adds that Google shows FAQ snippets only for a few websites. Pages set to noindex show no rich snippets.
 
 ## [1.4.2] - 2026-10-25
 

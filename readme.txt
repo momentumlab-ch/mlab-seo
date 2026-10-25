@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.5.0
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,7 @@ Free
 * Author and date archives: index, noindex or switched off (redirect to the home page). Empty categories and tags are noindex.
 * Links and images: nofollow and new tab for external links, missing alt texts from the image title, a link to the original post in the RSS feed.
 * WooCommerce: products in schema.org with price, availability, brand and ratings.
-* Google preview with a pixel check for the title (like Google, about 580 px).
+* Google preview with a pixel check for the title (like Google, about 580 px) and rich snippets: breadcrumbs, date, FAQ, event dates and rating stars.
 * SEO check with score: title and description length, focus keyword in title, description, first paragraph, URL and subheadings, keyword density, text length, headings, image alt texts, internal and external links, social image. The score shows as a column in the page list.
 * Social previews: Open Graph and X cards with a per-page image, featured image or default image.
 * schema.org as one JSON-LD graph: publisher (organisation or person, with logo, address and profiles), website, web page with page type, breadcrumbs, blog posts.
@@ -77,7 +77,7 @@ Developer hooks
 
 == Changelog ==
 
-= 1.5.0 =
+= 1.6.0 =
 * Neu: Vorlagen für SEO-Titel und Meta-Beschreibung pro Inhaltstyp und Taxonomie, mit Variablen wie %title%, %sep% und %sitename%.
 * Neu: noindex und Artikeltyp pro Inhaltstyp. Autoren- und Datumsarchive lassen sich ausblenden oder abschalten, leere Kategorien sind noindex.
 * Neu: Schnellbearbeitung und Mehrfachbearbeitung in der Beitragsliste.
@@ -90,6 +90,9 @@ Developer hooks
 * Der Import aus Rank Math, Yoast und SEOPress übernimmt jetzt auch Hauptkategorie, Brotkrumen-Titel und weitere Robots-Regeln. Titel-Variablen bleiben erhalten.
 * Updates laufen über die Update-Funktion von WordPress.
 * Fix: SEO-Felder von Kategorien und Schlagwörtern werden wieder gespeichert.
+
+= 1.5.0 =
+* New: the Google preview shows rich snippets as Google may display them: breadcrumb path instead of the URL, date for blog posts, FAQ questions, event dates (Pro) and rating stars from the additional schema (Pro). A note below the preview lists the rich snippets the page provides.
 
 = 1.4.2 =
 * Fix: common sitemap addresses (/sitemap.xml, /sitemaps.xml, /sitemap_index.xml, /sitemap-index.xml) now redirect straight to wp-sitemap.xml instead of ending in a slow 404 page. Bing Webmaster Tools reported a timeout for such addresses.

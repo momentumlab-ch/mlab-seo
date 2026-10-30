@@ -139,16 +139,19 @@ final class Crawlers {
 	private static function query_listed_posts() {
 		$types = Sitemap::post_types();
 		return get_posts(
-			array(
-				'post_type'      => $types ? $types : array( 'page' ),
-				'post_status'    => 'publish',
-				'posts_per_page' => 100,
-				'orderby'        => array(
-					'post_type'  => 'ASC',
-					'menu_order' => 'ASC',
-					'date'       => 'DESC',
+			array_merge(
+				array(
+					'post_type'      => $types ? $types : array( 'page' ),
+					'post_status'    => 'publish',
+					'posts_per_page' => 100 * max( 1, count( Multilingual::languages() ) ),
+					'orderby'        => array(
+						'post_type'  => 'ASC',
+						'menu_order' => 'ASC',
+						'date'       => 'DESC',
+					),
+					'has_password'   => false,
 				),
-				'has_password'   => false,
+				Multilingual::all_languages_args()
 			)
 		);
 	}
@@ -165,7 +168,6 @@ final class Crawlers {
 			'optional' => array(),
 		);
 		$posts   = self::query_listed_posts();
-		$front   = (int) get_option( 'page_on_front' );
 		foreach ( $posts as $post ) {
 			if ( Post_Meta::get( $post->ID, 'noindex' ) ) {
 				continue;
@@ -177,14 +179,29 @@ final class Crawlers {
 			$group              = 'optional' === $mode || $privacy === $post->ID ? 'optional' : 'main';
 			$groups[ $group ][] = $post;
 		}
-		// Front page first.
+		$groups['main'] = self::front_first( $groups['main'] );
+		return $groups;
+	}
+
+	/**
+	 * Puts the front page first; on multilingual websites the one of every language.
+	 *
+	 * @param \WP_Post[] $posts Posts.
+	 * @return \WP_Post[]
+	 */
+	private static function front_first( array $posts ) {
+		$homes = array_map( 'trailingslashit', array_merge( array( home_url( '/' ) ), array_map( array( Multilingual::class, 'home_url' ), array_keys( Multilingual::languages() ) ) ) );
+		$front = (int) get_option( 'page_on_front' );
+		$rank  = function ( $post ) use ( $homes, $front ) {
+			return (int) ( $post->ID === $front || ( 'page' === $post->post_type && in_array( trailingslashit( (string) get_permalink( $post ) ), $homes, true ) ) );
+		};
 		usort(
-			$groups['main'],
-			function ( $a, $b ) use ( $front ) {
-				return (int) ( $b->ID === $front ) - (int) ( $a->ID === $front );
+			$posts,
+			function ( $a, $b ) use ( $rank ) {
+				return $rank( $b ) - $rank( $a );
 			}
 		);
-		return $groups;
+		return $posts;
 	}
 
 	/**
@@ -203,15 +220,8 @@ final class Crawlers {
 		$t .= self::llms_facts();
 
 		$groups = self::listed_posts();
-		if ( $groups['main'] ) {
-			$t .= '## ' . __( 'Pages', 'mlab-seo' ) . "\n\n";
-			foreach ( $groups['main'] as $post ) {
-				$t .= self::llms_line( $post );
-			}
-			$t .= "\n";
-		}
-
-		$t .= self::llms_optional( $groups['optional'] );
+		$t     .= self::llms_pages( $groups['main'] );
+		$t     .= self::llms_optional( $groups['optional'] );
 
 		/**
 		 * Filters the llms.txt content.
@@ -219,6 +229,31 @@ final class Crawlers {
 		 * @param string $t Markdown.
 		 */
 		return (string) apply_filters( 'mlab_seo_llms_txt', $t );
+	}
+
+	/**
+	 * The "Pages" section of llms.txt, on multilingual websites one sub-section per language.
+	 *
+	 * @param \WP_Post[] $posts Posts in the main group.
+	 * @return string
+	 */
+	private static function llms_pages( array $posts ) {
+		if ( ! $posts ) {
+			return '';
+		}
+		$names  = Multilingual::languages();
+		$groups = Multilingual::group_posts( $posts );
+		$t      = '## ' . __( 'Pages', 'mlab-seo' ) . "\n\n";
+		foreach ( $groups as $code => $list ) {
+			if ( count( $groups ) > 1 ) {
+				$t .= '### ' . ( $names[ $code ] ?? $code ) . "\n\n";
+			}
+			foreach ( $list as $post ) {
+				$t .= self::llms_line( $post );
+			}
+			$t .= "\n";
+		}
+		return $t;
 	}
 
 	/**

@@ -3,6 +3,15 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.7.0] - 2026-10-30
+
+### Neu
+- Mehrsprachige Websites: MomentumLab Multilingual, WPML, Polylang und TranslatePress werden erkannt (`inc/class-multilingual.php`). Die Sprache für Social Media (`og:locale`) und schema.org folgt der Sprache der Seite; die Einstellung «Sprache für Social Media» gilt nur noch für Seiten in ihrer Sprache.
+- Startseiten-Adresse (Canonical, `og:url`) und Brotkrumen zeigen auf die Startseite der jeweiligen Sprache. Bei TranslatePress zeigt das Canonical auf die übersetzte Adresse.
+- llms.txt listet die Seiten aller Sprachen, gruppiert nach Sprache, mit der Startseite jeder Sprache zuerst.
+- `wpml-config.xml` für WPML und Polylang: Websitename, Titel und Beschreibung der Startseite, Titelvorlagen, Brotkrumen-Bezeichnung, Publisher-Name und llms.txt-Texte sind übersetzbar. SEO-Titel, Beschreibung und Social-Texte werden mitübersetzt, noindex und Robots-Regeln kopiert, Canonical und hreflang nie kopiert.
+- Der Einstellungshinweis zu hreflang nennt das erkannte Mehrsprachen-Plugin und sagt, wo die Texte übersetzt werden.
+
 ## [1.6.1] - 2026-10-25
 
 ### Behoben

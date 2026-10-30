@@ -2,8 +2,8 @@
 /**
  * Hreflang: links between the language versions of a page (for example DE, EN, FR).
  *
- * For websites that keep each language on its own site or domain. When WPML
- * or Polylang is active, they print hreflang themselves and this stays off.
+ * For websites that keep each language on its own site or domain. When a
+ * multilingual plugin is active, it prints hreflang itself and this stays off.
  *
  * @package MomentumLab\SEO
  */
@@ -30,7 +30,7 @@ final class Hreflang {
 	 * @return bool
 	 */
 	public static function handled_elsewhere() {
-		return defined( 'ICL_SITEPRESS_VERSION' ) || function_exists( 'pll_current_language' ) || defined( 'TRP_PLUGIN_VERSION' );
+		return '' !== Multilingual::plugin();
 	}
 
 	/**

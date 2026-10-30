@@ -56,6 +56,7 @@ Funktionen, Hooks und Datenschutz sind in [`readme.txt`](readme.txt) beschrieben
 
 | Version | Datum | Änderungen |
 |---|---|---|
+| 1.7.0 | 2026-10-30 | Mehrsprachige Websites mit MomentumLab Multilingual, WPML, Polylang und TranslatePress: Sprache, Startseiten-Adresse und Brotkrumen pro Sprache, llms.txt nach Sprachen, wpml-config.xml |
 | 1.6.1 | 2026-10-25 | FAQ-Block im Editor über Übersetzungsdateien, interne Aufräumarbeiten |
 | 1.6.0 | 2026-10-25 | Titel-Vorlagen mit Variablen, Schnellbearbeitung, Robots-Regeln, Hauptkategorie, Archive, Link- und Bild-Filter, WooCommerce-Schema, Regex-Weiterleitungen und Import aus Rank Math, Updates über Plugin Update Checker |
 | 1.5.0 | 2026-10-25 | Rich Snippets in der Google-Vorschau |

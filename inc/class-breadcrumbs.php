@@ -144,7 +144,7 @@ final class Breadcrumbs {
 		}
 		return array(
 			'name' => $label,
-			'url'  => home_url( '/' ),
+			'url'  => Multilingual::home_url(),
 		);
 	}
 

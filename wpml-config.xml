@@ -1,0 +1,59 @@
+<wpml-config>
+	<custom-fields>
+		<custom-field action="translate">_mlab_seo_title</custom-field>
+		<custom-field action="translate">_mlab_seo_description</custom-field>
+		<custom-field action="translate">_mlab_seo_focus</custom-field>
+		<custom-field action="translate">_mlab_seo_og_title</custom-field>
+		<custom-field action="translate">_mlab_seo_og_desc</custom-field>
+		<custom-field action="translate">_mlab_seo_breadcrumb</custom-field>
+		<custom-field action="copy">_mlab_seo_noindex</custom-field>
+		<custom-field action="copy">_mlab_seo_nofollow</custom-field>
+		<custom-field action="copy">_mlab_seo_robots</custom-field>
+		<custom-field action="copy">_mlab_seo_page_type</custom-field>
+		<custom-field action="copy">_mlab_seo_article_type</custom-field>
+		<custom-field action="copy">_mlab_seo_llms</custom-field>
+		<custom-field action="copy-once">_mlab_seo_image</custom-field>
+		<custom-field action="ignore">_mlab_seo_canonical</custom-field>
+		<custom-field action="ignore">_mlab_seo_hreflang</custom-field>
+		<custom-field action="ignore">_mlab_seo_schema</custom-field>
+		<custom-field action="ignore">_mlab_seo_event</custom-field>
+		<custom-field action="ignore">_mlab_seo_score</custom-field>
+		<custom-field action="ignore">_mlab_seo_primary_term</custom-field>
+	</custom-fields>
+	<custom-term-fields>
+		<custom-term-field action="translate">_mlab_seo_title</custom-term-field>
+		<custom-term-field action="translate">_mlab_seo_description</custom-term-field>
+		<custom-term-field action="translate">_mlab_seo_og_title</custom-term-field>
+		<custom-term-field action="translate">_mlab_seo_og_desc</custom-term-field>
+		<custom-term-field action="translate">_mlab_seo_breadcrumb</custom-term-field>
+		<custom-term-field action="copy">_mlab_seo_noindex</custom-term-field>
+		<custom-term-field action="copy-once">_mlab_seo_image</custom-term-field>
+	</custom-term-fields>
+	<admin-texts>
+		<key name="mlab_seo_settings">
+			<key name="site_name" />
+			<key name="home_title" />
+			<key name="home_description" />
+			<key name="og_locale" />
+			<key name="breadcrumb_home" />
+			<key name="org_name" />
+			<key name="org_alt_name" />
+			<key name="llms_summary" />
+			<key name="llms_facts" />
+			<key name="titles">
+				<key name="types">
+					<key name="*">
+						<key name="title" />
+						<key name="description" />
+					</key>
+				</key>
+				<key name="taxonomies">
+					<key name="*">
+						<key name="title" />
+						<key name="description" />
+					</key>
+				</key>
+			</key>
+		</key>
+	</admin-texts>
+</wpml-config>

@@ -135,16 +135,17 @@ final class Settings {
 
 	/**
 	 * Content locale as language_TERRITORY (de_CH), without variants like _informal.
+	 * On multilingual websites the setting applies only to pages in its language.
 	 *
 	 * @return string
 	 */
 	public static function locale() {
 		$locale = (string) self::get( 'og_locale' );
-		if ( '' !== $locale ) {
+		$wp     = implode( '_', array_slice( explode( '_', get_locale() ), 0, 2 ) );
+		if ( '' !== $locale && ( '' === Multilingual::plugin() || strtok( $locale, '_' ) === strtok( $wp, '_' ) ) ) {
 			return $locale;
 		}
-		$parts = explode( '_', get_locale() );
-		return implode( '_', array_slice( $parts, 0, 2 ) );
+		return $wp;
 	}
 
 	/**

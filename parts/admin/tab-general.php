@@ -35,7 +35,8 @@ defined( 'ABSPATH' ) || exit;
 <h2><?php esc_html_e( 'Languages (hreflang)', 'mlab-seo' ); ?></h2>
 <p><?php esc_html_e( 'For websites with a separate site or domain per language. Enter the other languages; each page then gets a field for the address of its translation. Set the links on the other language sites too, so the pages point to each other.', 'mlab-seo' ); ?></p>
 <?php if ( Hreflang::handled_elsewhere() ) : ?>
-	<p class="description"><?php esc_html_e( 'A multilingual plugin (WPML, Polylang or TranslatePress) is active and prints hreflang itself. These settings are not used.', 'mlab-seo' ); ?></p>
+	<?php /* translators: %s: name of the multilingual plugin, for example WPML. */ ?>
+	<p class="description"><?php echo esc_html( sprintf( __( '%s is active and links the language versions itself (hreflang). These settings are not used.', 'mlab-seo' ), Multilingual::plugin_name() ) . ' ' . Multilingual::texts_hint() ); ?></p>
 <?php endif; ?>
 <table class="form-table" role="presentation">
 	<?php

@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.6.1
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,7 +30,8 @@ Free
 * FAQ block: questions and answers as an accordion, with FAQPage schema for Google, ChatGPT, Perplexity and other AI assistants.
 * Content check: lists indexable pages with fewer than 100 (thin) or 300 (short) words, with a warning in the status.
 * Image sitemap (/sitemap-images.xml) and video sitemap (/sitemap-videos.xml) for YouTube, Vimeo and uploaded videos, plus VideoObject schema.
-* hreflang for websites with one site or domain per language (for example DE, EN, FR): the address of each translation per page. Off while WPML, Polylang or TranslatePress handle it.
+* Multilingual websites with MomentumLab Multilingual, WPML, Polylang or TranslatePress: social language, schema.org language, home address and breadcrumbs follow the language of the page, llms.txt lists the pages per language. With WPML and Polylang the website name, home page texts, title templates and llms.txt summary are translatable, and the SEO fields of a page are copied or translated with it (wpml-config.xml).
+* hreflang for websites with one site or domain per language (for example DE, EN, FR): the address of each translation per page. Off while a multilingual plugin handles it.
 * Social title and description per page, separate from the Google snippet.
 * noindex, nofollow and canonical URL per page. Search and 404 pages are noindex.
 * SEO title, meta description, noindex, social title, description and image for categories, tags and other taxonomies. Archive pages 2, 3 … get their own title and canonical URL.
@@ -76,6 +77,11 @@ Developer hooks
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.7.0 =
+* Neu: Mehrsprachige Websites mit MomentumLab Multilingual, WPML, Polylang oder TranslatePress. Sprache für Social Media und schema.org, Startseiten-Adresse und Brotkrumen folgen der Sprache der Seite.
+* Neu: llms.txt listet die Seiten nach Sprache gruppiert.
+* Neu: wpml-config.xml für WPML und Polylang: Websitename, Startseitentexte, Titelvorlagen und llms.txt-Zusammenfassung sind übersetzbar, SEO-Felder werden beim Übersetzen kopiert oder übersetzt.
 
 = 1.6.1 =
 * Behoben: Der FAQ-Block im Editor wird über die Übersetzungsdateien übersetzt.

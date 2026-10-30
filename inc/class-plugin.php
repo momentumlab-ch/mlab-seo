@@ -51,6 +51,7 @@ final class Plugin {
 		( new FAQ() )->hooks();
 		( new Media() )->hooks();
 		( new Hreflang() )->hooks();
+		( new Multilingual() )->hooks();
 		( new Content_Audit() )->hooks();
 		( new License() )->hooks();
 		( new Head() )->hooks();

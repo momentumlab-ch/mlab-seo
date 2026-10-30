@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MomentumLab SEO 1.6.0\n"
 "Report-Msgid-Bugs-To: https://github.com/momentumlab-ch/mlab-seo/issues\n"
-"POT-Creation-Date: 2026-10-25T11:46:36+00:00\n"
+"POT-Creation-Date: 2026-10-30T09:04:13+00:00\n"
 "PO-Revision-Date: 2026-10-25 13:00+0100\n"
 "Last-Translator: MomentumLab <support@momentumlab.ch>\n"
 "Language-Team: German\n"
@@ -30,20 +30,20 @@ msgstr "https://momentumlab.ch/"
 #. Description of the plugin
 #: mlab-seo.php
 msgid ""
-"Search engine and AI optimisation: titles, meta descriptions, Google preview"
-" with SEO check, social previews, schema.org, sitemap, robots.txt and "
-"llms.txt for AI assistants."
+"Search engine and AI optimisation: titles, meta descriptions, Google preview "
+"with SEO check, social previews, schema.org, sitemap, robots.txt and llms."
+"txt for AI assistants."
 msgstr ""
 "Optimierung für Suchmaschinen und KI: Seitentitel, Meta-Beschreibungen, "
-"Google-Vorschau mit SEO-Check, Social-Vorschau, schema.org, Sitemap, "
-"robots.txt und llms.txt für KI-Assistenten."
+"Google-Vorschau mit SEO-Check, Social-Vorschau, schema.org, Sitemap, robots."
+"txt und llms.txt für KI-Assistenten."
 
 #. Author of the plugin
 #: mlab-seo.php
 msgid "MomentumLab"
 msgstr "MomentumLab"
 
-#: inc/class-admin.php:73 inc/class-meta-box.php:234
+#: inc/class-admin.php:73 inc/class-meta-box.php:233
 msgid "SEO"
 msgstr "SEO"
 
@@ -55,39 +55,39 @@ msgstr "Einstellungen"
 msgid "You are not allowed to change these settings."
 msgstr "Du darfst diese Einstellungen nicht ändern."
 
-#: inc/class-admin.php:265
+#: inc/class-admin.php:277
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
-#: inc/class-admin.php:266
+#: inc/class-admin.php:278
 msgid "Access check finished."
 msgstr "Zugriffstest abgeschlossen."
 
-#: inc/class-admin.php:267
+#: inc/class-admin.php:279
 msgid "Licence activated. Pro features are unlocked."
 msgstr "Lizenz aktiviert. Die Pro-Funktionen sind freigeschaltet."
 
-#: inc/class-admin.php:268
+#: inc/class-admin.php:280
 msgid "The licence could not be activated."
 msgstr "Die Lizenz konnte nicht aktiviert werden."
 
-#: inc/class-admin.php:269
+#: inc/class-admin.php:281
 msgid "Licence key removed."
 msgstr "Lizenzschlüssel entfernt."
 
-#: inc/class-admin.php:270
+#: inc/class-admin.php:282
 msgid "Redirect added. The address was removed from the 404 list."
 msgstr "Weiterleitung angelegt. Die Adresse ist aus der 404-Liste entfernt."
 
-#: inc/class-admin.php:271
+#: inc/class-admin.php:283
 msgid "Please enter a target for the redirect."
 msgstr "Bitte ein Ziel für die Weiterleitung eintragen."
 
-#: inc/class-admin.php:272
+#: inc/class-admin.php:284
 msgid "The address is not logged any more."
 msgstr "Die Adresse wird nicht mehr erfasst."
 
-#: inc/class-admin.php:273
+#: inc/class-admin.php:285
 msgid ""
 "The link check runs in the background and takes a few minutes. Reload this "
 "page later."
@@ -96,14 +96,13 @@ msgstr ""
 "später neu laden."
 
 #. translators: %d: number of redirects.
-#: inc/class-admin.php:277
+#: inc/class-admin.php:289
 #, php-format
 msgid "Import finished: %d redirects added."
 msgstr "Import abgeschlossen: %d Weiterleitungen übernommen."
 
-#. translators: 1: number of pages and posts, 2: number of categories and
-#. tags.
-#: inc/class-admin.php:283
+#. translators: 1: number of pages and posts, 2: number of categories and tags.
+#: inc/class-admin.php:295
 #, php-format
 msgid ""
 "Import finished: %1$d pages and posts, %2$d categories and tags updated."
@@ -111,23 +110,23 @@ msgstr ""
 "Import abgeschlossen: %1$d Seiten und Beiträge, %2$d Kategorien und "
 "Schlagwörter aktualisiert."
 
-#: inc/class-admin.php:302
+#: inc/class-admin.php:311
 msgid "Search engines may index the website."
 msgstr "Suchmaschinen dürfen die Website indexieren."
 
-#: inc/class-admin.php:303
+#: inc/class-admin.php:312
 msgid ""
 "Search engines are discouraged from indexing the website (Settings › "
 "Reading)."
 msgstr ""
-"Suchmaschinen werden gebeten, die Website nicht zu indexieren (Einstellungen"
-" › Lesen)."
+"Suchmaschinen werden gebeten, die Website nicht zu indexieren (Einstellungen "
+"› Lesen)."
 
-#: inc/class-admin.php:305
+#: inc/class-admin.php:314
 msgid "Readable URLs (permalinks) are active."
 msgstr "Lesbare Adressen (Permalinks) sind aktiv."
 
-#: inc/class-admin.php:306
+#: inc/class-admin.php:315
 msgid ""
 "Plain URLs like ?p=123 are in use. Choose a permalink structure under "
 "Settings › Permalinks."
@@ -135,32 +134,32 @@ msgstr ""
 "Es werden einfache Adressen wie ?p=123 verwendet. Wähle unter Einstellungen "
 "› Permalinks eine Struktur."
 
-#: inc/class-admin.php:308
+#: inc/class-admin.php:317
 msgid "The website runs at the root of its domain, so robots.txt is served."
 msgstr ""
 "Die Website liegt im Hauptverzeichnis ihrer Domain, die robots.txt wird "
 "ausgeliefert."
 
-#: inc/class-admin.php:309
+#: inc/class-admin.php:318
 msgid ""
 "The website runs in a subfolder. Search engines only read robots.txt at the "
-"root of a domain, so the robots.txt rules take effect once the website moves"
-" to its own domain."
+"root of a domain, so the robots.txt rules take effect once the website moves "
+"to its own domain."
 msgstr ""
 "Die Website liegt in einem Unterordner. Suchmaschinen lesen die robots.txt "
-"nur im Hauptverzeichnis einer Domain. Die Regeln greifen, sobald die Website"
-" auf ihrer eigenen Domain läuft."
+"nur im Hauptverzeichnis einer Domain. Die Regeln greifen, sobald die Website "
+"auf ihrer eigenen Domain läuft."
 
-#: inc/class-admin.php:311
+#: inc/class-admin.php:320
 msgid "The website uses HTTPS."
 msgstr "Die Website verwendet HTTPS."
 
-#: inc/class-admin.php:312
+#: inc/class-admin.php:321
 msgid "The website does not use HTTPS."
 msgstr "Die Website verwendet kein HTTPS."
 
 #. translators: %s: plugin name.
-#: inc/class-admin.php:317
+#: inc/class-admin.php:326
 #, php-format
 msgid ""
 "%s is active as well. Two SEO plugins print duplicate titles and tags. "
@@ -170,14 +169,14 @@ msgstr ""
 "Übernimm die Daten unter Import und deaktiviere es danach."
 
 #. translators: 1: number of pages, 2: minimum number of words.
-#: inc/class-admin.php:333
+#: inc/class-admin.php:342
 #, php-format
 msgid ""
 "%1$d page has fewer than %2$d words. Search engines and AI assistants find "
 "little to show for it (see Content)."
 msgid_plural ""
-"%1$d pages have fewer than %2$d words. Search engines and AI assistants find"
-" little to show for them (see Content)."
+"%1$d pages have fewer than %2$d words. Search engines and AI assistants find "
+"little to show for them (see Content)."
 msgstr[0] ""
 "%1$d Seite hat weniger als %2$d Wörter. Suchmaschinen und KI-Assistenten "
 "finden dort wenig, das sie zeigen können (siehe Inhalte)."
@@ -186,7 +185,7 @@ msgstr[1] ""
 "finden dort wenig, das sie zeigen können (siehe Inhalte)."
 
 #. translators: %d: number of links.
-#: inc/class-admin.php:338
+#: inc/class-admin.php:347
 #, php-format
 msgid "%d link leads nowhere (see Content)."
 msgid_plural "%d links lead nowhere (see Content)."
@@ -194,7 +193,7 @@ msgstr[0] "%d Link führt ins Leere (siehe Inhalt)."
 msgstr[1] "%d Links führen ins Leere (siehe Inhalt)."
 
 #. translators: %s: list of crawler names.
-#: inc/class-admin.php:363
+#: inc/class-admin.php:372
 #, php-format
 msgid ""
 "The server blocks these crawlers: %s. This is usually a firewall or bot "
@@ -204,48 +203,48 @@ msgstr ""
 "Der Server sperrt diese Crawler: %s. Das ist meist eine Firewall- oder Bot-"
 "Schutz-Einstellung beim Hosting (zum Beispiel in Plesk), nicht WordPress."
 
-#: inc/class-admin.php:364
+#: inc/class-admin.php:373
 msgid "Search engines and AI crawlers can reach the website."
 msgstr "Suchmaschinen und KI-Crawler erreichen die Website."
 
-#: inc/class-admin.php:399
+#: inc/class-admin.php:408
 msgid "General"
 msgstr "Allgemein"
 
-#: inc/class-admin.php:400
+#: inc/class-admin.php:409
 msgid "Titles & meta"
 msgstr "Titel & Meta"
 
-#: inc/class-admin.php:401
+#: inc/class-admin.php:410
 msgid "Publisher"
 msgstr "Herausgeber"
 
-#: inc/class-admin.php:402
+#: inc/class-admin.php:411
 msgid "AI & crawlers"
 msgstr "KI & Crawler"
 
-#: inc/class-admin.php:403 inc/class-crawlers.php:271
+#: inc/class-admin.php:412 inc/class-crawlers.php:306
 msgid "Sitemap"
 msgstr "Sitemap"
 
-#: inc/class-admin.php:404 parts/admin/tab-import.php:42
+#: inc/class-admin.php:413 parts/admin/tab-import.php:42
 #: parts/admin/tab-import.php:48
 msgid "Redirects"
 msgstr "Weiterleitungen"
 
-#: inc/class-admin.php:405
+#: inc/class-admin.php:414
 msgid "Content"
 msgstr "Inhalte"
 
-#: inc/class-admin.php:406
+#: inc/class-admin.php:415
 msgid "Import"
 msgstr "Import"
 
-#: inc/class-admin.php:407
+#: inc/class-admin.php:416
 msgid "Licence"
 msgstr "Lizenz"
 
-#: inc/class-admin.php:407
+#: inc/class-admin.php:416
 msgid "Get Pro"
 msgstr "Pro holen"
 
@@ -279,57 +278,25 @@ msgstr "Der Beitrag %1$s erschien zuerst auf %2$s."
 msgid "Page %d"
 msgstr "Seite %d"
 
-#: inc/class-crawlers.php:207
+#: inc/class-crawlers.php:246
 msgid "Pages"
 msgstr "Seiten"
 
-#: inc/class-crawlers.php:250 inc/options.php:361
+#: inc/class-crawlers.php:285 inc/options.php:361
 msgid "Key facts"
 msgstr "Wichtige Fakten"
 
-#: inc/class-crawlers.php:264
+#: inc/class-crawlers.php:299
 msgid "Optional"
 msgstr "Optional"
 
-#: inc/class-crawlers.php:269
+#: inc/class-crawlers.php:304
 msgid "full text of all pages in one file"
 msgstr "ganzer Text aller Seiten in einer Datei"
 
-#: inc/class-crawlers.php:271
+#: inc/class-crawlers.php:306
 msgid "all pages as an XML sitemap"
 msgstr "alle Seiten als XML-Sitemap"
-
-#: inc/class-faq.php:93
-msgid "FAQ (MomentumLab SEO)"
-msgstr "FAQ (MomentumLab SEO)"
-
-#: inc/class-faq.php:94
-msgid "Questions and answers with FAQ schema for Google and AI assistants."
-msgstr "Fragen und Antworten mit FAQ-Schema für Google und KI-Assistenten."
-
-#: inc/class-faq.php:95
-msgid "Question"
-msgstr "Frage"
-
-#: inc/class-faq.php:96
-msgid "Answer"
-msgstr "Antwort"
-
-#: inc/class-faq.php:97
-msgid "Add question"
-msgstr "Frage hinzufügen"
-
-#: inc/class-faq.php:98
-msgid "Remove question"
-msgstr "Frage entfernen"
-
-#: inc/class-faq.php:99
-msgid "Move up"
-msgstr "Nach oben"
-
-#: inc/class-faq.php:100
-msgid "Show answers open"
-msgstr "Antworten offen anzeigen"
 
 #: inc/class-fields.php:103 parts/meta-box/panel-social.php:26
 #: parts/term-fields.php:51 assets/js/settings.js:44
@@ -349,20 +316,43 @@ msgstr "Der Lizenzserver war nicht erreichbar."
 msgid "This licence key is not valid."
 msgstr "Dieser Lizenzschlüssel ist ungültig."
 
-#. translators: Date format in the Google preview, see
-#. https://www.php.net/manual/datetime.format.php
-#: inc/class-meta-box.php:139
+#. translators: Date format in the Google preview, see https://www.php.net/manual/datetime.format.php
+#: inc/class-meta-box.php:138
 msgctxt "Google preview date"
 msgid "M j, Y"
 msgstr "d.m.Y"
 
-#: inc/class-meta-box.php:250
+#: inc/class-meta-box.php:249
 msgid "noindex"
 msgstr "noindex"
 
-#: inc/class-meta-box.php:255
+#: inc/class-meta-box.php:254
 msgid "Not checked yet"
 msgstr "Noch nicht geprüft"
+
+#: inc/class-multilingual.php:73
+msgid ""
+"Each language gets the title and description from the SEO box of its home "
+"page."
+msgstr "Jede Sprache übernimmt Titel und Beschreibung aus der SEO-Box ihrer Startseite."
+
+#: inc/class-multilingual.php:75
+msgid ""
+"Translate the website name, the home page title and description, the "
+"breadcrumb label and the llms.txt summary under WPML › String Translation."
+msgstr "Übersetze Websitename, Titel und Beschreibung der Startseite, die Bezeichnung in den Brotkrumen und die Zusammenfassung für llms.txt unter WPML › String Translation."
+
+#: inc/class-multilingual.php:77
+msgid ""
+"Translate the website name, the home page title and description, the "
+"breadcrumb label and the llms.txt summary under Languages › Translations."
+msgstr "Übersetze Websitename, Titel und Beschreibung der Startseite, die Bezeichnung in den Brotkrumen und die Zusammenfassung für llms.txt unter Sprachen › Übersetzungen."
+
+#: inc/class-multilingual.php:79
+msgid ""
+"Translate the titles and descriptions on the page itself with the "
+"TranslatePress editor."
+msgstr "Übersetze Titel und Beschreibungen direkt auf der Seite mit dem TranslatePress-Editor."
 
 #: inc/class-quick-edit.php:95 parts/admin/tab-titles.php:46
 #: parts/admin/tab-titles.php:70 parts/term-fields.php:29
@@ -461,8 +451,8 @@ msgid ""
 "Used in titles, social previews and schema.org. Empty: the site title from "
 "WordPress."
 msgstr ""
-"Für Seitentitel, Social-Vorschau und schema.org. Leer: der Titel der Website"
-" aus WordPress."
+"Für Seitentitel, Social-Vorschau und schema.org. Leer: der Titel der Website "
+"aus WordPress."
 
 #: inc/options.php:48
 msgid "Between page title and website name, for example – or |."
@@ -579,8 +569,7 @@ msgstr "Leere Kategorien und Schlagwörter"
 
 #: inc/options.php:160
 msgid "Hide categories and tags without posts from search engines"
-msgstr ""
-"Kategorien und Schlagwörter ohne Beiträge für Suchmaschinen ausblenden"
+msgstr "Kategorien und Schlagwörter ohne Beiträge für Suchmaschinen ausblenden"
 
 #: inc/options.php:165
 msgid "External links"
@@ -625,8 +614,7 @@ msgstr "Erster Eintrag der Brotkrumen"
 #: inc/options.php:190
 msgid ""
 "Name of the home page in breadcrumbs. Empty: the title of the home page."
-msgstr ""
-"Name der Startseite in den Brotkrumen. Leer: der Titel der Startseite."
+msgstr "Name der Startseite in den Brotkrumen. Leer: der Titel der Startseite."
 
 #: inc/options.php:196
 msgid "Breadcrumb separator"
@@ -792,8 +780,8 @@ msgstr ""
 
 #: inc/options.php:362
 msgid ""
-"One fact per line: dates, places, prices, contact. AI assistants quote these"
-" directly."
+"One fact per line: dates, places, prices, contact. AI assistants quote these "
+"directly."
 msgstr ""
 "Ein Fakt pro Zeile: Daten, Orte, Preise, Kontakt. KI-Assistenten zitieren "
 "diese direkt."
@@ -900,13 +888,13 @@ msgstr "Defekte Links"
 
 #: parts/admin/links.php:21
 msgid ""
-"Once a week all links on indexable pages and in the menus are checked in the"
-" background. Listed are links to pages that do not exist (404) or were "
+"Once a week all links on indexable pages and in the menus are checked in the "
+"background. Listed are links to pages that do not exist (404) or were "
 "deleted (410), and links to websites that do not answer."
 msgstr ""
-"Einmal pro Woche werden alle Links auf indexierbaren Seiten und in den Menüs"
-" im Hintergrund geprüft. Aufgeführt sind Links auf Seiten, die es nicht gibt"
-" (404) oder die gelöscht wurden (410), und Links auf Websites, die nicht "
+"Einmal pro Woche werden alle Links auf indexierbaren Seiten und in den Menüs "
+"im Hintergrund geprüft. Aufgeführt sind Links auf Seiten, die es nicht gibt "
+"(404) oder die gelöscht wurden (410), und Links auf Websites, die nicht "
 "antworten."
 
 #. translators: 1: links checked, 2: links in total.
@@ -982,8 +970,8 @@ msgstr "KI-Crawler"
 
 #: parts/admin/tab-ai.php:15
 msgid ""
-"Allowed crawlers may read the website, so assistants like ChatGPT, Claude or"
-" Perplexity can answer questions about it and link to it. The rules go into "
+"Allowed crawlers may read the website, so assistants like ChatGPT, Claude or "
+"Perplexity can answer questions about it and link to it. The rules go into "
 "robots.txt."
 msgstr ""
 "Erlaubte Crawler dürfen die Website lesen. So können Assistenten wie "
@@ -1004,13 +992,13 @@ msgstr "Betreiber und Zweck"
 
 #: parts/admin/tab-ai.php:33
 msgid ""
-"Tells Bing, Yandex, Seznam and Naver about new and changed pages right after"
-" saving, instead of waiting for the next crawl. Bing also feeds ChatGPT "
+"Tells Bing, Yandex, Seznam and Naver about new and changed pages right after "
+"saving, instead of waiting for the next crawl. Bing also feeds ChatGPT "
 "search and Copilot."
 msgstr ""
 "Meldet neue und geänderte Seiten direkt nach dem Speichern an Bing, Yandex, "
-"Seznam und Naver, statt auf den nächsten Besuch des Crawlers zu warten. Bing"
-" liefert auch die Daten für die ChatGPT-Suche und Copilot."
+"Seznam und Naver, statt auf den nächsten Besuch des Crawlers zu warten. Bing "
+"liefert auch die Daten für die ChatGPT-Suche und Copilot."
 
 #: parts/admin/tab-ai.php:37
 msgid "Key file"
@@ -1028,8 +1016,8 @@ msgstr "Letzte Meldung: %1$s (%2$d Adressen)"
 
 #: parts/admin/tab-ai.php:53
 msgid ""
-"A short Markdown summary of the website for AI assistants (llmstxt.org). The"
-" page list is built automatically from the SEO descriptions."
+"A short Markdown summary of the website for AI assistants (llmstxt.org). The "
+"page list is built automatically from the SEO descriptions."
 msgstr ""
 "Eine kurze Zusammenfassung der Website in Markdown für KI-Assistenten "
 "(llmstxt.org). Die Seitenliste entsteht automatisch aus den SEO-"
@@ -1039,9 +1027,9 @@ msgstr ""
 #: parts/admin/tab-content.php:18
 #, php-format
 msgid ""
-"Indexable pages with little text. Below %1$d words a page is thin: it rarely"
-" ranks and gives AI assistants nothing to quote. From about %2$d words a "
-"page can answer a question well."
+"Indexable pages with little text. Below %1$d words a page is thin: it rarely "
+"ranks and gives AI assistants nothing to quote. From about %2$d words a page "
+"can answer a question well."
 msgstr ""
 "Indexierbare Seiten mit wenig Text. Unter %1$d Wörtern ist eine Seite dünn: "
 "Sie rankt selten und gibt KI-Assistenten nichts zum Zitieren. Ab etwa %2$d "
@@ -1049,9 +1037,9 @@ msgstr ""
 
 #: parts/admin/tab-content.php:21
 msgid ""
-"For each page: add an introduction, answers to typical questions (FAQ block)"
-" or descriptions of images and tables. Pages that only serve visitors, like "
-"a gallery without text, can also be hidden from search engines (noindex)."
+"For each page: add an introduction, answers to typical questions (FAQ block) "
+"or descriptions of images and tables. Pages that only serve visitors, like a "
+"gallery without text, can also be hidden from search engines (noindex)."
 msgstr ""
 "Pro Seite: Ergänze eine Einleitung, Antworten auf typische Fragen (FAQ-"
 "Block) oder Beschreibungen zu Bildern und Tabellen. Seiten, die nur "
@@ -1114,27 +1102,27 @@ msgid ""
 "other."
 msgstr ""
 "Für Websites mit einer eigenen Website oder Domain pro Sprache. Trage die "
-"anderen Sprachen ein; jede Seite bekommt dann ein Feld für die Adresse ihrer"
-" Übersetzung. Setze die Verknüpfungen auch auf den anderen Sprach-Websites, "
+"anderen Sprachen ein; jede Seite bekommt dann ein Feld für die Adresse ihrer "
+"Übersetzung. Setze die Verknüpfungen auch auf den anderen Sprach-Websites, "
 "damit die Seiten gegenseitig aufeinander verweisen."
 
-#: parts/admin/tab-general.php:38
+#. translators: %s: name of the multilingual plugin, for example WPML.
+#: parts/admin/tab-general.php:39
+#, php-format
 msgid ""
-"A multilingual plugin (WPML, Polylang or TranslatePress) is active and "
-"prints hreflang itself. These settings are not used."
-msgstr ""
-"Ein Mehrsprachigkeits-Plugin (WPML, Polylang oder TranslatePress) ist aktiv "
-"und gibt hreflang selbst aus. Diese Einstellungen werden nicht verwendet."
+"%s is active and links the language versions itself (hreflang). These "
+"settings are not used."
+msgstr "%s ist aktiv und verknüpft die Sprachversionen selbst (hreflang). Diese Einstellungen werden nicht verwendet."
 
 #. translators: %s: language code of this website, for example de-CH.
-#: parts/admin/tab-general.php:43
+#: parts/admin/tab-general.php:44
 #, php-format
 msgid ""
 "Language codes separated by commas, for example en, fr. This website: %s."
 msgstr ""
 "Sprachcodes durch Kommas getrennt, zum Beispiel en, fr. Diese Website: %s."
 
-#: parts/admin/tab-general.php:49 parts/admin/tab-titles.php:14
+#: parts/admin/tab-general.php:50 parts/admin/tab-titles.php:14
 #: parts/meta-box/panel-advanced.php:68
 msgid "None"
 msgstr "Keine"
@@ -1151,8 +1139,7 @@ msgstr ""
 "Social-Titel, -Beschreibungen und -Bilder. Bei Yoast SEO, Rank Math und "
 "SEOPress werden auch Kategorien und Schlagwörter übernommen."
 
-#. translators: 1: variable as written by other plugins, 2: the same variable
-#. in MomentumLab SEO.
+#. translators: 1: variable as written by other plugins, 2: the same variable in MomentumLab SEO.
 #: parts/admin/tab-import.php:20
 #, php-format
 msgid ""
@@ -1161,10 +1148,10 @@ msgid ""
 "the default pattern are left empty, so the template under Titles & meta "
 "applies."
 msgstr ""
-"Die Daten des anderen Plugins bleiben unverändert, du kannst den Import also"
-" wiederholen. Titel-Variablen wie %1$s werden als %2$s übernommen; Titel, "
-"die nur das Standardmuster wiederholen, bleiben leer, damit die Vorlage "
-"unter „Titel & Meta“ gilt."
+"Die Daten des anderen Plugins bleiben unverändert, du kannst den Import also "
+"wiederholen. Titel-Variablen wie %1$s werden als %2$s übernommen; Titel, die "
+"nur das Standardmuster wiederholen, bleiben leer, damit die Vorlage unter "
+"„Titel & Meta“ gilt."
 
 #: parts/admin/tab-import.php:27 parts/admin/tab-import.php:48
 msgid "Import from"
@@ -1192,8 +1179,8 @@ msgstr "Jetzt importieren"
 
 #: parts/admin/tab-import.php:43
 msgid ""
-"Take over the active redirects of Rank Math or the Redirection plugin. Rules"
-" for the same old address are replaced. Redirects work with Pro."
+"Take over the active redirects of Rank Math or the Redirection plugin. Rules "
+"for the same old address are replaced. Redirects work with Pro."
 msgstr ""
 "Übernimmt die aktiven Weiterleitungen aus Rank Math oder dem Plugin "
 "Redirection. Regeln für dieselbe alte Adresse werden ersetzt. "
@@ -1386,8 +1373,8 @@ msgid ""
 "Regex: the old address is a regular expression, for example ^/blog/(.*)$ "
 "with the target /news/$1."
 msgstr ""
-"Regex: Die alte Adresse ist ein regulärer Ausdruck, zum Beispiel "
-"^/blog/(.*)$ mit dem Ziel /news/$1."
+"Regex: Die alte Adresse ist ein regulärer Ausdruck, zum Beispiel ^/blog/(."
+"*)$ mit dem Ziel /news/$1."
 
 #: parts/admin/tab-redirects.php:47
 msgid "Add redirect"
@@ -1575,8 +1562,7 @@ msgstr "Kanonische URL"
 
 #: parts/meta-box/panel-advanced.php:79
 msgid "Only when the same content exists under another address."
-msgstr ""
-"Nur nötig, wenn derselbe Inhalt unter einer anderen Adresse existiert."
+msgstr "Nur nötig, wenn derselbe Inhalt unter einer anderen Adresse existiert."
 
 #: parts/meta-box/panel-advanced.php:82
 msgid "Page type (schema.org)"
@@ -1757,13 +1743,11 @@ msgstr "Social-Bild"
 
 #. translators: %d: number of characters.
 #: assets/js/editor.js:131 assets/js/editor.js:134
-#, js-format
 msgid "%d characters"
 msgstr "%d Zeichen"
 
 #. translators: %d: width in pixels.
 #: assets/js/editor.js:131
-#, js-format
 msgid "about %d px of 580 px"
 msgstr "etwa %d px von 580 px"
 
@@ -1785,13 +1769,12 @@ msgstr "FAQ"
 
 #. translators: %s: list of rich snippet types.
 #: assets/js/editor.js:170
-#, js-format
 msgid ""
-"Rich snippets from the schema.org data: %s. Google decides itself whether it"
-" shows them."
+"Rich snippets from the schema.org data: %s. Google decides itself whether it "
+"shows them."
 msgstr ""
-"Rich Snippets aus den schema.org-Daten: %s. Ob Google sie zeigt, entscheidet"
-" Google selbst."
+"Rich Snippets aus den schema.org-Daten: %s. Ob Google sie zeigt, entscheidet "
+"Google selbst."
 
 #: assets/js/editor.js:170
 msgid ""
@@ -1803,13 +1786,11 @@ msgstr ""
 
 #. translators: %s: rating value, e.g. 4.5.
 #: assets/js/editor.js:246
-#, js-format
 msgid "Rating: %s"
 msgstr "Bewertung: %s"
 
 #. translators: %d: number of ratings.
 #: assets/js/editor.js:246
-#, js-format
 msgid "%d ratings"
 msgstr "%d Bewertungen"
 
@@ -1841,8 +1822,7 @@ msgstr ""
 "zum Klicken einlädt."
 
 #: assets/js/editor.js:296
-msgid ""
-"The meta description is longer than 160 characters and will be cut off."
+msgid "The meta description is longer than 160 characters and will be cut off."
 msgstr ""
 "Die Meta-Beschreibung ist länger als 160 Zeichen und wird abgeschnitten."
 
@@ -1898,21 +1878,17 @@ msgstr ""
 
 #. translators: %s: keyword density in percent.
 #: assets/js/editor.js:321
-#, js-format
 msgid "Keyword density %s %% is low. Use the keyword a few more times."
-msgstr ""
-"Keyword-Dichte %s %% ist tief. Verwende das Keyword noch ein paar Mal."
+msgstr "Keyword-Dichte %s %% ist tief. Verwende das Keyword noch ein paar Mal."
 
 #. translators: %s: keyword density in percent.
 #: assets/js/editor.js:321
-#, js-format
 msgid "Keyword density %s %% is high. This can look like keyword stuffing."
 msgstr ""
 "Keyword-Dichte %s %% ist hoch. Das kann nach Keyword-Stuffing aussehen."
 
 #. translators: %s: keyword density in percent.
 #: assets/js/editor.js:321
-#, js-format
 msgid "Keyword density %s %% is fine."
 msgstr "Keyword-Dichte %s %% ist gut."
 
@@ -1922,23 +1898,20 @@ msgstr "Setze ein Fokus-Keyword, um die Keyword-Prüfungen zu sehen."
 
 #. translators: %d: number of words.
 #: assets/js/editor.js:327
-#, js-format
 msgid "The text has %d words."
 msgstr "Der Text hat %d Wörter."
 
 #. translators: %d: number of words.
 #: assets/js/editor.js:327
-#, js-format
 msgid ""
 "The text has only %d words. The page is thin: add text or hide it from "
 "search engines."
 msgstr ""
-"Der Text hat nur %d Wörter. Die Seite ist dünn: Ergänze Text oder blende sie"
-" für Suchmaschinen aus."
+"Der Text hat nur %d Wörter. Die Seite ist dünn: Ergänze Text oder blende sie "
+"für Suchmaschinen aus."
 
 #. translators: %d: number of words.
 #: assets/js/editor.js:327
-#, js-format
 msgid "The text has only %d words. Pages with at least 300 words rank better."
 msgstr ""
 "Der Text hat nur %d Wörter. Seiten mit mindestens 300 Wörtern ranken besser."
@@ -1958,15 +1931,14 @@ msgstr "Der Text ist mit Zwischenüberschriften gegliedert."
 #: assets/js/editor.js:331
 msgid "Add subheadings (H2) so readers and search engines can scan the page."
 msgstr ""
-"Füge Zwischenüberschriften (H2) ein, damit Leser und Suchmaschinen die Seite"
-" überblicken."
+"Füge Zwischenüberschriften (H2) ein, damit Leser und Suchmaschinen die Seite "
+"überblicken."
 
 #. translators: %s: share of long sentences in percent.
 #: assets/js/editor.js:346
-#, js-format
 msgid ""
-"%s %% of the sentences have more than 20 words. Shorter sentences are easier"
-" to read."
+"%s %% of the sentences have more than 20 words. Shorter sentences are easier "
+"to read."
 msgstr ""
 "%s %% der Sätze haben mehr als 20 Wörter. Kürzere Sätze sind leichter zu "
 "lesen."
@@ -1977,19 +1949,16 @@ msgstr "Die meisten Sätze sind kurz und gut lesbar."
 
 #. translators: %d: number of paragraphs.
 #: assets/js/editor.js:351
-#, js-format
 msgid "%d paragraph(s) with more than 150 words. Split long paragraphs."
 msgstr "%d Absatz/Absätze mit mehr als 150 Wörtern. Teile lange Absätze auf."
 
 #. translators: %d: number of images.
 #: assets/js/editor.js:359
-#, js-format
 msgid ""
-"%d image(s) without alternative text. Search engines and screen readers need"
-" it."
+"%d image(s) without alternative text. Search engines and screen readers need "
+"it."
 msgstr ""
-"%d Bild(er) ohne Alternativtext. Suchmaschinen und Screenreader brauchen "
-"ihn."
+"%d Bild(er) ohne Alternativtext. Suchmaschinen und Screenreader brauchen ihn."
 
 #: assets/js/editor.js:359
 msgid "All images have an alternative text."
@@ -2010,8 +1979,7 @@ msgstr "Die Seite verlinkt auf externe Quellen."
 #: assets/js/editor.js:377
 msgid "No external links. A link to a trusted source can help."
 msgstr ""
-"Keine externen Links. Ein Link auf eine vertrauenswürdige Quelle kann "
-"helfen."
+"Keine externen Links. Ein Link auf eine vertrauenswürdige Quelle kann helfen."
 
 #: assets/js/editor.js:380
 msgid "There is an image for social media and search previews."
@@ -2033,3 +2001,43 @@ msgstr "Bild für Social Media wählen"
 #: assets/js/editor.js:430 assets/js/settings.js:45
 msgid "Use this image"
 msgstr "Dieses Bild verwenden"
+
+#: assets/js/faq-block.js:16
+msgid "FAQ (MomentumLab SEO)"
+msgstr "FAQ (MomentumLab SEO)"
+
+#: assets/js/faq-block.js:17
+msgid "Questions and answers with FAQ schema for Google and AI assistants."
+msgstr "Fragen und Antworten mit FAQ-Schema für Google und KI-Assistenten."
+
+#: assets/js/faq-block.js:18
+msgid "Question"
+msgstr "Frage"
+
+#: assets/js/faq-block.js:19
+msgid "Answer"
+msgstr "Antwort"
+
+#: assets/js/faq-block.js:20
+msgid "Add question"
+msgstr "Frage hinzufügen"
+
+#: assets/js/faq-block.js:21
+msgid "Remove question"
+msgstr "Frage entfernen"
+
+#: assets/js/faq-block.js:22
+msgid "Move up"
+msgstr "Nach oben"
+
+#: assets/js/faq-block.js:23
+msgid "Show answers open"
+msgstr "Antworten offen anzeigen"
+
+#~ msgid ""
+#~ "A multilingual plugin (WPML, Polylang or TranslatePress) is active and "
+#~ "prints hreflang itself. These settings are not used."
+#~ msgstr ""
+#~ "Ein Mehrsprachigkeits-Plugin (WPML, Polylang oder TranslatePress) ist "
+#~ "aktiv und gibt hreflang selbst aus. Diese Einstellungen werden nicht "
+#~ "verwendet."

@@ -80,7 +80,7 @@ final class Context {
 			return array(
 				'title'       => (string) Settings::get( 'home_title' ),
 				'description' => (string) Settings::get( 'home_description' ),
-				'url'         => home_url( '/' ),
+				'url'         => Multilingual::home_url(),
 			);
 		}
 		if ( is_singular() || ( is_home() && get_option( 'page_for_posts' ) ) ) {
@@ -142,7 +142,7 @@ final class Context {
 			'title'       => self::post_title( $post, $is_front ),
 			'description' => self::post_description( $post, $is_front ),
 			'image'       => $image ? $image : (int) get_post_thumbnail_id( $post_id ),
-			'url'         => '' !== $canonical ? $canonical : ( $is_front ? home_url( '/' ) : (string) get_permalink( $post_id ) ),
+			'url'         => '' !== $canonical ? $canonical : (string) get_permalink( $post_id ),
 			'noindex'     => Post_Meta::get( $post_id, 'noindex' ) || ( $type['noindex'] && ! $is_front ) || ( $post && post_password_required( $post ) ),
 			'nofollow'    => Post_Meta::get( $post_id, 'nofollow' ),
 			'robots'      => Post_Meta::robots( $post_id ),

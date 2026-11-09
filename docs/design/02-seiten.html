@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEO Seiten – Mockup</title>
+<link rel="stylesheet" href="assets/mockup.css">
+<script src="assets/mockup.js" defer></script>
+</head>
+<body>
+<div class="wp">
+	<nav class="wp-menu" data-here="seiten" aria-label="WordPress-Menü"></nav>
+
+	<main class="page">
+		<header class="page-head">
+			<div>
+				<h1>Seiten</h1>
+				<p>Titel, Beschreibung und Vorschau aller Seiten an einem Ort. Zeile anklicken zum Bearbeiten.</p>
+			</div>
+		</header>
+
+		<div class="toolbar">
+			<input class="search" type="search" placeholder="Seite suchen" aria-label="Seite suchen">
+			<div class="seg" role="tablist" data-scope="none" aria-label="Filter">
+				<button data-seg="alle" aria-selected="false">Alle 44</button>
+				<button data-seg="todo" aria-selected="true">Handlungsbedarf 7</button>
+				<button data-seg="leer" aria-selected="false">Ohne Beschreibung 5</button>
+				<button data-seg="noindex" aria-selected="false">Verborgen 3</button>
+			</div>
+			<select aria-label="Inhaltstyp" style="width:auto">
+				<option>Alle Inhaltstypen</option><option>Seiten</option><option>Beiträge</option><option>Produkte</option><option>Kategorien</option>
+			</select>
+		</div>
+
+		<div class="group">
+			<table class="list">
+				<thead>
+					<tr>
+						<th style="width:32px"><input type="checkbox" aria-label="Alle wählen"></th>
+						<th>Seite und Google-Text</th>
+						<th class="hide-s">Typ</th>
+						<th class="hide-s num">Wörter</th>
+						<th>Check</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-open-sheet="Kontakt">
+						<td><input type="checkbox" aria-label="Kontakt wählen" onclick="event.stopPropagation()"></td>
+						<td><div class="t">Kontakt</div><div class="d" style="color:var(--bad)">Keine Meta-Beschreibung</div></td>
+						<td class="hide-s">Seite</td><td class="hide-s num">84</td>
+						<td><span class="badge bad">38</span></td>
+					</tr>
+					<tr data-open-sheet="Sommerfest 2027">
+						<td><input type="checkbox" aria-label="Sommerfest wählen" onclick="event.stopPropagation()"></td>
+						<td><div class="t">Sommerfest 2027</div><div class="d">Am 14. Juni feiern wir im Garten. Programm, Anfahrt und Anmeldung.</div></td>
+						<td class="hide-s">Beitrag</td><td class="hide-s num">212</td>
+						<td><span class="badge ok">64</span></td>
+					</tr>
+					<tr data-open-sheet="Über uns">
+						<td><input type="checkbox" aria-label="Über uns wählen" onclick="event.stopPropagation()"></td>
+						<td><div class="t">Über uns</div><div class="d" style="color:var(--bad)">Keine Meta-Beschreibung</div></td>
+						<td class="hide-s">Seite</td><td class="hide-s num">540</td>
+						<td><span class="badge ok">71</span></td>
+					</tr>
+					<tr data-open-sheet="Impressum">
+						<td><input type="checkbox" aria-label="Impressum wählen" onclick="event.stopPropagation()"></td>
+						<td><div class="t">Impressum</div><div class="d">Verborgen für Suchmaschinen</div></td>
+						<td class="hide-s">Seite</td><td class="hide-s num">180</td>
+						<td><span class="badge">noindex</span></td>
+					</tr>
+					<tr data-open-sheet="Dienstleistungen">
+						<td><input type="checkbox" aria-label="Dienstleistungen wählen" onclick="event.stopPropagation()"></td>
+						<td><div class="t">Dienstleistungen</div><div class="d">Webdesign, Hosting und Betreuung für KMU in der Region Bern – persönlich und mit Festpreis.</div></td>
+						<td class="hide-s">Seite</td><td class="hide-s num">910</td>
+						<td><span class="badge good">92</span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<p class="hint">Mehrere Seiten wählen, dann unten: «Vorlage anwenden», «Verbergen» oder «Zeigen». Spalten lassen sich wie in der WordPress-Liste sortieren.</p>
+	</main>
+</div>
+
+<!-- Sheet: alles für eine Seite auf einem Blick, ohne Reiter. -->
+<div class="scrim" data-close-sheet></div>
+<aside class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+	<div class="sheet-head">
+		<button class="btn plain" data-close-sheet>Abbrechen</button>
+		<h2 id="sheet-title" data-sheet-title>Kontakt</h2>
+		<div style="display:flex;gap:8px">
+			<a class="btn small hide-s" href="03-editor.html">Im Editor ↗</a>
+			<button class="btn small primary" data-close-sheet>Sichern</button>
+		</div>
+	</div>
+	<div class="sheet-body">
+		<div>
+			<label class="field">
+				<span>SEO-Titel <em></em></span>
+				<input type="text" data-bind="title" data-min="30" data-max="60" value="Kontakt – Musterfirma AG in Bern">
+				<div class="meter"><i></i></div>
+			</label>
+			<label class="field">
+				<span>Meta-Beschreibung <em></em></span>
+				<textarea data-bind="desc" data-min="120" data-max="160" placeholder="Worum geht es auf der Seite? 120 bis 160 Zeichen."></textarea>
+				<div class="meter"><i></i></div>
+			</label>
+			<label class="field">
+				<span>Fokus-Keyword</span>
+				<input type="text" value="Webdesign Bern">
+			</label>
+
+			<div class="group">
+				<div class="row">
+					<div class="label">Bei Google zeigen<small>Aus: Die Seite erhält noindex.</small></div>
+					<label class="switch"><input type="checkbox" checked aria-label="Bei Google zeigen"><span></span></label>
+				</div>
+				<div class="row">
+					<div class="label">In llms.txt für KI-Assistenten</div>
+					<select class="inline-input" aria-label="llms.txt"><option>Unter Seiten</option><option>Optional</option><option>Nicht aufführen</option></select>
+				</div>
+				<details class="row stack">
+					<summary style="cursor:pointer">Erweitert</summary>
+					<div style="margin-top:12px">
+						<label class="field"><span>Canonical-Adresse</span><input type="url" placeholder="Nur wenn der Inhalt auch unter einer anderen Adresse steht"></label>
+						<label class="field"><span>Seitentyp (schema.org)</span><select><option>Webseite (Standard)</option><option>Kontaktseite</option><option>Über-uns-Seite</option><option>FAQ-Seite</option></select></label>
+						<label class="field"><span>Titel in den Brotkrumen</span><input type="text" placeholder="Kontakt"></label>
+					</div>
+				</details>
+			</div>
+		</div>
+
+		<div>
+			<h2 class="section" style="margin-top:0">Google-Vorschau</h2>
+			<div class="card serp">
+				<div class="site"><span class="fav">M</span><div>Musterfirma AG<div class="crumb">musterfirma.ch › kontakt</div></div></div>
+				<div class="title" data-show="title"></div>
+				<div class="desc" data-show="desc" data-empty="Musterfirma AG · Bahnhofstrasse 1 · 3000 Bern · Telefon 031 123 45 67 · Schreiben Sie uns, wir antworten innert eines Arbeitstages …"></div>
+			</div>
+
+			<h2 class="section">Social-Vorschau</h2>
+			<div class="og">
+				<div class="img">Musterfirma</div>
+				<div class="meta">
+					<div class="host">musterfirma.ch</div>
+					<div class="ttl" data-show="title"></div>
+					<div class="dsc" data-show="desc" data-empty="Musterfirma AG · Bahnhofstrasse 1 · 3000 Bern"></div>
+				</div>
+			</div>
+			<p class="hint"><a href="#">Eigenes Bild oder eigenen Text für Social Media</a></p>
+
+			<h2 class="section">SEO-Check</h2>
+			<div class="card">
+				<ul class="checks">
+					<li><span class="dot bad"></span>Meta-Beschreibung fehlt.</li>
+					<li><span class="dot bad"></span>Nur 84 Wörter. Ab 300 Wörtern kann eine Seite eine Frage gut beantworten.</li>
+					<li><span class="dot ok"></span>Fokus-Keyword nicht in der ersten Überschrift.</li>
+					<li><span class="dot good"></span>Titel hat eine gute Länge.</li>
+					<li><span class="dot good"></span>Social-Bild vorhanden.</li>
+				</ul>
+			</div>
+
+			<h2 class="section">Rich Results (schema.org)</h2>
+			<div class="group">
+				<div class="row"><span class="dot good"></span><div class="label">Brotkrumen</div><span class="value">Start › Kontakt</span></div>
+				<div class="row"><span class="dot good"></span><div class="label">Unternehmen mit Adresse</div><span class="value">aus Suchdarstellung</span></div>
+				<div class="row"><span class="dot"></span><div class="label">Event oder eigenes Schema</div><span class="badge pro">Pro</span></div>
+			</div>
+		</div>
+	</div>
+</aside>
+</body>
+</html>

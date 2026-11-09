@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KI und Crawler – Mockup</title>
+<link rel="stylesheet" href="assets/mockup.css">
+<script src="assets/mockup.js" defer></script>
+</head>
+<body>
+<div class="wp">
+	<nav class="wp-menu" data-here="ki" aria-label="WordPress-Menü"></nav>
+
+	<main class="page" id="ki">
+		<header class="page-head">
+			<div>
+				<h1>KI &amp; Crawler</h1>
+				<p>Wer die Website lesen darf, und was KI-Assistenten über sie erfahren.</p>
+			</div>
+			<span class="badge good">Automatisch gesichert</span>
+		</header>
+
+		<div class="seg" role="tablist" data-scope="ki" aria-label="Bereich">
+			<button data-seg="crawler" aria-selected="true">Crawler</button>
+			<button data-seg="robots" aria-selected="false">robots.txt</button>
+			<button data-seg="llms" aria-selected="false">llms.txt</button>
+			<button data-seg="indexnow" aria-selected="false">IndexNow</button>
+		</div>
+
+		<!-- Crawler -->
+		<div data-panel="crawler">
+			<div class="card" style="margin-top:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+				<span class="dot good" style="width:12px;height:12px"></span>
+				<div style="flex:1">
+					<h3>Alle erreichen die Website</h3>
+					<p class="sub">Google, Bing, ChatGPT, Claude und Perplexity · geprüft heute 08:12</p>
+				</div>
+				<button class="btn">Jetzt prüfen</button>
+			</div>
+
+			<h2 class="section">KI-Crawler</h2>
+			<div class="group">
+				<div class="row">
+					<div class="label">Freigabe<small>«Nur Suche» erlaubt KI-Suchen mit Quellenlink, sperrt aber das Training.</small></div>
+					<div class="seg" data-scope="none" aria-label="Freigabe">
+						<button data-seg="all" aria-selected="false">Alle</button>
+						<button data-seg="search" aria-selected="true">Nur Suche</button>
+						<button data-seg="none" aria-selected="false">Keine</button>
+					</div>
+				</div>
+				<details class="row stack">
+					<summary style="cursor:pointer;color:var(--blue)">Einzeln wählen (12 Crawler)</summary>
+					<div style="margin-top:8px">
+						<div class="row"><div class="label">OpenAI<small>ChatGPT-Suche, ChatGPT-Browsing</small></div><label class="switch"><input type="checkbox" checked aria-label="OpenAI Suche"><span></span></label></div>
+						<div class="row"><div class="label">OpenAI Training<small>GPTBot</small></div><label class="switch"><input type="checkbox" aria-label="GPTBot"><span></span></label></div>
+						<div class="row"><div class="label">Anthropic<small>Claude-Suche, Claude-Browsing</small></div><label class="switch"><input type="checkbox" checked aria-label="Anthropic Suche"><span></span></label></div>
+						<div class="row"><div class="label">Perplexity<small>Suche, Browsing</small></div><label class="switch"><input type="checkbox" checked aria-label="Perplexity"><span></span></label></div>
+						<div class="row"><div class="label">Google Gemini Training<small>Google-Extended</small></div><label class="switch"><input type="checkbox" aria-label="Google-Extended"><span></span></label></div>
+						<div class="row"><div class="label">Weitere Trainings-Crawler<small>Apple, Meta, Common Crawl, ClaudeBot</small></div><label class="switch"><input type="checkbox" aria-label="Weitere"><span></span></label></div>
+					</div>
+				</details>
+			</div>
+		</div>
+
+		<!-- robots.txt -->
+		<div data-panel="robots" hidden>
+			<div class="grid grid-2" style="margin-top:20px">
+				<div>
+					<label class="field"><span>Eigene Regeln</span><textarea rows="6" placeholder="Disallow: /intern/"></textarea></label>
+					<p class="hint" style="margin:0">Die Regeln für KI-Crawler und die Sitemaps trägt das Plugin selbst ein.</p>
+				</div>
+				<div>
+					<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><b>So sieht robots.txt aus</b><a href="#">Öffnen ↗</a></div>
+<pre class="code"><span class="k">User-agent:</span> *
+<span class="k">Disallow:</span> /wp-admin/
+<span class="k">Allow:</span> /wp-admin/admin-ajax.php
+
+<span class="c"># KI-Crawler (MomentumLab SEO)</span>
+<span class="k">User-agent:</span> GPTBot
+<span class="r">Disallow: /</span>
+<span class="k">User-agent:</span> OAI-SearchBot
+<span class="g">Allow: /</span>
+…
+<span class="k">Sitemap:</span> https://musterfirma.ch/wp-sitemap.xml
+<span class="k">Sitemap:</span> https://musterfirma.ch/sitemap-images.xml</pre>
+				</div>
+			</div>
+		</div>
+
+		<!-- llms.txt -->
+		<div data-panel="llms" hidden>
+			<div class="grid grid-2" style="margin-top:20px">
+				<div>
+					<div class="group">
+						<div class="row"><div class="label">llms.txt anbieten</div><label class="switch"><input type="checkbox" checked aria-label="llms.txt"><span></span></label></div>
+						<div class="row"><div class="label">llms-full.txt<small>Die ganze Website als Text</small></div><span class="badge pro">Pro</span><label class="switch"><input type="checkbox" checked aria-label="llms-full.txt"><span></span></label></div>
+						<div class="row stack"><label class="field" style="margin:0"><span>Zusammenfassung</span><textarea>Musterfirma AG gestaltet und betreut Websites für KMU in der Region Bern.</textarea></label></div>
+						<div class="row stack"><label class="field" style="margin:0"><span>Wichtige Fakten</span><textarea>Gegründet 2012 · 8 Mitarbeitende · Festpreis-Angebote</textarea></label></div>
+					</div>
+					<p class="hint">Welche Seiten erscheinen, wählen Sie pro Seite unter <a href="02-seiten.html">Seiten</a>.</p>
+				</div>
+				<div>
+					<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><b>So sieht llms.txt aus</b><a href="#">Öffnen ↗</a></div>
+<pre class="code"><span class="k"># Musterfirma AG</span>
+
+&gt; Musterfirma AG gestaltet und betreut Websites für KMU in der Region Bern.
+
+- Gegründet 2012 · 8 Mitarbeitende
+
+<span class="k">## Seiten</span>
+- [Dienstleistungen](https://musterfirma.ch/dienstleistungen/): Webdesign, Hosting …
+- [Über uns](https://musterfirma.ch/ueber-uns/)
+…</pre>
+				</div>
+			</div>
+		</div>
+
+		<!-- IndexNow -->
+		<div data-panel="indexnow" hidden>
+			<div class="group" style="margin-top:20px">
+				<div class="row"><div class="label">Änderungen sofort melden<small>An Bing, Yandex, Seznam und Naver. Bing beliefert auch die ChatGPT-Suche und Copilot.</small></div><label class="switch"><input type="checkbox" checked aria-label="IndexNow"><span></span></label></div>
+				<div class="row"><div class="label">Schlüsseldatei</div><a class="mono" href="#">3f9a…c21.txt ↗</a></div>
+			</div>
+			<h2 class="section">Zuletzt gemeldet</h2>
+			<div class="group">
+				<div class="row"><span class="dot good"></span><div class="label">Dienstleistungen<small>heute 10:41</small></div><span class="value">angenommen</span></div>
+				<div class="row"><span class="dot good"></span><div class="label">Sommerfest 2027<small>gestern 16:02</small></div><span class="value">angenommen</span></div>
+				<div class="row"><span class="dot ok"></span><div class="label">Testseite<small>pausiert: Website nicht öffentlich</small></div><span class="value">nicht gesendet</span></div>
+			</div>
+		</div>
+	</main>
+</div>
+</body>
+</html>

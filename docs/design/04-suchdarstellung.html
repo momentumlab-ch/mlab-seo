@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suchdarstellung – Mockup</title>
+<link rel="stylesheet" href="assets/mockup.css">
+<script src="assets/mockup.js" defer></script>
+</head>
+<body>
+<div class="wp">
+	<nav class="wp-menu" data-here="suche" aria-label="WordPress-Menü"></nav>
+
+	<main class="page" id="suche">
+		<header class="page-head">
+			<div>
+				<h1>Suchdarstellung</h1>
+				<p>Wie Google, Social Media und KI-Assistenten die Website zeigen.</p>
+			</div>
+			<span class="badge good">Automatisch gesichert</span>
+		</header>
+
+		<div class="seg" role="tablist" data-scope="suche" aria-label="Bereich">
+			<button data-seg="startseite" aria-selected="true">Startseite</button>
+			<button data-seg="vorlagen" aria-selected="false">Vorlagen</button>
+			<button data-seg="unternehmen" aria-selected="false">Unternehmen</button>
+		</div>
+
+		<!-- Startseite -->
+		<div data-panel="startseite">
+			<div class="grid grid-2" style="margin-top:20px">
+				<div>
+					<div class="group">
+						<div class="row"><div class="label">Websitename</div><input class="inline-input" type="text" value="Musterfirma AG" aria-label="Websitename"></div>
+						<div class="row"><div class="label">Trennzeichen</div>
+							<div class="seg" data-scope="none" aria-label="Trennzeichen"><button data-seg="a" aria-selected="true">–</button><button data-seg="b" aria-selected="false">|</button><button data-seg="c" aria-selected="false">·</button><button data-seg="d" aria-selected="false">»</button></div>
+						</div>
+						<div class="row stack">
+							<label class="field" style="margin:0"><span>Titel der Startseite <em></em></span><input type="text" data-bind="title" data-min="30" data-max="60" value="Musterfirma AG – Webdesign und Hosting in Bern"><div class="meter"><i></i></div></label>
+						</div>
+						<div class="row stack">
+							<label class="field" style="margin:0"><span>Beschreibung der Startseite <em></em></span><textarea data-bind="desc" data-min="120" data-max="160">Webdesign, Hosting und Betreuung für KMU in der Region Bern. Persönlich, schnell und mit Festpreis. Jetzt Beratungstermin vereinbaren.</textarea><div class="meter"><i></i></div></label>
+						</div>
+						<div class="row"><div class="label">Standardbild für Social Media<small>1200 × 630 px, wenn eine Seite kein eigenes hat</small></div><button class="btn small">Ändern</button></div>
+					</div>
+				</div>
+				<div>
+					<div class="card serp">
+						<div class="site"><span class="fav">M</span><div>Musterfirma AG<div class="crumb">musterfirma.ch</div></div></div>
+						<div class="title" data-show="title"></div>
+						<div class="desc" data-show="desc"></div>
+					</div>
+					<div class="og" style="margin-top:16px">
+						<div class="img">Musterfirma</div>
+						<div class="meta"><div class="host">musterfirma.ch</div><div class="ttl" data-show="title"></div><div class="dsc" data-show="desc"></div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Vorlagen -->
+		<div data-panel="vorlagen" hidden>
+			<p class="hint" style="margin:16px 16px 0">Gilt für alle Seiten ohne eigenen Titel. Variablen antippen, um sie einzufügen: <code>%title%</code> <code>%sep%</code> <code>%sitename%</code> <code>%category%</code> <code>%currentyear%</code></p>
+			<h2 class="section">Inhaltstypen</h2>
+			<div class="group">
+				<div class="row link"><div class="label">Seiten<small>%title% %sep% %sitename%</small></div><span class="badge good">bei Google</span></div>
+				<div class="row link"><div class="label">Beiträge<small>%title% %sep% %category% %sep% %sitename% · Artikeltyp: BlogPosting</small></div><span class="badge good">bei Google</span></div>
+				<div class="row link"><div class="label">Produkte<small>%title% – jetzt kaufen %sep% %sitename%</small></div><span class="badge good">bei Google</span></div>
+				<div class="row link"><div class="label">Kategorien<small>%term% %sep% %sitename%</small></div><span class="badge good">bei Google</span></div>
+				<div class="row link"><div class="label">Schlagwörter</div><span class="badge">verborgen</span></div>
+			</div>
+			<h2 class="section">Archive</h2>
+			<div class="group">
+				<div class="row"><div class="label">Autorenseiten</div><select class="inline-input" aria-label="Autorenseiten"><option>Verbergen</option><option>Zeigen</option><option>Abschalten</option></select></div>
+				<div class="row"><div class="label">Datumsarchive</div><select class="inline-input" aria-label="Datumsarchive"><option>Abschalten</option><option>Verbergen</option><option>Zeigen</option></select></div>
+				<div class="row"><div class="label">Leere Kategorien und Schlagwörter verbergen</div><label class="switch"><input type="checkbox" checked aria-label="Leere verbergen"><span></span></label></div>
+			</div>
+		</div>
+
+		<!-- Unternehmen -->
+		<div data-panel="unternehmen" hidden>
+			<div class="grid grid-2" style="margin-top:20px">
+				<div>
+					<div class="group">
+						<div class="row"><div class="label">Art</div><select class="inline-input" aria-label="Art"><option>Dienstleister (ProfessionalService)</option><option>Organisation</option><option>Person</option><option>Restaurant</option></select></div>
+						<div class="row"><div class="label">Name</div><input class="inline-input" type="text" value="Musterfirma AG" aria-label="Name"></div>
+						<div class="row"><div class="label">Logo</div><button class="btn small">Ändern</button></div>
+						<div class="row"><div class="label">Adresse</div><span class="value">Bahnhofstrasse 1, 3000 Bern ›</span></div>
+						<div class="row"><div class="label">Öffnungszeiten</div><input class="inline-input" type="text" value="Mo-Fr 08:00-12:00, 13:30-17:30" aria-label="Öffnungszeiten"></div>
+						<div class="row"><div class="label">Telefon und E-Mail</div><span class="value">031 123 45 67 ›</span></div>
+						<div class="row"><div class="label">Profile</div><span class="value">LinkedIn, Instagram ›</span></div>
+					</div>
+					<p class="hint">Google nutzt das für das Firmenprofil rechts in der Suche, KI-Assistenten für Fragen zu Ihnen.</p>
+				</div>
+				<div>
+					<div class="card">
+						<h3>Musterfirma AG</h3>
+						<p class="sub">Webdesign-Agentur in Bern</p>
+						<ul class="checks" style="margin-top:10px">
+							<li>📍 Bahnhofstrasse 1, 3000 Bern</li>
+							<li>🕘 Geöffnet · schliesst um 17:30</li>
+							<li>📞 031 123 45 67</li>
+						</ul>
+					</div>
+					<details class="card" style="margin-top:16px">
+						<summary style="cursor:pointer;font-weight:600">schema.org (JSON-LD) ansehen</summary>
+						<pre class="code" style="margin-top:12px"><span class="k">"@type"</span>: <span class="g">"ProfessionalService"</span>,
+<span class="k">"name"</span>: <span class="g">"Musterfirma AG"</span>,
+<span class="k">"openingHoursSpecification"</span>: [ … ],
+<span class="k">"address"</span>: { <span class="k">"addressLocality"</span>: <span class="g">"Bern"</span> }</pre>
+					</details>
+				</div>
+			</div>
+		</div>
+	</main>
+</div>
+</body>
+</html>

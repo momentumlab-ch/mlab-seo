@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sitemap – Mockup</title>
+<link rel="stylesheet" href="assets/mockup.css">
+<script src="assets/mockup.js" defer></script>
+</head>
+<body>
+<div class="wp">
+	<nav class="wp-menu" data-here="sitemap" aria-label="WordPress-Menü"></nav>
+
+	<main class="page">
+		<header class="page-head">
+			<div>
+				<h1>Sitemap</h1>
+				<p>Die Liste aller Seiten für Google und Bing. Verborgene Seiten fehlen automatisch.</p>
+			</div>
+			<span class="badge good">Automatisch gesichert</span>
+		</header>
+
+		<div class="card" style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+			<div style="flex:1;min-width:220px">
+				<p class="sub">Adresse für Google Search Console und Bing Webmaster Tools</p>
+				<b class="mono" style="font-size:15px">https://musterfirma.ch/wp-sitemap.xml</b>
+			</div>
+			<button class="btn" onclick="this.textContent='Kopiert ✓'">Kopieren</button>
+			<a class="btn" href="#">Öffnen ↗</a>
+		</div>
+
+		<h2 class="section">Inhalte</h2>
+		<div class="group">
+			<div class="row"><div class="label">Seiten<small>24 Einträge</small></div><label class="switch"><input type="checkbox" checked aria-label="Seiten"><span></span></label></div>
+			<div class="row"><div class="label">Beiträge<small>17 Einträge</small></div><label class="switch"><input type="checkbox" checked aria-label="Beiträge"><span></span></label></div>
+			<div class="row"><div class="label">Produkte<small>0 Einträge · verborgen unter Suchdarstellung</small></div><label class="switch"><input type="checkbox" disabled aria-label="Produkte"><span></span></label></div>
+			<div class="row"><div class="label">Kategorien und Schlagwörter<small>6 Einträge, leere ausgenommen</small></div><label class="switch"><input type="checkbox" checked aria-label="Kategorien"><span></span></label></div>
+			<div class="row"><div class="label">Autoren</div><label class="switch"><input type="checkbox" aria-label="Autoren"><span></span></label></div>
+		</div>
+
+		<h2 class="section">Bilder und Videos</h2>
+		<div class="group">
+			<div class="row"><div class="label">Bilder-Sitemap<small>132 Bilder · sitemap-images.xml</small></div><label class="switch"><input type="checkbox" checked aria-label="Bilder-Sitemap"><span></span></label></div>
+			<div class="row"><div class="label">Video-Sitemap<small>4 Videos (YouTube, Vimeo, hochgeladen) · sitemap-videos.xml</small></div><label class="switch"><input type="checkbox" checked aria-label="Video-Sitemap"><span></span></label></div>
+		</div>
+		<p class="hint">Alte Adressen wie /sitemap_index.xml von Yoast oder Rank Math leiten weiter. Beide Sitemaps stehen in robots.txt.</p>
+	</main>
+</div>
+</body>
+</html>

@@ -203,8 +203,8 @@ final class Pages_Table extends \WP_List_Table {
 			// The counts of the filters cover published pages only.
 			$args['post_status'] = array( 'publish' );
 		}
-		$query       = new \WP_Query( $args );
-		$this->items = $query->posts;
+		$query                 = new \WP_Query( $args );
+		$this->items           = $query->posts;
 		$this->_column_headers = array( $this->get_columns(), array(), $this->get_sortable_columns(), 'title' );
 		$this->set_pagination_args(
 			array(

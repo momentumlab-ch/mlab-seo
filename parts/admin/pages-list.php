@@ -12,9 +12,9 @@ defined( 'ABSPATH' ) || exit;
 
 require_once MLAB_SEO_DIR . 'inc/class-pages-table.php';
 
-$table   = new Pages_Table();
-$current = Pages_Table::current_filter();
-$type    = Pages_Table::current_type();
+$table     = new Pages_Table();
+$current   = Pages_Table::current_filter();
+$list_type = Pages_Table::current_type();
 $table->prepare_items();
 ?>
 <div class="mlab-seo-toolbar">
@@ -32,7 +32,7 @@ $table->prepare_items();
 		<select name="post_type" id="mlab-seo-type" data-autosubmit>
 			<option value=""><?php esc_html_e( 'All content types', 'mlab-seo' ); ?></option>
 			<?php foreach ( Post_Meta::post_types() as $type_name ) : ?>
-				<option value="<?php echo esc_attr( $type_name ); ?>" <?php selected( $type, $type_name ); ?>><?php echo esc_html( (string) get_post_type_object( $type_name )->labels->name ); ?></option>
+				<option value="<?php echo esc_attr( $type_name ); ?>" <?php selected( $list_type, $type_name ); ?>><?php echo esc_html( (string) get_post_type_object( $type_name )->labels->name ); ?></option>
 			<?php endforeach; ?>
 		</select>
 		<?php $table->search_box( __( 'Search pages', 'mlab-seo' ), 'mlab-seo-search' ); ?>

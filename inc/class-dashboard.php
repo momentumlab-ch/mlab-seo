@@ -54,9 +54,9 @@ final class Dashboard {
 		$sum   = 0;
 		$rated = 0;
 		foreach ( self::rows() as $row ) {
-			$type             = Titles::post_type( $row->post_type );
-			$hidden           = (int) $row->total;
-			$stats['total']  += (int) $row->total;
+			$type            = Titles::post_type( $row->post_type );
+			$hidden          = (int) $row->total;
+			$stats['total'] += (int) $row->total;
 			if ( ! $type['noindex'] ) {
 				$hidden                   = (int) $row->noindex;
 				$stats['no_description'] += '' === trim( (string) $type['description'] ) ? (int) $row->no_description : 0;
@@ -84,8 +84,8 @@ final class Dashboard {
 		if ( ! $types ) {
 			return array();
 		}
-		$in  = implode( ',', array_fill( 0, count( $types ), '%s' ) );
-		$sql = "SELECT p.post_type,
+		$in   = implode( ',', array_fill( 0, count( $types ), '%s' ) );
+		$sql  = "SELECT p.post_type,
 				COUNT(*) AS total,
 				SUM( n.meta_value = '1' ) AS noindex,
 				SUM( COALESCE( n.meta_value, '' ) <> '1' AND COALESCE( d.meta_value, '' ) = '' ) AS no_description,
@@ -139,7 +139,14 @@ final class Dashboard {
 	 * @return array
 	 */
 	private static function item( $state, $text, $url = '', $action = '' ) {
-		return array_filter( compact( 'state', 'text', 'url', 'action' ) );
+		return array_filter(
+			array(
+				'state'  => $state,
+				'text'   => $text,
+				'url'    => $url,
+				'action' => $action,
+			)
+		);
 	}
 
 	/**

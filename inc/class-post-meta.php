@@ -98,7 +98,7 @@ final class Post_Meta {
 						'type'              => $data_type,
 						'single'            => true,
 						'show_in_rest'      => 'schema' !== $field,
-						'sanitize_callback' => fn ( $value ) => Post_Meta::sanitize_field( $field, $value ),
+						'sanitize_callback' => fn ( $value ) => self::sanitize_field( $field, $value ),
 						'auth_callback'     => array( self::class, 'can_edit' ),
 					)
 				);

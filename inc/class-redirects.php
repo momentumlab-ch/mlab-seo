@@ -328,9 +328,9 @@ final class Redirects {
 	 * @param string $from Source path of the rule.
 	 */
 	private static function count_hit( $from ) {
-		$hits = get_option( self::HITS, array() );
-		$hits = is_array( $hits ) ? $hits : array();
-		$key  = md5( $from );
+		$hits         = get_option( self::HITS, array() );
+		$hits         = is_array( $hits ) ? $hits : array();
+		$key          = md5( $from );
 		$hits[ $key ] = (int) ( $hits[ $key ] ?? 0 ) + 1;
 		update_option( self::HITS, $hits, false );
 	}

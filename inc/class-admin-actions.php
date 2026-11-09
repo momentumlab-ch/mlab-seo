@@ -10,6 +10,7 @@
 namespace MomentumLab\SEO;
 
 defined( 'ABSPATH' ) || exit;
+// phpcs:disable WordPress.Security.NonceVerification.Missing -- Every admin-post handler calls verify() (capability + nonce) before reading the form.
 
 /**
  * Handles settings, redirects, licence, access check, link check and imports.
@@ -106,7 +107,6 @@ final class Admin_Actions {
 	 * Nonce and capability are checked in handle_redirects().
 	 */
 	private function handle_404_click() {
-		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Verified in handle_redirects().
 		$fix = isset( $_POST['mlab_seo_404_fix'] ) ? sanitize_text_field( wp_unslash( $_POST['mlab_seo_404_fix'] ) ) : '';
 		if ( '' !== $fix ) {
 			$targets = isset( $_POST['mlab_seo_404_target'] ) && is_array( $_POST['mlab_seo_404_target'] ) ? wp_unslash( $_POST['mlab_seo_404_target'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitised in Redirects::fix().
@@ -114,7 +114,6 @@ final class Admin_Actions {
 			$this->back( 'mlab-seo-redirects', '', Redirects::fix( $fix, $target ) ? 'redirect_added' : 'no_target' );
 		}
 		$ignore = isset( $_POST['mlab_seo_404_ignore'] ) ? sanitize_text_field( wp_unslash( $_POST['mlab_seo_404_ignore'] ) ) : '';
-		// phpcs:enable WordPress.Security.NonceVerification.Missing
 		if ( '' !== $ignore ) {
 			Redirects::ignore( $ignore );
 			$this->back( 'mlab-seo-redirects', '', 'ignored' );

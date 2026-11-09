@@ -408,3 +408,4 @@ fieldset[disabled] textarea { cursor: not-allowed; }
 .interface-complementary-area .mlab-seo-tag.is-ok { background: rgba(255,159,10,.16); color: #b25e00; }
 .interface-complementary-area .mlab-seo-tag.is-bad { background: rgba(255,59,48,.12); color: #d70015; }
 .interface-complementary-area .mlab-seo-checks li::before { top: 9px; }
+.mlab-seo-sheet[hidden], .mlab-seo-scrim[hidden] { display: none; }

@@ -3,6 +3,25 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.8.0] - 2026-11-09
+
+### Neu
+- Admin im neuen Design: eigene Menüseiten für Übersicht, Seiten, Darstellung in der Suche, KI & Crawler, Sitemap, Weiterleitungen und Einstellungen. Jede Aufgabe ist in höchstens drei Klicks erreichbar. Alte Links auf die frühere Einstellungsseite werden weitergeleitet.
+- Übersicht mit SEO-Wert, offenen Aufgaben (jeweils mit direktem Link) und KI-Sichtbarkeit.
+- Seitenliste mit Filtern (ohne Beschreibung, schwacher Wert, ungeprüft, noindex), Sammelaktionen und einem Bearbeitungsfenster mit Google- und Social-Media-Vorschau.
+- SEO-Seitenleiste im Block-Editor mit Wert, Vorschau und den wichtigsten Feldern.
+- Einstellungen speichern automatisch.
+- Übersetzungen auf Italienisch und Französisch; Deutsch vervollständigt.
+
+### Schneller
+- Weiterleitungen zählen Aufrufe in einer eigenen, nicht automatisch geladenen Option.
+- Das 404-Protokoll schreibt höchstens 30-mal pro Minute.
+- Die Zahlen der Übersicht kommen aus einer einzigen Abfrage und werden zwischengespeichert.
+
+### Sicherheit
+- Die Prüfung im Browser liest Seiteninhalte ohne Skripte auszuführen.
+- Das Bearbeitungsfenster schreibt nur freigegebene Felder und prüft die Rechte pro Seite.
+
 ## [1.7.0] - 2026-10-30
 
 ### Neu

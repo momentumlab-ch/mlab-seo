@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.7.0
+Stable tag: 1.8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,12 @@ Developer hooks
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.8.0 =
+* Neu: Admin im neuen Design mit eigenen Menüseiten (Übersicht, Seiten, Darstellung in der Suche, KI & Crawler, Sitemap, Weiterleitungen, Einstellungen), jede Aufgabe in höchstens drei Klicks.
+* Neu: Seitenliste mit Bearbeitungsfenster, Filtern und Sammelaktionen; SEO-Seitenleiste im Block-Editor.
+* Neu: Übersetzungen auf Italienisch und Französisch.
+* Schneller: Weiterleitungen und 404-Protokoll schreiben nicht mehr in automatisch geladene Optionen.
 
 = 1.7.0 =
 * Neu: Mehrsprachige Websites mit MomentumLab Multilingual, WPML, Polylang oder TranslatePress. Sprache für Social Media und schema.org, Startseiten-Adresse und Brotkrumen folgen der Sprache der Seite.

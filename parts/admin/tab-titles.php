@@ -17,7 +17,7 @@ $article_types = array(
 	'NewsArticle' => 'NewsArticle',
 );
 ?>
-<p><?php esc_html_e( 'Default SEO title and meta description per content type. Pages with their own title or description in the SEO box keep it. Variables are replaced on every page:', 'mlab-seo' ); ?></p>
+<p class="mlab-seo-hint"><?php esc_html_e( 'Default SEO title and meta description per content type. Pages with their own title or description in the SEO box keep it. Variables are replaced on every page:', 'mlab-seo' ); ?></p>
 <details class="mlab-seo-variables">
 	<summary><?php esc_html_e( 'Show variables', 'mlab-seo' ); ?></summary>
 	<dl>
@@ -37,7 +37,7 @@ $article_types = array(
 	$defaults = Titles::post_type_defaults( $type_name );
 	$name     = 'mlab_seo[titles][types][' . $type_name . ']';
 	?>
-	<h2><?php echo esc_html( $object->labels->name ); ?></h2>
+	<h2 class="mlab-seo-section"><?php echo esc_html( $object->labels->name ); ?></h2>
 	<table class="form-table" role="presentation">
 		<tr><th scope="row"><label for="mlab-seo-title-<?php echo esc_attr( $type_name ); ?>"><?php esc_html_e( 'SEO title', 'mlab-seo' ); ?></label></th>
 			<td><input type="text" class="large-text code" id="mlab-seo-title-<?php echo esc_attr( $type_name ); ?>" name="<?php echo esc_attr( $name ); ?>[title]" value="<?php echo esc_attr( $values['title'] ); ?>" placeholder="<?php echo esc_attr( $defaults['title'] ); ?>" /></td></tr>
@@ -61,7 +61,7 @@ $article_types = array(
 	$defaults = Titles::taxonomy_defaults();
 	$name     = 'mlab_seo[titles][taxonomies][' . $tax_name . ']';
 	?>
-	<h2><?php echo esc_html( $object->labels->name ); ?></h2>
+	<h2 class="mlab-seo-section"><?php echo esc_html( $object->labels->name ); ?></h2>
 	<table class="form-table" role="presentation">
 		<tr><th scope="row"><label for="mlab-seo-title-tax-<?php echo esc_attr( $tax_name ); ?>"><?php esc_html_e( 'SEO title', 'mlab-seo' ); ?></label></th>
 			<td><input type="text" class="large-text code" id="mlab-seo-title-tax-<?php echo esc_attr( $tax_name ); ?>" name="<?php echo esc_attr( $name ); ?>[title]" value="<?php echo esc_attr( $values['title'] ); ?>" placeholder="<?php echo esc_attr( $defaults['title'] ); ?>" /></td></tr>
@@ -72,7 +72,7 @@ $article_types = array(
 	</table>
 <?php endforeach; ?>
 
-<h2><?php esc_html_e( 'Archives', 'mlab-seo' ); ?></h2>
+<h2 class="mlab-seo-section"><?php esc_html_e( 'Archives', 'mlab-seo' ); ?></h2>
 <table class="form-table" role="presentation">
 	<?php Fields::rows( array( 'author_archive', 'date_archive', 'noindex_empty' ) ); ?>
 </table>

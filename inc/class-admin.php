@@ -1,6 +1,6 @@
 <?php
 /**
- * Settings screen: general, publisher, AI and crawlers, sitemap, redirects, licence.
+ * SEO screens: menu with one page per area, assets, rendering.
  *
  * @package MomentumLab\SEO
  */
@@ -10,12 +10,12 @@ namespace MomentumLab\SEO;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Admin menu, settings forms and status checks.
+ * Admin menu and screens. Form handlers live in Admin_Actions, the structure in inc/admin-pages.php.
  */
 final class Admin {
 
 	/**
-	 * Menu slug.
+	 * Slug of the main page (overview).
 	 */
 	const PAGE = 'mlab-seo';
 
@@ -30,14 +30,9 @@ final class Admin {
 	public function hooks() {
 		add_action( 'admin_menu', array( $this, 'menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
-		add_action( 'admin_post_mlab_seo_save', array( $this, 'handle_settings' ) );
-		add_action( 'admin_post_mlab_seo_redirects', array( $this, 'handle_redirects' ) );
-		add_action( 'admin_post_mlab_seo_license', array( $this, 'handle_license' ) );
-		add_action( 'admin_post_mlab_seo_check', array( $this, 'handle_check' ) );
-		add_action( 'admin_post_mlab_seo_import', array( $this, 'handle_import' ) );
-		add_action( 'admin_post_mlab_seo_redirect_import', array( $this, 'handle_redirect_import' ) );
-		add_action( 'admin_post_mlab_seo_link_check', array( $this, 'handle_link_check' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( MLAB_SEO_FILE ), array( $this, 'action_links' ) );
+		add_filter( 'admin_body_class', array( $this, 'body_class' ) );
+		( new Admin_Actions() )->hooks();
 	}
 
 	/**
@@ -66,11 +61,42 @@ final class Admin {
 	}
 
 	/**
-	 * Adds the menu entry.
+	 * Address of a page, optionally with a segment.
+	 *
+	 * @param string $page    Menu slug.
+	 * @param string $segment Segment key.
+	 * @param array  $args    Extra query arguments.
+	 * @return string
+	 */
+	public static function url( $page = self::PAGE, $segment = '', array $args = array() ) {
+		$url = add_query_arg( array_merge( array( 'page' => $page ), $args ), admin_url( 'admin.php' ) );
+		return '' !== $segment ? $url . '#' . $segment : $url;
+	}
+
+	/**
+	 * Address of the page list with a filter.
+	 *
+	 * @param string $filter Filter key, see Pages_Table::FILTERS.
+	 * @return string
+	 */
+	public static function pages_url( $filter = '' ) {
+		return self::url( 'mlab-seo-pages', '', '' !== $filter ? array( 'filter' => $filter ) : array() );
+	}
+
+	/**
+	 * Adds the menu entry with one sub entry per page.
 	 */
 	public function menu() {
 		$icon = 'data:image/svg+xml;base64,' . base64_encode( '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="black" d="M8.5 2a6.5 6.5 0 0 1 5.2 10.4l4 4-1.3 1.3-4-4A6.5 6.5 0 1 1 8.5 2Zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9ZM6 10.5 7.6 7l1.6 2.2L10.4 8 11.5 10.5Z"/></svg>' ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- Menu icon.
-		add_menu_page( __( 'MomentumLab SEO', 'mlab-seo' ), __( 'SEO', 'mlab-seo' ), self::capability(), self::PAGE, array( $this, 'render' ), $icon, 81 );
+		$cap  = self::capability();
+		add_menu_page( __( 'MomentumLab SEO', 'mlab-seo' ), __( 'SEO', 'mlab-seo' ), $cap, self::PAGE, array( $this, 'render' ), $icon, 81 );
+		foreach ( mlab_seo_admin_pages() as $slug => $page ) {
+			$label = $page['menu'];
+			if ( 'mlab-seo-redirects' === $slug && ! License::is_pro() ) {
+				$label .= ' <span class="mlab-seo-menu-pro">Pro</span>';
+			}
+			add_submenu_page( self::PAGE, $page['title'] . ' ‹ ' . __( 'SEO', 'mlab-seo' ), $label, $cap, $slug, array( $this, 'render' ) );
+		}
 	}
 
 	/**
@@ -80,12 +106,32 @@ final class Admin {
 	 * @return array
 	 */
 	public function action_links( $links ) {
-		array_unshift( $links, '<a href="' . esc_url( admin_url( 'admin.php?page=' . self::PAGE ) ) . '">' . esc_html__( 'Settings', 'mlab-seo' ) . '</a>' );
+		array_unshift( $links, '<a href="' . esc_url( self::url() ) . '">' . esc_html__( 'Settings', 'mlab-seo' ) . '</a>' );
 		return $links;
 	}
 
 	/**
-	 * Assets for the settings screen and the list column.
+	 * Slug of the current SEO page, or an empty string on other screens.
+	 *
+	 * @return string
+	 */
+	public static function current_page() {
+		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Screen routing only.
+		return isset( mlab_seo_admin_pages()[ $page ] ) ? $page : '';
+	}
+
+	/**
+	 * Marks the SEO screens for the styles.
+	 *
+	 * @param string $classes Body classes.
+	 * @return string
+	 */
+	public function body_class( $classes ) {
+		return '' !== self::current_page() ? $classes . ' mlab-seo-screen' : $classes;
+	}
+
+	/**
+	 * Assets for the SEO screens and the list column. Nothing loads on other screens.
 	 *
 	 * @param string $hook Admin page hook.
 	 */
@@ -93,284 +139,74 @@ final class Admin {
 		if ( 'edit.php' === $hook ) {
 			wp_enqueue_style( 'mlab-seo-admin', MLAB_SEO_URL . 'assets/css/admin.css', array(), self::asset_version( 'assets/css/admin.css' ) );
 		}
-		if ( 'toplevel_page_' . self::PAGE !== $hook ) {
+		$page = self::current_page();
+		if ( '' === $page ) {
 			return;
 		}
 		wp_enqueue_media();
 		wp_enqueue_style( 'mlab-seo-admin', MLAB_SEO_URL . 'assets/css/admin.css', array(), self::asset_version( 'assets/css/admin.css' ) );
-		wp_enqueue_script(
+		self::script( 'mlab-seo-settings', 'assets/js/settings.js', array( 'jquery', 'wp-i18n', 'wp-api-fetch' ) );
+		wp_localize_script(
 			'mlab-seo-settings',
-			MLAB_SEO_URL . 'assets/js/settings.js',
-			array( 'jquery', 'wp-i18n' ),
-			self::asset_version( 'assets/js/settings.js' ),
+			'mlabSeoSettings',
+			array(
+				'page'   => $page,
+				'legacy' => self::PAGE === $page ? self::legacy_tabs() : new \stdClass(),
+			)
+		);
+		if ( 'mlab-seo-pages' === $page ) {
+			self::script( 'mlab-seo-analysis', 'assets/js/analysis.js', array( 'wp-i18n' ) );
+			self::script( 'mlab-seo-pages', 'assets/js/pages.js', array( 'mlab-seo-analysis', 'wp-api-fetch', 'wp-i18n' ) );
+			wp_localize_script(
+				'mlab-seo-pages',
+				'mlabSeoPages',
+				array(
+					'homeUrl' => home_url( '/' ),
+					'locale'  => str_replace( '_', '-', get_user_locale() ),
+					'pro'     => License::is_pro(),
+				)
+			);
+		}
+	}
+
+	/**
+	 * Enqueues a deferred footer script with translations.
+	 *
+	 * @param string   $handle Handle.
+	 * @param string   $file   Path relative to the plugin directory.
+	 * @param string[] $deps   Dependencies.
+	 */
+	public static function script( $handle, $file, array $deps ) {
+		wp_enqueue_script(
+			$handle,
+			MLAB_SEO_URL . $file,
+			$deps,
+			self::asset_version( $file ),
 			array(
 				'in_footer' => true,
 				'strategy'  => 'defer',
 			)
 		);
-		wp_set_script_translations( 'mlab-seo-settings', 'mlab-seo', MLAB_SEO_DIR . 'languages' );
+		wp_set_script_translations( $handle, 'mlab-seo', MLAB_SEO_DIR . 'languages' );
 	}
 
 	/**
-	 * Redirect back to the screen with a notice.
+	 * Old tab anchors of the single settings screen (before 1.8.0) and where they live now.
 	 *
-	 * @param string $tab    Tab to open.
-	 * @param string $notice Notice key.
+	 * @return array<string,string>
 	 */
-	private function back( $tab, $notice ) {
-		wp_safe_redirect( admin_url( 'admin.php?page=' . self::PAGE . '&mlab_seo_notice=' . rawurlencode( $notice ) . '#' . $tab ) );
-		exit;
-	}
-
-	/**
-	 * Capability check for form handlers.
-	 */
-	private function verify() {
-		if ( ! current_user_can( self::capability() ) ) {
-			wp_die( esc_html__( 'You are not allowed to change these settings.', 'mlab-seo' ), 403 );
-		}
-	}
-
-	/**
-	 * Saves the settings form.
-	 */
-	public function handle_settings() {
-		$this->verify();
-		check_admin_referer( 'mlab_seo_save' );
-		$values = isset( $_POST['mlab_seo'] ) && is_array( $_POST['mlab_seo'] ) ? $_POST['mlab_seo'] : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Sanitised and unslashed in Settings::sanitize().
-		Settings::save( $values );
-		$tab = isset( $_POST['mlab_seo_tab'] ) ? sanitize_key( wp_unslash( $_POST['mlab_seo_tab'] ) ) : 'general';
-		$this->back( $tab, 'saved' );
-	}
-
-	/**
-	 * Saves the redirect rules.
-	 */
-	public function handle_redirects() {
-		$this->verify();
-		check_admin_referer( 'mlab_seo_redirects' );
-		if ( License::is_pro() ) {
-			// Stored directly: the other settings are already sanitised.
-			$stored                  = get_option( Settings::OPTION, array() );
-			$stored                  = is_array( $stored ) ? $stored : array();
-			$stored['auto_redirect'] = empty( $_POST['mlab_seo_auto_redirect'] ) ? 0 : 1;
-			update_option( Settings::OPTION, $stored, true );
-			Settings::flush();
-			$rows = isset( $_POST['mlab_seo_redirects'] ) && is_array( $_POST['mlab_seo_redirects'] ) ? $_POST['mlab_seo_redirects'] : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Sanitised and unslashed in Redirects::save().
-			Redirects::save( $rows );
-			// One click in the 404 list: redirect to the suggested (or edited) target, or stop logging the address.
-			$fix = isset( $_POST['mlab_seo_404_fix'] ) ? sanitize_text_field( wp_unslash( $_POST['mlab_seo_404_fix'] ) ) : '';
-			if ( '' !== $fix ) {
-				$targets = isset( $_POST['mlab_seo_404_target'] ) && is_array( $_POST['mlab_seo_404_target'] ) ? wp_unslash( $_POST['mlab_seo_404_target'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitised in Redirects::fix().
-				$target  = (string) ( $targets[ md5( $fix ) ] ?? '' );
-				$this->back( 'redirects', Redirects::fix( $fix, $target ) ? 'redirect_added' : 'no_target' );
-			}
-			$ignore = isset( $_POST['mlab_seo_404_ignore'] ) ? sanitize_text_field( wp_unslash( $_POST['mlab_seo_404_ignore'] ) ) : '';
-			if ( '' !== $ignore ) {
-				Redirects::ignore( $ignore );
-				$this->back( 'redirects', 'ignored' );
-			}
-		}
-		if ( ! empty( $_POST['mlab_seo_clear_log'] ) ) {
-			delete_option( Redirects::LOG );
-		}
-		$this->back( 'redirects', 'saved' );
-	}
-
-	/**
-	 * Activates or removes the licence key.
-	 */
-	public function handle_license() {
-		$this->verify();
-		check_admin_referer( 'mlab_seo_license' );
-		if ( ! empty( $_POST['mlab_seo_license_remove'] ) ) {
-			License::deactivate();
-			$this->back( 'license', 'license_removed' );
-		}
-		$key  = isset( $_POST['mlab_seo_license_key'] ) ? sanitize_text_field( wp_unslash( $_POST['mlab_seo_license_key'] ) ) : '';
-		$data = License::activate( $key );
-		$this->back( 'license', 'valid' === $data['status'] ? 'license_ok' : 'license_failed' );
-	}
-
-	/**
-	 * Runs the crawler access check.
-	 */
-	public function handle_check() {
-		$this->verify();
-		check_admin_referer( 'mlab_seo_check' );
-		set_transient( self::CHECK_TRANSIENT, array( time(), Crawlers::access_check() ), WEEK_IN_SECONDS );
-		$this->back( 'ai', 'checked' );
-	}
-
-	/**
-	 * Starts the broken link check now (Pro).
-	 */
-	public function handle_link_check() {
-		$this->verify();
-		check_admin_referer( 'mlab_seo_link_check' );
-		if ( License::is_pro() && ! Link_Check::running() ) {
-			Link_Check::start();
-		}
-		$this->back( 'content', 'links_started' );
-	}
-
-	/**
-	 * Imports SEO data from another plugin.
-	 */
-	public function handle_import() {
-		$this->verify();
-		check_admin_referer( 'mlab_seo_import' );
-		$source = isset( $_POST['mlab_seo_import_source'] ) ? sanitize_key( wp_unslash( $_POST['mlab_seo_import_source'] ) ) : '';
-		$result = Import::run( $source, ! empty( $_POST['mlab_seo_import_overwrite'] ) );
-		wp_safe_redirect(
-			add_query_arg(
-				array(
-					'page'            => self::PAGE,
-					'mlab_seo_notice' => 'imported',
-					'mlab_seo_posts'  => $result['posts'],
-					'mlab_seo_terms'  => $result['terms'],
-				),
-				admin_url( 'admin.php' )
-			) . '#import'
-		);
-		exit;
-	}
-
-	/**
-	 * Imports redirects from another plugin.
-	 */
-	public function handle_redirect_import() {
-		$this->verify();
-		check_admin_referer( 'mlab_seo_redirect_import' );
-		$source = isset( $_POST['mlab_seo_redirect_source'] ) ? sanitize_key( wp_unslash( $_POST['mlab_seo_redirect_source'] ) ) : '';
-		wp_safe_redirect(
-			add_query_arg(
-				array(
-					'page'              => self::PAGE,
-					'mlab_seo_notice'   => 'redirects_imported',
-					'mlab_seo_imported' => Redirect_Import::run( $source ),
-				),
-				admin_url( 'admin.php' )
-			) . '#import'
-		);
-		exit;
-	}
-
-	/**
-	 * Notice after a form was sent.
-	 */
-	public function notice() {
-		$notice   = isset( $_GET['mlab_seo_notice'] ) ? sanitize_key( wp_unslash( $_GET['mlab_seo_notice'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display only.
-		$messages = self::notice_messages();
-		if ( isset( $messages[ $notice ] ) ) {
-			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', esc_attr( $messages[ $notice ][0] ), esc_html( $messages[ $notice ][1] ) );
-		}
-	}
-
-	/**
-	 * Notice texts by notice key: array( type, text ).
-	 *
-	 * @return array<string,array{0:string,1:string}>
-	 */
-	private static function notice_messages() {
+	private static function legacy_tabs() {
 		return array(
-			'saved'              => array( 'success', __( 'Settings saved.', 'mlab-seo' ) ),
-			'checked'            => array( 'success', __( 'Access check finished.', 'mlab-seo' ) ),
-			'license_ok'         => array( 'success', __( 'Licence activated. Pro features are unlocked.', 'mlab-seo' ) ),
-			'license_failed'     => array( 'error', License::data()['message'] ? License::data()['message'] : __( 'The licence could not be activated.', 'mlab-seo' ) ),
-			'license_removed'    => array( 'success', __( 'Licence key removed.', 'mlab-seo' ) ),
-			'redirect_added'     => array( 'success', __( 'Redirect added. The address was removed from the 404 list.', 'mlab-seo' ) ),
-			'no_target'          => array( 'error', __( 'Please enter a target for the redirect.', 'mlab-seo' ) ),
-			'ignored'            => array( 'success', __( 'The address is not logged any more.', 'mlab-seo' ) ),
-			'links_started'      => array( 'success', __( 'The link check runs in the background and takes a few minutes. Reload this page later.', 'mlab-seo' ) ),
-			'redirects_imported' => array(
-				'success',
-				/* translators: %d: number of redirects. */
-				sprintf( __( 'Import finished: %d redirects added.', 'mlab-seo' ), isset( $_GET['mlab_seo_imported'] ) ? absint( $_GET['mlab_seo_imported'] ) : 0 ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display only.
-			),
-			'imported'           => array(
-				'success',
-				sprintf(
-					/* translators: 1: number of pages and posts, 2: number of categories and tags. */
-					__( 'Import finished: %1$d pages and posts, %2$d categories and tags updated.', 'mlab-seo' ),
-					isset( $_GET['mlab_seo_posts'] ) ? absint( $_GET['mlab_seo_posts'] ) : 0, // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display only.
-					isset( $_GET['mlab_seo_terms'] ) ? absint( $_GET['mlab_seo_terms'] ) : 0 // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display only.
-				),
-			),
+			'general'   => self::url( 'mlab-seo-search', 'home' ),
+			'titles'    => self::url( 'mlab-seo-search', 'templates' ),
+			'publisher' => self::url( 'mlab-seo-search', 'publisher' ),
+			'ai'        => self::url( 'mlab-seo-ai', 'crawlers' ),
+			'sitemap'   => self::url( 'mlab-seo-sitemap' ),
+			'redirects' => self::url( 'mlab-seo-redirects' ),
+			'content'   => self::url( 'mlab-seo-pages', 'content' ),
+			'import'    => self::url( 'mlab-seo-settings', 'import' ),
+			'license'   => self::url( 'mlab-seo-settings', 'license' ),
 		);
-	}
-
-	/**
-	 * Health checks shown at the top.
-	 *
-	 * @return array<int,array{0:string,1:string}> State (good|ok|bad) and message.
-	 */
-	public function status() {
-		$items = array(
-			get_option( 'blog_public' )
-				? array( 'good', __( 'Search engines may index the website.', 'mlab-seo' ) )
-				: array( 'bad', __( 'Search engines are discouraged from indexing the website (Settings › Reading).', 'mlab-seo' ) ),
-			get_option( 'permalink_structure' )
-				? array( 'good', __( 'Readable URLs (permalinks) are active.', 'mlab-seo' ) )
-				: array( 'bad', __( 'Plain URLs like ?p=123 are in use. Choose a permalink structure under Settings › Permalinks.', 'mlab-seo' ) ),
-			'' === trim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' )
-				? array( 'good', __( 'The website runs at the root of its domain, so robots.txt is served.', 'mlab-seo' ) )
-				: array( 'ok', __( 'The website runs in a subfolder. Search engines only read robots.txt at the root of a domain, so the robots.txt rules take effect once the website moves to its own domain.', 'mlab-seo' ) ),
-			str_starts_with( home_url( '/' ), 'https://' )
-				? array( 'good', __( 'The website uses HTTPS.', 'mlab-seo' ) )
-				: array( 'bad', __( 'The website does not use HTTPS.', 'mlab-seo' ) ),
-		);
-		$items = array_merge( $items, $this->content_status() );
-		foreach ( self::other_seo_plugins() as $name ) {
-			/* translators: %s: plugin name. */
-			$items[] = array( 'bad', sprintf( __( '%s is active as well. Two SEO plugins print duplicate titles and tags. Import its data under Import, then deactivate it.', 'mlab-seo' ), $name ) );
-		}
-		$check = $this->access_status();
-		return $check ? array_merge( $items, array( $check ) ) : $items;
-	}
-
-	/**
-	 * Status of thin pages and broken links.
-	 *
-	 * @return array
-	 */
-	private function content_status() {
-		$items = array();
-		$thin  = Content_Audit::thin_count();
-		if ( $thin ) {
-			/* translators: 1: number of pages, 2: minimum number of words. */
-			$items[] = array( 'ok', sprintf( _n( '%1$d page has fewer than %2$d words. Search engines and AI assistants find little to show for it (see Content).', '%1$d pages have fewer than %2$d words. Search engines and AI assistants find little to show for them (see Content).', $thin, 'mlab-seo' ), $thin, Content_Audit::THIN ) );
-		}
-		$broken = License::is_pro() ? count( Link_Check::broken() ) : 0;
-		if ( $broken ) {
-			/* translators: %d: number of links. */
-			$items[] = array( 'ok', sprintf( _n( '%d link leads nowhere (see Content).', '%d links lead nowhere (see Content).', $broken, 'mlab-seo' ), $broken ) );
-		}
-		return $items;
-	}
-
-	/**
-	 * Result of the last crawler access check, or null when there is none.
-	 *
-	 * @return array|null
-	 */
-	private function access_status() {
-		$check = get_transient( self::CHECK_TRANSIENT );
-		if ( ! is_array( $check ) ) {
-			return null;
-		}
-		$blocked = array_keys(
-			array_filter(
-				$check[1],
-				function ( $code ) {
-					return 200 !== $code;
-				}
-			)
-		);
-		return $blocked
-			/* translators: %s: list of crawler names. */
-			? array( 'bad', sprintf( __( 'The server blocks these crawlers: %s. This is usually a firewall or bot protection setting at the hosting provider (for example in Plesk), not WordPress.', 'mlab-seo' ), implode( ', ', $blocked ) ) )
-			: array( 'good', __( 'Search engines and AI crawlers can reach the website.', 'mlab-seo' ) );
 	}
 
 	/**
@@ -396,30 +232,25 @@ final class Admin {
 	}
 
 	/**
-	 * Renders the settings screen.
+	 * Renders the current SEO page.
 	 */
 	public function render() {
-		if ( ! current_user_can( self::capability() ) ) {
+		$slug = self::current_page();
+		if ( '' === $slug || ! current_user_can( self::capability() ) ) {
 			return;
 		}
-		$s    = Settings::all();
-		$pro  = License::is_pro();
-		$tabs = array(
-			'general'   => __( 'General', 'mlab-seo' ),
-			'titles'    => __( 'Titles & meta', 'mlab-seo' ),
-			'publisher' => __( 'Publisher', 'mlab-seo' ),
-			'ai'        => __( 'AI & crawlers', 'mlab-seo' ),
-			'sitemap'   => __( 'Sitemap', 'mlab-seo' ),
-			'redirects' => __( 'Redirects', 'mlab-seo' ),
-			'content'   => __( 'Content', 'mlab-seo' ),
-			'import'    => __( 'Import', 'mlab-seo' ),
-			'license'   => $pro ? __( 'Licence', 'mlab-seo' ) : __( 'Get Pro', 'mlab-seo' ),
+		$page = mlab_seo_admin_pages()[ $slug ];
+		self::part(
+			'page',
+			array(
+				'slug'       => $slug,
+				'admin_page' => $page,
+			)
 		);
-		include MLAB_SEO_DIR . 'parts/admin/page.php';
 	}
 
 	/**
-	 * Prints a template part of the settings screen.
+	 * Prints a template part of the SEO screens.
 	 *
 	 * @param string $name Part name in parts/admin/.
 	 * @param array  $vars Variables for the part.

@@ -53,6 +53,8 @@ final class Plugin {
 		( new Hreflang() )->hooks();
 		( new Multilingual() )->hooks();
 		( new Content_Audit() )->hooks();
+		( new Dashboard() )->hooks();
+		( new Rest() )->hooks();
 		( new License() )->hooks();
 		( new Head() )->hooks();
 		( new Crawlers() )->hooks();

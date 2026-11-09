@@ -25,6 +25,7 @@ define( 'MLAB_SEO_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MLAB_SEO_URL', plugin_dir_url( __FILE__ ) );
 
 require_once MLAB_SEO_DIR . 'inc/options.php';
+require_once MLAB_SEO_DIR . 'inc/admin-pages.php';
 require_once MLAB_SEO_DIR . 'inc/class-settings.php';
 require_once MLAB_SEO_DIR . 'inc/class-license.php';
 require_once MLAB_SEO_DIR . 'inc/class-post-meta.php';
@@ -51,6 +52,9 @@ require_once MLAB_SEO_DIR . 'inc/class-content-audit.php';
 require_once MLAB_SEO_DIR . 'inc/class-fields.php';
 require_once MLAB_SEO_DIR . 'inc/class-meta-box.php';
 require_once MLAB_SEO_DIR . 'inc/class-quick-edit.php';
+require_once MLAB_SEO_DIR . 'inc/class-dashboard.php';
+require_once MLAB_SEO_DIR . 'inc/class-rest.php';
+require_once MLAB_SEO_DIR . 'inc/class-admin-actions.php';
 require_once MLAB_SEO_DIR . 'inc/class-admin.php';
 require_once MLAB_SEO_DIR . 'inc/class-plugin.php';
 require_once MLAB_SEO_DIR . 'inc/template-tags.php';

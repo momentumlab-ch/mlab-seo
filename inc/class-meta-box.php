@@ -92,7 +92,7 @@ final class Meta_Box {
 	 * @param \WP_Post|null $post Post being edited.
 	 * @return array<string,string>
 	 */
-	private static function variable_values( $post ) {
+	public static function variable_values( $post ) {
 		$values = array();
 		foreach ( array_keys( Titles::variables() ) as $variable ) {
 			$name            = trim( $variable, '%' );
@@ -130,7 +130,7 @@ final class Meta_Box {
 	 * @param \WP_Post $post Post.
 	 * @return string Empty for other post types.
 	 */
-	private static function preview_date( $post ) {
+	public static function preview_date( $post ) {
 		if ( 'post' !== $post->post_type ) {
 			return '';
 		}

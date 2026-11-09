@@ -17,7 +17,7 @@ $log   = Redirects::log();
 ?>
 <p><?php esc_html_e( 'Send visitors and search engines from old addresses to the new page, so links and rankings are kept.', 'mlab-seo' ); ?></p>
 <?php if ( ! $pro ) : ?>
-	<div class="mlab-seo__locked"><p><strong><?php esc_html_e( 'Redirects and the 404 log are Pro features.', 'mlab-seo' ); ?></strong></p><p><a class="button button-primary" href="#license" data-tab-link="license"><?php esc_html_e( 'Activate Pro', 'mlab-seo' ); ?></a></p></div>
+	<div class="mlab-seo__locked"><p><strong><?php esc_html_e( 'Redirects and the 404 log are Pro features.', 'mlab-seo' ); ?></strong></p><p><a class="button button-primary" href="<?php echo esc_url( Admin::url( 'mlab-seo-settings', 'license' ) ); ?>"><?php esc_html_e( 'Activate Pro', 'mlab-seo' ); ?></a></p></div>
 <?php endif; ?>
 <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 	<input type="hidden" name="action" value="mlab_seo_redirects" />

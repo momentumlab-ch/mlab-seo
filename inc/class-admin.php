@@ -161,9 +161,8 @@ final class Admin {
 				'mlab-seo-pages',
 				'mlabSeoPages',
 				array(
-					'homeUrl' => home_url( '/' ),
-					'locale'  => str_replace( '_', '-', get_user_locale() ),
-					'pro'     => License::is_pro(),
+					'homeUrl'  => home_url( '/' ),
+					'siteName' => Settings::site_name(),
 				)
 			);
 		}

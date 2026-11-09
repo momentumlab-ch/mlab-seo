@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEO im Editor – Mockup</title>
+<link rel="stylesheet" href="assets/mockup.css">
+<script src="assets/mockup.js" defer></script>
+</head>
+<body>
+<div class="editor">
+	<header class="editor-top">
+		<div style="display:flex;align-items:center;gap:12px">
+			<a href="01-uebersicht.html" class="icon-btn" style="background:#1e1e1e;color:#fff;font-weight:700" aria-label="Zurück">W</a>
+			<span style="color:#757575;font-size:13px">Seite · Kontakt</span>
+		</div>
+		<div style="display:flex;align-items:center;gap:6px">
+			<button class="btn small plain" style="color:#1e1e1e">Vorschau</button>
+			<button class="btn small primary" style="border-radius:4px">Aktualisieren</button>
+			<button class="icon-btn on" aria-pressed="true" aria-label="SEO (Klick 1)" title="SEO – Punktzahl 38">
+				<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" d="M8.5 2a6.5 6.5 0 0 1 5.2 10.4l4 4-1.3 1.3-4-4A6.5 6.5 0 1 1 8.5 2Zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Z"/></svg>
+			</button>
+			<button class="icon-btn" aria-label="Einstellungen">⚙︎</button>
+		</div>
+	</header>
+
+	<section class="editor-canvas" aria-label="Inhalt">
+		<h1>Kontakt</h1>
+		<p>Musterfirma AG<br>Bahnhofstrasse 1<br>3000 Bern</p>
+		<p>Telefon 031 123 45 67 · info@musterfirma.ch</p>
+		<p style="color:#949494">Tippe / zur Auswahl eines Blocks</p>
+	</section>
+
+	<aside class="editor-side" aria-label="SEO">
+		<div class="side-tabs"><span>Seite</span><span>Block</span><span class="on">SEO</span></div>
+
+		<div class="panel">
+			<h4>SEO-Check <span class="badge bad">38</span></h4>
+			<div class="serp" style="transform:scale(.9);transform-origin:left top;margin-bottom:-12px">
+				<div class="site"><span class="fav">M</span><div>Musterfirma AG<div class="crumb">musterfirma.ch › kontakt</div></div></div>
+				<div class="title" data-show="title" style="font-size:18px"></div>
+				<div class="desc" data-show="desc" data-empty="Musterfirma AG · Bahnhofstrasse 1 · 3000 Bern · Telefon 031 …"></div>
+			</div>
+		</div>
+
+		<div class="panel">
+			<label class="field">
+				<span>SEO-Titel <em></em></span>
+				<input type="text" data-bind="title" data-min="30" data-max="60" value="Kontakt – Musterfirma AG in Bern">
+				<div class="meter"><i></i></div>
+			</label>
+			<label class="field" style="margin-bottom:0">
+				<span>Meta-Beschreibung <em></em></span>
+				<textarea data-bind="desc" data-min="120" data-max="160" placeholder="120 bis 160 Zeichen"></textarea>
+				<div class="meter"><i></i></div>
+			</label>
+			<p class="hint" style="margin:8px 0 0"><a href="#">✦ Vorschlag aus dem Seitentext</a></p>
+		</div>
+
+		<details class="panel" open>
+			<summary><b style="font-size:13px">2 Probleme, 1 Hinweis</b></summary>
+			<ul class="checks" style="margin-top:8px">
+				<li><span class="dot bad"></span>Meta-Beschreibung fehlt.</li>
+				<li><span class="dot bad"></span>Nur 84 Wörter.</li>
+				<li><span class="dot ok"></span>Fokus-Keyword nicht in der ersten Überschrift.</li>
+			</ul>
+		</details>
+
+		<details class="panel">
+			<summary><b style="font-size:13px">Social-Vorschau</b></summary>
+			<div class="og" style="margin-top:12px">
+				<div class="img" style="font-size:16px">Musterfirma</div>
+				<div class="meta"><div class="host">musterfirma.ch</div><div class="ttl" data-show="title"></div></div>
+			</div>
+		</details>
+
+		<details class="panel">
+			<summary><b style="font-size:13px">Suchmaschinen und KI</b></summary>
+			<div class="row" style="padding:12px 0 0"><div class="label">Bei Google zeigen</div><label class="switch"><input type="checkbox" checked aria-label="Bei Google zeigen"><span></span></label></div>
+			<div class="row" style="padding:12px 0 0"><div class="label">In llms.txt</div><span class="value">Unter Seiten</span></div>
+		</details>
+
+		<details class="panel">
+			<summary><b style="font-size:13px">Schema und Event</b> <span class="badge pro">Pro</span></summary>
+			<p class="hint" style="margin:8px 0 0">Seitentyp, Event mit Datum und Ort, eigenes JSON-LD.</p>
+		</details>
+	</aside>
+</div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEO Übersicht – Mockup</title>
+<link rel="stylesheet" href="assets/mockup.css">
+<script src="assets/mockup.js" defer></script>
+</head>
+<body>
+<div class="wp">
+	<nav class="wp-menu" data-here="uebersicht" aria-label="WordPress-Menü"></nav>
+
+	<main class="page">
+		<header class="page-head">
+			<div>
+				<h1>Übersicht</h1>
+				<p>Musterfirma AG · musterfirma.ch <span class="badge pro">Pro</span></p>
+			</div>
+			<a class="btn primary" href="02-seiten.html">Seiten bearbeiten</a>
+		</header>
+
+		<div class="grid grid-3">
+			<section class="card score" aria-label="SEO-Zustand">
+				<div class="ring" style="--p: 82"><b>82</b></div>
+				<div>
+					<h3>Gut in Form</h3>
+					<p class="sub">34 von 41 Seiten erfüllen alle Prüfungen.</p>
+				</div>
+			</section>
+			<section class="card grid grid-2" aria-label="Seiten">
+				<div class="stat"><b>41</b><span>Seiten bei Google</span></div>
+				<div class="stat"><b style="color:var(--ok)">5</b><span>ohne Beschreibung</span></div>
+				<div class="stat"><b>3</b><span>verborgen (noindex)</span></div>
+				<div class="stat"><b style="color:var(--ok)">2</b><span>mit wenig Text</span></div>
+			</section>
+			<section class="card" aria-label="KI-Sichtbarkeit">
+				<h3>KI-Sichtbarkeit</h3>
+				<ul class="checks">
+					<li><span class="dot good"></span>9 von 12 KI-Crawlern erlaubt</li>
+					<li><span class="dot good"></span>llms.txt ist aktiv</li>
+					<li><span class="dot good"></span>IndexNow: vor 2 Std. 3 Seiten gemeldet</li>
+				</ul>
+			</section>
+		</div>
+
+		<h2 class="section">Zu erledigen</h2>
+		<div class="group">
+			<div class="row">
+				<span class="dot bad"></span>
+				<div class="label">Yoast SEO ist noch aktiv<small>Zwei SEO-Plugins geben doppelte Titel aus. Daten übernehmen, danach Yoast deaktivieren.</small></div>
+				<a class="btn small primary" href="08-einstellungen.html">Daten übernehmen</a>
+			</div>
+			<div class="row">
+				<span class="dot bad"></span>
+				<div class="label">5 Seiten ohne Meta-Beschreibung<small>Google nimmt sonst einen beliebigen Textausschnitt.</small></div>
+				<a class="btn small" href="02-seiten.html#bearbeiten">Ergänzen</a>
+			</div>
+			<div class="row">
+				<span class="dot ok"></span>
+				<div class="label">3 Adressen nicht gefunden (404)<small>Für alle drei gibt es einen Vorschlag für die Weiterleitung.</small></div>
+				<a class="btn small" href="07-weiterleitungen.html">Weiterleiten</a>
+			</div>
+			<div class="row">
+				<span class="dot ok"></span>
+				<div class="label">2 kaputte Links auf «Kontakt»<small>Ziel gelöscht (410): /team/anna-muster</small></div>
+				<a class="btn small" href="03-editor.html">Seite öffnen</a>
+			</div>
+			<div class="row">
+				<span class="dot ok"></span>
+				<div class="label">2 Seiten mit wenig Text<small>Unter 300 Wörtern ranken Seiten selten und KI-Assistenten finden nichts zum Zitieren.</small></div>
+				<a class="btn small" href="02-seiten.html">Ansehen</a>
+			</div>
+			<details class="row stack">
+				<summary style="cursor:pointer;color:var(--text-2)"><span class="dot good"></span>&nbsp; 6 Prüfungen in Ordnung</summary>
+				<ul class="checks" style="margin-top:8px">
+					<li><span class="dot good"></span>Suchmaschinen dürfen die Website indexieren.</li>
+					<li><span class="dot good"></span>Lesbare Adressen (Permalinks) sind aktiv.</li>
+					<li><span class="dot good"></span>Die Website nutzt HTTPS.</li>
+					<li><span class="dot good"></span>robots.txt wird im Hauptverzeichnis ausgeliefert.</li>
+					<li><span class="dot good"></span>Google, Bing und KI-Crawler erreichen die Website (geprüft heute 08:12).</li>
+					<li><span class="dot good"></span>Google Search Console ist bestätigt.</li>
+				</ul>
+			</details>
+		</div>
+
+		<h2 class="section">Schnell öffnen</h2>
+		<div class="chips">
+			<a class="chip" href="#">sitemap.xml ↗</a>
+			<a class="chip" href="#">robots.txt ↗</a>
+			<a class="chip" href="#">llms.txt ↗</a>
+			<a class="chip" href="#">Rich Results testen ↗</a>
+			<a class="chip" href="#">Search Console ↗</a>
+		</div>
+
+		<h2 class="section">Zuletzt bearbeitet</h2>
+		<div class="group">
+			<a class="row link" href="02-seiten.html#bearbeiten" style="color:inherit;text-decoration:none">
+				<div class="label">Dienstleistungen<small>Seite · vor 12 Min.</small></div>
+				<span class="badge good">92</span>
+			</a>
+			<a class="row link" href="02-seiten.html#bearbeiten" style="color:inherit;text-decoration:none">
+				<div class="label">Sommerfest 2027<small>Beitrag · gestern</small></div>
+				<span class="badge ok">64</span>
+			</a>
+			<a class="row link" href="02-seiten.html#bearbeiten" style="color:inherit;text-decoration:none">
+				<div class="label">Kontakt<small>Seite · 3. Nov.</small></div>
+				<span class="badge bad">38</span>
+			</a>
+		</div>
+	</main>
+</div>
+</body>
+</html>

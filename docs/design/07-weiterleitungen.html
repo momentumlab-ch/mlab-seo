@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weiterleitungen – Mockup</title>
+<link rel="stylesheet" href="assets/mockup.css">
+<script src="assets/mockup.js" defer></script>
+</head>
+<body>
+<div class="wp">
+	<nav class="wp-menu" data-here="weiterleitungen" aria-label="WordPress-Menü"></nav>
+
+	<main class="page" id="wl">
+		<header class="page-head">
+			<div>
+				<h1>Weiterleitungen <span class="badge pro">Pro</span></h1>
+				<p>Alte Adressen führen zur neuen Seite, Links und Rankings bleiben erhalten.</p>
+			</div>
+			<button class="btn primary">Hinzufügen</button>
+		</header>
+
+		<div class="seg" role="tablist" data-scope="wl" aria-label="Bereich">
+			<button data-seg="404" aria-selected="true">Nicht gefunden 3</button>
+			<button data-seg="aktiv" aria-selected="false">Aktiv 18</button>
+		</div>
+
+		<div data-panel="404">
+			<p class="hint" style="margin-top:16px">Ziel prüfen und «Weiterleiten» tippen: Die Weiterleitung entsteht, die Adresse verschwindet aus der Liste.</p>
+			<div class="group" style="margin-top:12px">
+				<div class="row" style="flex-wrap:wrap">
+					<div class="label"><span class="mono">/team/anna-muster</span><small>14 Aufrufe · kaputter Link auf «Kontakt»</small></div>
+					<input type="text" value="/team/" aria-label="Ziel" style="max-width:220px">
+					<button class="btn small primary">Weiterleiten</button>
+					<button class="btn small plain" style="color:var(--text-2)">Ignorieren</button>
+				</div>
+				<div class="row" style="flex-wrap:wrap">
+					<div class="label"><span class="mono">/angebot-2025</span><small>6 Aufrufe · von google.com</small></div>
+					<input type="text" value="/angebot/" aria-label="Ziel" style="max-width:220px">
+					<button class="btn small primary">Weiterleiten</button>
+					<button class="btn small plain" style="color:var(--text-2)">Ignorieren</button>
+				</div>
+				<div class="row" style="flex-wrap:wrap">
+					<div class="label"><span class="mono">/wp-login.php.bak</span><small>3 Aufrufe · Bot</small></div>
+					<input type="text" placeholder="Kein Vorschlag" aria-label="Ziel" style="max-width:220px">
+					<button class="btn small" disabled style="opacity:.5">Weiterleiten</button>
+					<button class="btn small plain" style="color:var(--text-2)">Ignorieren</button>
+				</div>
+			</div>
+		</div>
+
+		<div data-panel="aktiv" hidden>
+			<div class="group" style="margin-top:20px">
+				<div class="row"><div class="label">Bei geänderter Adresse automatisch weiterleiten</div><label class="switch"><input type="checkbox" checked aria-label="Automatisch weiterleiten"><span></span></label></div>
+			</div>
+			<div class="group" style="margin-top:16px">
+				<table class="list">
+					<thead><tr><th>Alte Adresse</th><th>Ziel</th><th class="hide-s">Art</th><th class="num">Aufrufe</th></tr></thead>
+					<tbody>
+						<tr><td class="mono">/leistungen</td><td class="mono">/dienstleistungen/</td><td class="hide-s"><span class="badge">301</span></td><td class="num">212</td></tr>
+						<tr><td class="mono">^/blog/(.*)$</td><td class="mono">/news/$1</td><td class="hide-s"><span class="badge">301 · Muster</span></td><td class="num">87</td></tr>
+						<tr><td class="mono">/aktion-sommer</td><td class="mono">–</td><td class="hide-s"><span class="badge bad">410 gelöscht</span></td><td class="num">9</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="hint">Zeile antippen zum Ändern oder Löschen. Import aus Rank Math und Redirection unter <a href="08-einstellungen.html">Einstellungen › Umzug</a>.</p>
+		</div>
+	</main>
+</div>
+</body>
+</html>

@@ -17,7 +17,7 @@ $redirect_counts = Redirect_Import::detect();
 <p>
 	<?php
 	/* translators: 1: variable as written by other plugins, 2: the same variable in MomentumLab SEO. */
-	echo esc_html( sprintf( __( 'The data of the other plugin is not changed, so you can repeat the import. Title variables like %1$s are taken over as %2$s; titles that only repeat the default pattern are left empty, so the template under Titles & meta applies.', 'mlab-seo' ), '%%title%%', '%title%' ) );
+	echo esc_html( sprintf( __( 'The data of the other plugin is not changed, so you can repeat the import. Title variables like %1$s are taken over as %2$s; titles that only repeat the default pattern are left empty, so the template under Search appearance › Templates applies.', 'mlab-seo' ), '%%title%%', '%title%' ) );
 	?>
 </p>
 <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">

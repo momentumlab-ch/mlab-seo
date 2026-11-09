@@ -60,17 +60,11 @@ final class Meta_Box {
 		}
 		wp_enqueue_media();
 		wp_enqueue_style( 'mlab-seo-admin', MLAB_SEO_URL . 'assets/css/admin.css', array(), Admin::asset_version( 'assets/css/admin.css' ) );
-		wp_enqueue_script(
-			'mlab-seo-editor',
-			MLAB_SEO_URL . 'assets/js/editor.js',
-			array( 'jquery', 'wp-i18n' ),
-			Admin::asset_version( 'assets/js/editor.js' ),
-			array(
-				'in_footer' => true,
-				'strategy'  => 'defer',
-			)
-		);
-		wp_set_script_translations( 'mlab-seo-editor', 'mlab-seo', MLAB_SEO_DIR . 'languages' );
+		Admin::script( 'mlab-seo-analysis', 'assets/js/analysis.js', array( 'wp-i18n' ) );
+		Admin::script( 'mlab-seo-editor', 'assets/js/editor.js', array( 'jquery', 'wp-i18n', 'mlab-seo-analysis' ) );
+		if ( $screen->is_block_editor() ) {
+			Admin::script( 'mlab-seo-sidebar', 'assets/js/sidebar.js', array( 'mlab-seo-analysis', 'mlab-seo-editor', 'wp-plugins', 'wp-editor', 'wp-edit-post', 'wp-element', 'wp-components', 'wp-i18n' ) );
+		}
 		wp_localize_script(
 			'mlab-seo-editor',
 			'mlabSeoEditor',
@@ -92,7 +86,7 @@ final class Meta_Box {
 	 * @param \WP_Post|null $post Post being edited.
 	 * @return array<string,string>
 	 */
-	private static function variable_values( $post ) {
+	public static function variable_values( $post ) {
 		$values = array();
 		foreach ( array_keys( Titles::variables() ) as $variable ) {
 			$name            = trim( $variable, '%' );
@@ -130,7 +124,7 @@ final class Meta_Box {
 	 * @param \WP_Post $post Post.
 	 * @return string Empty for other post types.
 	 */
-	private static function preview_date( $post ) {
+	public static function preview_date( $post ) {
 		if ( 'post' !== $post->post_type ) {
 			return '';
 		}

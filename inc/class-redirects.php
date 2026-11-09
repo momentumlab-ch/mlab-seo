@@ -35,6 +35,22 @@ final class Redirects {
 	const IGNORE = 'mlab_seo_404_ignore';
 
 	/**
+	 * Option with hit counts per rule (md5 of the source path => count), not autoloaded,
+	 * so a redirect never rewrites the autoloaded rules.
+	 */
+	const HITS = 'mlab_seo_redirect_hits';
+
+	/**
+	 * Option with the current minute and the number of 404 log writes in it.
+	 */
+	const RATE = 'mlab_seo_404_rate';
+
+	/**
+	 * Maximum 404 log writes per minute, so a crawler storm does not hammer the database.
+	 */
+	const RATE_LIMIT = 30;
+
+	/**
 	 * Registers hooks.
 	 */
 	public function hooks() {
@@ -296,15 +312,58 @@ final class Redirects {
 		}
 		$rules = self::rules();
 		$path  = self::request_path();
-		foreach ( $rules as $i => $rule ) {
+		foreach ( $rules as $rule ) {
 			$target = self::match( $rule, $path );
 			if ( null === $target ) {
 				continue;
 			}
-			++$rules[ $i ]['hits'];
-			update_option( self::OPTION, $rules, true );
+			self::count_hit( $rule['from'] );
 			self::send( (int) $rule['code'], $target );
 		}
+	}
+
+	/**
+	 * Counts a redirect hit in the separate, not autoloaded option.
+	 *
+	 * @param string $from Source path of the rule.
+	 */
+	private static function count_hit( $from ) {
+		$hits         = get_option( self::HITS, array() );
+		$hits         = is_array( $hits ) ? $hits : array();
+		$key          = md5( $from );
+		$hits[ $key ] = (int) ( $hits[ $key ] ?? 0 ) + 1;
+		update_option( self::HITS, $hits, false );
+	}
+
+	/**
+	 * Hits of a rule: the count stored with the rule by older versions plus the separate count.
+	 *
+	 * @param array $rule Rule.
+	 * @return int
+	 */
+	public static function hits( array $rule ) {
+		static $hits = null;
+		if ( null === $hits ) {
+			$hits = get_option( self::HITS, array() );
+			$hits = is_array( $hits ) ? $hits : array();
+		}
+		return (int) ( $rule['hits'] ?? 0 ) + (int) ( $hits[ md5( $rule['from'] ) ] ?? 0 );
+	}
+
+	/**
+	 * True while the 404 log has write budget left in the current minute.
+	 *
+	 * @return bool
+	 */
+	private static function may_log() {
+		$minute = (int) floor( time() / 60 );
+		$rate   = get_option( self::RATE, array( 0, 0 ) );
+		$count  = is_array( $rate ) && (int) ( $rate[0] ?? 0 ) === $minute ? (int) ( $rate[1] ?? 0 ) : 0;
+		if ( $count >= self::RATE_LIMIT ) {
+			return false;
+		}
+		update_option( self::RATE, array( $minute, $count + 1 ), false );
+		return true;
 	}
 
 	/**
@@ -336,6 +395,9 @@ final class Redirects {
 			return; // Bot probes, not real visitors.
 		}
 		if ( in_array( $path, self::ignored(), true ) ) {
+			return;
+		}
+		if ( ! self::may_log() ) {
 			return;
 		}
 		$log            = get_option( self::LOG, array() );

@@ -17,7 +17,7 @@ $log   = Redirects::log();
 ?>
 <p><?php esc_html_e( 'Send visitors and search engines from old addresses to the new page, so links and rankings are kept.', 'mlab-seo' ); ?></p>
 <?php if ( ! $pro ) : ?>
-	<div class="mlab-seo__locked"><p><strong><?php esc_html_e( 'Redirects and the 404 log are Pro features.', 'mlab-seo' ); ?></strong></p><p><a class="button button-primary" href="#license" data-tab-link="license"><?php esc_html_e( 'Activate Pro', 'mlab-seo' ); ?></a></p></div>
+	<div class="mlab-seo__locked"><p><strong><?php esc_html_e( 'Redirects and the 404 log are Pro features.', 'mlab-seo' ); ?></strong></p><p><a class="button button-primary" href="<?php echo esc_url( Admin::url( 'mlab-seo-settings', 'license' ) ); ?>"><?php esc_html_e( 'Activate Pro', 'mlab-seo' ); ?></a></p></div>
 <?php endif; ?>
 <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 	<input type="hidden" name="action" value="mlab_seo_redirects" />
@@ -37,7 +37,7 @@ $log   = Redirects::log();
 							<option value="410" <?php selected( (int) ( $rule['code'] ?? 301 ), 410 ); ?>><?php esc_html_e( '410 deleted', 'mlab-seo' ); ?></option>
 						</select></td>
 						<td><label><input type="checkbox" name="mlab_seo_redirects[<?php echo (int) $i; ?>][regex]" value="1" <?php checked( ! empty( $rule['regex'] ) ); ?> /> <?php esc_html_e( 'Regex', 'mlab-seo' ); ?></label></td>
-						<td><?php echo (int) ( $rule['hits'] ?? 0 ); ?></td>
+						<td><?php echo (int) Redirects::hits( $rule ); ?></td>
 						<td><button type="button" class="button-link mlab-seo-row-remove" aria-label="<?php esc_attr_e( 'Remove', 'mlab-seo' ); ?>">×</button></td>
 					</tr>
 				<?php endforeach; ?>

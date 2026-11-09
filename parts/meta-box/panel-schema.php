@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 		<div class="mlab-seo__locked">
 			<p><strong><?php esc_html_e( 'Event and custom schema are Pro features.', 'mlab-seo' ); ?></strong></p>
 			<p><?php esc_html_e( 'With Pro, events appear with date and place directly in Google results, and you can add any schema.org data to a page.', 'mlab-seo' ); ?></p>
-			<p><a class="button button-primary" href="<?php echo esc_url( admin_url( 'admin.php?page=mlab-seo#license' ) ); ?>"><?php esc_html_e( 'Activate Pro', 'mlab-seo' ); ?></a></p>
+			<p><a class="button button-primary" href="<?php echo esc_url( Admin::url( 'mlab-seo-settings', 'license' ) ); ?>"><?php esc_html_e( 'Activate Pro', 'mlab-seo' ); ?></a></p>
 		</div>
 	<?php endif; ?>
 	<fieldset class="mlab-seo__event" <?php disabled( ! $pro ); ?>>

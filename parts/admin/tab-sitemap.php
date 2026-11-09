@@ -12,7 +12,14 @@ defined( 'ABSPATH' ) || exit;
 
 ?>
 <p><?php esc_html_e( 'WordPress creates the XML sitemap. Here you choose what goes in. Pages set to noindex are left out automatically.', 'mlab-seo' ); ?></p>
-<p><?php esc_html_e( 'Address to submit in Google Search Console and Bing Webmaster Tools:', 'mlab-seo' ); ?> <code><?php echo esc_html( home_url( '/wp-sitemap.xml' ) ); ?></code></p>
+<div class="mlab-seo-card mlab-seo-address">
+	<div>
+		<p class="mlab-seo-hint"><?php esc_html_e( 'Address to submit in Google Search Console and Bing Webmaster Tools:', 'mlab-seo' ); ?></p>
+		<code data-copy-source><?php echo esc_html( home_url( '/wp-sitemap.xml' ) ); ?></code>
+	</div>
+	<button type="button" class="mlab-seo-btn" data-copy><?php esc_html_e( 'Copy', 'mlab-seo' ); ?></button>
+	<a class="mlab-seo-btn" href="<?php echo esc_url( home_url( '/wp-sitemap.xml' ) ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Open', 'mlab-seo' ); ?> ↗</a>
+</div>
 <table class="form-table" role="presentation">
 	<tr><th scope="row"><?php esc_html_e( 'Content types', 'mlab-seo' ); ?></th><td>
 		<?php foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $type_object ) : ?>

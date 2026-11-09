@@ -38,6 +38,11 @@ final class Settings {
 	);
 
 	/**
+	 * AI crawlers that fetch pages for a search answer with a source link, not for training.
+	 */
+	const AI_SEARCH_BOTS = array( 'OAI-SearchBot', 'ChatGPT-User', 'Claude-SearchBot', 'Claude-User', 'PerplexityBot', 'Perplexity-User' );
+
+	/**
 	 * Types (schema.org) offered for the publisher.
 	 */
 	const ORG_TYPES = array( 'Organization', 'SportsOrganization', 'NGO', 'Corporation', 'EducationalOrganization', 'GovernmentOrganization', 'Person', 'LocalBusiness', 'ProfessionalService', 'Store', 'Restaurant', 'Hotel', 'MedicalBusiness', 'Dentist', 'LegalService', 'FinancialService', 'RealEstateAgent', 'HealthAndBeautyBusiness', 'HomeAndConstructionBusiness', 'AutomotiveBusiness', 'SportsActivityLocation' );
@@ -112,6 +117,42 @@ final class Settings {
 	public static function save( array $values ) {
 		update_option( self::OPTION, self::sanitize( $values ), true );
 		self::flush();
+	}
+
+	/**
+	 * Saves only some settings, for one segment of a screen. The other settings stay as stored.
+	 * A key missing from the values counts as an unchecked box or empty field, like in a form.
+	 *
+	 * @param array    $values Raw values of the form (slashed, as in $_POST).
+	 * @param string[] $keys   Setting keys the form contains.
+	 */
+	public static function save_keys( array $values, array $keys ) {
+		$stored = self::stored();
+		$input  = wp_slash( $stored );
+		foreach ( $keys as $key ) {
+			unset( $input[ $key ] );
+			if ( array_key_exists( $key, $values ) ) {
+				$input[ $key ] = $values[ $key ];
+			}
+		}
+		$clean = self::sanitize( $input );
+		foreach ( $keys as $key ) {
+			$stored[ $key ] = $clean[ $key ] ?? null;
+		}
+		update_option( self::OPTION, $stored, true );
+		self::flush();
+	}
+
+	/**
+	 * Stored settings with defaults, read past filters such as the ones of multilingual plugins,
+	 * so saving one segment never writes a filtered value of another back to the database.
+	 *
+	 * @return array
+	 */
+	private static function stored() {
+		$all    = wp_load_alloptions();
+		$stored = isset( $all[ self::OPTION ] ) ? maybe_unserialize( $all[ self::OPTION ] ) : get_option( self::OPTION, array() );
+		return array_merge( self::defaults(), is_array( $stored ) ? $stored : array() );
 	}
 
 	/**

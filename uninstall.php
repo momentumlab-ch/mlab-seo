@@ -14,7 +14,7 @@ if ( defined( 'MLAB_SEO_KEEP_DATA' ) && MLAB_SEO_KEEP_DATA ) {
 	return;
 }
 
-foreach ( array( 'mlab_seo_settings', 'mlab_seo_license', 'mlab_seo_redirects', 'mlab_seo_404_log', 'mlab_seo_404_ignore', 'mlab_seo_link_check', 'mlab_seo_version', 'mlab_seo_indexnow_last' ) as $mlab_seo_option ) {
+foreach ( array( 'mlab_seo_settings', 'mlab_seo_license', 'mlab_seo_redirects', 'mlab_seo_404_log', 'mlab_seo_404_ignore', 'mlab_seo_redirect_hits', 'mlab_seo_404_rate', 'mlab_seo_link_check', 'mlab_seo_version', 'mlab_seo_indexnow_last' ) as $mlab_seo_option ) {
 	delete_option( $mlab_seo_option );
 }
 delete_transient( 'mlab_seo_llms_full' );

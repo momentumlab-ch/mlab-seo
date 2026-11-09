@@ -37,7 +37,7 @@ $log   = Redirects::log();
 							<option value="410" <?php selected( (int) ( $rule['code'] ?? 301 ), 410 ); ?>><?php esc_html_e( '410 deleted', 'mlab-seo' ); ?></option>
 						</select></td>
 						<td><label><input type="checkbox" name="mlab_seo_redirects[<?php echo (int) $i; ?>][regex]" value="1" <?php checked( ! empty( $rule['regex'] ) ); ?> /> <?php esc_html_e( 'Regex', 'mlab-seo' ); ?></label></td>
-						<td><?php echo (int) ( $rule['hits'] ?? 0 ); ?></td>
+						<td><?php echo (int) Redirects::hits( $rule ); ?></td>
 						<td><button type="button" class="button-link mlab-seo-row-remove" aria-label="<?php esc_attr_e( 'Remove', 'mlab-seo' ); ?>">×</button></td>
 					</tr>
 				<?php endforeach; ?>

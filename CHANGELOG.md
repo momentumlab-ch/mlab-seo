@@ -3,6 +3,12 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.8.1] - 2026-11-10
+
+### Behoben
+- Die Lizenz-Aktivierung fragt den MomentumLab-Lizenzserver jetzt über seine bestehende Schnittstelle (`mlab-ls/v1/catalog`) an. Vorher lief die Anfrage an eine Adresse, die es nicht gibt, und Pro blieb auch mit gültigem Schlüssel gesperrt.
+- Meldungen des Lizenzservers (Schlüssel ungültig, Lizenz nicht aktiv, Website-Limit erreicht) werden direkt angezeigt.
+
 ## [1.8.0] - 2026-11-09
 
 ### Neu

@@ -3,6 +3,17 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.9.0] - 2026-11-10
+
+### Neu
+- Die Lizenz läuft jetzt über die gemeinsame MomentumLab-Lizenz. Ein Schlüssel gilt für alle MomentumLab-Plugins; ein bestehender Schlüssel wird beim Update automatisch übernommen.
+- Pro wird mit der Stufe «Pro» für SEO freigeschaltet.
+- Änderungen am Lizenzserver kommen sofort an.
+
+### Geändert
+- Der Lizenz-Tab zeigt die gemeinsame Lizenzbox anstelle des eigenen Formulars.
+- Der eigene Lizenz-Cron und die Option `mlab_seo_license` entfallen; sie werden nach der Übernahme des Schlüssels aufgeräumt.
+
 ## [1.8.1] - 2026-11-10
 
 ### Behoben

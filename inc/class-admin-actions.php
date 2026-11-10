@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 // phpcs:disable WordPress.Security.NonceVerification.Missing -- Every admin-post handler calls verify() (capability + nonce) before reading the form.
 
 /**
- * Handles settings, redirects, licence, access check, link check and imports.
+ * Handles settings, redirects, access check, link check and imports.
  */
 final class Admin_Actions {
 
@@ -23,7 +23,6 @@ final class Admin_Actions {
 	public function hooks() {
 		add_action( 'admin_post_mlab_seo_save', array( $this, 'handle_settings' ) );
 		add_action( 'admin_post_mlab_seo_redirects', array( $this, 'handle_redirects' ) );
-		add_action( 'admin_post_mlab_seo_license', array( $this, 'handle_license' ) );
 		add_action( 'admin_post_mlab_seo_check', array( $this, 'handle_check' ) );
 		add_action( 'admin_post_mlab_seo_import', array( $this, 'handle_import' ) );
 		add_action( 'admin_post_mlab_seo_redirect_import', array( $this, 'handle_redirect_import' ) );
@@ -118,20 +117,6 @@ final class Admin_Actions {
 			Redirects::ignore( $ignore );
 			$this->back( 'mlab-seo-redirects', '', 'ignored' );
 		}
-	}
-
-	/**
-	 * Activates or removes the licence key.
-	 */
-	public function handle_license() {
-		$this->verify( 'mlab_seo_license' );
-		if ( ! empty( $_POST['mlab_seo_license_remove'] ) ) {
-			License::deactivate();
-			$this->back( 'mlab-seo-settings', 'license', 'license_removed' );
-		}
-		$key  = isset( $_POST['mlab_seo_license_key'] ) ? sanitize_text_field( wp_unslash( $_POST['mlab_seo_license_key'] ) ) : '';
-		$data = License::activate( $key );
-		$this->back( 'mlab-seo-settings', 'license', 'valid' === $data['status'] ? 'license_ok' : 'license_failed' );
 	}
 
 	/**
@@ -234,9 +219,6 @@ final class Admin_Actions {
 		return array(
 			'saved'              => array( 'success', __( 'Settings saved.', 'mlab-seo' ) ),
 			'checked'            => array( 'success', __( 'Access check finished.', 'mlab-seo' ) ),
-			'license_ok'         => array( 'success', __( 'Licence activated. Pro features are unlocked.', 'mlab-seo' ) ),
-			'license_failed'     => array( 'error', License::data()['message'] ? License::data()['message'] : __( 'The licence could not be activated.', 'mlab-seo' ) ),
-			'license_removed'    => array( 'success', __( 'Licence key removed.', 'mlab-seo' ) ),
 			'redirect_added'     => array( 'success', __( 'Redirect added. The address was removed from the 404 list.', 'mlab-seo' ) ),
 			'no_target'          => array( 'error', __( 'Please enter a target for the redirect.', 'mlab-seo' ) ),
 			'ignored'            => array( 'success', __( 'The address is not logged any more.', 'mlab-seo' ) ),

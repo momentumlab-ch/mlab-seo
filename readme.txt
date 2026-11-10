@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.8.1
+Stable tag: 1.9.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,11 @@ Developer hooks
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.9.0 =
+* Neu: Die Lizenz läuft jetzt über die gemeinsame MomentumLab-Lizenz. Ein Schlüssel gilt für alle MomentumLab-Plugins; ein bestehender Schlüssel wird automatisch übernommen.
+* Neu: Pro wird mit der Stufe «Pro» für SEO freigeschaltet.
+* Neu: Änderungen am Lizenzserver kommen sofort an.
 
 = 1.8.1 =
 * Behoben: Die Lizenz wird wieder erkannt. Pro wird mit einem gültigen Schlüssel freigeschaltet, und die Meldungen des Lizenzservers erscheinen direkt im Backend.

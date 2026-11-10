@@ -3,6 +3,14 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.9.2] - 2026-11-10
+
+### Geändert
+- Lizenz-Bibliothek 1.1.0: Änderungen auf dem MomentumLab-Lizenzserver kommen sofort an.
+
+### Behoben
+- Korrekte Plugin-Version in den Übersetzungsdateien.
+
 ## [1.9.1] - 2026-11-10
 
 ### Geändert

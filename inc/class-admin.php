@@ -89,7 +89,7 @@ final class Admin {
 	public function menu() {
 		$icon = 'data:image/svg+xml;base64,' . base64_encode( '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="black" d="M8.5 2a6.5 6.5 0 0 1 5.2 10.4l4 4-1.3 1.3-4-4A6.5 6.5 0 1 1 8.5 2Zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9ZM6 10.5 7.6 7l1.6 2.2L10.4 8 11.5 10.5Z"/></svg>' ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- Menu icon.
 		$cap  = self::capability();
-		add_menu_page( __( 'MomentumLab SEO', 'mlab-seo' ), __( 'SEO', 'mlab-seo' ), $cap, self::PAGE, array( $this, 'render' ), $icon, 81 );
+		add_menu_page( __( 'MomentumLab SEO', 'mlab-seo' ), __( 'SEO', 'mlab-seo' ), $cap, self::PAGE, array( $this, 'render' ), $icon, '58.2' ); // Right below the MomentumLab menu of MomentumLab Core (58.1).
 		foreach ( mlab_seo_admin_pages() as $slug => $page ) {
 			$label = $page['menu'];
 			if ( 'mlab-seo-redirects' === $slug && ! License::is_pro() ) {

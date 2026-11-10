@@ -3,6 +3,11 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.9.1] - 2026-11-10
+
+### Geändert
+- Das SEO-Menü steht direkt unter dem Menü „MomentumLab“ von MomentumLab Core, vor „Design“.
+
 ## [1.9.0] - 2026-11-10
 
 ### Neu

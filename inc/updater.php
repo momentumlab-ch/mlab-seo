@@ -19,6 +19,9 @@ add_action( 'init', 'mlab_seo_register_updater' );
  * Registers the update checker. Private repos need the token constant in wp-config.php.
  */
 function mlab_seo_register_updater(): void {
+	if ( apply_filters( 'mlab_core_manages_plugin', false, 'mlab-seo' ) ) {
+		return; // MomentumLab Core delivers the updates through the licence server.
+	}
 	$private = false;
 	$token   = defined( 'MLAB_SEO_GITHUB_TOKEN' ) ? (string) constant( 'MLAB_SEO_GITHUB_TOKEN' ) : '';
 

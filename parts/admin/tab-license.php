@@ -44,7 +44,9 @@ $via_filter = $pro && 'valid' !== $data['status'];
 </div>
 
 <h2><?php esc_html_e( 'Licence key', 'mlab-seo' ); ?></h2>
-<?php if ( $via_filter ) : ?>
+<?php if ( '' !== mlab_license()->admin_url() ) : ?>
+	<?php mlab_license()->render_box( License::PRODUCT ); ?>
+<?php elseif ( $via_filter ) : ?>
 	<p><span class="mlab-seo-badge is-good"><?php esc_html_e( 'Active', 'mlab-seo' ); ?></span> <?php esc_html_e( 'Pro is unlocked for this website by MomentumLab.', 'mlab-seo' ); ?></p>
 <?php else : ?>
 	<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">

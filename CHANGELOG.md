@@ -13,6 +13,9 @@ The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaki
 ### Behoben
 - Ist MomentumLab Core aktiv, kommen die Updates nur noch über den Lizenzserver; SEO richtet dann keinen zweiten Updater mehr ein.
 
+### Geändert
+- Das SEO-Menü steht direkt unter dem Menü „MomentumLab“ von MomentumLab Core, vor „Design“.
+
 ### Schneller
 - Die Lizenz wird zweimal täglich im Hintergrund geprüft; im Frontend gibt es nie eine Anfrage.
 

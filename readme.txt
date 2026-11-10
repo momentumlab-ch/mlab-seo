@@ -82,6 +82,7 @@ Developer hooks
 * Neu: Ein Lizenzschlüssel für alle MomentumLab-Plugins; mit MomentumLab Core wird er zentral verwaltet.
 * Neu: Pro über die Freischaltung „mlab-seo-pro“ (bis zur Umstellung gilt weiterhin „mlab-seo“).
 * Behoben: Mit MomentumLab Core kommen Updates nur noch über den Lizenzserver.
+* Geändert: Das SEO-Menü steht direkt unter „MomentumLab“.
 
 = 1.8.1 =
 * Behoben: Die Lizenz wird wieder erkannt. Pro wird mit einem gültigen Schlüssel freigeschaltet, und die Meldungen des Lizenzservers erscheinen direkt im Backend.

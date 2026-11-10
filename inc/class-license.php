@@ -1,6 +1,6 @@
 <?php
 /**
- * Pro licence: activation, periodic check and the feature gate.
+ * Pro licence: thin wrapper around the shared MomentumLab License Client (lib/mlab-license-client).
  *
  * @package MomentumLab\SEO
  */
@@ -10,71 +10,77 @@ namespace MomentumLab\SEO;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Validates the licence key against the MomentumLab licence server (mlab-license-server).
+ * Pro features are unlocked by the "mlab-seo-pro" unlock on the MomentumLab licence server.
  *
- * GET {endpoint} with the key in the X-MLAB-License header and the website in X-MLAB-Site.
- * The server answers 200 with { "products": [ { "slug": "mlab-seo", "unlocked": true|false }, … ] },
- * 401 for an unknown key, 403 for an inactive licence or a full site limit,
- * each error as { "code": "…", "message": "…" }.
+ * The key is shared with all MomentumLab plugins on the site. With MomentumLab Core it is managed
+ * on the central MomentumLab page; without Core it is entered here. The licence server is asked
+ * only in the admin or in cron; is_pro() never makes a request.
  */
 final class License {
 
 	/**
-	 * Option holding key and status.
+	 * Option of the former, plugin-own licence (taken over once by the client).
 	 */
 	const OPTION = 'mlab_seo_license';
 
 	/**
-	 * Daily re-check hook.
+	 * Former daily re-check hook; the shared client checks twice a day instead.
 	 */
 	const CRON = 'mlab_seo_license_check';
 
 	/**
-	 * A failed check (server down) keeps Pro active this long.
+	 * Unlock slug of the Pro features on the licence server.
 	 */
-	const GRACE = 7 * DAY_IN_SECONDS;
+	const PRODUCT = 'mlab-seo-pro';
 
 	/**
-	 * Product slug on the licence server.
+	 * Slug used before the separate Pro unlock existed.
 	 */
-	const PRODUCT = 'mlab-seo';
+	const LEGACY_PRODUCT = 'mlab-seo';
 
 	/**
-	 * Registers hooks.
+	 * Removes the former check, now done by the shared client.
 	 */
 	public function hooks() {
-		add_action( self::CRON, array( self::class, 'check' ) );
+		add_action( 'admin_init', array( self::class, 'drop_legacy_cron' ) );
 	}
 
 	/**
-	 * Stored licence data.
+	 * Unschedules the former daily check.
+	 */
+	public static function drop_legacy_cron() {
+		if ( wp_next_scheduled( self::CRON ) ) {
+			wp_clear_scheduled_hook( self::CRON );
+		}
+	}
+
+	/**
+	 * Licence data for the admin screens.
 	 *
 	 * @return array{key:string,status:string,checked:int,last_ok:int,message:string}
 	 */
 	public static function data() {
-		$data = get_option( self::OPTION, array() );
-		return array_merge(
-			array(
-				'key'     => '',
-				'status'  => 'none',
-				'checked' => 0,
-				'last_ok' => 0,
-				'message' => '',
-			),
-			is_array( $data ) ? $data : array()
+		$client = mlab_license();
+		$state  = $client->state();
+		$status = $state['status'];
+		if ( 'valid' === $status && ! self::unlocked() ) {
+			$status = 'invalid';
+		}
+		return array(
+			'key'     => $client->key(),
+			'status'  => '' === $client->key() ? 'none' : $status,
+			'checked' => max( $state['fetched_at'], $state['failed_at'] ),
+			'last_ok' => $state['last_ok'],
+			'message' => 'valid' === $status ? '' : self::message( $state ),
 		);
 	}
 
 	/**
-	 * Whether Pro features are unlocked.
+	 * Whether Pro features are unlocked. No request; safe in the frontend.
 	 *
 	 * @return bool
 	 */
 	public static function is_pro() {
-		$data   = self::data();
-		$active = 'valid' === $data['status']
-			|| ( 'unreachable' === $data['status'] && $data['last_ok'] > time() - self::GRACE );
-
 		/**
 		 * Filters whether Pro features are unlocked.
 		 *
@@ -82,21 +88,7 @@ final class License {
 		 *
 		 * @param bool $active Licence state.
 		 */
-		return (bool) apply_filters( 'mlab_seo_is_pro', $active );
-	}
-
-	/**
-	 * Licence server endpoint.
-	 *
-	 * @return string
-	 */
-	private static function endpoint() {
-		/**
-		 * Filters the licence server endpoint.
-		 *
-		 * @param string $url Endpoint URL.
-		 */
-		return (string) apply_filters( 'mlab_seo_license_endpoint', 'https://momentumlab.ch/wp-json/mlab-ls/v1/catalog' );
+		return (bool) apply_filters( 'mlab_seo_is_pro', self::unlocked() );
 	}
 
 	/**
@@ -105,8 +97,7 @@ final class License {
 	 * @return string
 	 */
 	public static function masked_key() {
-		$key = self::data()['key'];
-		return strlen( $key ) > 8 ? str_repeat( '•', strlen( $key ) - 4 ) . substr( $key, -4 ) : $key;
+		return mlab_license()->masked_key();
 	}
 
 	/**
@@ -116,112 +107,50 @@ final class License {
 	 * @return array Licence data after the check.
 	 */
 	public static function activate( $key ) {
-		$key = preg_replace( '/[^A-Za-z0-9\-]/', '', (string) $key );
-		update_option( self::OPTION, array( 'key' => $key ), false );
-		if ( '' === $key ) {
-			return self::data();
-		}
-		if ( ! wp_next_scheduled( self::CRON ) ) {
-			wp_schedule_event( time() + DAY_IN_SECONDS, 'daily', self::CRON );
-		}
-		return self::check();
+		mlab_license()->save_key( (string) $key );
+		return self::data();
 	}
 
 	/**
-	 * Removes the key.
+	 * Removes the key (for all MomentumLab plugins on this site).
 	 */
 	public static function deactivate() {
-		delete_option( self::OPTION );
-		wp_clear_scheduled_hook( self::CRON );
+		mlab_license()->save_key( '' );
 	}
 
 	/**
-	 * Asks the licence server about the stored key.
+	 * Asks the licence server now.
 	 *
 	 * @return array Licence data after the check.
 	 */
 	public static function check() {
-		$data = self::data();
-		if ( '' === $data['key'] ) {
-			return $data;
-		}
-
-		$response = wp_remote_get(
-			self::endpoint(),
-			array(
-				'timeout' => 10,
-				'headers' => array(
-					'X-MLAB-License' => $data['key'],
-					'X-MLAB-Site'    => home_url( '/' ),
-				),
-			)
-		);
-
-		$data['checked'] = time();
-		$code            = (int) wp_remote_retrieve_response_code( $response );
-		$body            = is_wp_error( $response ) ? null : json_decode( wp_remote_retrieve_body( $response ), true );
-
-		$data = self::apply_response( $data, $code, $body );
-
-		update_option( self::OPTION, $data, false );
-		return $data;
+		mlab_license()->refresh( true );
+		return self::data();
 	}
 
 	/**
-	 * Merges a licence server answer into the stored licence data.
+	 * Pro unlock. Until the server offers "mlab-seo-pro", a paid "mlab-seo" unlock still counts.
 	 *
-	 * @param array $data Licence data before the answer.
-	 * @param int   $code HTTP status code of the answer.
-	 * @param mixed $body Decoded JSON body, or null when the request failed.
-	 * @return array Updated licence data.
-	 */
-	private static function apply_response( $data, $code, $body ) {
-		$message = is_array( $body ) && isset( $body['message'] ) ? sanitize_text_field( (string) $body['message'] ) : '';
-		$message = '' !== $message ? $message : null;
-
-		if ( 401 === $code || 403 === $code ) {
-			return self::with_status( $data, 'invalid', $message ?? __( 'This licence key is not valid.', 'mlab-seo' ) );
-		}
-		if ( 200 !== $code || ! is_array( $body ) || ! isset( $body['products'] ) || ! is_array( $body['products'] ) ) {
-			// A known-good key survives a server outage as "unreachable" instead of turning into an error.
-			$status = 'valid' === $data['status'] || 'unreachable' === $data['status'] ? 'unreachable' : 'error';
-			return self::with_status( $data, $status, $message ?? __( 'The licence server could not be reached.', 'mlab-seo' ) );
-		}
-		if ( ! self::unlocks_product( $body['products'] ) ) {
-			return self::with_status( $data, 'invalid', __( 'This licence does not include MomentumLab SEO Pro.', 'mlab-seo' ) );
-		}
-		$data['status']  = 'valid';
-		$data['message'] = '';
-		$data['last_ok'] = time();
-		return $data;
-	}
-
-	/**
-	 * Whether the catalog marks this plugin as unlocked.
-	 *
-	 * @param array $products Catalog entries.
 	 * @return bool
 	 */
-	private static function unlocks_product( array $products ) {
-		foreach ( $products as $product ) {
-			if ( is_array( $product ) && self::PRODUCT === ( $product['slug'] ?? '' ) ) {
-				return ! empty( $product['unlocked'] );
-			}
+	private static function unlocked() {
+		$client = mlab_license();
+		if ( in_array( self::PRODUCT, array_column( $client->products(), 'slug' ), true ) ) {
+			return $client->unlocked( self::PRODUCT );
 		}
-		return false;
+		return $client->unlocked( self::LEGACY_PRODUCT );
 	}
 
 	/**
-	 * Sets status and message on the licence data.
+	 * Message for a licence that is not active.
 	 *
-	 * @param array  $data    Licence data.
-	 * @param string $status  New status.
-	 * @param string $message Message for the admin.
-	 * @return array
+	 * @param array $state Client state.
+	 * @return string
 	 */
-	private static function with_status( $data, $status, $message ) {
-		$data['status']  = $status;
-		$data['message'] = $message;
-		return $data;
+	private static function message( array $state ) {
+		if ( '' !== $state['message'] ) {
+			return $state['message'];
+		}
+		return __( 'This licence does not include MomentumLab SEO Pro.', 'mlab-seo' );
 	}
 }

@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: MomentumLab SEO 1.9.1\n"
+"Project-Id-Version: MomentumLab SEO 1.6.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mlab-seo\n"
 "POT-Creation-Date: 2026-11-09T23:31:10+00:00\n"
 "PO-Revision-Date: 2026-10-25 13:00+0100\n"

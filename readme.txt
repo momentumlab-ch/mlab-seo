@@ -79,12 +79,12 @@ Developer hooks
 == Changelog ==
 
 = 1.9.1 =
-* Behoben: Korrekte Plugin-Version in den Übersetzungsdateien.
+* Geändert: Das SEO-Menü steht direkt unter „MomentumLab“.
 
 = 1.9.0 =
-* Neu: Die Lizenz läuft jetzt über die gemeinsame MomentumLab-Lizenz. Ein Schlüssel gilt für alle MomentumLab-Plugins; ein bestehender Schlüssel wird automatisch übernommen.
-* Neu: Pro wird mit der Stufe «Pro» für SEO freigeschaltet.
-* Neu: Änderungen am Lizenzserver kommen sofort an.
+* Neu: Ein Lizenzschlüssel für alle MomentumLab-Plugins; mit MomentumLab Core wird er zentral verwaltet.
+* Neu: Pro über die Freischaltung „mlab-seo-pro“ (bis zur Umstellung gilt weiterhin „mlab-seo“).
+* Behoben: Mit MomentumLab Core kommen Updates nur noch über den Lizenzserver.
 
 = 1.8.1 =
 * Behoben: Die Lizenz wird wieder erkannt. Pro wird mit einem gültigen Schlüssel freigeschaltet, und die Meldungen des Lizenzservers erscheinen direkt im Backend.

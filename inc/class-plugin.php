@@ -90,9 +90,10 @@ final class Plugin {
 	}
 
 	/**
-	 * Deactivation: stops the link check.
+	 * Deactivation: stops the licence check.
 	 */
 	public static function deactivate() {
+		wp_clear_scheduled_hook( License::CRON );
 		Link_Check::unschedule();
 	}
 

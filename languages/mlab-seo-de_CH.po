@@ -2501,3 +2501,7 @@ msgstr "SEO-Box öffnen"
 #~ "Ein Mehrsprachigkeits-Plugin (WPML, Polylang oder TranslatePress) ist "
 #~ "aktiv und gibt hreflang selbst aus. Diese Einstellungen werden nicht "
 #~ "verwendet."
+
+#: inc/class-license.php
+msgid "This licence does not include MomentumLab SEO Pro."
+msgstr "Diese Lizenz enthält MomentumLab SEO Pro nicht. Bitte melde dich bei MomentumLab."

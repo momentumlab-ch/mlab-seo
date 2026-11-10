@@ -2312,3 +2312,7 @@ msgstr "L’image sociale et les textes, les règles robots, le canonical, le sc
 #: assets/js/sidebar.js:120
 msgid "Open SEO box"
 msgstr "Ouvrir le bloc SEO"
+
+#: inc/class-license.php
+msgid "This licence does not include MomentumLab SEO Pro."
+msgstr "Cette licence n’inclut pas MomentumLab SEO Pro. Veuillez contacter MomentumLab."

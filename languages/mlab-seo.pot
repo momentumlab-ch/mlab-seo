@@ -2287,3 +2287,7 @@ msgstr ""
 #: assets/js/sidebar.js:120
 msgid "Open SEO box"
 msgstr ""
+
+#: inc/class-license.php
+msgid "This licence does not include MomentumLab SEO Pro."
+msgstr ""

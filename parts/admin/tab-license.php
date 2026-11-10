@@ -55,12 +55,6 @@ $via_filter = $pro && 'valid' !== $data['status'];
 				<code><?php echo esc_html( License::masked_key() ); ?></code>
 				<?php if ( 'valid' === $data['status'] ) : ?>
 					<span class="mlab-seo-badge is-good"><?php esc_html_e( 'Active', 'mlab-seo' ); ?></span>
-					<?php
-					if ( $data['expires'] ) {
-						/* translators: %s: expiry date. */
-						printf( ' ' . esc_html__( 'valid until %s', 'mlab-seo' ), esc_html( $data['expires'] ) );
-					}
-					?>
 				<?php else : ?>
 					<span class="mlab-seo-badge is-bad"><?php esc_html_e( 'Not active', 'mlab-seo' ); ?></span> <?php echo esc_html( $data['message'] ); ?>
 				<?php endif; ?>

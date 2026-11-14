@@ -23,5 +23,5 @@ defined( 'ABSPATH' ) || exit;
 </table>
 <h2 class="mlab-seo-section"><?php esc_html_e( 'Technical', 'mlab-seo' ); ?></h2>
 <table class="form-table" role="presentation">
-	<?php Fields::rows( array( 'remove_generator', 'admin_bar', 'attachment_pages', 'woo_schema' ) ); ?>
+	<?php Fields::rows( array( 'remove_generator', 'settings_role', 'admin_bar', 'attachment_pages', 'woo_schema' ) ); ?>
 </table>

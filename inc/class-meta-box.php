@@ -61,7 +61,7 @@ final class Meta_Box {
 		wp_enqueue_media();
 		wp_enqueue_style( 'mlab-seo-admin', MLAB_SEO_URL . 'assets/css/admin.css', array(), Admin::asset_version( 'assets/css/admin.css' ) );
 		Admin::script( 'mlab-seo-analysis', 'assets/js/analysis.js', array( 'wp-i18n' ) );
-		Admin::script( 'mlab-seo-editor', 'assets/js/editor.js', array( 'jquery', 'wp-i18n', 'wp-api-fetch', 'mlab-seo-analysis' ) );
+		Admin::script( 'mlab-seo-editor', 'assets/js/editor.js', array( 'jquery', 'wp-i18n', 'wp-api-fetch', 'wp-blocks', 'wp-data', 'mlab-seo-analysis' ) );
 		if ( $screen->is_block_editor() ) {
 			Admin::script( 'mlab-seo-sidebar', 'assets/js/sidebar.js', array( 'mlab-seo-analysis', 'mlab-seo-editor', 'wp-plugins', 'wp-editor', 'wp-edit-post', 'wp-element', 'wp-components', 'wp-i18n' ) );
 		}

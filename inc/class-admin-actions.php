@@ -61,10 +61,11 @@ final class Admin_Actions {
 	/**
 	 * Capability and nonce check for form handlers.
 	 *
-	 * @param string $action Nonce action.
+	 * @param string $action     Nonce action.
+	 * @param bool   $admin_only Licence and import: administrators only.
 	 */
-	private function verify( $action ) {
-		if ( ! current_user_can( Admin::capability() ) ) {
+	private function verify( $action, $admin_only = false ) {
+		if ( ! current_user_can( $admin_only ? Admin::admin_capability() : Admin::capability() ) ) {
 			wp_die( esc_html__( 'You are not allowed to change these settings.', 'mlab-seo' ), 403 );
 		}
 		check_admin_referer( $action );
@@ -134,7 +135,7 @@ final class Admin_Actions {
 	 * Activates or removes the licence key.
 	 */
 	public function handle_license() {
-		$this->verify( 'mlab_seo_license' );
+		$this->verify( 'mlab_seo_license', true );
 		if ( ! empty( $_POST['mlab_seo_license_remove'] ) ) {
 			License::deactivate();
 			$this->back( 'mlab-seo-settings', 'license', 'license_removed' );
@@ -168,7 +169,7 @@ final class Admin_Actions {
 	 * Imports SEO data from another plugin.
 	 */
 	public function handle_import() {
-		$this->verify( 'mlab_seo_import' );
+		$this->verify( 'mlab_seo_import', true );
 		$source = isset( $_POST['mlab_seo_import_source'] ) ? sanitize_key( wp_unslash( $_POST['mlab_seo_import_source'] ) ) : '';
 		$result = Import::run( $source, ! empty( $_POST['mlab_seo_import_overwrite'] ) );
 		Dashboard::flush_cache();
@@ -187,7 +188,7 @@ final class Admin_Actions {
 	 * Imports redirects from another plugin.
 	 */
 	public function handle_redirect_import() {
-		$this->verify( 'mlab_seo_redirect_import' );
+		$this->verify( 'mlab_seo_redirect_import', true );
 		$source = isset( $_POST['mlab_seo_redirect_source'] ) ? sanitize_key( wp_unslash( $_POST['mlab_seo_redirect_source'] ) ) : '';
 		$this->back( 'mlab-seo-settings', 'import', 'redirects_imported', array( 'mlab_seo_imported' => Redirect_Import::run( $source ) ) );
 	}

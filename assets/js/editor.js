@@ -304,7 +304,8 @@
 				if ( row.orphan ) {
 					$item.append( ' ', $( '<span class="mlab-seo-badge is-bad">' ).text( __( 'No link yet', 'mlab-seo' ) ) );
 				}
-				$item.append( ' ', $( '<button type="button" class="button-link">' ).text( __( 'Copy address', 'mlab-seo' ) ).data( 'url', row.url ) );
+				$item.append( ' ', $( '<button type="button" class="button-link mlab-seo__link-insert">' ).text( __( 'Insert link', 'mlab-seo' ) ).data( { url: row.url, title: row.title } ) );
+				$item.append( ' ', $( '<button type="button" class="button-link mlab-seo__link-copy">' ).text( __( 'Copy address', 'mlab-seo' ) ).data( 'url', row.url ) );
 				$list.append( $item );
 			} );
 		} ).catch( function () {
@@ -313,7 +314,37 @@
 			$button.prop( 'disabled', false );
 		} );
 	} );
-	$box.on( 'click', '.mlab-seo__links .button-link', function () {
+	/* Insert link: keep the selection in the text while the button is pressed. */
+	$box.on( 'mousedown', '.mlab-seo__link-insert', function ( e ) {
+		e.preventDefault();
+	} );
+	$box.on( 'click', '.mlab-seo__link-insert', function () {
+		var $btn = $( this );
+		var url = $btn.data( 'url' );
+		var title = $btn.data( 'title' );
+		var done = false;
+		var wp = window.wp || {};
+		var tiny = window.tinymce && window.tinymce.activeEditor && ! window.tinymce.activeEditor.isHidden() ? window.tinymce.activeEditor : null;
+		var selection = window.getSelection && window.getSelection();
+		var inBlock = selection && selection.rangeCount && ! selection.isCollapsed && $( selection.anchorNode ).closest( '.block-editor-rich-text__editable' ).length;
+
+		if ( tiny ) {
+			if ( tiny.selection.getContent() ) {
+				tiny.execCommand( 'mceInsertLink', false, { href: url } );
+			} else {
+				tiny.insertContent( '<a href="' + url + '">' + $( '<span>' ).text( title ).html() + '</a>' );
+			}
+			done = true;
+		} else if ( inBlock ) {
+			done = document.execCommand( 'createLink', false, url );
+		} else if ( wp.data && wp.blocks && wp.data.dispatch( 'core/block-editor' ) ) {
+			var link = '<a href="' + url + '">' + $( '<span>' ).text( title ).html() + '</a>';
+			wp.data.dispatch( 'core/block-editor' ).insertBlocks( wp.blocks.createBlock( 'core/paragraph', { content: link } ) );
+			done = true;
+		}
+		$btn.text( done ? __( 'Inserted', 'mlab-seo' ) : __( 'Select text first', 'mlab-seo' ) );
+	} );
+	$box.on( 'click', '.mlab-seo__link-copy', function () {
 		var $btn = $( this );
 		if ( navigator.clipboard ) {
 			navigator.clipboard.writeText( $btn.data( 'url' ) ).then( function () {
@@ -321,6 +352,13 @@
 			} );
 		}
 	} );
+
+	/* A business reviewing itself gets no stars in Google: warn. */
+	function reviewNote() {
+		var self = 'review' === $box.find( '#mlab-seo-rich-type' ).val() && [ 'LocalBusiness', 'Organization' ].indexOf( $box.find( '#mlab-seo-rich-review-item_type' ).val() ) > -1;
+		$box.find( '.mlab-seo__review-note' ).prop( 'hidden', ! self );
+	}
+	$box.on( 'change', '#mlab-seo-rich-type, #mlab-seo-rich-review-item_type', reviewNote );
 
 	/* Rich result type: show only the fields of the chosen type. */
 	$box.on( 'change', '#mlab-seo-rich-type', function () {

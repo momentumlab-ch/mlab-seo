@@ -41,6 +41,7 @@ mlab-seo.php         Plugin-Datei mit Header und Version, lädt die Module
 inc/                 PHP-Klassen, options.php (alle Einstellungen), updater.php
 parts/               Vorlagen für Einstellungen, SEO-Box und Kategorie-Felder
 assets/              JavaScript, CSS und Plugin-Icon (img/)
+bin/i18n/            Übersetzungen: `python3 bin/i18n/build.py --missing` listet neue Texte, `python3 bin/i18n/build.py` schreibt .po, .mo, .l10n.php, JSON und .pot
 languages/           Übersetzungen (.pot, .po, .mo, .l10n.php, .json für JavaScript)
 lib/                 Plugin Update Checker
 readme.txt           Readme im WordPress-Format

@@ -81,9 +81,35 @@ final class Admin {
 		/**
 		 * Filters the capability needed for the SEO settings.
 		 *
+		 * @param string $capability Default 'manage_options', or 'edit_pages' when editors are allowed in the settings.
+		 */
+		return (string) apply_filters( 'mlab_seo_settings_capability', 'editor' === Settings::get( 'settings_role' ) ? 'edit_pages' : 'manage_options' );
+	}
+
+	/**
+	 * Capability for licence and import: administrators only, even when editors may use the SEO screens.
+	 *
+	 * @return string
+	 */
+	public static function admin_capability() {
+		/**
+		 * Filters the capability needed for licence and import.
+		 *
 		 * @param string $capability Default 'manage_options'.
 		 */
-		return (string) apply_filters( 'mlab_seo_settings_capability', 'manage_options' );
+		return (string) apply_filters( 'mlab_seo_admin_capability', 'manage_options' );
+	}
+
+	/**
+	 * Button that leads to the licence form, or a note for users who may not open it.
+	 *
+	 * @return string HTML.
+	 */
+	public static function activate_pro_link() {
+		if ( ! current_user_can( self::admin_capability() ) ) {
+			return esc_html__( 'Ask an administrator to activate Pro.', 'mlab-seo' );
+		}
+		return '<a class="button button-primary" href="' . esc_url( self::url( 'mlab-seo-settings', 'license' ) ) . '">' . esc_html__( 'Activate Pro', 'mlab-seo' ) . '</a>';
 	}
 
 	/**

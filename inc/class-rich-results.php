@@ -25,6 +25,11 @@ final class Rich_Results {
 	const REVIEWED = array( 'Product', 'Book', 'Movie', 'Course', 'Recipe', 'SoftwareApplication', 'Service', 'LocalBusiness', 'Organization' );
 
 	/**
+	 * Categories of a software application (schema.org).
+	 */
+	const SOFTWARE = array( 'BusinessApplication', 'DeveloperApplication', 'UtilitiesApplication', 'MultimediaApplication', 'DesignApplication', 'EducationalApplication', 'FinanceApplication', 'HealthApplication', 'GameApplication', 'SecurityApplication', 'BrowserApplication', 'CommunicationApplication', 'SocialNetworkingApplication', 'LifestyleApplication', 'TravelApplication', 'ShoppingApplication', 'HomeApplication', 'ReferenceApplication', 'EntertainmentApplication', 'SportsApplication' );
+
+	/**
 	 * Types with label.
 	 *
 	 * @return array<string,string>
@@ -35,6 +40,7 @@ final class Rich_Results {
 			'recipe' => __( 'Recipe', 'mlab-seo' ),
 			'course' => __( 'Course', 'mlab-seo' ),
 			'review' => __( 'Review', 'mlab-seo' ),
+			'software' => __( 'Software app', 'mlab-seo' ),
 		);
 	}
 
@@ -115,6 +121,21 @@ final class Rich_Results {
 					'author'    => $text( __( 'Reviewer (empty: author of the page)', 'mlab-seo' ) ),
 					'body'      => $text( __( 'Review text', 'mlab-seo' ), false, 'textarea' ),
 				);
+			case 'software':
+				return array(
+					'name'         => $text( __( 'App name', 'mlab-seo' ), true ),
+					'description'  => $text( __( 'Description', 'mlab-seo' ), false, 'textarea' ),
+					'category'     => array(
+						'label'   => __( 'Category', 'mlab-seo' ),
+						'kind'    => 'select',
+						'choices' => self::SOFTWARE,
+					),
+					'os'           => $text( __( 'Operating system (for example Windows, macOS, Android)', 'mlab-seo' ), true ),
+					'price'        => $text( __( 'Price (0 for free)', 'mlab-seo' ), true, 'number' ),
+					'currency'     => $text( __( 'Currency', 'mlab-seo' ) ),
+					'rating_value' => $text( __( 'Average rating (1 to 5)', 'mlab-seo' ), false, 'number' ),
+					'rating_count' => $text( __( 'Number of ratings', 'mlab-seo' ), false, 'number' ),
+				);
 		}
 		return array();
 	}
@@ -171,7 +192,7 @@ final class Rich_Results {
 		$type = $data['type'] ?? '';
 		$gaps = array();
 		foreach ( self::fields( $type ) as $key => $field ) {
-			if ( empty( $field['required'] ) || ! empty( $data[ $key ] ) ) {
+			if ( empty( $field['required'] ) || '' !== trim( (string) ( $data[ $key ] ?? '' ) ) ) {
 				continue;
 			}
 			if ( 'job' === $type && 'city' === $key && ! empty( $data['remote'] ) ) {
@@ -220,6 +241,8 @@ final class Rich_Results {
 				);
 			case 'review':
 				return self::review( $d, $post_id, $url, $img );
+			case 'software':
+				return self::software( $d, $url );
 		}
 		return null;
 	}
@@ -369,6 +392,37 @@ final class Rich_Results {
 				),
 				'reviewBody'    => $d['body'] ?? '',
 				'datePublished' => get_post_time( 'Y-m-d', true, $post_id ),
+			)
+		);
+	}
+
+	/**
+	 * SoftwareApplication node with price and rating.
+	 *
+	 * @param array  $d   Data.
+	 * @param string $url Page URL.
+	 * @return array
+	 */
+	private static function software( array $d, $url ) {
+		return Schema::clean(
+			array(
+				'@type'               => 'SoftwareApplication',
+				'@id'                 => $url . '#software',
+				'name'                => $d['name'],
+				'description'         => $d['description'] ?? '',
+				'applicationCategory' => $d['category'],
+				'operatingSystem'     => $d['os'],
+				'url'                 => $url,
+				'offers'              => array(
+					'@type'         => 'Offer',
+					'price'         => $d['price'],
+					'priceCurrency' => ! empty( $d['currency'] ) ? $d['currency'] : 'CHF',
+				),
+				'aggregateRating'     => ! empty( $d['rating_value'] ) && ! empty( $d['rating_count'] ) ? array(
+					'@type'       => 'AggregateRating',
+					'ratingValue' => $d['rating_value'],
+					'ratingCount' => $d['rating_count'],
+				) : null,
 			)
 		);
 	}

@@ -16,3 +16,4 @@ wp-config.php
 *.map
 README.md
 docs
+bin

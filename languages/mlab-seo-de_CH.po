@@ -1,6 +1,6 @@
 #
 msgid ""
-msgstr "Project-Id-Version: MomentumLab SEO 1.12.1\nReport-Msgid-Bugs-To: https://wordpress.org/support/plugin/mlab-seo\nPOT-Creation-Date: 2026-11-14T15:46:43+00:00\nPO-Revision-Date: 2026-11-14 15:46+0000\nLast-Translator: MomentumLab <support@momentumlab.ch>\nLanguage-Team: German\nLanguage: de_CH\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Domain: mlab-seo\nX-Generator: WP-CLI 2.12.0\n"
+msgstr "Project-Id-Version: MomentumLab SEO 1.13.0\nReport-Msgid-Bugs-To: https://wordpress.org/support/plugin/mlab-seo\nPOT-Creation-Date: 2026-11-14T15:58:28+00:00\nPO-Revision-Date: 2026-11-14 15:58+0000\nLast-Translator: MomentumLab <support@momentumlab.ch>\nLanguage-Team: German\nLanguage: de_CH\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Domain: mlab-seo\nX-Generator: WP-CLI 2.12.0\n"
 
 #. Plugin Name of the plugin
 #: mlab-seo.php inc/class-admin.php:92 inc/class-meta-box.php:47
@@ -2675,3 +2675,67 @@ msgid "%d page misses data Google and Bing need for its event or rich result. No
 msgid_plural "%d pages miss data Google and Bing need for their event or rich result. Nothing is shown for them."
 msgstr[0] "Bei %d Seite fehlen Angaben, die Google und Bing für das Event oder Rich Result brauchen. Es wird nichts angezeigt."
 msgstr[1] "Bei %d Seiten fehlen Angaben, die Google und Bing für das Event oder Rich Result brauchen. Es wird nichts angezeigt."
+
+#: inc/options.php
+msgid "Administrators and editors"
+msgstr "Administratoren und Redaktoren"
+
+#: inc/options.php
+msgid "Administrators only"
+msgstr "Nur Administratoren"
+
+#: inc/class-rich-results.php
+msgid "App name"
+msgstr "Name der App"
+
+#: inc/class-rich-results.php
+msgid "Category"
+msgstr "Kategorie"
+
+#: inc/options.php
+msgid "Editors can then change titles, redirects and settings too. The SEO box in the editor is open to everyone who may edit the page either way."
+msgstr "Redaktoren können dann auch Titel, Weiterleitungen und Einstellungen ändern. Das SEO-Feld im Editor steht in beiden Fällen allen offen, die die Seite bearbeiten dürfen."
+
+#: parts/meta-box/panel-schema.php
+msgid "Google does not show stars for reviews that a business writes about itself. Use this for products, books, movies, courses and similar."
+msgstr "Google zeigt keine Sterne für Bewertungen, die ein Unternehmen über sich selbst schreibt. Nutze dies für Produkte, Bücher, Filme, Kurse und Ähnliches."
+
+#: inc/class-rich-results.php
+msgid "Operating system (for example Windows, macOS, Android)"
+msgstr "Betriebssystem (zum Beispiel Windows, macOS, Android)"
+
+#: inc/class-rich-results.php
+msgid "Price (0 for free)"
+msgstr "Preis (0 für gratis)"
+
+#: inc/class-rich-results.php
+msgid "Software app"
+msgstr "Software-App"
+
+#: inc/options.php
+msgid "Who may use the SEO screens"
+msgstr "Wer die SEO-Seiten nutzen darf"
+
+#: inc/class-dashboard.php
+msgid "%s is active as well. Two SEO plugins print duplicate titles and tags. Take over its data, then deactivate it. An administrator can do this under Settings › Import."
+msgstr "%s ist ebenfalls aktiv. Zwei SEO-Plugins geben doppelte Titel und Tags aus. Übernimm die Daten und deaktiviere es dann. Das kann ein Administrator unter Einstellungen › Import tun."
+
+#: inc/class-admin.php
+msgid "Ask an administrator to activate Pro."
+msgstr "Bitte einen Administrator, Pro zu aktivieren."
+
+#: assets/js/editor.js
+msgid "Insert link"
+msgstr "Link einfügen"
+
+#: assets/js/editor.js
+msgid "Inserted"
+msgstr "Eingefügt"
+
+#: parts/meta-box/panel-seo.php
+msgid "Pages that fit this page and are not linked yet. Pages without any internal link come first. Select text and press Insert link, or copy the address."
+msgstr "Seiten, die zu dieser Seite passen und noch nicht verlinkt sind. Seiten ohne internen Link stehen zuoberst. Markiere Text und klicke auf «Link einfügen» oder kopiere die Adresse."
+
+#: assets/js/editor.js
+msgid "Select text first"
+msgstr "Zuerst Text markieren"

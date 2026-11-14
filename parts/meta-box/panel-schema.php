@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 		<div class="mlab-seo__locked">
 			<p><strong><?php esc_html_e( 'Event and custom schema are Pro features.', 'mlab-seo' ); ?></strong></p>
 			<p><?php esc_html_e( 'With Pro, events appear with date and place directly in Google results, and you can add any schema.org data to a page.', 'mlab-seo' ); ?></p>
-			<p><a class="button button-primary" href="<?php echo esc_url( Admin::url( 'mlab-seo-settings', 'license' ) ); ?>"><?php esc_html_e( 'Activate Pro', 'mlab-seo' ); ?></a></p>
+			<p><?php echo Admin::activate_pro_link(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in the method. ?></p>
 		</div>
 	<?php endif; ?>
 	<fieldset class="mlab-seo__event" <?php disabled( ! $pro ); ?>>
@@ -121,6 +121,7 @@ defined( 'ABSPATH' ) || exit;
 				?>
 			</p></div>
 		<?php endif; ?>
+		<p class="notice notice-warning inline mlab-seo__review-note" <?php echo 'review' === $rich_type && in_array( $rich['item_type'] ?? '', array( 'LocalBusiness', 'Organization' ), true ) ? '' : 'hidden'; ?>><?php esc_html_e( 'Google does not show stars for reviews that a business writes about itself. Use this for products, books, movies, courses and similar.', 'mlab-seo' ); ?></p>
 		<?php foreach ( array_keys( Rich_Results::types() ) as $key ) : ?>
 			<div class="mlab-seo__grid mlab-seo__rich" data-rich="<?php echo esc_attr( $key ); ?>" <?php echo $rich_type === $key ? '' : 'hidden'; ?>>
 				<?php

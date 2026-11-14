@@ -13,7 +13,7 @@ namespace MomentumLab\SEO;
 defined( 'ABSPATH' ) || exit;
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Included inside Admin::part(), the variables are local.
 
-$segments = $admin_page['segments'];
+$segments = array_filter( $admin_page['segments'], fn ( $segment ) => empty( $segment['admin'] ) || current_user_can( Admin::admin_capability() ) );
 $first    = (string) array_key_first( $segments );
 ?>
 <div class="wrap mlab-seo-app" data-page="<?php echo esc_attr( $slug ); ?>">

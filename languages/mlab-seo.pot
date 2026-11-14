@@ -2772,3 +2772,67 @@ msgid "%d page misses data Google and Bing need for its event or rich result. No
 msgid_plural "%d pages miss data Google and Bing need for their event or rich result. Nothing is shown for them."
 msgstr[0] ""
 msgstr[1] ""
+
+#: inc/options.php
+msgid "Administrators and editors"
+msgstr ""
+
+#: inc/options.php
+msgid "Administrators only"
+msgstr ""
+
+#: inc/class-rich-results.php
+msgid "App name"
+msgstr ""
+
+#: inc/class-rich-results.php
+msgid "Category"
+msgstr ""
+
+#: inc/options.php
+msgid "Editors can then change titles, redirects and settings too. The SEO box in the editor is open to everyone who may edit the page either way."
+msgstr ""
+
+#: parts/meta-box/panel-schema.php
+msgid "Google does not show stars for reviews that a business writes about itself. Use this for products, books, movies, courses and similar."
+msgstr ""
+
+#: inc/class-rich-results.php
+msgid "Operating system (for example Windows, macOS, Android)"
+msgstr ""
+
+#: inc/class-rich-results.php
+msgid "Price (0 for free)"
+msgstr ""
+
+#: inc/class-rich-results.php
+msgid "Software app"
+msgstr ""
+
+#: inc/options.php
+msgid "Who may use the SEO screens"
+msgstr ""
+
+#: inc/class-dashboard.php
+msgid "%s is active as well. Two SEO plugins print duplicate titles and tags. Take over its data, then deactivate it. An administrator can do this under Settings › Import."
+msgstr ""
+
+#: inc/class-admin.php
+msgid "Ask an administrator to activate Pro."
+msgstr ""
+
+#: assets/js/editor.js
+msgid "Insert link"
+msgstr ""
+
+#: assets/js/editor.js
+msgid "Inserted"
+msgstr ""
+
+#: parts/meta-box/panel-seo.php
+msgid "Pages that fit this page and are not linked yet. Pages without any internal link come first. Select text and press Insert link, or copy the address."
+msgstr ""
+
+#: assets/js/editor.js
+msgid "Select text first"
+msgstr ""

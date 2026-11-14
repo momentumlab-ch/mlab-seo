@@ -17,6 +17,7 @@ $segments = $admin_page['segments'];
 $first    = (string) array_key_first( $segments );
 ?>
 <div class="wrap mlab-seo-app" data-page="<?php echo esc_attr( $slug ); ?>">
+	<hr class="wp-header-end" /><?php // WordPress places notices of other plugins and of the core here, above our header. ?>
 	<header class="mlab-seo-head">
 		<div>
 			<h1><?php echo esc_html( $admin_page['title'] ); ?> <span class="mlab-seo-tag is-plan<?php echo $pro ? ' is-pro' : ''; ?>"><?php echo $pro ? 'Pro' : 'Free'; ?></span></h1>

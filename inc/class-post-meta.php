@@ -63,6 +63,11 @@ final class Post_Meta {
 	const EVENT_STATUS = array( 'EventScheduled', 'EventPostponed', 'EventRescheduled', 'EventMovedOnline', 'EventCancelled' );
 
 	/**
+	 * Attendance modes of an event.
+	 */
+	const EVENT_MODES = array( 'Offline', 'Online', 'Mixed' );
+
+	/**
 	 * Registers hooks.
 	 */
 	public function hooks() {
@@ -230,6 +235,9 @@ final class Post_Meta {
 			'start'       => self::event_date( $in['start'] ?? '' ),
 			'end'         => self::event_date( $in['end'] ?? '' ),
 			'status'      => in_array( $in['status'] ?? '', self::EVENT_STATUS, true ) ? $in['status'] : 'EventScheduled',
+			'mode'        => in_array( $in['mode'] ?? '', self::EVENT_MODES, true ) ? $in['mode'] : 'Offline',
+			'online_url'  => $url( 'online_url' ),
+			'performer'   => $text( 'performer' ),
 			'sport'       => $text( 'sport' ),
 			'location'    => $text( 'location' ),
 			'street'      => $text( 'street' ),
@@ -241,6 +249,47 @@ final class Post_Meta {
 			'price'       => preg_replace( '/[^0-9.]/', '', $text( 'price' ) ),
 			'currency'    => strtoupper( substr( preg_replace( '/[^A-Za-z]/', '', $text( 'currency' ) ), 0, 3 ) ),
 			'sub'         => self::sanitize_sub_events( $in['sub'] ?? array() ),
+		);
+	}
+
+	/**
+	 * Missing event data, as fields Google (and Bing) need or recommend.
+	 *
+	 * @param array $e Event data as saved.
+	 * @return array{required:string[],recommended:string[]} Field labels.
+	 */
+	public static function event_gaps( array $e ) {
+		$e        = array_merge( array_fill_keys( array( 'name', 'start', 'end', 'mode', 'online_url', 'location', 'city', 'street', 'description', 'offer_url', 'price' ), '' ), $e );
+		$online   = 'Online' === $e['mode'] || 'Mixed' === $e['mode'];
+		$offline  = 'Online' !== $e['mode'];
+		$required = array();
+		$advised  = array();
+		if ( '' === $e['start'] ) {
+			$required[] = __( 'Start', 'mlab-seo' );
+		}
+		if ( $offline && '' === $e['location'] && '' === $e['city'] ) {
+			$required[] = __( 'Venue', 'mlab-seo' );
+		}
+		if ( $online && '' === $e['online_url'] ) {
+			$required[] = __( 'Online event URL', 'mlab-seo' );
+		}
+		if ( $offline && '' === $e['street'] && '' === $e['city'] ) {
+			$advised[] = __( 'Address', 'mlab-seo' );
+		}
+		foreach ( array(
+			'end'         => __( 'End', 'mlab-seo' ),
+			'description' => __( 'Description', 'mlab-seo' ),
+		) as $key => $label ) {
+			if ( '' === $e[ $key ] ) {
+				$advised[] = $label;
+			}
+		}
+		if ( '' === $e['offer_url'] && '' === $e['price'] ) {
+			$advised[] = __( 'Tickets or price', 'mlab-seo' );
+		}
+		return array(
+			'required'    => $required,
+			'recommended' => $advised,
 		);
 	}
 

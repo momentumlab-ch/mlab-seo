@@ -3,6 +3,19 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.15.0] - 2026-11-14
+
+### Hinzugefügt
+- Seitenliste: «Mit KI schreiben» im Bearbeiten-Feld. Gleicher Ablauf wie im Editor: bis zu 3 Entwürfe mit Zeichenzahl, «Diese Texte verwenden» füllt SEO-Titel und Beschreibung, freigegeben ist es mit «Speichern». Bestehende Entwürfe der Freigabe-Liste erscheinen dort ebenfalls.
+
+### Geändert
+- Speichermeldung grösser und klarer: grosse Karte mit Symbol und 17 px Schrift, 6 Sekunden sichtbar, danach bleibt «Gespeichert um HH:MM» im Kopf. Beim Speichern einer Seite in der Seitenliste nennt sie die Seite («Gespeichert: About Us»).
+- Fehler beim Speichern in der Seitenliste erscheinen im selben Hinweis statt in einem Browser-Fenster. Sie bleiben stehen.
+
+### Behoben
+- Die Speichermeldung lag in der Seitenliste hinter dem Bearbeiten-Feld und war nie zu sehen.
+- Shortcodes von Page-Buildern, die in der Anfrage nicht geladen sind (Divi `et_pb_*`, WPBakery `vc_*`), blieben im Text stehen und erschienen als automatische Beschreibung, in der Vorschau und im SEO-Check, in den Daten für die KI, im Wortzähler des Inhalts-Checks, bei der Wortzahl für das Schema und in llms.txt. Text in eckigen Klammern wie [sic] bleibt erhalten.
+
 ## [1.14.1] - 2026-11-14
 
 ### Hinzugefügt

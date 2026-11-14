@@ -202,6 +202,7 @@ final class Rest {
 			'vars'      => Meta_Box::variable_values( $post ),
 			'pattern'   => Titles::post_type( $post->post_type )['title'],
 			'date'      => Meta_Box::preview_date( $post ),
+			'aiDraft'   => AI_Suggestions::get( $id )['variants'] ?? array(),
 		);
 	}
 
@@ -216,6 +217,6 @@ final class Rest {
 		foreach ( FAQ::for_post( $post->ID ) as $item ) {
 			$faq .= ' <h3>' . esc_html( $item['question'] ) . '</h3> <p>' . wp_strip_all_tags( $item['answer'] ) . '</p> ';
 		}
-		return $post->post_content . $faq;
+		return Context::strip_shortcodes( $post->post_content ) . $faq;
 	}
 }

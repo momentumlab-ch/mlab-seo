@@ -339,7 +339,7 @@ final class AI_Suggestions {
 	 * @return string
 	 */
 	private static function page_data( $post ) {
-		$text = html_entity_decode( wp_strip_all_tags( excerpt_remove_blocks( strip_shortcodes( $post->post_content ) ) ), ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+		$text = html_entity_decode( wp_strip_all_tags( excerpt_remove_blocks( Context::strip_shortcodes( $post->post_content ) ) ), ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 		return (string) wp_json_encode(
 			array(
 				'website'            => Settings::site_name(),

@@ -254,15 +254,17 @@ fieldset[disabled] textarea { cursor: not-allowed; }
 .mlab-seo-head__intro, .mlab-seo-hint { color: var(--ms-text-2); margin: 6px 0 0; }
 .mlab-seo-hint { margin: 0 0 12px; }
 .mlab-seo-hint.is-note { color: var(--ms-ok); }
-/* Save state: a toast that stays in view while scrolling. */
-.mlab-seo-saved { position: fixed; top: 44px; right: 24px; z-index: 100000; display: flex; align-items: center; gap: 8px; max-width: min(420px, calc(100vw - 48px)); padding: 10px 16px; border-radius: 12px; background: var(--ms-card); color: var(--ms-text); font-weight: 600; box-shadow: 0 6px 24px rgba(0,0,0,.18); border-left: 4px solid var(--ms-good-dot); }
+/* Save state: a large toast above everything, also above the edit panel of the page list. */
+.mlab-seo-saved { position: fixed; top: 52px; right: 28px; z-index: 100010; display: flex; align-items: center; gap: 14px; min-width: 300px; max-width: min(480px, calc(100vw - 32px)); padding: 18px 24px; border-radius: 16px; background: #fff; color: var(--ms-text); font-size: 17px; line-height: 1.35; font-weight: 600; box-shadow: 0 16px 48px rgba(0,0,0,.28); border: 2px solid var(--ms-good-dot); animation: mlab-seo-pop .18s ease-out; }
 .mlab-seo-saved:empty { display: none; }
-.mlab-seo-saved::before { content: "✓"; color: var(--ms-good); font-weight: 700; }
-.mlab-seo-saved.is-saving { border-left-color: var(--ms-ok-dot); }
-.mlab-seo-saved.is-saving::before { content: "…"; color: var(--ms-ok); }
-.mlab-seo-saved.is-error { border-left-color: var(--ms-bad-dot); background: #fff1f0; color: var(--ms-bad); }
-.mlab-seo-saved.is-error::before { content: "✕"; color: var(--ms-bad); }
-@media (max-width: 782px) { .mlab-seo-saved { top: 58px; right: 16px; } }
+.mlab-seo-saved::before { content: "✓"; flex: none; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: var(--ms-good-dot); color: #fff; font-size: 20px; font-weight: 700; }
+.mlab-seo-saved.is-saving { border-color: var(--ms-ok-dot); }
+.mlab-seo-saved.is-saving::before { content: "…"; background: var(--ms-ok-dot); }
+.mlab-seo-saved.is-error { border-color: var(--ms-bad-dot); background: #fff1f0; color: var(--ms-bad); }
+.mlab-seo-saved.is-error::before { content: "✕"; background: var(--ms-bad-dot); }
+@keyframes mlab-seo-pop { from { transform: translateY(-8px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .mlab-seo-saved { animation: none; } }
+@media (max-width: 782px) { .mlab-seo-saved { top: 58px; right: 16px; left: 16px; min-width: 0; max-width: none; } }
 .mlab-seo-section { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--ms-text-2); margin: 28px 0 8px 4px; }
 .mlab-seo-tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: var(--ms-fill); color: var(--ms-text-2); vertical-align: middle; letter-spacing: 0; text-transform: none; }
 .mlab-seo-tag.is-good { background: rgba(52,199,89,.14); color: var(--ms-good); }
@@ -445,3 +447,7 @@ fieldset[disabled] textarea { cursor: not-allowed; }
 .mlab-seo-row[data-ai-key] input[type="password"] { min-width: 220px; flex: 1 1 220px; max-width: 360px; }
 .mlab-seo-savedlast { color: var(--ms-text-2); font-size: 12px; align-self: flex-end; }
 .mlab-seo-savedlast:empty { display: none; }
+
+.mlab-seo-ai-list { list-style: none; margin: 8px 0 12px; padding: 0; }
+.mlab-seo-ai-list li { padding: 10px 0; border-top: 1px solid var(--ms-sep); }
+.mlab-seo-ai-list small { color: var(--ms-text-2); }

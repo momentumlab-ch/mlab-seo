@@ -88,31 +88,41 @@
 
 	var $status = $wrap.find( '.mlab-seo-saved' );
 	var $last = $wrap.find( '.mlab-seo-savedlast' );
+	var timers = {};
+
 	/* After the toast fades, a quiet line in the head keeps telling when the last change was saved. */
 	function savedAt() {
 		var now = new Date();
 		var time = ( '0' + now.getHours() ).slice( -2 ) + ':' + ( '0' + now.getMinutes() ).slice( -2 );
-		/* translators: %s: time of day, for example 14:32. */
 		$last.text( '✓ ' + __( 'Saved at %s', 'mlab-seo' ).replace( '%s', time ) );
 	}
-	var timers = {};
-	function save( form ) {
+
+	/* The one message of this screen: state is saving, ok or error. Success fades after 6 seconds, errors stay. */
+	function notify( state, text ) {
 		clearTimeout( timers.status );
-		$status.removeClass( 'is-error' ).addClass( 'is-saving' ).text( __( 'Saving …', 'mlab-seo' ) );
+		$status.removeClass( 'is-saving is-error' ).addClass( 'saving' === state ? 'is-saving' : ( 'error' === state ? 'is-error' : '' ) ).text( text );
+		if ( 'ok' === state ) {
+			savedAt();
+			timers.status = setTimeout( function () {
+				$status.text( '' );
+			}, 6000 );
+		}
+	}
+	function failed( err ) {
+		notify( 'error', __( 'Not saved.', 'mlab-seo' ) + ' ' + ( ( err && err.message ) || __( 'Please try again.', 'mlab-seo' ) ) );
+	}
+	window.mlabSeoNotify = notify;
+
+	function save( form ) {
+		notify( 'saving', __( 'Saving …', 'mlab-seo' ) );
 		wp.apiFetch( {
 			path: '/mlab-seo/v1/settings',
 			method: 'POST',
 			data: { page: form.getAttribute( 'data-page' ), segment: form.getAttribute( 'data-segment' ), values: formValues( form ) }
 		} ).then( function () {
-			$status.removeClass( 'is-saving' ).text( __( 'Saved', 'mlab-seo' ) );
-			savedAt();
-			timers.status = setTimeout( function () {
-				$status.text( '' );
-			}, 4000 );
+			notify( 'ok', __( 'Saved', 'mlab-seo' ) );
 			loadPreviews( $( form ).closest( '.mlab-seo-segment' ) );
-		} ).catch( function ( err ) {
-			$status.removeClass( 'is-saving' ).addClass( 'is-error' ).text( __( 'Not saved.', 'mlab-seo' ) + ' ' + ( ( err && err.message ) || __( 'Please try again.', 'mlab-seo' ) ) );
-		} );
+		} ).catch( failed );
 	}
 	function schedule( form, delay ) {
 		var key = form.getAttribute( 'data-segment' );
@@ -134,16 +144,13 @@
 
 	/* AI writing: save or remove a key. The key is never read back, only its end is shown. */
 	function keyRequest( provider, key ) {
-		clearTimeout( timers.status );
-		$status.removeClass( 'is-error' ).addClass( 'is-saving' ).text( __( 'Saving …', 'mlab-seo' ) );
+		notify( 'saving', __( 'Saving …', 'mlab-seo' ) );
 		wp.apiFetch( { path: '/mlab-seo/v1/ai/key', method: 'POST', data: { provider: provider, key: key } } ).then( function ( r ) {
-			$status.removeClass( 'is-saving' ).text( r.saved ? __( 'Key saved', 'mlab-seo' ) : __( 'Key removed', 'mlab-seo' ) );
+			notify( 'ok', r.saved ? __( 'Key saved', 'mlab-seo' ) : __( 'Key removed', 'mlab-seo' ) );
 			window.setTimeout( function () {
 				window.location.reload();
-			}, 900 );
-		} ).catch( function ( err ) {
-			$status.removeClass( 'is-saving' ).addClass( 'is-error' ).text( __( 'Not saved.', 'mlab-seo' ) + ' ' + ( ( err && err.message ) || __( 'Please try again.', 'mlab-seo' ) ) );
-		} );
+			}, 1200 );
+		} ).catch( failed );
 	}
 	$wrap.on( 'click', '[data-ai-key-save]', function () {
 		var provider = $( this ).data( 'ai-key-save' );

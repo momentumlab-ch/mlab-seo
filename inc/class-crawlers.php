@@ -355,7 +355,7 @@ final class Crawlers {
 	 * @return string
 	 */
 	public static function to_markdown( $html ) {
-		$html = self::remove_noise( strip_shortcodes( $html ) );
+		$html = self::remove_noise( Context::strip_shortcodes( $html ) );
 		$html = preg_replace( '#<(script|style|form|svg|noscript)\b.*?</\1>#is', '', $html );
 		$html = preg_replace( '#<br\s*/?>#i', ' ', $html );
 		$html = preg_replace( '#<summary[^>]*>(.*?)</summary>#is', '<h3>$1</h3>', $html );

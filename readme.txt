@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.14.1
+Stable tag: 1.15.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,12 @@ Developer hooks
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.15.0 =
+* Seitenliste: «Mit KI schreiben» im Bearbeiten-Feld, neben «Aus dem Seitentext vorschlagen». Gleicher Ablauf wie im Editor: 3 Entwürfe, «Diese Texte verwenden» füllt die Felder, freigegeben wird mit «Speichern».
+* Speichermeldung grösser und klarer (grosser Hinweis mit Symbol, 6 Sekunden) und jetzt über dem Bearbeiten-Feld der Seitenliste. Dort war sie bisher verdeckt. Beim Speichern einer Seite steht, was gespeichert wurde.
+* Fehler beim Speichern erscheinen im selben Hinweis statt in einem Browser-Fenster und bleiben stehen.
+* Behoben: Shortcodes von Page-Buildern (Divi, WPBakery), die in der Anfrage nicht geladen sind, erschienen im Text der Vorschläge, in der automatischen Beschreibung, im Inhalts-Check und in llms.txt.
 
 = 1.14.1 =
 * KI-Schreibhilfe: Der Schlüssel lässt sich im Backend eintragen (Einstellungen › KI-Schreibhilfe). Er wird mit den Salts der Website verschlüsselt gespeichert, nie wieder vollständig angezeigt und lässt sich entfernen. Ein Schlüssel in der wp-config.php gilt weiterhin und hat Vorrang.

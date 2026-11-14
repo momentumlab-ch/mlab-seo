@@ -228,3 +228,7 @@ T.update({
 "This server cannot encrypt the key. Ask your host to enable the sodium extension, or define the key in wp-config.php.": ("Dieser Server kann den Schlüssel nicht verschlüsseln. Bitte den Hoster, die Erweiterung sodium zu aktivieren, oder definiere den Schlüssel in der wp-config.php.", "Ce serveur ne peut pas chiffrer la clé. Demander à l’hébergeur d’activer l’extension sodium, ou définir la clé dans wp-config.php.", "Questo server non può cifrare la chiave. Chiedi al provider di attivare l’estensione sodium oppure definisci la chiave in wp-config.php."),
 "Unknown provider.": ("Unbekannter Anbieter.", "Fournisseur inconnu.", "Fornitore sconosciuto."),
 })
+T.update({
+"Saved: %s": ("Gespeichert: %s", "Enregistré : %s", "Salvato: %s"),
+"The texts are in the fields. Press Save to approve them.": ("Die Texte stehen in den Feldern. Klicke auf «Speichern», um sie freizugeben.", "Les textes sont dans les champs. Cliquer sur « Enregistrer » pour les valider.", "I testi sono nei campi. Premi «Salva» per approvarli."),
+})

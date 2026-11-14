@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.12.1
+Stable tag: 1.13.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,11 @@ Developer hooks
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.13.0 =
+* Pro: Software-App als Rich Result (SoftwareApplication) mit Preis, Betriebssystem und Bewertung.
+* Einstellungen › Allgemein: «Wer die SEO-Seiten nutzen darf» (nur Administratoren oder auch Redaktoren).
+* Hinweis im Editor, wenn eine Bewertung von einer Firma über sich selbst stammt (Google zeigt dafür keine Sterne).
 
 = 1.12.1 =
 * Übersetzungen für alle neuen Texte ab 1.10.0 in Deutsch (CH, DE), Französisch und Italienisch.

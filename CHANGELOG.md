@@ -3,6 +3,16 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.13.0] - 2026-11-14
+
+### Hinzugefügt
+- Pro: Software-App als Rich Result (SoftwareApplication) mit Kategorie, Betriebssystem, Preis (auch 0) und Bewertung.
+- Einstellungen › Allgemein: «Wer die SEO-Seiten nutzen darf». Standard nur Administratoren, wahlweise auch Redaktoren. Der Filter `mlab_seo_settings_capability` gilt weiterhin und hat Vorrang.
+- Hinweis im Editor bei Bewertungen von «LocalBusiness» oder «Organization»: Google zeigt dafür keine Sterne.
+
+### Geändert
+- Pflichtfelder der Rich Results zählen den Wert 0 jetzt als ausgefüllt (wichtig für den Preis gratis).
+
 ## [1.12.1] - 2026-11-14
 
 ### Geändert

@@ -83,6 +83,16 @@ function mlab_seo_options_general(): array {
 			'label'   => __( 'Source code', 'mlab-seo' ),
 			'text'    => __( 'Hide the WordPress version', 'mlab-seo' ),
 		),
+		'settings_role'    => array(
+			'type'    => 'select',
+			'default' => 'admin',
+			'label'   => __( 'Who may use the SEO screens', 'mlab-seo' ),
+			'help'    => __( 'Editors can then change titles, redirects and settings too. The SEO box in the editor is open to everyone who may edit the page either way.', 'mlab-seo' ),
+			'choices' => array(
+				'admin'  => __( 'Administrators only', 'mlab-seo' ),
+				'editor' => __( 'Administrators and editors', 'mlab-seo' ),
+			),
+		),
 		'admin_bar'        => array(
 			'type'    => 'checkbox',
 			'default' => 1,

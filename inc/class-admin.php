@@ -81,9 +81,9 @@ final class Admin {
 		/**
 		 * Filters the capability needed for the SEO settings.
 		 *
-		 * @param string $capability Default 'manage_options'.
+		 * @param string $capability Default 'manage_options', or 'edit_pages' when editors are allowed in the settings.
 		 */
-		return (string) apply_filters( 'mlab_seo_settings_capability', 'manage_options' );
+		return (string) apply_filters( 'mlab_seo_settings_capability', 'editor' === Settings::get( 'settings_role' ) ? 'edit_pages' : 'manage_options' );
 	}
 
 	/**

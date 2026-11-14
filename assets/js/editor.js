@@ -322,6 +322,13 @@
 		}
 	} );
 
+	/* A business reviewing itself gets no stars in Google: warn. */
+	function reviewNote() {
+		var self = 'review' === $box.find( '#mlab-seo-rich-type' ).val() && [ 'LocalBusiness', 'Organization' ].indexOf( $box.find( '#mlab-seo-rich-review-item_type' ).val() ) > -1;
+		$box.find( '.mlab-seo__review-note' ).prop( 'hidden', ! self );
+	}
+	$box.on( 'change', '#mlab-seo-rich-type, #mlab-seo-rich-review-item_type', reviewNote );
+
 	/* Rich result type: show only the fields of the chosen type. */
 	$box.on( 'change', '#mlab-seo-rich-type', function () {
 		var type = $( this ).val();

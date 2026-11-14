@@ -121,6 +121,7 @@ defined( 'ABSPATH' ) || exit;
 				?>
 			</p></div>
 		<?php endif; ?>
+		<p class="notice notice-warning inline mlab-seo__review-note" <?php echo 'review' === $rich_type && in_array( $rich['item_type'] ?? '', array( 'LocalBusiness', 'Organization' ), true ) ? '' : 'hidden'; ?>><?php esc_html_e( 'Google does not show stars for reviews that a business writes about itself. Use this for products, books, movies, courses and similar.', 'mlab-seo' ); ?></p>
 		<?php foreach ( array_keys( Rich_Results::types() ) as $key ) : ?>
 			<div class="mlab-seo__grid mlab-seo__rich" data-rich="<?php echo esc_attr( $key ); ?>" <?php echo $rich_type === $key ? '' : 'hidden'; ?>>
 				<?php

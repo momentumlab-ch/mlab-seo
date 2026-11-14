@@ -117,6 +117,9 @@ final class Rest {
 	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public function save_settings( $request ) {
+		if ( Admin_Actions::segment_admin_only( sanitize_key( $request['page'] ), sanitize_key( $request['segment'] ) ) && ! current_user_can( Admin::admin_capability() ) ) {
+			return new \WP_Error( 'mlab_seo_admin_only', __( 'Only administrators may change this.', 'mlab-seo' ), array( 'status' => 403 ) );
+		}
 		$keys = Admin_Actions::segment_keys( sanitize_key( $request['page'] ), sanitize_key( $request['segment'] ) );
 		if ( null === $keys ) {
 			return new \WP_Error( 'mlab_seo_segment', __( 'Unknown settings form.', 'mlab-seo' ), array( 'status' => 400 ) );

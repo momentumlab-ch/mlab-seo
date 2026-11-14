@@ -3094,3 +3094,55 @@ msgid "%d AI draft waits for your approval."
 msgid_plural "%d AI drafts wait for your approval."
 msgstr[0] ""
 msgstr[1] ""
+
+#: parts/admin/settings-ai.php
+msgid "Key %1$s from wp-config.php (%2$s). It is used before a key saved here."
+msgstr ""
+
+#: parts/admin/settings-ai.php
+msgid "Key %s is saved, encrypted. It is never shown in full again."
+msgstr ""
+
+#: assets/js/settings.js
+msgid "Key removed"
+msgstr ""
+
+#: assets/js/settings.js
+msgid "Key saved"
+msgstr ""
+
+#: parts/admin/settings-ai.php
+msgid "No key yet. Paste the key of your account below."
+msgstr ""
+
+#: inc/class-rest.php
+msgid "Only administrators may change this."
+msgstr ""
+
+#: parts/admin/settings-ai.php
+msgid "Remove key"
+msgstr ""
+
+#: parts/admin/settings-ai.php
+msgid "Save key"
+msgstr ""
+
+#: assets/js/settings.js
+msgid "Saved at %s"
+msgstr ""
+
+#: parts/admin/settings-ai.php
+msgid "The key is stored encrypted with the salts of this website and only administrators can change it. For more control, define it in wp-config.php instead: MLAB_SEO_ANTHROPIC_KEY or MLAB_SEO_OPENAI_KEY."
+msgstr ""
+
+#: inc/class-ai.php
+msgid "This does not look like a key. Paste only the key, without spaces."
+msgstr ""
+
+#: inc/class-ai.php
+msgid "This server cannot encrypt the key. Ask your host to enable the sodium extension, or define the key in wp-config.php."
+msgstr ""
+
+#: inc/class-ai.php
+msgid "Unknown provider."
+msgstr ""

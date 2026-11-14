@@ -24,18 +24,32 @@ defined( 'ABSPATH' ) || exit;
 <h2 class="mlab-seo-section"><?php esc_html_e( 'Keys and use', 'mlab-seo' ); ?></h2>
 <div class="mlab-seo-group">
 	<?php foreach ( AI::providers() as $provider_key => $provider ) : ?>
-		<?php $found = defined( $provider['constant'] ) && '' !== (string) constant( $provider['constant'] ); ?>
-		<div class="mlab-seo-row">
-			<span class="mlab-seo-dot is-<?php echo $found ? 'good' : 'ok'; ?>"></span>
+		<?php $source = AI::key_source( $provider_key ); ?>
+		<div class="mlab-seo-row is-stack" data-ai-key="<?php echo esc_attr( $provider_key ); ?>">
+			<span class="mlab-seo-dot is-<?php echo 'none' === $source ? 'ok' : 'good'; ?>"></span>
 			<div class="mlab-seo-row__label">
 				<?php echo esc_html( $provider['label'] ); ?>
 				<small>
 					<?php
-					/* translators: %s: name of a constant in wp-config.php. */
-					echo esc_html( $found ? __( 'Key found.', 'mlab-seo' ) : sprintf( __( 'No key. Add define( \'%s\', \'...\' ); to wp-config.php.', 'mlab-seo' ), $provider['constant'] ) );
+					if ( 'constant' === $source ) {
+						/* translators: 1: end of the key, 2: name of the constant. */
+						echo esc_html( sprintf( __( 'Key %1$s from wp-config.php (%2$s). It is used before a key saved here.', 'mlab-seo' ), AI::key_hint( $provider_key ), $provider['constant'] ) );
+					} elseif ( 'saved' === $source ) {
+						/* translators: %s: end of the key. */
+						echo esc_html( sprintf( __( 'Key %s is saved, encrypted. It is never shown in full again.', 'mlab-seo' ), AI::key_hint( $provider_key ) ) );
+					} else {
+						esc_html_e( 'No key yet. Paste the key of your account below.', 'mlab-seo' );
+					}
 					?>
 				</small>
 			</div>
+			<?php if ( 'constant' !== $source ) : ?>
+				<input type="password" autocomplete="off" spellcheck="false" data-ai-key-input="<?php echo esc_attr( $provider_key ); ?>" placeholder="<?php echo esc_attr( 'claude' === $provider_key ? 'sk-ant-…' : 'sk-…' ); ?>" aria-label="<?php echo esc_attr( $provider['label'] ); ?>" />
+				<button type="button" class="mlab-seo-btn is-primary" data-ai-key-save="<?php echo esc_attr( $provider_key ); ?>"><?php esc_html_e( 'Save key', 'mlab-seo' ); ?></button>
+				<?php if ( 'saved' === $source ) : ?>
+					<button type="button" class="mlab-seo-btn" data-ai-key-remove="<?php echo esc_attr( $provider_key ); ?>"><?php esc_html_e( 'Remove key', 'mlab-seo' ); ?></button>
+				<?php endif; ?>
+			<?php endif; ?>
 		</div>
 	<?php endforeach; ?>
 	<div class="mlab-seo-row">
@@ -49,6 +63,7 @@ defined( 'ABSPATH' ) || exit;
 		</div>
 	</div>
 </div>
+<p class="mlab-seo-hint"><?php esc_html_e( 'The key is stored encrypted with the salts of this website and only administrators can change it. For more control, define it in wp-config.php instead: MLAB_SEO_ANTHROPIC_KEY or MLAB_SEO_OPENAI_KEY.', 'mlab-seo' ); ?></p>
 
 <h2 class="mlab-seo-section"><?php esc_html_e( 'What is sent', 'mlab-seo' ); ?></h2>
 <p class="mlab-seo-hint"><?php esc_html_e( 'For a draft: the website name, the language, the page title, the current SEO texts, the focus keyword and the first 6,000 characters of the page text. For a translation: only the approved SEO title and description. No user data, no form entries. Please add the provider to your privacy policy. The log keeps the time, user, number of characters and result of the last 100 requests, never the texts or the key.', 'mlab-seo' ); ?></p>

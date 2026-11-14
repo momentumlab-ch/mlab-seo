@@ -28,6 +28,11 @@ final class AI {
 	const LOG = 'mlab_seo_ai_log';
 
 	/**
+	 * Option with the keys entered in the backend, encrypted with the salts of the website, without autoload.
+	 */
+	const KEYS = 'mlab_seo_ai_keys';
+
+	/**
 	 * Default models. Both are settings, because model names change. Not checked against the provider's current list.
 	 */
 	const MODELS = array(
@@ -64,13 +69,160 @@ final class AI {
 	}
 
 	/**
-	 * Key of the chosen provider from wp-config.php.
+	 * Registers the route that saves a key.
+	 */
+	public function hooks() {
+		add_action( 'rest_api_init', array( $this, 'routes' ) );
+	}
+
+	/**
+	 * Route: save or remove the key of a provider. Administrators only.
+	 */
+	public function routes() {
+		register_rest_route(
+			Rest::NS,
+			'/ai/key',
+			array(
+				'methods'             => \WP_REST_Server::CREATABLE,
+				'callback'            => array( $this, 'rest_key' ),
+				'permission_callback' => fn () => current_user_can( Admin::admin_capability() ),
+				'args'                => array(
+					'provider' => array(
+						'type'     => 'string',
+						'required' => true,
+					),
+					'key'      => array( 'type' => 'string' ),
+				),
+			)
+		);
+	}
+
+	/**
+	 * REST: saves a key, or removes it when the key is empty.
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 * @return array|\WP_Error
+	 */
+	public function rest_key( $request ) {
+		$provider = (string) $request['provider'];
+		$key      = trim( (string) $request['key'] );
+		if ( ! isset( self::providers()[ $provider ] ) ) {
+			return new \WP_Error( 'mlab_seo_ai_provider', __( 'Unknown provider.', 'mlab-seo' ), array( 'status' => 400 ) );
+		}
+		if ( '' === $key ) {
+			self::save_keys( array_diff_key( self::stored(), array( $provider => 1 ) ) );
+			return array( 'saved' => false );
+		}
+		if ( ! preg_match( '/^[\x21-\x7e]{20,400}$/', $key ) ) {
+			return new \WP_Error( 'mlab_seo_ai_key_format', __( 'This does not look like a key. Paste only the key, without spaces.', 'mlab-seo' ), array( 'status' => 400 ) );
+		}
+		if ( ! function_exists( 'sodium_crypto_secretbox' ) ) {
+			return new \WP_Error( 'mlab_seo_ai_sodium', __( 'This server cannot encrypt the key. Ask your host to enable the sodium extension, or define the key in wp-config.php.', 'mlab-seo' ), array( 'status' => 501 ) );
+		}
+		self::save_keys( array_merge( self::stored(), array( $provider => self::encrypt( $key ) ) ) );
+		return array( 'saved' => true );
+	}
+
+	/**
+	 * Keys saved in the backend: provider => encrypted key.
+	 *
+	 * @return array<string,string>
+	 */
+	private static function stored() {
+		$keys = get_option( self::KEYS, array() );
+		return is_array( $keys ) ? $keys : array();
+	}
+
+	/**
+	 * Stores the encrypted keys without autoload.
+	 *
+	 * @param array $keys Provider => encrypted key.
+	 */
+	private static function save_keys( array $keys ) {
+		update_option( self::KEYS, $keys, false );
+	}
+
+	/**
+	 * Encrypts a key with the salts of this website.
+	 *
+	 * @param string $plain Key.
+	 * @return string
+	 */
+	private static function encrypt( $plain ) {
+		$nonce = random_bytes( SODIUM_CRYPTO_SECRETBOX_NONCEBYTES );
+		return base64_encode( $nonce . sodium_crypto_secretbox( $plain, $nonce, self::secret() ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- Encoding of the encrypted bytes for the database.
+	}
+
+	/**
+	 * Decrypts a key. Empty when the salts changed or the data is damaged.
+	 *
+	 * @param string $stored Encrypted key.
+	 * @return string
+	 */
+	private static function decrypt( $stored ) {
+		$raw = base64_decode( (string) $stored, true ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode -- Decoding of the encrypted bytes from the database.
+		if ( ! function_exists( 'sodium_crypto_secretbox_open' ) || false === $raw || strlen( $raw ) <= SODIUM_CRYPTO_SECRETBOX_NONCEBYTES ) {
+			return '';
+		}
+		$plain = sodium_crypto_secretbox_open( substr( $raw, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES ), substr( $raw, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES ), self::secret() );
+		return false === $plain ? '' : $plain;
+	}
+
+	/**
+	 * Encryption key derived from the salts of the website.
+	 *
+	 * @return string
+	 */
+	private static function secret() {
+		return sodium_crypto_generichash( wp_salt( 'auth' ) . wp_salt( 'secure_auth' ), '', SODIUM_CRYPTO_SECRETBOX_KEYBYTES );
+	}
+
+	/**
+	 * Key of a provider: the constant in wp-config.php wins over the key saved in the backend.
+	 *
+	 * @param string $provider Provider key.
+	 * @return string
+	 */
+	private static function key_of( $provider ) {
+		$constant = self::providers()[ $provider ]['constant'] ?? '';
+		if ( '' !== $constant && defined( $constant ) && '' !== (string) constant( $constant ) ) {
+			return (string) constant( $constant );
+		}
+		return self::decrypt( self::stored()[ $provider ] ?? '' );
+	}
+
+	/**
+	 * Where the key of a provider comes from: constant, saved or none.
+	 *
+	 * @param string $provider Provider key.
+	 * @return string
+	 */
+	public static function key_source( $provider ) {
+		$constant = self::providers()[ $provider ]['constant'] ?? '';
+		if ( '' !== $constant && defined( $constant ) && '' !== (string) constant( $constant ) ) {
+			return 'constant';
+		}
+		return '' !== self::decrypt( self::stored()[ $provider ] ?? '' ) ? 'saved' : 'none';
+	}
+
+	/**
+	 * The end of a key for the display: ••••1234. Empty without a key.
+	 *
+	 * @param string $provider Provider key.
+	 * @return string
+	 */
+	public static function key_hint( $provider ) {
+		$key = self::key_of( $provider );
+		return '' !== $key ? '••••' . substr( $key, -4 ) : '';
+	}
+
+	/**
+	 * Key of the chosen provider.
 	 *
 	 * @return string
 	 */
 	private static function key() {
-		$constant = self::providers()[ self::provider() ]['constant'] ?? '';
-		return '' !== $constant && defined( $constant ) ? (string) constant( $constant ) : '';
+		return self::key_of( self::provider() );
 	}
 
 	/**

@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.14.0
+Stable tag: 1.14.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,11 @@ Developer hooks
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.14.1 =
+* KI-Schreibhilfe: Der Schlüssel lässt sich im Backend eintragen (Einstellungen › KI-Schreibhilfe). Er wird mit den Salts der Website verschlüsselt gespeichert, nie wieder vollständig angezeigt und lässt sich entfernen. Ein Schlüssel in der wp-config.php gilt weiterhin und hat Vorrang.
+* Speicherstatus: Nach dem Hinweis oben rechts bleibt im Kopf der Seite «Gespeichert um 14:32» stehen.
+* Sicherheit: Bereiche nur für Administratoren (Lizenz, Import, KI-Schreibhilfe) lassen sich auch über die Schnittstelle nur noch von Administratoren ändern.
 
 = 1.14.0 =
 * Pro: KI-Schreibhilfe für SEO-Titel und Beschreibungen mit dem eigenen Konto bei Claude oder GPT. Ablauf: Entwurf, prüfen, freigeben, übersetzen. Die KI ändert nie selbst etwas, jede Variante braucht die Freigabe einer Person.

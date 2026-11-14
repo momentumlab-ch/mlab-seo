@@ -213,3 +213,18 @@ T.update({
 "Writing …": ("Schreibt …", "Rédaction en cours …", "Scrittura in corso …"),
 "You are not allowed to do this.": ("Das darfst du nicht.", "Vous n’avez pas le droit de faire cela.", "Non hai il permesso di farlo."),
 })
+T.update({
+"Key %1$s from wp-config.php (%2$s). It is used before a key saved here.": ("Schlüssel %1$s aus der wp-config.php (%2$s). Er gilt vor einem hier gespeicherten Schlüssel.", "Clé %1$s depuis wp-config.php (%2$s). Elle est utilisée avant une clé enregistrée ici.", "Chiave %1$s da wp-config.php (%2$s). Ha la precedenza su una chiave salvata qui."),
+"Key %s is saved, encrypted. It is never shown in full again.": ("Schlüssel %s ist verschlüsselt gespeichert. Er wird nie wieder vollständig angezeigt.", "La clé %s est enregistrée, chiffrée. Elle ne sera plus jamais affichée en entier.", "La chiave %s è salvata, cifrata. Non verrà più mostrata per intero."),
+"Key removed": ("Schlüssel entfernt", "Clé supprimée", "Chiave rimossa"),
+"Key saved": ("Schlüssel gespeichert", "Clé enregistrée", "Chiave salvata"),
+"No key yet. Paste the key of your account below.": ("Noch kein Schlüssel. Füge unten den Schlüssel deines Kontos ein.", "Pas encore de clé. Coller ci-dessous la clé de votre compte.", "Nessuna chiave. Incolla qui sotto la chiave del tuo account."),
+"Only administrators may change this.": ("Das dürfen nur Administratoren ändern.", "Seuls les administrateurs peuvent modifier ceci.", "Solo gli amministratori possono modificarlo."),
+"Remove key": ("Schlüssel entfernen", "Supprimer la clé", "Rimuovi chiave"),
+"Save key": ("Schlüssel speichern", "Enregistrer la clé", "Salva chiave"),
+"Saved at %s": ("Gespeichert um %s", "Enregistré à %s", "Salvato alle %s"),
+"The key is stored encrypted with the salts of this website and only administrators can change it. For more control, define it in wp-config.php instead: MLAB_SEO_ANTHROPIC_KEY or MLAB_SEO_OPENAI_KEY.": ("Der Schlüssel wird mit den Salts dieser Website verschlüsselt gespeichert, und nur Administratoren können ihn ändern. Wer mehr Kontrolle will, definiert ihn stattdessen in der wp-config.php: MLAB_SEO_ANTHROPIC_KEY oder MLAB_SEO_OPENAI_KEY.", "La clé est stockée chiffrée avec les salts de ce site et seuls les administrateurs peuvent la modifier. Pour plus de contrôle, la définir plutôt dans wp-config.php : MLAB_SEO_ANTHROPIC_KEY ou MLAB_SEO_OPENAI_KEY.", "La chiave è memorizzata cifrata con i salt di questo sito e solo gli amministratori possono modificarla. Per più controllo, definiscila invece in wp-config.php: MLAB_SEO_ANTHROPIC_KEY o MLAB_SEO_OPENAI_KEY."),
+"This does not look like a key. Paste only the key, without spaces.": ("Das sieht nicht nach einem Schlüssel aus. Füge nur den Schlüssel ein, ohne Leerzeichen.", "Cela ne ressemble pas à une clé. Coller uniquement la clé, sans espaces.", "Non sembra una chiave. Incolla solo la chiave, senza spazi."),
+"This server cannot encrypt the key. Ask your host to enable the sodium extension, or define the key in wp-config.php.": ("Dieser Server kann den Schlüssel nicht verschlüsseln. Bitte den Hoster, die Erweiterung sodium zu aktivieren, oder definiere den Schlüssel in der wp-config.php.", "Ce serveur ne peut pas chiffrer la clé. Demander à l’hébergeur d’activer l’extension sodium, ou définir la clé dans wp-config.php.", "Questo server non può cifrare la chiave. Chiedi al provider di attivare l’estensione sodium oppure definisci la chiave in wp-config.php."),
+"Unknown provider.": ("Unbekannter Anbieter.", "Fournisseur inconnu.", "Fornitore sconosciuto."),
+})

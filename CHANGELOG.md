@@ -3,6 +3,15 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.14.1] - 2026-11-14
+
+### Hinzugefügt
+- KI-Schreibhilfe: Schlüssel im Backend eintragen, pro Anbieter «Schlüssel speichern» und «Schlüssel entfernen». Der Schlüssel wird mit libsodium und den Salts der Website verschlüsselt in einer Option ohne Autoload gespeichert und nur mit den letzten 4 Zeichen angezeigt. Die Konstanten `MLAB_SEO_ANTHROPIC_KEY` und `MLAB_SEO_OPENAI_KEY` in der wp-config.php gelten weiterhin und haben Vorrang. Ändern sich die Salts, muss der Schlüssel neu eingetragen werden.
+- Speicherstatus: Nach dem Hinweis oben rechts (4 Sekunden) steht im Kopf der Seite dauerhaft «Gespeichert um HH:MM».
+
+### Behoben
+- Bereiche nur für Administratoren (Lizenz, Import, KI-Schreibhilfe) waren über die Speicher-Schnittstelle auch für Redaktoren erreichbar, wenn Redaktoren die SEO-Seiten nutzen dürfen. Das prüft jetzt die Schnittstelle selbst.
+
 ## [1.14.0] - 2026-11-14
 
 ### Hinzugefügt

@@ -26,6 +26,7 @@ $first    = (string) array_key_first( $segments );
 			<?php endif; ?>
 		</div>
 		<span class="mlab-seo-saved" role="status" aria-live="polite"></span>
+		<span class="mlab-seo-savedlast"></span>
 	</header>
 	<nav class="mlab-seo-nav" aria-label="<?php esc_attr_e( 'MomentumLab SEO', 'mlab-seo' ); ?>">
 		<?php foreach ( mlab_seo_admin_pages() as $nav_slug => $nav_page ) : ?>

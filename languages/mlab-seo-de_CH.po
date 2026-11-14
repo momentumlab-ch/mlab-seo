@@ -1,6 +1,6 @@
 #
 msgid ""
-msgstr "Project-Id-Version: MomentumLab SEO 1.14.0\nReport-Msgid-Bugs-To: https://wordpress.org/support/plugin/mlab-seo\nPOT-Creation-Date: 2026-11-14T16:09:48+00:00\nPO-Revision-Date: 2026-11-14 16:09+0000\nLast-Translator: MomentumLab <support@momentumlab.ch>\nLanguage-Team: German\nLanguage: de_CH\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Domain: mlab-seo\nX-Generator: WP-CLI 2.12.0\n"
+msgstr "Project-Id-Version: MomentumLab SEO 1.14.1\nReport-Msgid-Bugs-To: https://wordpress.org/support/plugin/mlab-seo\nPOT-Creation-Date: 2026-11-14T16:21:46+00:00\nPO-Revision-Date: 2026-11-14 16:21+0000\nLast-Translator: MomentumLab <support@momentumlab.ch>\nLanguage-Team: German\nLanguage: de_CH\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Domain: mlab-seo\nX-Generator: WP-CLI 2.12.0\n"
 
 #. Plugin Name of the plugin
 #: mlab-seo.php inc/class-admin.php:92 inc/class-meta-box.php:47
@@ -2997,3 +2997,55 @@ msgid "%d AI draft waits for your approval."
 msgid_plural "%d AI drafts wait for your approval."
 msgstr[0] "%d KI-Entwurf wartet auf deine Freigabe."
 msgstr[1] "%d KI-Entwürfe warten auf deine Freigabe."
+
+#: parts/admin/settings-ai.php
+msgid "Key %1$s from wp-config.php (%2$s). It is used before a key saved here."
+msgstr "Schlüssel %1$s aus der wp-config.php (%2$s). Er gilt vor einem hier gespeicherten Schlüssel."
+
+#: parts/admin/settings-ai.php
+msgid "Key %s is saved, encrypted. It is never shown in full again."
+msgstr "Schlüssel %s ist verschlüsselt gespeichert. Er wird nie wieder vollständig angezeigt."
+
+#: assets/js/settings.js
+msgid "Key removed"
+msgstr "Schlüssel entfernt"
+
+#: assets/js/settings.js
+msgid "Key saved"
+msgstr "Schlüssel gespeichert"
+
+#: parts/admin/settings-ai.php
+msgid "No key yet. Paste the key of your account below."
+msgstr "Noch kein Schlüssel. Füge unten den Schlüssel deines Kontos ein."
+
+#: inc/class-rest.php
+msgid "Only administrators may change this."
+msgstr "Das dürfen nur Administratoren ändern."
+
+#: parts/admin/settings-ai.php
+msgid "Remove key"
+msgstr "Schlüssel entfernen"
+
+#: parts/admin/settings-ai.php
+msgid "Save key"
+msgstr "Schlüssel speichern"
+
+#: assets/js/settings.js
+msgid "Saved at %s"
+msgstr "Gespeichert um %s"
+
+#: parts/admin/settings-ai.php
+msgid "The key is stored encrypted with the salts of this website and only administrators can change it. For more control, define it in wp-config.php instead: MLAB_SEO_ANTHROPIC_KEY or MLAB_SEO_OPENAI_KEY."
+msgstr "Der Schlüssel wird mit den Salts dieser Website verschlüsselt gespeichert, und nur Administratoren können ihn ändern. Wer mehr Kontrolle will, definiert ihn stattdessen in der wp-config.php: MLAB_SEO_ANTHROPIC_KEY oder MLAB_SEO_OPENAI_KEY."
+
+#: inc/class-ai.php
+msgid "This does not look like a key. Paste only the key, without spaces."
+msgstr "Das sieht nicht nach einem Schlüssel aus. Füge nur den Schlüssel ein, ohne Leerzeichen."
+
+#: inc/class-ai.php
+msgid "This server cannot encrypt the key. Ask your host to enable the sodium extension, or define the key in wp-config.php."
+msgstr "Dieser Server kann den Schlüssel nicht verschlüsseln. Bitte den Hoster, die Erweiterung sodium zu aktivieren, oder definiere den Schlüssel in der wp-config.php."
+
+#: inc/class-ai.php
+msgid "Unknown provider."
+msgstr "Unbekannter Anbieter."

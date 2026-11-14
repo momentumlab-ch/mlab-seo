@@ -138,11 +138,12 @@ final class Meta_Box {
 	 * @return array
 	 */
 	private static function empty_event() {
-		$event = array_fill_keys( array( 'name', 'description', 'start', 'end', 'sport', 'location', 'street', 'zip', 'city', 'country', 'url', 'offer_url', 'price', 'currency' ), '' );
+		$event = array_fill_keys( array( 'name', 'description', 'start', 'end', 'sport', 'location', 'street', 'zip', 'city', 'country', 'url', 'offer_url', 'price', 'currency', 'online_url', 'performer' ), '' );
 		return array_merge(
 			$event,
 			array(
 				'type'   => 'Event',
+				'mode'   => 'Offline',
 				'status' => 'EventScheduled',
 				'sub'    => array(),
 			)

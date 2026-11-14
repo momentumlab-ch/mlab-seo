@@ -21,6 +21,24 @@ defined( 'ABSPATH' ) || exit;
 	<fieldset class="mlab-seo__event" <?php disabled( ! $pro ); ?>>
 		<legend class="mlab-seo__label"><?php esc_html_e( 'Event on this page', 'mlab-seo' ); ?></legend>
 		<p class="description"><?php esc_html_e( 'Leave the name empty when the page has no event. Use the same name and URL on several pages to describe one event.', 'mlab-seo' ); ?></p>
+		<?php if ( '' !== $event['name'] ) : ?>
+			<?php $gaps = Post_Meta::event_gaps( $event ); ?>
+			<?php if ( $gaps['required'] ) : ?>
+				<div class="notice notice-error inline"><p>
+					<?php
+					/* translators: %s: list of missing fields. */
+					echo esc_html( sprintf( __( 'Google and Bing show no event result yet. Missing: %s.', 'mlab-seo' ), implode( ', ', $gaps['required'] ) ) );
+					?>
+				</p></div>
+			<?php elseif ( $gaps['recommended'] ) : ?>
+				<div class="notice notice-warning inline"><p>
+					<?php
+					/* translators: %s: list of missing fields. */
+					echo esc_html( sprintf( __( 'The event is complete. Recommended in addition: %s.', 'mlab-seo' ), implode( ', ', $gaps['recommended'] ) ) );
+					?>
+				</p></div>
+			<?php endif; ?>
+		<?php endif; ?>
 		<div class="mlab-seo__grid">
 			<?php
 			Meta_Box::event_field( 'name', __( 'Name', 'mlab-seo' ), $event );
@@ -44,6 +62,16 @@ defined( 'ABSPATH' ) || exit;
 				</select>
 			</p>
 			<?php
+			?>
+			<p><label class="mlab-seo__label" for="mlab-seo-event-mode"><?php esc_html_e( 'Takes place', 'mlab-seo' ); ?></label>
+				<select id="mlab-seo-event-mode" name="mlab_seo_event[mode]">
+					<option value="Offline" <?php selected( $event['mode'], 'Offline' ); ?>><?php esc_html_e( 'On site', 'mlab-seo' ); ?></option>
+					<option value="Online" <?php selected( $event['mode'], 'Online' ); ?>><?php esc_html_e( 'Online', 'mlab-seo' ); ?></option>
+					<option value="Mixed" <?php selected( $event['mode'], 'Mixed' ); ?>><?php esc_html_e( 'On site and online', 'mlab-seo' ); ?></option>
+				</select></p>
+			<?php
+			Meta_Box::event_field( 'online_url', __( 'Online event URL', 'mlab-seo' ), $event, 'url' );
+			Meta_Box::event_field( 'performer', __( 'Performer or speaker', 'mlab-seo' ), $event );
 			Meta_Box::event_field( 'sport', __( 'Sport (for sports events)', 'mlab-seo' ), $event );
 			Meta_Box::event_field( 'location', __( 'Venue', 'mlab-seo' ), $event );
 			Meta_Box::event_field( 'street', __( 'Street', 'mlab-seo' ), $event );

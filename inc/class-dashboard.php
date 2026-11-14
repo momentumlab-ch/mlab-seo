@@ -213,7 +213,7 @@ final class Dashboard {
 		if ( ! License::is_pro() ) {
 			return array();
 		}
-		$items  = array();
+		$items  = self::event_checks();
 		$broken = count( Link_Check::broken() );
 		if ( $broken ) {
 			/* translators: %d: number of links. */
@@ -225,6 +225,37 @@ final class Dashboard {
 			$items[] = self::item( 'ok', sprintf( _n( '%d address was not found (404).', '%d addresses were not found (404).', $missing, 'mlab-seo' ), $missing ), Admin::url( 'mlab-seo-redirects', 'redirects' ), __( 'Redirect', 'mlab-seo' ) );
 		}
 		return $items;
+	}
+
+	/**
+	 * Events with missing required data. Such events do not appear as rich results in Google or Bing.
+	 *
+	 * @return array
+	 */
+	private static function event_checks() {
+		$ids = get_posts(
+			array(
+				'post_type'              => Post_Meta::post_types(),
+				'post_status'            => 'publish',
+				'fields'                 => 'ids',
+				'posts_per_page'         => 200,
+				'no_found_rows'          => true,
+				'update_post_term_cache' => false,
+				'meta_key'               => Post_Meta::PREFIX . 'event', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Cached with the other checks, capped at 200 pages.
+			)
+		);
+		$bad = array_filter(
+			$ids,
+			fn ( $id ) => (bool) Post_Meta::event_gaps( (array) Post_Meta::get( $id, 'event' ) )['required']
+		);
+		if ( ! $ids ) {
+			return array();
+		}
+		if ( ! $bad ) {
+			return array( self::item( 'good', __( 'All events have the data Google and Bing need.', 'mlab-seo' ) ) );
+		}
+		/* translators: %d: number of pages. */
+		return array( self::item( 'bad', sprintf( _n( '%d event page misses data Google and Bing need. No event result is shown for it.', '%d event pages miss data Google and Bing need. No event result is shown for them.', count( $bad ), 'mlab-seo' ), count( $bad ) ), Admin::url( 'mlab-seo-pages', '', array( 'edit' => (int) reset( $bad ) ) ), __( 'Complete', 'mlab-seo' ) ) );
 	}
 
 	/**

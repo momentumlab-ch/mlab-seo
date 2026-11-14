@@ -3,6 +3,16 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.10.0] - 2026-11-14
+
+### Hinzugefügt
+- Events: Teilnahmeart (vor Ort, online, gemischt) mit Online-URL, Auftretende oder Referierende. Google und Bing erhalten damit `eventAttendanceMode`, `VirtualLocation` und `performer`.
+- Events: Hinweis im Editor, welche Angaben für Google und Bing noch fehlen (nötig und empfohlen).
+- Übersicht: Prüfung, ob alle Event-Seiten die nötigen Angaben haben.
+
+### Geändert
+- Meldungen anderer Plugins und von WordPress erscheinen über dem Plugin-Kopf statt darin.
+
 ## [1.9.2] - 2026-11-10
 
 ### Geändert

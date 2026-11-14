@@ -424,6 +424,7 @@ final class Schema {
 			return null;
 		}
 		$url   = '' !== $e['url'] ? $e['url'] : (string) get_permalink( $post_id );
+		$mode  = in_array( $e['mode'] ?? '', Post_Meta::EVENT_MODES, true ) ? $e['mode'] : 'Offline';
 		$place = self::event_place( $e );
 		$img   = Context::image( Context::current()['image'] );
 		$sport = 'SportsEvent' === $e['type'] ? $e['sport'] : null;
@@ -436,9 +437,13 @@ final class Schema {
 			'startDate'           => self::event_date( $e['start'] ),
 			'endDate'             => '' !== $e['end'] ? self::event_date( $e['end'] ) : null,
 			'eventStatus'         => 'https://schema.org/' . $e['status'],
-			'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
+			'eventAttendanceMode' => 'https://schema.org/' . $mode . 'EventAttendanceMode',
+			'performer'           => ! empty( $e['performer'] ) ? array(
+				'@type' => 'Person',
+				'name'  => $e['performer'],
+			) : null,
 			'sport'               => $sport,
-			'location'            => $place,
+			'location'            => self::event_location( $e, $mode, $place ),
 			'image'               => $img ? array( $img['url'] ) : null,
 			'url'                 => $url,
 			'organizer'           => $publisher ? array( '@id' => $publisher['@id'] ) : null,
@@ -446,6 +451,28 @@ final class Schema {
 		);
 		$node['subEvent'] = self::sub_events( $e, $place, $sport );
 		return self::clean( $node );
+	}
+
+	/**
+	 * Location of an event: place, virtual location, or both for mixed events.
+	 *
+	 * @param array  $e     Event fields.
+	 * @param string $mode  Offline, Online or Mixed.
+	 * @param array  $place Place node.
+	 * @return array|null
+	 */
+	private static function event_location( array $e, $mode, array $place ) {
+		$online = empty( $e['online_url'] ) ? null : array(
+			'@type' => 'VirtualLocation',
+			'url'   => $e['online_url'],
+		);
+		if ( 'Online' === $mode ) {
+			return $online;
+		}
+		if ( 'Mixed' === $mode && $online ) {
+			return array( $place, $online );
+		}
+		return $place ? $place : null;
 	}
 
 	/**

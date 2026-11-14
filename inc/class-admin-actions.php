@@ -47,6 +47,17 @@ final class Admin_Actions {
 	}
 
 	/**
+	 * Whether a segment is for administrators only, even when editors may use the SEO screens.
+	 *
+	 * @param string $page    Menu slug.
+	 * @param string $segment Segment key.
+	 * @return bool
+	 */
+	public static function segment_admin_only( $page, $segment ) {
+		return ! empty( mlab_seo_admin_pages()[ $page ]['segments'][ $segment ]['admin'] );
+	}
+
+	/**
 	 * Redirect back to a screen with a notice.
 	 *
 	 * @param string $page    Menu slug.
@@ -76,9 +87,9 @@ final class Admin_Actions {
 	 * Saves the settings of one segment (fallback when JavaScript is off).
 	 */
 	public function handle_settings() {
-		$this->verify( 'mlab_seo_save' );
 		$page    = isset( $_POST['mlab_seo_page'] ) ? sanitize_key( wp_unslash( $_POST['mlab_seo_page'] ) ) : '';
 		$segment = isset( $_POST['mlab_seo_segment'] ) ? sanitize_key( wp_unslash( $_POST['mlab_seo_segment'] ) ) : '';
+		$this->verify( 'mlab_seo_save', self::segment_admin_only( $page, $segment ) );
 		$keys    = self::segment_keys( $page, $segment );
 		if ( null === $keys ) {
 			wp_die( esc_html__( 'Unknown settings form.', 'mlab-seo' ), 400 );

@@ -87,6 +87,14 @@
 	}
 
 	var $status = $wrap.find( '.mlab-seo-saved' );
+	var $last = $wrap.find( '.mlab-seo-savedlast' );
+	/* After the toast fades, a quiet line in the head keeps telling when the last change was saved. */
+	function savedAt() {
+		var now = new Date();
+		var time = ( '0' + now.getHours() ).slice( -2 ) + ':' + ( '0' + now.getMinutes() ).slice( -2 );
+		/* translators: %s: time of day, for example 14:32. */
+		$last.text( '✓ ' + __( 'Saved at %s', 'mlab-seo' ).replace( '%s', time ) );
+	}
 	var timers = {};
 	function save( form ) {
 		clearTimeout( timers.status );
@@ -97,6 +105,7 @@
 			data: { page: form.getAttribute( 'data-page' ), segment: form.getAttribute( 'data-segment' ), values: formValues( form ) }
 		} ).then( function () {
 			$status.removeClass( 'is-saving' ).text( __( 'Saved', 'mlab-seo' ) );
+			savedAt();
 			timers.status = setTimeout( function () {
 				$status.text( '' );
 			}, 4000 );
@@ -121,6 +130,33 @@
 	$wrap.on( 'submit', '.mlab-seo-autosave', function ( e ) {
 		e.preventDefault();
 		save( this );
+	} );
+
+	/* AI writing: save or remove a key. The key is never read back, only its end is shown. */
+	function keyRequest( provider, key ) {
+		clearTimeout( timers.status );
+		$status.removeClass( 'is-error' ).addClass( 'is-saving' ).text( __( 'Saving …', 'mlab-seo' ) );
+		wp.apiFetch( { path: '/mlab-seo/v1/ai/key', method: 'POST', data: { provider: provider, key: key } } ).then( function ( r ) {
+			$status.removeClass( 'is-saving' ).text( r.saved ? __( 'Key saved', 'mlab-seo' ) : __( 'Key removed', 'mlab-seo' ) );
+			window.setTimeout( function () {
+				window.location.reload();
+			}, 900 );
+		} ).catch( function ( err ) {
+			$status.removeClass( 'is-saving' ).addClass( 'is-error' ).text( __( 'Not saved.', 'mlab-seo' ) + ' ' + ( ( err && err.message ) || __( 'Please try again.', 'mlab-seo' ) ) );
+		} );
+	}
+	$wrap.on( 'click', '[data-ai-key-save]', function () {
+		var provider = $( this ).data( 'ai-key-save' );
+		keyRequest( provider, $.trim( $wrap.find( '[data-ai-key-input="' + provider + '"]' ).val() ) );
+	} );
+	$wrap.on( 'keydown', '[data-ai-key-input]', function ( e ) {
+		if ( 13 === e.which ) {
+			e.preventDefault();
+			$wrap.find( '[data-ai-key-save="' + $( this ).data( 'ai-key-input' ) + '"]' ).trigger( 'click' );
+		}
+	} );
+	$wrap.on( 'click', '[data-ai-key-remove]', function () {
+		keyRequest( $( this ).data( 'ai-key-remove' ), '' );
 	} );
 
 	/* AI crawler quick choice. */

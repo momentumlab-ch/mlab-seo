@@ -3,6 +3,16 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.11.0] - 2026-11-14
+
+### Hinzugefügt
+- Pro: JobPosting-Schema für Google for Jobs. Indeed liest dieselbe Auszeichnung, dazu `directApply`, `identifier`, Beschäftigungsart und Lohn.
+- Pro: Rezept-, Kurs- und Bewertungs-Schema (ein Typ pro Seite), mit Hinweis im Editor und in der Übersicht, wenn Pflichtangaben fehlen.
+- Pro: Mehrere Fokus-Keywords (bis 5, durch Komma getrennt). Das erste gilt als Hauptkeyword, die weiteren werden im SEO-Check einzeln geprüft.
+- Verwaiste Seiten: Liste unter «Seiten › Inhalts-Check» und Hinweis in der Übersicht. Menüs zählen als Link.
+- Cornerstone-Inhalte markieren (Erweitert), Filter und Stern in der Seitenliste.
+- SEO-Wert in der Admin-Leiste auf der Website und im Editor, mit Links zu Strukturierten Daten und Google-Test. Abschaltbar unter Einstellungen › Allgemein.
+
 ## [1.10.1] - 2026-11-14
 
 ### Hinzugefügt

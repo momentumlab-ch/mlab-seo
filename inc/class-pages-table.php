@@ -50,7 +50,27 @@ final class Pages_Table extends \WP_List_Table {
 			'poor'           => array( __( 'Low score', 'mlab-seo' ), $stats['poor'] ),
 			'unchecked'      => array( __( 'Not checked', 'mlab-seo' ), $stats['unchecked'] ),
 			'noindex'        => array( __( 'Hidden', 'mlab-seo' ), $stats['noindex'] ),
+			'cornerstone'    => array( __( 'Cornerstone', 'mlab-seo' ), self::cornerstone_count() ),
 		);
+	}
+
+	/**
+	 * Number of pages marked as cornerstone content.
+	 *
+	 * @return int
+	 */
+	private static function cornerstone_count() {
+		$query = new \WP_Query(
+			array(
+				'post_type'      => Post_Meta::post_types(),
+				'post_status'    => 'publish',
+				'fields'         => 'ids',
+				'posts_per_page' => 1,
+				'meta_key'       => Post_Meta::PREFIX . 'cornerstone', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- One counting query for a filter label.
+				'meta_value'     => '1', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+			)
+		);
+		return (int) $query->found_posts;
 	}
 
 	/**
@@ -139,6 +159,13 @@ final class Pages_Table extends \WP_List_Table {
 				return array(
 					array(
 						'key'   => $key( 'noindex' ),
+						'value' => '1',
+					),
+				);
+			case 'cornerstone':
+				return array(
+					array(
+						'key'   => $key( 'cornerstone' ),
 						'value' => '1',
 					),
 				);
@@ -271,7 +298,8 @@ final class Pages_Table extends \WP_List_Table {
 		if ( Post_Meta::get( $item->ID, 'noindex' ) ) {
 			return '<span class="mlab-seo-tag">' . esc_html__( 'noindex', 'mlab-seo' ) . '</span>';
 		}
-		return Dashboard::score_badge( (int) Post_Meta::get( $item->ID, 'score' ) );
+		$star = Post_Meta::get( $item->ID, 'cornerstone' ) ? '<span title="' . esc_attr__( 'Cornerstone content', 'mlab-seo' ) . '" aria-label="' . esc_attr__( 'Cornerstone content', 'mlab-seo' ) . '">★</span> ' : '';
+		return $star . Dashboard::score_badge( (int) Post_Meta::get( $item->ID, 'score' ) );
 	}
 
 	/**

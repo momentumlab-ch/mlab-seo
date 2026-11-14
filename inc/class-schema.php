@@ -216,6 +216,10 @@ final class Schema {
 	private static function pro_nodes( $post_id, $publisher ) {
 		$event  = self::event( $post_id, $publisher );
 		$nodes  = $event ? array( $event ) : array();
+		$rich   = Rich_Results::node( $post_id, $publisher );
+		if ( $rich ) {
+			$nodes[] = $rich;
+		}
 		$custom = json_decode( Post_Meta::get( $post_id, 'schema' ), true );
 		if ( ! is_array( $custom ) ) {
 			return $nodes;
@@ -395,7 +399,7 @@ final class Schema {
 	 * @param string $region  Region.
 	 * @return array|null
 	 */
-	private static function address( $street, $zip, $city, $country, $region = '' ) {
+	public static function address( $street, $zip, $city, $country, $region = '' ) {
 		if ( '' === $city && '' === $street ) {
 			return null;
 		}

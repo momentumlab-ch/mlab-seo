@@ -63,6 +63,7 @@ final class Plugin {
 		( new Link_Check() )->hooks();
 		( new WooCommerce() )->hooks();
 		( new Content_Filters() )->hooks();
+		( new Admin_Bar() )->hooks();
 
 		if ( is_admin() ) {
 			( new Meta_Box() )->hooks();

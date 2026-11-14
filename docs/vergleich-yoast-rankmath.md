@@ -30,7 +30,7 @@ Vorschlag für die Zuordnung. Reihenfolge nach Nutzen für Kunden-Websites.
 | Funktion | Beschreibung | Vorschlag | Aufwand |
 |---|---|---|---|
 | JobPosting-Schema | Stellenanzeigen in Google for Jobs (z. B. mit Simple Job Board) | Pro | mittel |
-| Mehrere Fokus-Keywords | Rank Math: bis zu 5 pro Seite | Pro | mittel |
+| Mehrere Fokus-Keywords | ab 1.11.0 | | |
 | Interne Link-Vorschläge | Yoast Premium, Rank Math | Pro | gross |
 | Verwaiste Seiten | Seiten ohne interne Links | Free | mittel |
 | Rezept-, Kurs-, Software-, Bewertungs-Schema | Rank Math: Schema-Generator | Pro | je mittel |

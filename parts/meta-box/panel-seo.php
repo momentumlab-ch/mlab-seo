@@ -34,7 +34,7 @@ defined( 'ABSPATH' ) || exit;
 	</p>
 	<p>
 		<label for="mlab-seo-focus" class="mlab-seo__label"><?php esc_html_e( 'Focus keyword', 'mlab-seo' ); ?></label>
-		<input type="text" class="widefat" id="mlab-seo-focus" name="mlab_seo[focus]" value="<?php echo esc_attr( $focus ); ?>" placeholder="<?php esc_attr_e( 'The search term this page should be found for', 'mlab-seo' ); ?>" />
+		<input type="text" class="widefat" id="mlab-seo-focus" name="mlab_seo[focus]" value="<?php echo esc_attr( $focus ); ?>" placeholder="<?php echo esc_attr( $pro ? __( 'Main keyword first, up to 4 more separated by commas', 'mlab-seo' ) : __( 'The search term this page should be found for', 'mlab-seo' ) ); ?>" />
 	</p>
 	<p class="mlab-seo__label"><?php esc_html_e( 'SEO check', 'mlab-seo' ); ?></p>
 	<ul class="mlab-seo__checks"></ul>

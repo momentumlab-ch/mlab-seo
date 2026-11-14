@@ -92,6 +92,25 @@
 		}
 	}
 
+	/* Extra keywords (Pro): each one should appear in the text, ideally also in the title or description. */
+	function extraKeywordChecks( add, input, extra, plain ) {
+		var text = plain.toLowerCase();
+		extra.forEach( function ( keyword ) {
+			var inText = text.indexOf( keyword ) > -1;
+			var inHead = input.title.toLowerCase().indexOf( keyword ) > -1 || input.desc.toLowerCase().indexOf( keyword ) > -1;
+			if ( inText && inHead ) {
+				/* translators: %s: keyword. */
+				add( 'good', fmt( __( 'The keyword "%s" is in the text and in the title or description.', 'mlab-seo' ), keyword ) );
+			} else if ( inText ) {
+				/* translators: %s: keyword. */
+				add( 'ok', fmt( __( 'The keyword "%s" is in the text. Use it in the title or description too.', 'mlab-seo' ), keyword ) );
+			} else {
+				/* translators: %s: keyword. */
+				add( 'ok', fmt( __( 'The keyword "%s" does not appear in the text.', 'mlab-seo' ), keyword ) );
+			}
+		} );
+	}
+
 	function lengthChecks( add, input ) {
 		var width = textWidth( input.title );
 		if ( width > 580 ) {
@@ -196,9 +215,13 @@
 		function add( state, msg ) {
 			list.push( { state: state, msg: msg } );
 		}
-		input.focus = String( input.focus || '' ).trim().toLowerCase();
+		var keywords = String( input.focus || '' ).toLowerCase().split( ',' ).map( function ( k ) {
+			return k.trim();
+		} ).filter( Boolean );
+		input.focus = keywords[ 0 ] || '';
 		input.title = String( input.title || '' );
 		input.desc = String( input.desc || '' );
+		var extra = input.pro ? keywords.slice( 1, 5 ) : [];
 
 		if ( input.noindex ) {
 			add( 'ok', NOINDEX );
@@ -206,6 +229,7 @@
 		lengthChecks( add, input );
 		if ( input.focus ) {
 			keywordChecks( add, input, body, plain, words );
+			extraKeywordChecks( add, input, extra, plain );
 		} else {
 			add( 'ok', NO_FOCUS );
 		}

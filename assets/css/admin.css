@@ -179,6 +179,7 @@
 	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 	gap: 0 16px;
 }
+.mlab-seo__rich[hidden] { display: none; }
 .mlab-seo__grid p { margin: 0 0 12px; }
 .mlab-seo__grid select { width: 100%; }
 .mlab-seo__event { margin: 0; padding: 0; border: 0; min-width: 0; }

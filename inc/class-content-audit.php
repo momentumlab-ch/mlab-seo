@@ -30,6 +30,11 @@ final class Content_Audit {
 	const CACHE = 'mlab_seo_content_audit';
 
 	/**
+	 * Transient with the pages that no other page links to.
+	 */
+	const ORPHAN_CACHE = 'mlab_seo_orphans';
+
+	/**
 	 * Registers hooks.
 	 */
 	public function hooks() {
@@ -42,6 +47,7 @@ final class Content_Audit {
 	 */
 	public static function flush_cache() {
 		delete_transient( self::CACHE );
+		delete_transient( self::ORPHAN_CACHE );
 	}
 
 	/**
@@ -109,6 +115,85 @@ final class Content_Audit {
 			}
 		}
 		return $results;
+	}
+
+	/**
+	 * Indexable pages without a link from another page or from a menu, cornerstone content first.
+	 *
+	 * @return int[] Post IDs.
+	 */
+	public static function orphans() {
+		$cached = get_transient( self::ORPHAN_CACHE );
+		if ( is_array( $cached ) ) {
+			return $cached;
+		}
+		$posts = get_posts(
+			array(
+				'post_type'      => Sitemap::post_types() ? Sitemap::post_types() : array( 'page' ),
+				'post_status'    => 'publish',
+				'posts_per_page' => 1000, // phpcs:ignore WordPress.WP.PostsPerPage.posts_per_page_posts_per_page -- Admin report, cached for a day.
+				'has_password'   => false,
+			)
+		);
+		$map   = array();
+		foreach ( $posts as $post ) {
+			$map[ self::path( (string) get_permalink( $post ) ) ] = $post->ID;
+		}
+		$linked = self::menu_targets();
+		foreach ( $posts as $post ) {
+			preg_match_all( '/href=["\']([^"\']+)["\']/i', $post->post_content, $found );
+			foreach ( $found[1] as $href ) {
+				$target = isset( $href[0] ) && '#' !== $href[0] ? ( $map[ self::path( $href ) ] ?? 0 ) : 0;
+				if ( $target && $target !== $post->ID ) {
+					$linked[ $target ] = true;
+				}
+			}
+		}
+		$front   = (int) get_option( 'page_on_front' );
+		$orphans = array();
+		foreach ( $posts as $post ) {
+			if ( isset( $linked[ $post->ID ] ) || $post->ID === $front || Post_Meta::get( $post->ID, 'noindex' ) || '' !== Post_Meta::get( $post->ID, 'canonical' ) ) {
+				continue;
+			}
+			$orphans[ $post->ID ] = Post_Meta::get( $post->ID, 'cornerstone' ) ? 0 : 1;
+		}
+		asort( $orphans );
+		$orphans = array_keys( $orphans );
+		set_transient( self::ORPHAN_CACHE, $orphans, DAY_IN_SECONDS );
+		return $orphans;
+	}
+
+	/**
+	 * Posts that a menu links to.
+	 *
+	 * @return array<int,bool> Post IDs as keys.
+	 */
+	private static function menu_targets() {
+		$targets = array();
+		foreach ( wp_get_nav_menus() as $menu ) {
+			foreach ( (array) wp_get_nav_menu_items( $menu ) as $item ) {
+				if ( 'post_type' === $item->type ) {
+					$targets[ (int) $item->object_id ] = true;
+				}
+			}
+		}
+		return $targets;
+	}
+
+	/**
+	 * Path of an address on this website, lower case and without trailing slash, or an empty string for other websites.
+	 *
+	 * @param string $url Address.
+	 * @return string
+	 */
+	private static function path( $url ) {
+		$parts = wp_parse_url( trim( $url ) );
+		$host  = wp_parse_url( home_url(), PHP_URL_HOST );
+		if ( ! is_array( $parts ) || isset( $parts['scheme'] ) && ! in_array( $parts['scheme'], array( 'http', 'https' ), true ) || ( isset( $parts['host'] ) && strtolower( $parts['host'] ) !== strtolower( (string) $host ) ) ) {
+			return '';
+		}
+		$path = strtolower( untrailingslashit( rawurldecode( $parts['path'] ?? '' ) ) );
+		return '' !== $path ? $path : '/';
 	}
 
 	/**

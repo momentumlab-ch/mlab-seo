@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.10.1
+Stable tag: 1.11.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,13 @@ Developer hooks
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.11.0 =
+* Pro: Stellenanzeigen (JobPosting) für Google for Jobs und Indeed, Rezept, Kurs und Bewertung als Rich Results pro Seite, mit Hinweis auf fehlende Pflichtangaben.
+* Pro: Bis zu 5 Fokus-Keywords pro Seite, mit Prüfung jedes Keywords.
+* Verwaiste Seiten: Liste der Seiten ohne internen Link, mit Hinweis in der Übersicht.
+* Cornerstone-Inhalte markieren, mit Filter in der Seitenliste.
+* SEO-Wert der Seite in der Admin-Leiste (abschaltbar unter Einstellungen).
 
 = 1.10.1 =
 * Navigation über alle SEO-Seiten im Kopf.

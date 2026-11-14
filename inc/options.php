@@ -83,6 +83,12 @@ function mlab_seo_options_general(): array {
 			'label'   => __( 'Source code', 'mlab-seo' ),
 			'text'    => __( 'Hide the WordPress version', 'mlab-seo' ),
 		),
+		'admin_bar'        => array(
+			'type'    => 'checkbox',
+			'default' => 1,
+			'label'   => __( 'Admin bar', 'mlab-seo' ),
+			'text'    => __( 'Show the SEO score of the page in the admin bar', 'mlab-seo' ),
+		),
 		'attachment_pages' => array(
 			'type'    => 'checkbox',
 			'default' => 0,

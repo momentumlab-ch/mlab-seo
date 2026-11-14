@@ -156,7 +156,7 @@ function mlab_seo_admin_page_settings(): array {
 			'general'   => array(
 				'label' => __( 'General', 'mlab-seo' ),
 				'part'  => 'settings-general',
-				'keys'  => array( 'external_nofollow', 'external_blank', 'image_alt', 'rss_source', 'breadcrumb_home', 'breadcrumb_sep', 'remove_generator', 'attachment_pages', 'woo_schema' ),
+				'keys'  => array( 'external_nofollow', 'external_blank', 'image_alt', 'rss_source', 'breadcrumb_home', 'breadcrumb_sep', 'remove_generator', 'admin_bar', 'attachment_pages', 'woo_schema' ),
 			),
 			'verify'    => array(
 				'label' => __( 'Verification', 'mlab-seo' ),

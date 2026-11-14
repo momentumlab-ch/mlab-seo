@@ -303,7 +303,7 @@ final class Titles {
 			case 'modified':
 				return (string) get_the_modified_date( '', $post );
 			case 'focuskw':
-				return Post_Meta::get( $post->ID, 'focus' );
+				return Post_Meta::main_focus( $post->ID );
 		}
 		return self::type_value( $name, $post->post_type );
 	}

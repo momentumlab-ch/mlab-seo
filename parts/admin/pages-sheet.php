@@ -36,6 +36,10 @@ $page_types = array( '' => __( 'Web page (default)', 'mlab-seo' ) ) + array_comb
 				<span class="mlab-seo-meter" data-for="description"><i></i></span>
 			</label>
 			<button type="button" class="mlab-seo-btn is-plain" data-suggest><?php esc_html_e( 'Suggest from the page text', 'mlab-seo' ); ?></button>
+			<?php if ( AI::enabled() ) : ?>
+				<button type="button" class="mlab-seo-btn" data-ai-write><?php esc_html_e( 'Write with AI', 'mlab-seo' ); ?></button>
+				<ul class="mlab-seo-ai-list" data-ai-list aria-live="polite"></ul>
+			<?php endif; ?>
 			<label class="mlab-seo-field">
 				<span><?php esc_html_e( 'Focus keyword', 'mlab-seo' ); ?></span>
 				<input type="text" name="focus" maxlength="100" placeholder="<?php esc_attr_e( 'The search term this page should be found for', 'mlab-seo' ); ?>" />

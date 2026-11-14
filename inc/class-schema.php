@@ -169,7 +169,7 @@ final class Schema {
 		$img      = Context::image( $seo['image'] );
 		$author   = (int) get_post_field( 'post_author', $post_id );
 		$sections = wp_list_pluck( get_the_category( $post_id ), 'name' );
-		$words    = count( preg_split( '/\s+/u', trim( wp_strip_all_tags( excerpt_remove_blocks( strip_shortcodes( (string) get_post_field( 'post_content', $post_id ) ) ) ) ), -1, PREG_SPLIT_NO_EMPTY ) );
+		$words    = count( preg_split( '/\s+/u', trim( wp_strip_all_tags( excerpt_remove_blocks( Context::strip_shortcodes( (string) get_post_field( 'post_content', $post_id ) ) ) ) ), -1, PREG_SPLIT_NO_EMPTY ) );
 		return array(
 			self::clean(
 				array(

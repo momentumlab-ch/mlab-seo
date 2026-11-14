@@ -3146,3 +3146,11 @@ msgstr ""
 #: inc/class-ai.php
 msgid "Unknown provider."
 msgstr ""
+
+#: assets/js/pages.js
+msgid "Saved: %s"
+msgstr ""
+
+#: assets/js/pages.js
+msgid "The texts are in the fields. Press Save to approve them."
+msgstr ""

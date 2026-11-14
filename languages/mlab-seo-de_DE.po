@@ -1,6 +1,6 @@
 #
 msgid ""
-msgstr "Project-Id-Version: MomentumLab SEO 1.14.1\nReport-Msgid-Bugs-To: https://wordpress.org/support/plugin/mlab-seo\nPOT-Creation-Date: 2026-11-14T16:21:46+00:00\nPO-Revision-Date: 2026-11-14 16:21+0000\nLast-Translator: MomentumLab <support@momentumlab.ch>\nLanguage-Team: German\nLanguage: de_DE\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Domain: mlab-seo\nX-Generator: WP-CLI 2.12.0\n"
+msgstr "Project-Id-Version: MomentumLab SEO 1.15.0\nReport-Msgid-Bugs-To: https://wordpress.org/support/plugin/mlab-seo\nPOT-Creation-Date: 2026-11-14T16:29:28+00:00\nPO-Revision-Date: 2026-11-14 16:29+0000\nLast-Translator: MomentumLab <support@momentumlab.ch>\nLanguage-Team: German\nLanguage: de_DE\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Domain: mlab-seo\nX-Generator: WP-CLI 2.12.0\n"
 
 #. Plugin Name of the plugin
 #: mlab-seo.php inc/class-admin.php:92 inc/class-meta-box.php:47
@@ -3049,3 +3049,11 @@ msgstr "Dieser Server kann den Schlüssel nicht verschlüsseln. Bitte den Hoster
 #: inc/class-ai.php
 msgid "Unknown provider."
 msgstr "Unbekannter Anbieter."
+
+#: assets/js/pages.js
+msgid "Saved: %s"
+msgstr "Gespeichert: %s"
+
+#: assets/js/pages.js
+msgid "The texts are in the fields. Press Save to approve them."
+msgstr "Die Texte stehen in den Feldern. Klicke auf «Speichern», um sie freizugeben."

@@ -263,13 +263,26 @@ final class Context {
 	}
 
 	/**
+	 * Content without shortcodes. Also removes the shortcodes of builders that are not loaded in this request
+	 * (Divi: et_pb_*, WPBakery: vc_*), which strip_shortcodes() leaves in the text. Tags without an underscore or hyphen
+	 * and without attributes stay, so text like [sic] is kept.
+	 *
+	 * @param string $content Post content.
+	 * @return string
+	 */
+	public static function strip_shortcodes( $content ) {
+		$content = strip_shortcodes( (string) $content );
+		return (string) preg_replace( '/\[\/?(?:[A-Za-z]+[_-][\w-]*|[A-Za-z][\w-]*(?=\s[^\]]*=))(?:\s[^\]]*)?\]/', ' ', $content );
+	}
+
+	/**
 	 * Description from the excerpt or the start of the content.
 	 *
 	 * @param \WP_Post $post Post.
 	 * @return string
 	 */
 	public static function auto_description( $post ) {
-		$text = '' !== $post->post_excerpt ? $post->post_excerpt : excerpt_remove_blocks( strip_shortcodes( $post->post_content ) );
+		$text = '' !== $post->post_excerpt ? $post->post_excerpt : excerpt_remove_blocks( self::strip_shortcodes( $post->post_content ) );
 		$text = trim( preg_replace( '/\s+/', ' ', wp_strip_all_tags( $text ) ) );
 		if ( mb_strlen( $text ) <= 160 ) {
 			return $text;

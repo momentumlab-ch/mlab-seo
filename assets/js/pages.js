@@ -125,6 +125,7 @@
 		show( 'host', cfg.homeUrl.replace( /^https?:\/\//, '' ).replace( /\/.*$/, '' ) );
 		show( 'date', post.date ? post.date + ' — ' : '' );
 		sheet.querySelector( '[data-href="edit"]' ).href = post.edit;
+		aiRender( post.aiDraft || [] );
 		sheet.querySelector( '[data-image]' ).style.backgroundImage = post.image ? 'url("' + encodeURI( post.image ) + '")' : '';
 		update();
 	}
@@ -175,13 +176,81 @@
 		} );
 	}
 
+	/* The message of the screen (assets/js/settings.js); the browser alert is the fallback. */
+	function notify( state, text ) {
+		if ( window.mlabSeoNotify ) {
+			window.mlabSeoNotify( state, text );
+		} else if ( 'error' === state ) {
+			window.alert( text );
+		}
+	}
+
+	/* AI drafts: three variants. Using one only fills the fields; the page is changed when Save is pressed. */
+	var aiList = sheet.querySelector( '[data-ai-list]' );
+	function aiRender( variants ) {
+		if ( ! aiList ) {
+			return;
+		}
+		aiList.textContent = '';
+		variants.forEach( function ( v, i ) {
+			var li = document.createElement( 'li' );
+			var strong = document.createElement( 'strong' );
+			strong.textContent = v.title;
+			var small = document.createElement( 'small' );
+			small.textContent = ' ' + A.fmt( __( '%d characters', 'mlab-seo' ), v.title.length );
+			var text = document.createElement( 'div' );
+			text.textContent = v.description + ' ';
+			var count = document.createElement( 'small' );
+			count.textContent = A.fmt( __( '%d characters', 'mlab-seo' ), v.description.length );
+			text.appendChild( count );
+			var use = document.createElement( 'button' );
+			use.type = 'button';
+			use.className = 'mlab-seo-btn';
+			use.textContent = __( 'Use these texts', 'mlab-seo' );
+			use.addEventListener( 'click', function () {
+				form.title.value = v.title;
+				form.description.value = v.description;
+				update();
+				aiDiscard();
+				aiList.textContent = '';
+				var done = document.createElement( 'li' );
+				done.textContent = __( 'The texts are in the fields. Press Save to approve them.', 'mlab-seo' );
+				aiList.appendChild( done );
+			} );
+			li.append( strong, small, text, use );
+			aiList.appendChild( li );
+		} );
+	}
+	function aiDiscard() {
+		wp.apiFetch( { path: '/mlab-seo/v1/ai/discard', method: 'POST', data: { post_id: current.id } } );
+	}
+	function aiWrite() {
+		var button = sheet.querySelector( '[data-ai-write]' );
+		button.disabled = true;
+		button.textContent = __( 'Writing …', 'mlab-seo' );
+		wp.apiFetch( { path: '/mlab-seo/v1/ai/write', method: 'POST', data: { post_id: current.id } } ).then( function ( r ) {
+			aiRender( r.variants );
+		} ).catch( function ( err ) {
+			notify( 'error', ( err && err.message ) || __( 'The AI could not write a draft. Please try again.', 'mlab-seo' ) );
+		} ).then( function () {
+			button.disabled = false;
+			button.textContent = __( 'Write with AI', 'mlab-seo' );
+		} );
+	}
+
 	function save() {
 		var v = values();
 		v.score = update().score;
 		var button = sheet.querySelector( '[data-save]' );
 		button.disabled = true;
-		saveFields( current.id, v ).then( close ).catch( function ( err ) {
-			window.alert( ( err && err.message ) || __( 'Not saved. Please try again.', 'mlab-seo' ) );
+		var name = current.name;
+		notify( 'saving', __( 'Saving …', 'mlab-seo' ) );
+		saveFields( current.id, v ).then( function () {
+			close();
+			/* translators: %s: title of the page. */
+			notify( 'ok', __( 'Saved: %s', 'mlab-seo' ).replace( '%s', name ) );
+		} ).catch( function ( err ) {
+			notify( 'error', __( 'Not saved.', 'mlab-seo' ) + ' ' + ( ( err && err.message ) || __( 'Please try again.', 'mlab-seo' ) ) );
 		} ).then( function () {
 			button.disabled = false;
 		} );
@@ -240,6 +309,9 @@
 	} );
 	sheet.querySelector( '[data-save]' ).addEventListener( 'click', save );
 	sheet.querySelector( '[data-suggest]' ).addEventListener( 'click', suggest );
+	if ( sheet.querySelector( '[data-ai-write]' ) ) {
+		sheet.querySelector( '[data-ai-write]' ).addEventListener( 'click', aiWrite );
+	}
 
 	var edit = new URLSearchParams( window.location.search ).get( 'edit' );
 	if ( edit ) {

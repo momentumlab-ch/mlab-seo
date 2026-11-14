@@ -57,7 +57,7 @@ final class Content_Audit {
 	 * @return int
 	 */
 	public static function words( $post ) {
-		$text = excerpt_remove_blocks( strip_shortcodes( $post->post_content ) );
+		$text = excerpt_remove_blocks( Context::strip_shortcodes( $post->post_content ) );
 		foreach ( FAQ::for_post( $post->ID ) as $item ) {
 			$text .= ' ' . $item['question'] . ' ' . $item['answer'];
 		}

@@ -82,6 +82,7 @@ Developer hooks
 * Einrichtungsassistent «Setup» in 4 Schritten: Organisation, Startseite, KI und Bing, Prüfung. Jeder Schritt überspringbar, speichert automatisch. Startet einmal nach der Aktivierung.
 * Pro: Link-Vorschläge im SEO-Feld: passende, noch nicht verlinkte Seiten, Seiten ohne internen Link zuerst.
 * Übersicht: Hinweis auf MomentumLab Insights für die Google-Auswertung, wenn Insights aktiv ist.
+* Übersetzungen für alle neuen Texte ab 1.10.0 in Deutsch (CH, DE), Französisch und Italienisch.
 * Deinstallation entfernt jetzt auch Cornerstone, Rich Results und die Liste verwaister Seiten.
 
 = 1.11.2 =

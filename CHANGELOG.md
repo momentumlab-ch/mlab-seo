@@ -10,6 +10,9 @@ The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaki
 - Pro: Link-Vorschläge im SEO-Feld. Passende Seiten nach Fokus-Keyword und Titel, ohne bereits verlinkte, Seiten ohne internen Link und Cornerstone-Seiten zuerst. «Adresse kopieren».
 - Übersicht: Hinweis auf MomentumLab Insights (Google-Auswertung), wenn Insights aktiv ist. Keine eigene Google-Verbindung in diesem Plugin.
 
+### Geändert
+- Übersetzungen (de_CH, de_CH_informal, de_DE, de_DE_formal, fr_FR, it_IT) für alle neuen Texte ab 1.10.0 nachgetragen, 122 Texte pro Sprache. Bestehende Übersetzungen sind unverändert.
+
 ### Behoben
 - Deinstallation entfernt jetzt auch die Felder Cornerstone und Rich Results sowie die Liste verwaister Seiten.
 

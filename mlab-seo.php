@@ -3,7 +3,7 @@
  * Plugin Name:       MomentumLab SEO
  * Plugin URI:        https://momentumlab.ch/
  * Description:       Search engine and AI optimisation: titles, meta descriptions, Google preview with SEO check, social previews, schema.org, sitemap, robots.txt and llms.txt for AI assistants.
- * Version:           1.11.2
+ * Version:           1.12.0
  * Requires at least: 6.5
  * Requires PHP:      8.0
  * Author:            MomentumLab
@@ -19,7 +19,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'MLAB_SEO_VERSION', '1.11.2' );
+define( 'MLAB_SEO_VERSION', '1.12.0' );
 define( 'MLAB_SEO_FILE', __FILE__ );
 define( 'MLAB_SEO_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MLAB_SEO_URL', plugin_dir_url( __FILE__ ) );
@@ -51,6 +51,7 @@ require_once MLAB_SEO_DIR . 'inc/class-media.php';
 require_once MLAB_SEO_DIR . 'inc/class-hreflang.php';
 require_once MLAB_SEO_DIR . 'inc/class-multilingual.php';
 require_once MLAB_SEO_DIR . 'inc/class-content-audit.php';
+require_once MLAB_SEO_DIR . 'inc/class-link-suggestions.php';
 require_once MLAB_SEO_DIR . 'inc/class-fields.php';
 require_once MLAB_SEO_DIR . 'inc/class-meta-box.php';
 require_once MLAB_SEO_DIR . 'inc/class-quick-edit.php';

@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.11.2
+Stable tag: 1.12.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,12 @@ Developer hooks
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.12.0 =
+* Einrichtungsassistent «Setup» in 4 Schritten: Organisation, Startseite, KI und Bing, Prüfung. Jeder Schritt überspringbar, speichert automatisch. Startet einmal nach der Aktivierung.
+* Pro: Link-Vorschläge im SEO-Feld: passende, noch nicht verlinkte Seiten, Seiten ohne internen Link zuerst.
+* Übersicht: Hinweis auf MomentumLab Insights für die Google-Auswertung, wenn Insights aktiv ist.
+* Deinstallation entfernt jetzt auch Cornerstone, Rich Results und die Liste verwaister Seiten.
 
 = 1.11.2 =
 * Speicherstatus als Hinweis oben rechts, der beim Scrollen sichtbar bleibt: Speichern, Gespeichert, Fehler mit Grund.

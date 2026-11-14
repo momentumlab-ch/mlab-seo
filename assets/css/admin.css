@@ -179,6 +179,8 @@
 	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 	gap: 0 16px;
 }
+.mlab-seo__links { margin: 0 0 12px; list-style: none; padding: 0; }
+.mlab-seo__links li { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 6px 0; border-top: 1px solid rgba(0,0,0,.08); }
 .mlab-seo__rich[hidden] { display: none; }
 .mlab-seo__grid p { margin: 0 0 12px; }
 .mlab-seo__grid select { width: 100%; }
@@ -275,6 +277,8 @@ fieldset[disabled] textarea { cursor: not-allowed; }
 .mlab-seo-nav a:hover { color: var(--ms-text); }
 .mlab-seo-nav a[aria-current] { color: var(--ms-text); border-bottom-color: var(--ms-blue); }
 .mlab-seo-code { background: #1d1d1f; color: #f5f5f7; padding: 14px 16px; border-radius: 10px; overflow: auto; max-height: 460px; font-size: 12px; line-height: 1.5; white-space: pre; }
+
+.mlab-seo-steps { display: flex; gap: 12px; align-items: center; margin: 20px 0 0; }
 
 /* Segments */
 .mlab-seo-seg, .mlab-seo-filters, .mlab-seo-pills { display: inline-flex; flex-wrap: wrap; gap: 2px; background: var(--ms-fill); border-radius: 9px; padding: 2px; margin-bottom: 20px; }

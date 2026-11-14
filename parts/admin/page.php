@@ -56,6 +56,18 @@ $first    = (string) array_key_first( $segments );
 			<?php else : ?>
 				<?php Admin::part( $segment['part'] ); ?>
 			<?php endif; ?>
+			<?php if ( ! empty( $admin_page['wizard'] ) ) : ?>
+				<?php $keys_list = array_keys( $segments ); $pos = (int) array_search( $key, $keys_list, true ); ?>
+				<p class="mlab-seo-steps">
+					<?php if ( $pos > 0 ) : ?>
+						<a class="mlab-seo-btn" href="#<?php echo esc_attr( $keys_list[ $pos - 1 ] ); ?>" data-go="<?php echo esc_attr( $keys_list[ $pos - 1 ] ); ?>"><?php esc_html_e( 'Back', 'mlab-seo' ); ?></a>
+					<?php endif; ?>
+					<?php if ( isset( $keys_list[ $pos + 1 ] ) ) : ?>
+						<a class="mlab-seo-btn is-primary" href="#<?php echo esc_attr( $keys_list[ $pos + 1 ] ); ?>" data-go="<?php echo esc_attr( $keys_list[ $pos + 1 ] ); ?>"><?php esc_html_e( 'Next', 'mlab-seo' ); ?></a>
+						<a href="#<?php echo esc_attr( $keys_list[ $pos + 1 ] ); ?>" data-go="<?php echo esc_attr( $keys_list[ $pos + 1 ] ); ?>"><?php esc_html_e( 'Skip', 'mlab-seo' ); ?></a>
+					<?php endif; ?>
+				</p>
+			<?php endif; ?>
 			<?php
 			if ( isset( $segment['after'] ) ) {
 				Admin::part( $segment['after'] );

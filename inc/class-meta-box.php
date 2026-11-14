@@ -61,7 +61,7 @@ final class Meta_Box {
 		wp_enqueue_media();
 		wp_enqueue_style( 'mlab-seo-admin', MLAB_SEO_URL . 'assets/css/admin.css', array(), Admin::asset_version( 'assets/css/admin.css' ) );
 		Admin::script( 'mlab-seo-analysis', 'assets/js/analysis.js', array( 'wp-i18n' ) );
-		Admin::script( 'mlab-seo-editor', 'assets/js/editor.js', array( 'jquery', 'wp-i18n', 'mlab-seo-analysis' ) );
+		Admin::script( 'mlab-seo-editor', 'assets/js/editor.js', array( 'jquery', 'wp-i18n', 'wp-api-fetch', 'mlab-seo-analysis' ) );
 		if ( $screen->is_block_editor() ) {
 			Admin::script( 'mlab-seo-sidebar', 'assets/js/sidebar.js', array( 'mlab-seo-analysis', 'mlab-seo-editor', 'wp-plugins', 'wp-editor', 'wp-edit-post', 'wp-element', 'wp-components', 'wp-i18n' ) );
 		}
@@ -73,6 +73,7 @@ final class Meta_Box {
 				'siteName'     => Settings::site_name(),
 				'locale'       => str_replace( '_', '-', get_user_locale() ),
 				'pro'          => License::is_pro(),
+				'postId'       => (int) get_the_ID(),
 				'homeUrl'      => home_url( '/' ),
 				'titlePattern' => Titles::post_type( $screen->post_type )['title'],
 				'vars'         => self::variable_values( get_post() ),

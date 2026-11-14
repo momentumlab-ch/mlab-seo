@@ -186,7 +186,7 @@ final class Content_Audit {
 	 * @param string $url Address.
 	 * @return string
 	 */
-	private static function path( $url ) {
+	public static function path( $url ) {
 		$parts = wp_parse_url( trim( $url ) );
 		$host  = wp_parse_url( home_url(), PHP_URL_HOST );
 		if ( ! is_array( $parts ) || isset( $parts['scheme'] ) && ! in_array( $parts['scheme'], array( 'http', 'https' ), true ) || ( isset( $parts['host'] ) && strtolower( $parts['host'] ) !== strtolower( (string) $host ) ) ) {

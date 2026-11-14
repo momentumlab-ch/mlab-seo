@@ -32,10 +32,12 @@
 		} );
 		loadPreviews( $sections.filter( '[data-segment="' + key + '"]' ) );
 	}
-	$wrap.on( 'click', '.mlab-seo-seg a', function ( e ) {
+	$wrap.on( 'click', '.mlab-seo-seg a, [data-go]', function ( e ) {
+		var key = $( this ).data( 'segment' ) || $( this ).data( 'go' );
 		e.preventDefault();
-		show( $( this ).data( 'segment' ) );
-		history.replaceState( null, '', '#' + $( this ).data( 'segment' ) );
+		show( key );
+		history.replaceState( null, '', '#' + key );
+		window.scrollTo( 0, 0 );
 	} );
 	$( window ).on( 'hashchange', function () {
 		show( window.location.hash.slice( 1 ) );

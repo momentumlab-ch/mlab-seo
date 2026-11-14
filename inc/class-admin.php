@@ -20,6 +20,16 @@ final class Admin {
 	const PAGE = 'mlab-seo';
 
 	/**
+	 * Option that is set once the quick setup was finished.
+	 */
+	const SETUP_DONE = 'mlab_seo_setup_done';
+
+	/**
+	 * Transient that sends the user to the quick setup right after activation.
+	 */
+	const SETUP_REDIRECT = 'mlab_seo_setup_redirect';
+
+	/**
 	 * Transient with the last crawler access check.
 	 */
 	const CHECK_TRANSIENT = 'mlab_seo_access_check';
@@ -32,7 +42,23 @@ final class Admin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( MLAB_SEO_FILE ), array( $this, 'action_links' ) );
 		add_filter( 'admin_body_class', array( $this, 'body_class' ) );
+		add_action( 'admin_init', array( $this, 'maybe_start_setup' ) );
 		( new Admin_Actions() )->hooks();
+	}
+
+	/**
+	 * Sends the user to the quick setup once after activation, but not on bulk activation.
+	 */
+	public function maybe_start_setup() {
+		if ( ! get_transient( self::SETUP_REDIRECT ) ) {
+			return;
+		}
+		delete_transient( self::SETUP_REDIRECT );
+		if ( isset( $_GET['activate-multi'] ) || wp_doing_ajax() || get_option( self::SETUP_DONE ) || ! current_user_can( self::capability() ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Only reads whether this is a bulk activation.
+			return;
+		}
+		wp_safe_redirect( self::url( 'mlab-seo-setup' ) );
+		exit;
 	}
 
 	/**

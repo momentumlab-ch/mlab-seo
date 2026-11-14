@@ -69,6 +69,7 @@ function mlab_seo_admin_pages(): array {
 			),
 		),
 		'mlab-seo-settings'  => mlab_seo_admin_page_settings(),
+		'mlab-seo-setup'     => mlab_seo_admin_page_setup(),
 	);
 }
 
@@ -175,6 +176,43 @@ function mlab_seo_admin_page_settings(): array {
 			'license'   => array(
 				'label' => __( 'Licence', 'mlab-seo' ),
 				'part'  => 'tab-license',
+			),
+		),
+	);
+}
+
+/**
+ * Quick setup in four steps. Each step reuses the settings of another page and saves automatically.
+ *
+ * @return array
+ */
+function mlab_seo_admin_page_setup(): array {
+	$search = mlab_seo_admin_page_search()['segments'];
+	$ai     = mlab_seo_admin_page_ai()['segments'];
+	return array(
+		'title'    => __( 'Quick setup', 'mlab-seo' ),
+		'menu'     => __( 'Setup', 'mlab-seo' ),
+		'intro'    => __( 'Four short steps. Everything saves by itself, and you can skip any step.', 'mlab-seo' ),
+		'wizard'   => true,
+		'segments' => array(
+			'organisation' => array(
+				'label' => __( '1. Organisation', 'mlab-seo' ),
+				'part'  => $search['publisher']['part'],
+				'keys'  => $search['publisher']['keys'],
+			),
+			'home'         => array(
+				'label' => __( '2. Home page', 'mlab-seo' ),
+				'part'  => $search['home']['part'],
+				'keys'  => $search['home']['keys'],
+			),
+			'visibility'   => array(
+				'label' => __( '3. AI and Bing', 'mlab-seo' ),
+				'part'  => 'setup-visibility',
+				'keys'  => array_merge( $ai['crawlers']['keys'], $ai['indexnow']['keys'] ),
+			),
+			'finish'       => array(
+				'label' => __( '4. Check', 'mlab-seo' ),
+				'part'  => 'setup-finish',
 			),
 		),
 	);

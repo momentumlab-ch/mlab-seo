@@ -1,19 +1,6 @@
 #
 msgid ""
-msgstr ""
-"Project-Id-Version: MomentumLab SEO 1.9.2\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mlab-seo\n"
-"POT-Creation-Date: 2026-11-09T23:31:10+00:00\n"
-"PO-Revision-Date: 2026-10-25 13:00+0100\n"
-"Last-Translator: MomentumLab <support@momentumlab.ch>\n"
-"Language-Team: German\n"
-"Language: de_CH\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Domain: mlab-seo\n"
-"X-Generator: WP-CLI 2.12.0\n"
+msgstr "Project-Id-Version: MomentumLab SEO 1.12.1\nReport-Msgid-Bugs-To: https://wordpress.org/support/plugin/mlab-seo\nPOT-Creation-Date: 2026-11-14T15:46:43+00:00\nPO-Revision-Date: 2026-11-14 15:46+0000\nLast-Translator: MomentumLab <support@momentumlab.ch>\nLanguage-Team: German\nLanguage: de_CH\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Domain: mlab-seo\nX-Generator: WP-CLI 2.12.0\n"
 
 #. Plugin Name of the plugin
 #: mlab-seo.php inc/class-admin.php:92 inc/class-meta-box.php:47
@@ -29,14 +16,8 @@ msgstr "https://momentumlab.ch/"
 
 #. Description of the plugin
 #: mlab-seo.php
-msgid ""
-"Search engine and AI optimisation: titles, meta descriptions, Google preview "
-"with SEO check, social previews, schema.org, sitemap, robots.txt and llms."
-"txt for AI assistants."
-msgstr ""
-"Optimierung für Suchmaschinen und KI: Seitentitel, Meta-Beschreibungen, "
-"Google-Vorschau mit SEO-Check, Social-Vorschau, schema.org, Sitemap, robots."
-"txt und llms.txt für KI-Assistenten."
+msgid "Search engine and AI optimisation: titles, meta descriptions, Google preview with SEO check, social previews, schema.org, sitemap, robots.txt and llms.txt for AI assistants."
+msgstr "Optimierung für Suchmaschinen und KI: Seitentitel, Meta-Beschreibungen, Google-Vorschau mit SEO-Check, Social-Vorschau, schema.org, Sitemap, robots.txt und llms.txt für KI-Assistenten."
 
 #. Author of the plugin
 #: mlab-seo.php
@@ -53,9 +34,7 @@ msgid "Pages"
 msgstr "Seiten"
 
 #: inc/admin-pages.php:34
-msgid ""
-"Title, description and previews of all pages in one place. Click a row to "
-"edit it."
+msgid "Title, description and previews of all pages in one place. Click a row to edit it."
 msgstr "Titel, Beschreibung und Vorschau aller Seiten an einem Ort. Klicke auf eine Zeile, um sie zu bearbeiten."
 
 #: inc/admin-pages.php:37
@@ -72,9 +51,7 @@ msgid "Sitemap"
 msgstr "Sitemap"
 
 #: inc/admin-pages.php:51
-msgid ""
-"The list of all pages for Google and Bing. Hidden pages are left out "
-"automatically."
+msgid "The list of all pages for Google and Bing. Hidden pages are left out automatically."
 msgstr "Die Liste aller Seiten für Google und Bing. Versteckte Seiten werden automatisch weggelassen."
 
 #: inc/admin-pages.php:61 inc/admin-pages.php:62 inc/admin-pages.php:66
@@ -187,12 +164,8 @@ msgid "The address is not logged any more."
 msgstr "Die Adresse wird nicht mehr erfasst."
 
 #: inc/class-admin-actions.php:244
-msgid ""
-"The link check runs in the background and takes a few minutes. Reload this "
-"page later."
-msgstr ""
-"Die Link-Prüfung läuft im Hintergrund und dauert einige Minuten. Seite "
-"später neu laden."
+msgid "The link check runs in the background and takes a few minutes. Reload this page later."
+msgstr "Die Link-Prüfung läuft im Hintergrund und dauert einige Minuten. Seite später neu laden."
 
 #. translators: %d: number of redirects.
 #: inc/class-admin-actions.php:246
@@ -203,11 +176,8 @@ msgstr "Import abgeschlossen: %d Weiterleitungen übernommen."
 #. translators: 1: number of pages and posts, 2: number of categories and tags.
 #: inc/class-admin-actions.php:248
 #, php-format
-msgid ""
-"Import finished: %1$d pages and posts, %2$d categories and tags updated."
-msgstr ""
-"Import abgeschlossen: %1$d Seiten und Beiträge, %2$d Kategorien und "
-"Schlagwörter aktualisiert."
+msgid "Import finished: %1$d pages and posts, %2$d categories and tags updated."
+msgstr "Import abgeschlossen: %1$d Seiten und Beiträge, %2$d Kategorien und Schlagwörter aktualisiert."
 
 #. translators: %d: number of pages.
 #: inc/class-admin-actions.php:250
@@ -290,35 +260,24 @@ msgstr "Es werden einfache Adressen wie ?p=123 verwendet. Wähle eine Permalink-
 
 #: inc/class-dashboard.php:159
 msgid "The website runs at the root of its domain, so robots.txt is served."
-msgstr ""
-"Die Website liegt im Hauptverzeichnis ihrer Domain, die robots.txt wird "
-"ausgeliefert."
+msgstr "Die Website liegt im Hauptverzeichnis ihrer Domain, die robots.txt wird ausgeliefert."
 
 #: inc/class-dashboard.php:160
-msgid ""
-"The website runs in a subfolder. Search engines only read robots.txt at the "
-"root of a domain, so the robots.txt rules take effect once the website moves "
-"to its own domain."
-msgstr ""
-"Die Website liegt in einem Unterordner. Suchmaschinen lesen die robots.txt "
-"nur im Hauptverzeichnis einer Domain. Die Regeln greifen, sobald die Website "
-"auf ihrer eigenen Domain läuft."
+msgid "The website runs in a subfolder. Search engines only read robots.txt at the root of a domain, so the robots.txt rules take effect once the website moves to its own domain."
+msgstr "Die Website liegt in einem Unterordner. Suchmaschinen lesen die robots.txt nur im Hauptverzeichnis einer Domain. Die Regeln greifen, sobald die Website auf ihrer eigenen Domain läuft."
 
 #: inc/class-dashboard.php:162
 msgid "The website uses HTTPS."
 msgstr "Die Website verwendet HTTPS."
 
 #: inc/class-dashboard.php:163
-msgid ""
-"The website does not use HTTPS. Ask your hosting provider for a certificate."
+msgid "The website does not use HTTPS. Ask your hosting provider for a certificate."
 msgstr "Die Website nutzt kein HTTPS. Frage deinen Hoster nach einem Zertifikat."
 
 #. translators: %s: plugin name.
 #: inc/class-dashboard.php:167
 #, php-format
-msgid ""
-"%s is active as well. Two SEO plugins print duplicate titles and tags. Take "
-"over its data, then deactivate it."
+msgid "%s is active as well. Two SEO plugins print duplicate titles and tags. Take over its data, then deactivate it."
 msgstr "%s ist ebenfalls aktiv. Zwei SEO-Plugins geben Titel und Tags doppelt aus. Übernimm die Daten und deaktiviere es danach."
 
 #. translators: %s: plugin name.
@@ -330,8 +289,7 @@ msgstr "Daten übernehmen"
 #: inc/class-dashboard.php:182
 #, php-format
 msgid "%d page without meta description. Google then picks any text snippet."
-msgid_plural ""
-"%d pages without meta description. Google then picks any text snippet."
+msgid_plural "%d pages without meta description. Google then picks any text snippet."
 msgstr[0] "%d Seite ohne Meta-Beschreibung. Google wählt dann irgendeinen Textausschnitt."
 msgstr[1] "%d Seiten ohne Meta-Beschreibung. Google wählt dann irgendeinen Textausschnitt."
 
@@ -371,12 +329,8 @@ msgstr "Prüfen"
 #. translators: 1: number of pages, 2: minimum number of words.
 #: inc/class-dashboard.php:195
 #, php-format
-msgid ""
-"%1$d page has fewer than %2$d words. Search engines and AI assistants find "
-"little to show for it."
-msgid_plural ""
-"%1$d pages have fewer than %2$d words. Search engines and AI assistants find "
-"little to show for them."
+msgid "%1$d page has fewer than %2$d words. Search engines and AI assistants find little to show for it."
+msgid_plural "%1$d pages have fewer than %2$d words. Search engines and AI assistants find little to show for them."
 msgstr[0] "%1$d Seite hat weniger als %2$d Wörter. Suchmaschinen und KI-Assistenten finden dort wenig zum Anzeigen."
 msgstr[1] "%1$d Seiten haben weniger als %2$d Wörter. Suchmaschinen und KI-Assistenten finden dort wenig zum Anzeigen."
 
@@ -412,9 +366,7 @@ msgid "The organisation behind the website is set."
 msgstr "Die Organisation hinter der Website ist angegeben."
 
 #: inc/class-dashboard.php:232
-msgid ""
-"Name the organisation or person behind the website. Google and AI assistants "
-"use it."
+msgid "Name the organisation or person behind the website. Google and AI assistants use it."
 msgstr "Nenne die Organisation oder Person hinter der Website. Google und KI-Assistenten nutzen das."
 
 #: inc/class-dashboard.php:234
@@ -430,9 +382,7 @@ msgid "Google Search Console is verified."
 msgstr "Google Search Console ist bestätigt."
 
 #: inc/class-dashboard.php:238
-msgid ""
-"Google Search Console is not verified here. Not needed if you verified it "
-"another way."
+msgid "Google Search Console is not verified here. Not needed if you verified it another way."
 msgstr "Google Search Console ist hier nicht bestätigt. Nicht nötig, wenn du es anders bestätigt hast."
 
 #: inc/class-dashboard.php:238
@@ -450,13 +400,8 @@ msgstr "Suchmaschinen und KI-Crawler erreichen die Website."
 #. translators: %s: list of crawler names.
 #: inc/class-dashboard.php:265
 #, php-format
-msgid ""
-"The server blocks these crawlers: %s. This is usually a firewall or bot "
-"protection setting at the hosting provider (for example in Plesk), not "
-"WordPress."
-msgstr ""
-"Der Server sperrt diese Crawler: %s. Das ist meist eine Firewall- oder Bot-"
-"Schutz-Einstellung beim Hosting (zum Beispiel in Plesk), nicht WordPress."
+msgid "The server blocks these crawlers: %s. This is usually a firewall or bot protection setting at the hosting provider (for example in Plesk), not WordPress."
+msgstr "Der Server sperrt diese Crawler: %s. Das ist meist eine Firewall- oder Bot-Schutz-Einstellung beim Hosting (zum Beispiel in Plesk), nicht WordPress."
 
 #. translators: %s: list of crawler names.
 #: inc/class-dashboard.php:265
@@ -500,38 +445,20 @@ msgid "Not checked yet"
 msgstr "Noch nicht geprüft"
 
 #: inc/class-multilingual.php:73
-msgid ""
-"Each language gets the title and description from the SEO box of its home "
-"page."
-msgstr ""
-"Jede Sprache übernimmt Titel und Beschreibung aus der SEO-Box ihrer "
-"Startseite."
+msgid "Each language gets the title and description from the SEO box of its home page."
+msgstr "Jede Sprache übernimmt Titel und Beschreibung aus der SEO-Box ihrer Startseite."
 
 #: inc/class-multilingual.php:75
-msgid ""
-"Translate the website name, the home page title and description, the "
-"breadcrumb label and the llms.txt summary under WPML › String Translation."
-msgstr ""
-"Übersetze Websitename, Titel und Beschreibung der Startseite, die "
-"Bezeichnung in den Brotkrumen und die Zusammenfassung für llms.txt unter "
-"WPML › String Translation."
+msgid "Translate the website name, the home page title and description, the breadcrumb label and the llms.txt summary under WPML › String Translation."
+msgstr "Übersetze Websitename, Titel und Beschreibung der Startseite, die Bezeichnung in den Brotkrumen und die Zusammenfassung für llms.txt unter WPML › String Translation."
 
 #: inc/class-multilingual.php:77
-msgid ""
-"Translate the website name, the home page title and description, the "
-"breadcrumb label and the llms.txt summary under Languages › Translations."
-msgstr ""
-"Übersetze Websitename, Titel und Beschreibung der Startseite, die "
-"Bezeichnung in den Brotkrumen und die Zusammenfassung für llms.txt unter "
-"Sprachen › Übersetzungen."
+msgid "Translate the website name, the home page title and description, the breadcrumb label and the llms.txt summary under Languages › Translations."
+msgstr "Übersetze Websitename, Titel und Beschreibung der Startseite, die Bezeichnung in den Brotkrumen und die Zusammenfassung für llms.txt unter Sprachen › Übersetzungen."
 
 #: inc/class-multilingual.php:79
-msgid ""
-"Translate the titles and descriptions on the page itself with the "
-"TranslatePress editor."
-msgstr ""
-"Übersetze Titel und Beschreibungen direkt auf der Seite mit dem "
-"TranslatePress-Editor."
+msgid "Translate the titles and descriptions on the page itself with the TranslatePress editor."
+msgstr "Übersetze Titel und Beschreibungen direkt auf der Seite mit dem TranslatePress-Editor."
 
 #: inc/class-pages-table.php:48 parts/admin/ai-crawlers.php:21
 msgid "All"
@@ -688,12 +615,8 @@ msgid "Page number on page 2 and later"
 msgstr "Seitenzahl ab Seite 2"
 
 #: inc/options.php:42
-msgid ""
-"Used in titles, social previews and schema.org. Empty: the site title from "
-"WordPress."
-msgstr ""
-"Für Seitentitel, Social-Vorschau und schema.org. Leer: der Titel der Website "
-"aus WordPress."
+msgid "Used in titles, social previews and schema.org. Empty: the site title from WordPress."
+msgstr "Für Seitentitel, Social-Vorschau und schema.org. Leer: der Titel der Website aus WordPress."
 
 #: inc/options.php:48
 msgid "Between page title and website name, for example – or |."
@@ -713,8 +636,7 @@ msgstr "Beschreibung der Startseite"
 
 #: inc/options.php:60
 msgid "120 to 160 characters. Also used as summary for AI assistants."
-msgstr ""
-"120 bis 160 Zeichen. Dient auch als Zusammenfassung für KI-Assistenten."
+msgstr "120 bis 160 Zeichen. Dient auch als Zusammenfassung für KI-Assistenten."
 
 #: inc/options.php:65
 msgid "Default social image"
@@ -749,12 +671,8 @@ msgid "Attachment pages"
 msgstr "Anhang-Seiten"
 
 #: inc/options.php:90
-msgid ""
-"Keep the pages WordPress creates for every uploaded file (not recommended: "
-"thin content). Off: they redirect to the file."
-msgstr ""
-"Die Seiten behalten, die WordPress für jede hochgeladene Datei erstellt "
-"(nicht empfohlen: Seiten ohne Inhalt). Aus: Sie leiten auf die Datei weiter."
+msgid "Keep the pages WordPress creates for every uploaded file (not recommended: thin content). Off: they redirect to the file."
+msgstr "Die Seiten behalten, die WordPress für jede hochgeladene Datei erstellt (nicht empfohlen: Seiten ohne Inhalt). Aus: Sie leiten auf die Datei weiter."
 
 #: inc/options.php:95
 msgid "Google Search Console"
@@ -793,12 +711,8 @@ msgid "Author pages"
 msgstr "Autorenseiten"
 
 #: inc/options.php:147
-msgid ""
-"On websites with one author, author pages repeat the blog and show user "
-"names."
-msgstr ""
-"Bei Websites mit einem Autor wiederholen Autorenseiten den Blog und zeigen "
-"Benutzernamen."
+msgid "On websites with one author, author pages repeat the blog and show user names."
+msgstr "Bei Websites mit einem Autor wiederholen Autorenseiten den Blog und zeigen Benutzernamen."
 
 #: inc/options.php:153
 msgid "Date archives"
@@ -841,20 +755,15 @@ msgid "RSS feed"
 msgstr "RSS-Feed"
 
 #: inc/options.php:184
-msgid ""
-"Add a link to the original post below each post in the feed, so copied "
-"content points back to you"
-msgstr ""
-"Unter jedem Beitrag im Feed einen Link auf das Original einfügen, damit "
-"kopierte Inhalte auf dich verweisen"
+msgid "Add a link to the original post below each post in the feed, so copied content points back to you"
+msgstr "Unter jedem Beitrag im Feed einen Link auf das Original einfügen, damit kopierte Inhalte auf dich verweisen"
 
 #: inc/options.php:189
 msgid "First breadcrumb"
 msgstr "Erster Eintrag der Brotkrumen"
 
 #: inc/options.php:190
-msgid ""
-"Name of the home page in breadcrumbs. Empty: the title of the home page."
+msgid "Name of the home page in breadcrumbs. Empty: the title of the home page."
 msgstr "Name der Startseite in den Brotkrumen. Leer: der Titel der Startseite."
 
 #: inc/options.php:196
@@ -866,12 +775,8 @@ msgid "WooCommerce products"
 msgstr "WooCommerce-Produkte"
 
 #: inc/options.php:206
-msgid ""
-"Describe products with price, availability and ratings in schema.org "
-"(replaces the product markup of WooCommerce)"
-msgstr ""
-"Produkte mit Preis, Verfügbarkeit und Bewertungen in schema.org beschreiben "
-"(ersetzt die Produktdaten von WooCommerce)"
+msgid "Describe products with price, availability and ratings in schema.org (replaces the product markup of WooCommerce)"
+msgstr "Produkte mit Preis, Verfügbarkeit und Bewertungen in schema.org beschreiben (ersetzt die Produktdaten von WooCommerce)"
 
 #: inc/options.php:227 parts/meta-box/panel-schema.php:26
 #: parts/meta-box/panel-schema.php:64 parts/meta-box/panel-schema.php:68
@@ -931,12 +836,8 @@ msgid "Opening hours"
 msgstr "Öffnungszeiten"
 
 #: inc/options.php:283
-msgid ""
-"For local businesses. One rule per line, for example: Mo-Fr 08:00-12:00, "
-"13:30-17:30 or Sa 09:00-16:00."
-msgstr ""
-"Für lokale Unternehmen. Eine Regel pro Zeile, zum Beispiel: Mo-Fr "
-"08:00-12:00, 13:30-17:30 oder Sa 09:00-16:00."
+msgid "For local businesses. One rule per line, for example: Mo-Fr 08:00-12:00, 13:30-17:30 or Sa 09:00-16:00."
+msgstr "Für lokale Unternehmen. Eine Regel pro Zeile, zum Beispiel: Mo-Fr 08:00-12:00, 13:30-17:30 oder Sa 09:00-16:00."
 
 #: inc/options.php:288
 msgid "Latitude"
@@ -947,12 +848,8 @@ msgid "Longitude"
 msgstr "Längengrad"
 
 #: inc/options.php:295
-msgid ""
-"For local businesses: the position on the map, for example from Google Maps "
-"(right-click on the place)."
-msgstr ""
-"Für lokale Unternehmen: die Position auf der Karte, zum Beispiel aus Google "
-"Maps (Rechtsklick auf den Ort)."
+msgid "For local businesses: the position on the map, for example from Google Maps (right-click on the place)."
+msgstr "Für lokale Unternehmen: die Position auf der Karte, zum Beispiel aus Google Maps (Rechtsklick auf den Ort)."
 
 #: inc/options.php:301
 msgid "Price range"
@@ -975,12 +872,8 @@ msgid "Additional properties (JSON)"
 msgstr "Weitere Angaben (JSON)"
 
 #: inc/options.php:314
-msgid ""
-"Optional, for experts: properties merged into the publisher, for example "
-"{\"sport\": \"Skimo\"}."
-msgstr ""
-"Optional, für Fachleute: Angaben, die zum Herausgeber ergänzt werden, zum "
-"Beispiel {\"sport\": \"Skimo\"}."
+msgid "Optional, for experts: properties merged into the publisher, for example {\"sport\": \"Skimo\"}."
+msgstr "Optional, für Fachleute: Angaben, die zum Herausgeber ergänzt werden, zum Beispiel {\"sport\": \"Skimo\"}."
 
 #: inc/options.php:333
 msgid "Additional robots.txt rules"
@@ -1007,20 +900,12 @@ msgid "Summary"
 msgstr "Zusammenfassung"
 
 #: inc/options.php:355
-msgid ""
-"Two or three sentences: who you are, what you offer, where. Empty: the "
-"description of the home page."
-msgstr ""
-"Zwei, drei Sätze: wer ihr seid, was ihr bietet, wo. Leer: die Beschreibung "
-"der Startseite."
+msgid "Two or three sentences: who you are, what you offer, where. Empty: the description of the home page."
+msgstr "Zwei, drei Sätze: wer ihr seid, was ihr bietet, wo. Leer: die Beschreibung der Startseite."
 
 #: inc/options.php:362
-msgid ""
-"One fact per line: dates, places, prices, contact. AI assistants quote these "
-"directly."
-msgstr ""
-"Ein Fakt pro Zeile: Daten, Orte, Preise, Kontakt. KI-Assistenten zitieren "
-"diese direkt."
+msgid "One fact per line: dates, places, prices, contact. AI assistants quote these directly."
+msgstr "Ein Fakt pro Zeile: Daten, Orte, Preise, Kontakt. KI-Assistenten zitieren diese direkt."
 
 #: inc/options.php:367
 msgid "llms-full.txt"
@@ -1028,8 +913,7 @@ msgstr "llms-full.txt"
 
 #: inc/options.php:368
 msgid "Also provide the full text of all pages as /llms-full.txt"
-msgstr ""
-"Zusätzlich den ganzen Text aller Seiten als /llms-full.txt bereitstellen"
+msgstr "Zusätzlich den ganzen Text aller Seiten als /llms-full.txt bereitstellen"
 
 #: inc/options.php:383 parts/admin/tab-sitemap.php:24
 msgid "Content types"
@@ -1056,45 +940,28 @@ msgid "Image sitemap"
 msgstr "Bilder-Sitemap"
 
 #: inc/options.php:401
-msgid ""
-"List the images of every page in /sitemap-images.xml (for Google Images)"
-msgstr ""
-"Die Bilder jeder Seite in /sitemap-images.xml auflisten (für die Google-"
-"Bildersuche)"
+msgid "List the images of every page in /sitemap-images.xml (for Google Images)"
+msgstr "Die Bilder jeder Seite in /sitemap-images.xml auflisten (für die Google-Bildersuche)"
 
 #: inc/options.php:406
 msgid "Video sitemap"
 msgstr "Video-Sitemap"
 
 #: inc/options.php:407
-msgid ""
-"List YouTube, Vimeo and uploaded videos in /sitemap-videos.xml (for Google "
-"video results)"
-msgstr ""
-"YouTube-, Vimeo- und hochgeladene Videos in /sitemap-videos.xml auflisten "
-"(für Video-Ergebnisse bei Google)"
+msgid "List YouTube, Vimeo and uploaded videos in /sitemap-videos.xml (for Google video results)"
+msgstr "YouTube-, Vimeo- und hochgeladene Videos in /sitemap-videos.xml auflisten (für Video-Ergebnisse bei Google)"
 
 #: inc/updater.php:75
-msgid ""
-"Updates are not active: the constant MLAB_SEO_GITHUB_TOKEN is missing in wp-"
-"config.php."
-msgstr ""
-"Updates sind nicht aktiv: Die Konstante MLAB_SEO_GITHUB_TOKEN fehlt in der "
-"wp-config.php."
+msgid "Updates are not active: the constant MLAB_SEO_GITHUB_TOKEN is missing in wp-config.php."
+msgstr "Updates sind nicht aktiv: Die Konstante MLAB_SEO_GITHUB_TOKEN fehlt in der wp-config.php."
 
 #: parts/admin/access-check.php:16
 msgid "Access check"
 msgstr "Zugriffstest"
 
 #: parts/admin/access-check.php:17
-msgid ""
-"Requests the home page as Google, Bing, ChatGPT, Claude and Perplexity. "
-"Shows whether a firewall on the server blocks them, which robots.txt cannot "
-"fix."
-msgstr ""
-"Ruft die Startseite als Google, Bing, ChatGPT, Claude und Perplexity ab. "
-"Zeigt, ob eine Firewall auf dem Server sie sperrt. Das lässt sich nicht mit "
-"der robots.txt beheben."
+msgid "Requests the home page as Google, Bing, ChatGPT, Claude and Perplexity. Shows whether a firewall on the server blocks them, which robots.txt cannot fix."
+msgstr "Ruft die Startseite als Google, Bing, ChatGPT, Claude und Perplexity ab. Zeigt, ob eine Firewall auf dem Server sie sperrt. Das lässt sich nicht mit der robots.txt beheben."
 
 #. translators: %s: date and time.
 #: parts/admin/access-check.php:29 parts/admin/links.php:36
@@ -1107,22 +974,15 @@ msgid "Check access now"
 msgstr "Zugriff jetzt testen"
 
 #: parts/admin/ai-crawlers.php:16
-msgid ""
-"Allowed crawlers may read the website, so assistants like ChatGPT, Claude or "
-"Perplexity can answer questions about it and link to it. The rules go into "
-"robots.txt."
-msgstr ""
-"Erlaubte Crawler dürfen die Website lesen. So können Assistenten wie "
-"ChatGPT, Claude oder Perplexity Fragen dazu beantworten und auf sie "
-"verlinken. Die Regeln landen in der robots.txt."
+msgid "Allowed crawlers may read the website, so assistants like ChatGPT, Claude or Perplexity can answer questions about it and link to it. The rules go into robots.txt."
+msgstr "Erlaubte Crawler dürfen die Website lesen. So können Assistenten wie ChatGPT, Claude oder Perplexity Fragen dazu beantworten und auf sie verlinken. Die Regeln landen in der robots.txt."
 
 #: parts/admin/ai-crawlers.php:19 parts/admin/ai-crawlers.php:20
 msgid "Quick choice"
 msgstr "Schnellauswahl"
 
 #: parts/admin/ai-crawlers.php:19
-msgid ""
-"\"Search only\" allows AI search with a source link but blocks training."
+msgid "\"Search only\" allows AI search with a source link but blocks training."
 msgstr "„Nur Suche“ erlaubt die KI-Suche mit Quellenlink, sperrt aber das Training."
 
 #: parts/admin/ai-crawlers.php:22
@@ -1135,14 +995,8 @@ msgid "None"
 msgstr "Keine"
 
 #: parts/admin/ai-indexnow.php:16
-msgid ""
-"Tells Bing, Yandex, Seznam and Naver about new and changed pages right after "
-"saving, instead of waiting for the next crawl. Bing also feeds ChatGPT "
-"search and Copilot."
-msgstr ""
-"Meldet neue und geänderte Seiten direkt nach dem Speichern an Bing, Yandex, "
-"Seznam und Naver, statt auf den nächsten Besuch des Crawlers zu warten. Bing "
-"liefert auch die Daten für die ChatGPT-Suche und Copilot."
+msgid "Tells Bing, Yandex, Seznam and Naver about new and changed pages right after saving, instead of waiting for the next crawl. Bing also feeds ChatGPT search and Copilot."
+msgstr "Meldet neue und geänderte Seiten direkt nach dem Speichern an Bing, Yandex, Seznam und Naver, statt auf den nächsten Besuch des Crawlers zu warten. Bing liefert auch die Daten für die ChatGPT-Suche und Copilot."
 
 #: parts/admin/ai-indexnow.php:20
 msgid "Key file"
@@ -1159,13 +1013,8 @@ msgid "Last submission: %1$s (%2$d addresses)"
 msgstr "Letzte Meldung: %1$s (%2$d Adressen)"
 
 #: parts/admin/ai-llms.php:16
-msgid ""
-"A short Markdown summary of the website for AI assistants (llmstxt.org). The "
-"page list is built automatically from the SEO descriptions."
-msgstr ""
-"Eine kurze Zusammenfassung der Website in Markdown für KI-Assistenten "
-"(llmstxt.org). Die Seitenliste entsteht automatisch aus den SEO-"
-"Beschreibungen."
+msgid "A short Markdown summary of the website for AI assistants (llmstxt.org). The page list is built automatically from the SEO descriptions."
+msgstr "Eine kurze Zusammenfassung der Website in Markdown für KI-Assistenten (llmstxt.org). Die Seitenliste entsteht automatisch aus den SEO-Beschreibungen."
 
 #: parts/admin/ai-llms.php:33
 msgid "This is llms.txt"
@@ -1182,8 +1031,7 @@ msgid "Loading …"
 msgstr "Lädt …"
 
 #: parts/admin/ai-robots.php:21
-msgid ""
-"The rules for AI crawlers and the sitemaps are added by the plugin itself."
+msgid "The rules for AI crawlers and the sitemaps are added by the plugin itself."
 msgstr "Die Regeln für KI-Crawler und die Sitemaps fügt das Plugin selbst hinzu."
 
 #: parts/admin/ai-robots.php:24
@@ -1207,15 +1055,8 @@ msgid "Broken links"
 msgstr "Defekte Links"
 
 #: parts/admin/links.php:21
-msgid ""
-"Once a week all links on indexable pages and in the menus are checked in the "
-"background. Listed are links to pages that do not exist (404) or were "
-"deleted (410), and links to websites that do not answer."
-msgstr ""
-"Einmal pro Woche werden alle Links auf indexierbaren Seiten und in den Menüs "
-"im Hintergrund geprüft. Aufgeführt sind Links auf Seiten, die es nicht gibt "
-"(404) oder die gelöscht wurden (410), und Links auf Websites, die nicht "
-"antworten."
+msgid "Once a week all links on indexable pages and in the menus are checked in the background. Listed are links to pages that do not exist (404) or were deleted (410), and links to websites that do not answer."
+msgstr "Einmal pro Woche werden alle Links auf indexierbaren Seiten und in den Menüs im Hintergrund geprüft. Aufgeführt sind Links auf Seiten, die es nicht gibt (404) oder die gelöscht wurden (410), und Links auf Websites, die nicht antworten."
 
 #. translators: 1: links checked, 2: links in total.
 #: parts/admin/links.php:29
@@ -1377,9 +1218,7 @@ msgid "Search pages"
 msgstr "Seiten suchen"
 
 #: parts/admin/pages-list.php:47
-msgid ""
-"Pages without a score are checked as soon as they appear in this list. "
-"Event, schema, robots rules and translations are edited in the editor."
+msgid "Pages without a score are checked as soon as they appear in this list. Event, schema, robots rules and translations are edited in the editor."
 msgstr "Seiten ohne Wert werden geprüft, sobald sie in dieser Liste erscheinen. Event, Schema, Robots-Regeln und Übersetzungen bearbeitest du im Editor."
 
 #: parts/admin/pages-sheet.php:14 parts/meta-box/panel-advanced.php:84
@@ -1489,9 +1328,7 @@ msgid "Empty: the meta description"
 msgstr "Leer: die Meta-Beschreibung"
 
 #: parts/admin/pages-sheet.php:106
-msgid ""
-"The social image is chosen in the editor. Without one, the featured image or "
-"the default image is used."
+msgid "The social image is chosen in the editor. Without one, the featured image or the default image is used."
 msgstr "Das Bild für soziale Medien wählst du im Editor. Ohne eigenes Bild wird das Beitragsbild oder das Standardbild verwendet."
 
 #: parts/admin/pages-sheet.php:109 parts/meta-box/panel-seo.php:39
@@ -1512,65 +1349,34 @@ msgid "Technical"
 msgstr "Technisch"
 
 #: parts/admin/settings-languages.php:16
-msgid ""
-"For websites with a separate site or domain per language. Enter the other "
-"languages; each page then gets a field for the address of its translation. "
-"Set the links on the other language sites too, so the pages point to each "
-"other."
-msgstr ""
-"Für Websites mit einer eigenen Website oder Domain pro Sprache. Trage die "
-"anderen Sprachen ein; jede Seite bekommt dann ein Feld für die Adresse ihrer "
-"Übersetzung. Setze die Verknüpfungen auch auf den anderen Sprach-Websites, "
-"damit die Seiten gegenseitig aufeinander verweisen."
+msgid "For websites with a separate site or domain per language. Enter the other languages; each page then gets a field for the address of its translation. Set the links on the other language sites too, so the pages point to each other."
+msgstr "Für Websites mit einer eigenen Website oder Domain pro Sprache. Trage die anderen Sprachen ein; jede Seite bekommt dann ein Feld für die Adresse ihrer Übersetzung. Setze die Verknüpfungen auch auf den anderen Sprach-Websites, damit die Seiten gegenseitig aufeinander verweisen."
 
 #. translators: %s: name of the multilingual plugin, for example WPML.
 #: parts/admin/settings-languages.php:19
 #, php-format
-msgid ""
-"%s is active and links the language versions itself (hreflang). These "
-"settings are not used."
-msgstr ""
-"%s ist aktiv und verknüpft die Sprachversionen selbst (hreflang). Diese "
-"Einstellungen werden nicht verwendet."
+msgid "%s is active and links the language versions itself (hreflang). These settings are not used."
+msgstr "%s ist aktiv und verknüpft die Sprachversionen selbst (hreflang). Diese Einstellungen werden nicht verwendet."
 
 #. translators: %s: language code of this website, for example de-CH.
 #: parts/admin/settings-languages.php:24
 #, php-format
-msgid ""
-"Language codes separated by commas, for example en, fr. This website: %s."
-msgstr ""
-"Sprachcodes durch Kommas getrennt, zum Beispiel en, fr. Diese Website: %s."
+msgid "Language codes separated by commas, for example en, fr. This website: %s."
+msgstr "Sprachcodes durch Kommas getrennt, zum Beispiel en, fr. Diese Website: %s."
 
 #: parts/admin/settings-verify.php:16
-msgid ""
-"Confirms that you own the website, for example in Google Search Console. "
-"Paste the code or the whole meta tag."
-msgstr ""
-"Bestätigt, dass dir die Website gehört, zum Beispiel in der Google Search "
-"Console. Füge den Code oder das ganze Meta-Tag ein."
+msgid "Confirms that you own the website, for example in Google Search Console. Paste the code or the whole meta tag."
+msgstr "Bestätigt, dass dir die Website gehört, zum Beispiel in der Google Search Console. Füge den Code oder das ganze Meta-Tag ein."
 
 #. translators: 1: minimum number of words, 2: recommended number of words.
 #: parts/admin/tab-content.php:18
 #, php-format
-msgid ""
-"Indexable pages with little text. Below %1$d words a page is thin: it rarely "
-"ranks and gives AI assistants nothing to quote. From about %2$d words a page "
-"can answer a question well."
-msgstr ""
-"Indexierbare Seiten mit wenig Text. Unter %1$d Wörtern ist eine Seite dünn: "
-"Sie rankt selten und gibt KI-Assistenten nichts zum Zitieren. Ab etwa %2$d "
-"Wörtern kann eine Seite eine Frage gut beantworten."
+msgid "Indexable pages with little text. Below %1$d words a page is thin: it rarely ranks and gives AI assistants nothing to quote. From about %2$d words a page can answer a question well."
+msgstr "Indexierbare Seiten mit wenig Text. Unter %1$d Wörtern ist eine Seite dünn: Sie rankt selten und gibt KI-Assistenten nichts zum Zitieren. Ab etwa %2$d Wörtern kann eine Seite eine Frage gut beantworten."
 
 #: parts/admin/tab-content.php:21
-msgid ""
-"For each page: add an introduction, answers to typical questions (FAQ block) "
-"or descriptions of images and tables. Pages that only serve visitors, like a "
-"gallery without text, can also be hidden from search engines (noindex)."
-msgstr ""
-"Pro Seite: Ergänze eine Einleitung, Antworten auf typische Fragen (FAQ-"
-"Block) oder Beschreibungen zu Bildern und Tabellen. Seiten, die nur "
-"Besuchern dienen, etwa eine Galerie ohne Text, kannst du auch für "
-"Suchmaschinen ausblenden (noindex)."
+msgid "For each page: add an introduction, answers to typical questions (FAQ block) or descriptions of images and tables. Pages that only serve visitors, like a gallery without text, can also be hidden from search engines (noindex)."
+msgstr "Pro Seite: Ergänze eine Einleitung, Antworten auf typische Fragen (FAQ-Block) oder Beschreibungen zu Bildern und Tabellen. Seiten, die nur Besuchern dienen, etwa eine Galerie ohne Text, kannst du auch für Suchmaschinen ausblenden (noindex)."
 
 #: parts/admin/tab-content.php:24
 msgid "Page"
@@ -1601,25 +1407,13 @@ msgid "All indexable pages have enough text."
 msgstr "Alle indexierbaren Seiten haben genug Text."
 
 #: parts/admin/tab-import.php:16
-msgid ""
-"Switching from another SEO plugin? Take over SEO titles, meta descriptions, "
-"focus keywords, noindex and nofollow, canonical URLs and social titles, "
-"descriptions and images. Categories and tags are included for Yoast SEO, "
-"Rank Math and SEOPress."
-msgstr ""
-"Du wechselst von einem anderen SEO-Plugin? Übernimm SEO-Titel, Meta-"
-"Beschreibungen, Fokus-Keywords, noindex und nofollow, kanonische URLs sowie "
-"Social-Titel, -Beschreibungen und -Bilder. Bei Yoast SEO, Rank Math und "
-"SEOPress werden auch Kategorien und Schlagwörter übernommen."
+msgid "Switching from another SEO plugin? Take over SEO titles, meta descriptions, focus keywords, noindex and nofollow, canonical URLs and social titles, descriptions and images. Categories and tags are included for Yoast SEO, Rank Math and SEOPress."
+msgstr "Du wechselst von einem anderen SEO-Plugin? Übernimm SEO-Titel, Meta-Beschreibungen, Fokus-Keywords, noindex und nofollow, kanonische URLs sowie Social-Titel, -Beschreibungen und -Bilder. Bei Yoast SEO, Rank Math und SEOPress werden auch Kategorien und Schlagwörter übernommen."
 
 #. translators: 1: variable as written by other plugins, 2: the same variable in MomentumLab SEO.
 #: parts/admin/tab-import.php:20
 #, php-format
-msgid ""
-"The data of the other plugin is not changed, so you can repeat the import. "
-"Title variables like %1$s are taken over as %2$s; titles that only repeat "
-"the default pattern are left empty, so the template under Search appearance "
-"› Templates applies."
+msgid "The data of the other plugin is not changed, so you can repeat the import. Title variables like %1$s are taken over as %2$s; titles that only repeat the default pattern are left empty, so the template under Search appearance › Templates applies."
 msgstr "Die Daten des anderen Plugins bleiben unverändert, du kannst den Import also wiederholen. Titel-Variablen wie %1$s werden als %2$s übernommen; Titel, die nur das Standardmuster wiederholen, bleiben leer, damit die Vorlage unter Suchdarstellung › Vorlagen gilt."
 
 #: parts/admin/tab-import.php:27 parts/admin/tab-import.php:48
@@ -1647,13 +1441,8 @@ msgid "Import now"
 msgstr "Jetzt importieren"
 
 #: parts/admin/tab-import.php:43
-msgid ""
-"Take over the active redirects of Rank Math or the Redirection plugin. Rules "
-"for the same old address are replaced. Redirects work with Pro."
-msgstr ""
-"Übernimmt die aktiven Weiterleitungen aus Rank Math oder dem Plugin "
-"Redirection. Regeln für dieselbe alte Adresse werden ersetzt. "
-"Weiterleitungen funktionieren mit Pro."
+msgid "Take over the active redirects of Rank Math or the Redirection plugin. Rules for the same old address are replaced. Redirects work with Pro."
+msgstr "Übernimmt die aktiven Weiterleitungen aus Rank Math oder dem Plugin Redirection. Regeln für dieselbe alte Adresse werden ersetzt. Weiterleitungen funktionieren mit Pro."
 
 #: parts/admin/tab-import.php:59
 msgid "Import redirects"
@@ -1770,20 +1559,12 @@ msgid "Get MomentumLab SEO Pro"
 msgstr "MomentumLab SEO Pro holen"
 
 #: parts/admin/tab-publisher.php:14
-msgid ""
-"Who is behind the website. Google uses this for the knowledge panel, AI "
-"assistants to answer questions about you."
-msgstr ""
-"Wer hinter der Website steht. Google nutzt das für das Info-Panel, KI-"
-"Assistenten für Antworten über dich."
+msgid "Who is behind the website. Google uses this for the knowledge panel, AI assistants to answer questions about you."
+msgstr "Wer hinter der Website steht. Google nutzt das für das Info-Panel, KI-Assistenten für Antworten über dich."
 
 #: parts/admin/tab-redirects.php:18
-msgid ""
-"Send visitors and search engines from old addresses to the new page, so "
-"links and rankings are kept."
-msgstr ""
-"Leitet Besucher und Suchmaschinen von alten Adressen auf die neue Seite "
-"weiter. So bleiben Links und Rankings erhalten."
+msgid "Send visitors and search engines from old addresses to the new page, so links and rankings are kept."
+msgstr "Leitet Besucher und Suchmaschinen von alten Adressen auf die neue Seite weiter. So bleiben Links und Rankings erhalten."
 
 #: parts/admin/tab-redirects.php:20
 msgid "Redirects and the 404 log are Pro features."
@@ -1794,11 +1575,8 @@ msgid "Activate Pro"
 msgstr "Pro aktivieren"
 
 #: parts/admin/tab-redirects.php:26
-msgid ""
-"Add a redirect automatically when the address of a published page changes"
-msgstr ""
-"Automatisch eine Weiterleitung anlegen, wenn sich die Adresse einer "
-"veröffentlichten Seite ändert"
+msgid "Add a redirect automatically when the address of a published page changes"
+msgstr "Automatisch eine Weiterleitung anlegen, wenn sich die Adresse einer veröffentlichten Seite ändert"
 
 #: parts/admin/tab-redirects.php:28 parts/admin/tab-redirects.php:32
 msgid "Old address"
@@ -1838,12 +1616,8 @@ msgid "Regex"
 msgstr "Regex"
 
 #: parts/admin/tab-redirects.php:46
-msgid ""
-"Regex: the old address is a regular expression, for example ^/blog/(.*)$ "
-"with the target /news/$1."
-msgstr ""
-"Regex: Die alte Adresse ist ein regulärer Ausdruck, zum Beispiel ^/blog/(."
-"*)$ mit dem Ziel /news/$1."
+msgid "Regex: the old address is a regular expression, for example ^/blog/(.*)$ with the target /news/$1."
+msgstr "Regex: Die alte Adresse ist ein regulärer Ausdruck, zum Beispiel ^/blog/(.*)$ mit dem Ziel /news/$1."
 
 #: parts/admin/tab-redirects.php:47
 msgid "Add redirect"
@@ -1858,15 +1632,8 @@ msgid "Pages not found (404)"
 msgstr "Nicht gefundene Seiten (404)"
 
 #: parts/admin/tab-redirects.php:51
-msgid ""
-"Addresses that led nowhere, with a suggested target. Check the target and "
-"click \"Redirect\": the redirect is added and the address leaves the list. "
-"\"Ignore\" stops logging an address, for example for bot requests."
-msgstr ""
-"Adressen, die ins Leere führten, mit vorgeschlagenem Ziel. Ziel prüfen und "
-"«Weiterleiten» klicken: Die Weiterleitung wird angelegt und die Adresse "
-"verschwindet aus der Liste. «Ignorieren» erfasst eine Adresse nicht mehr, "
-"etwa bei Anfragen von Bots."
+msgid "Addresses that led nowhere, with a suggested target. Check the target and click \"Redirect\": the redirect is added and the address leaves the list. \"Ignore\" stops logging an address, for example for bot requests."
+msgstr "Adressen, die ins Leere führten, mit vorgeschlagenem Ziel. Ziel prüfen und «Weiterleiten» klicken: Die Weiterleitung wird angelegt und die Adresse verschwindet aus der Liste. «Ignorieren» erfasst eine Adresse nicht mehr, etwa bei Anfragen von Bots."
 
 #: parts/admin/tab-redirects.php:53
 msgid "Address"
@@ -1909,12 +1676,8 @@ msgid "No missing pages recorded yet."
 msgstr "Noch keine fehlenden Seiten erfasst."
 
 #: parts/admin/tab-sitemap.php:14
-msgid ""
-"WordPress creates the XML sitemap. Here you choose what goes in. Pages set "
-"to noindex are left out automatically."
-msgstr ""
-"WordPress erstellt die XML-Sitemap. Hier wählst du, was hineinkommt. Seiten "
-"mit «noindex» werden automatisch weggelassen."
+msgid "WordPress creates the XML sitemap. Here you choose what goes in. Pages set to noindex are left out automatically."
+msgstr "WordPress erstellt die XML-Sitemap. Hier wählst du, was hineinkommt. Seiten mit «noindex» werden automatisch weggelassen."
 
 #: parts/admin/tab-sitemap.php:17
 msgid "Address to submit in Google Search Console and Bing Webmaster Tools:"
@@ -1925,14 +1688,8 @@ msgid "Copy"
 msgstr "Kopieren"
 
 #: parts/admin/tab-titles.php:20
-msgid ""
-"Default SEO title and meta description per content type. Pages with their "
-"own title or description in the SEO box keep it. Variables are replaced on "
-"every page:"
-msgstr ""
-"Standard-SEO-Titel und Meta-Beschreibung pro Inhaltstyp. Seiten mit eigenem "
-"Titel oder eigener Beschreibung in der SEO-Box behalten diese. Variablen "
-"werden auf jeder Seite ersetzt:"
+msgid "Default SEO title and meta description per content type. Pages with their own title or description in the SEO box keep it. Variables are replaced on every page:"
+msgstr "Standard-SEO-Titel und Meta-Beschreibung pro Inhaltstyp. Seiten mit eigenem Titel oder eigener Beschreibung in der SEO-Box behalten diese. Variablen werden auf jeder Seite ersetzt:"
 
 #: parts/admin/tab-titles.php:22
 msgid "Show variables"
@@ -1968,8 +1725,7 @@ msgstr "Event & Schema"
 
 #: parts/meta-box/panel-advanced.php:16
 msgid "Search engines should not follow the links on this page (nofollow)"
-msgstr ""
-"Suchmaschinen sollen den Links auf dieser Seite nicht folgen (nofollow)"
+msgstr "Suchmaschinen sollen den Links auf dieser Seite nicht folgen (nofollow)"
 
 #: parts/meta-box/panel-advanced.php:19
 msgid "More robots rules"
@@ -1994,12 +1750,8 @@ msgstr "Automatisch (erste Kategorie)"
 #. translators: %s: the variable %category%.
 #: parts/meta-box/panel-advanced.php:50
 #, php-format
-msgid ""
-"Shown in the breadcrumbs and used for %s. Choose one of the categories of "
-"this post."
-msgstr ""
-"Erscheint in den Brotkrumen und wird für %s verwendet. Wähle eine der "
-"Kategorien dieses Beitrags."
+msgid "Shown in the breadcrumbs and used for %s. Choose one of the categories of this post."
+msgstr "Erscheint in den Brotkrumen und wird für %s verwendet. Wähle eine der Kategorien dieses Beitrags."
 
 #: parts/meta-box/panel-advanced.php:67
 msgid "As set for the content type"
@@ -2010,36 +1762,24 @@ msgid "Translations (hreflang)"
 msgstr "Übersetzungen (hreflang)"
 
 #: parts/meta-box/panel-advanced.php:101
-msgid ""
-"Address of this page in the other languages. Leave empty when there is no "
-"translation."
-msgstr ""
-"Adresse dieser Seite in den anderen Sprachen. Leer lassen, wenn es keine "
-"Übersetzung gibt."
+msgid "Address of this page in the other languages. Leave empty when there is no translation."
+msgstr "Adresse dieser Seite in den anderen Sprachen. Leer lassen, wenn es keine Übersetzung gibt."
 
 #: parts/meta-box/panel-schema.php:16
 msgid "Event and custom schema are Pro features."
 msgstr "Event und eigenes Schema sind Pro-Funktionen."
 
 #: parts/meta-box/panel-schema.php:17
-msgid ""
-"With Pro, events appear with date and place directly in Google results, and "
-"you can add any schema.org data to a page."
-msgstr ""
-"Mit Pro erscheinen Events mit Datum und Ort direkt in den Google-"
-"Ergebnissen, und du kannst einer Seite beliebige schema.org-Daten mitgeben."
+msgid "With Pro, events appear with date and place directly in Google results, and you can add any schema.org data to a page."
+msgstr "Mit Pro erscheinen Events mit Datum und Ort direkt in den Google-Ergebnissen, und du kannst einer Seite beliebige schema.org-Daten mitgeben."
 
 #: parts/meta-box/panel-schema.php:22
 msgid "Event on this page"
 msgstr "Event auf dieser Seite"
 
 #: parts/meta-box/panel-schema.php:23
-msgid ""
-"Leave the name empty when the page has no event. Use the same name and URL "
-"on several pages to describe one event."
-msgstr ""
-"Name leer lassen, wenn die Seite kein Event hat. Gleicher Name und gleiche "
-"URL auf mehreren Seiten beschreiben dasselbe Event."
+msgid "Leave the name empty when the page has no event. Use the same name and URL on several pages to describe one event."
+msgstr "Name leer lassen, wenn die Seite kein Event hat. Gleicher Name und gleiche URL auf mehreren Seiten beschreiben dasselbe Event."
 
 #: parts/meta-box/panel-schema.php:36
 msgid "Start (date or date and time)"
@@ -2100,19 +1840,11 @@ msgstr "Zusätzliches schema.org (JSON-LD)"
 
 #: parts/meta-box/panel-schema.php:80
 msgid "One node or a list of nodes. Invalid JSON is discarded on save."
-msgstr ""
-"Ein Knoten oder eine Liste von Knoten. Ungültiges JSON wird beim Speichern "
-"verworfen."
+msgstr "Ein Knoten oder eine Liste von Knoten. Ungültiges JSON wird beim Speichern verworfen."
 
 #: parts/meta-box/panel-social.php:14
-msgid ""
-"Shown when the page is shared on Facebook, LinkedIn, WhatsApp, X and in "
-"messengers. Without an own image the featured image or the default image "
-"from the settings is used."
-msgstr ""
-"Erscheint, wenn die Seite auf Facebook, LinkedIn, WhatsApp, X oder in "
-"Messengern geteilt wird. Ohne eigenes Bild wird das Beitragsbild oder das "
-"Standardbild aus den Einstellungen verwendet."
+msgid "Shown when the page is shared on Facebook, LinkedIn, WhatsApp, X and in messengers. Without an own image the featured image or the default image from the settings is used."
+msgstr "Erscheint, wenn die Seite auf Facebook, LinkedIn, WhatsApp, X oder in Messengern geteilt wird. Ohne eigenes Bild wird das Beitragsbild oder das Standardbild aus den Einstellungen verwendet."
 
 #: parts/meta-box/panel-social.php:28 parts/term-fields.php:54
 msgid "Recommended: 1200 × 630 px."
@@ -2180,9 +1912,7 @@ msgstr "Das Fokus-Keyword steht in einer Zwischenüberschrift."
 
 #: assets/js/analysis.js:79
 msgid "Use the focus keyword in at least one subheading (H2 or H3)."
-msgstr ""
-"Verwende das Fokus-Keyword in mindestens einer Zwischenüberschrift (H2 oder "
-"H3)."
+msgstr "Verwende das Fokus-Keyword in mindestens einer Zwischenüberschrift (H2 oder H3)."
 
 #. translators: %s: keyword density in percent.
 #: assets/js/analysis.js:84
@@ -2192,8 +1922,7 @@ msgstr "Keyword-Dichte %s %% ist tief. Verwende das Keyword noch ein paar Mal."
 #. translators: %s: keyword density in percent.
 #: assets/js/analysis.js:87
 msgid "Keyword density %s %% is high. This can look like keyword stuffing."
-msgstr ""
-"Keyword-Dichte %s %% ist hoch. Das kann nach Keyword-Stuffing aussehen."
+msgstr "Keyword-Dichte %s %% ist hoch. Das kann nach Keyword-Stuffing aussehen."
 
 #. translators: %s: keyword density in percent.
 #: assets/js/analysis.js:90
@@ -2205,28 +1934,20 @@ msgid "The title is too long and will be cut off in Google."
 msgstr "Der Titel ist zu lang und wird bei Google abgeschnitten."
 
 #: assets/js/analysis.js:100
-msgid ""
-"The title is very short. Use the space for a clear description of the page."
-msgstr ""
-"Der Titel ist sehr kurz. Nutze den Platz für eine klare Beschreibung der "
-"Seite."
+msgid "The title is very short. Use the space for a clear description of the page."
+msgstr "Der Titel ist sehr kurz. Nutze den Platz für eine klare Beschreibung der Seite."
 
 #: assets/js/analysis.js:102
 msgid "The title fits into the Google result (up to about 580 px)."
 msgstr "Der Titel passt ins Google-Ergebnis (bis etwa 580 px)."
 
 #: assets/js/analysis.js:105
-msgid ""
-"No meta description: Google picks a text itself. Write one that invites a "
-"click."
-msgstr ""
-"Keine Meta-Beschreibung: Google wählt selbst einen Text. Schreib eine, die "
-"zum Klicken einlädt."
+msgid "No meta description: Google picks a text itself. Write one that invites a click."
+msgstr "Keine Meta-Beschreibung: Google wählt selbst einen Text. Schreib eine, die zum Klicken einlädt."
 
 #: assets/js/analysis.js:107
 msgid "The meta description is longer than 160 characters and will be cut off."
-msgstr ""
-"Die Meta-Beschreibung ist länger als 160 Zeichen und wird abgeschnitten."
+msgstr "Die Meta-Beschreibung ist länger als 160 Zeichen und wird abgeschnitten."
 
 #: assets/js/analysis.js:109
 msgid "The meta description is short. Aim for 120 to 160 characters."
@@ -2243,26 +1964,17 @@ msgstr "Der Text hat %d Wörter."
 
 #. translators: %d: number of words.
 #: assets/js/analysis.js:121
-msgid ""
-"The text has only %d words. The page is thin: add text or hide it from "
-"search engines."
-msgstr ""
-"Der Text hat nur %d Wörter. Die Seite ist dünn: Ergänze Text oder blende sie "
-"für Suchmaschinen aus."
+msgid "The text has only %d words. The page is thin: add text or hide it from search engines."
+msgstr "Der Text hat nur %d Wörter. Die Seite ist dünn: Ergänze Text oder blende sie für Suchmaschinen aus."
 
 #. translators: %d: number of words.
 #: assets/js/analysis.js:124
 msgid "The text has only %d words. Pages with at least 300 words rank better."
-msgstr ""
-"Der Text hat nur %d Wörter. Seiten mit mindestens 300 Wörtern ranken besser."
+msgstr "Der Text hat nur %d Wörter. Seiten mit mindestens 300 Wörtern ranken besser."
 
 #: assets/js/analysis.js:127
-msgid ""
-"The text contains its own H1. The page title already is the H1, use H2 "
-"instead."
-msgstr ""
-"Der Text enthält eine eigene H1. Der Seitentitel ist bereits die H1, "
-"verwende stattdessen H2."
+msgid "The text contains its own H1. The page title already is the H1, use H2 instead."
+msgstr "Der Text enthält eine eigene H1. Der Seitentitel ist bereits die H1, verwende stattdessen H2."
 
 #: assets/js/analysis.js:130
 msgid "The text is structured with subheadings."
@@ -2270,18 +1982,12 @@ msgstr "Der Text ist mit Zwischenüberschriften gegliedert."
 
 #: assets/js/analysis.js:130
 msgid "Add subheadings (H2) so readers and search engines can scan the page."
-msgstr ""
-"Füge Zwischenüberschriften (H2) ein, damit Leser und Suchmaschinen die Seite "
-"überblicken."
+msgstr "Füge Zwischenüberschriften (H2) ein, damit Leser und Suchmaschinen die Seite überblicken."
 
 #. translators: %s: share of long sentences in percent.
 #: assets/js/analysis.js:146
-msgid ""
-"%s %% of the sentences have more than 20 words. Shorter sentences are easier "
-"to read."
-msgstr ""
-"%s %% der Sätze haben mehr als 20 Wörter. Kürzere Sätze sind leichter zu "
-"lesen."
+msgid "%s %% of the sentences have more than 20 words. Shorter sentences are easier to read."
+msgstr "%s %% der Sätze haben mehr als 20 Wörter. Kürzere Sätze sind leichter zu lesen."
 
 #: assets/js/analysis.js:146
 msgid "Most sentences are short and easy to read."
@@ -2294,11 +2000,8 @@ msgstr "%d Absatz/Absätze mit mehr als 150 Wörtern. Teile lange Absätze auf."
 
 #. translators: %d: number of images.
 #: assets/js/analysis.js:163
-msgid ""
-"%d image(s) without alternative text. Search engines and screen readers need "
-"it."
-msgstr ""
-"%d Bild(er) ohne Alternativtext. Suchmaschinen und Screenreader brauchen ihn."
+msgid "%d image(s) without alternative text. Search engines and screen readers need it."
+msgstr "%d Bild(er) ohne Alternativtext. Suchmaschinen und Screenreader brauchen ihn."
 
 #: assets/js/analysis.js:163
 msgid "All images have an alternative text."
@@ -2318,8 +2021,7 @@ msgstr "Die Seite verlinkt auf externe Quellen."
 
 #: assets/js/analysis.js:180
 msgid "No external links. A link to a trusted source can help."
-msgstr ""
-"Keine externen Links. Ein Link auf eine vertrauenswürdige Quelle kann helfen."
+msgstr "Keine externen Links. Ein Link auf eine vertrauenswürdige Quelle kann helfen."
 
 #: assets/js/analysis.js:182
 msgid "There is an image for social media and search previews."
@@ -2327,8 +2029,7 @@ msgstr "Es gibt ein Bild für Social Media und Suchvorschauen."
 
 #: assets/js/analysis.js:182
 msgid "No image for social media. Set a social image or a featured image."
-msgstr ""
-"Kein Bild für Social Media. Setze ein Social-Bild oder ein Beitragsbild."
+msgstr "Kein Bild für Social Media. Setze ein Social-Bild oder ein Beitragsbild."
 
 #. translators: %d: number of characters.
 #: assets/js/editor.js:112 assets/js/editor.js:115 assets/js/pages.js:94
@@ -2355,20 +2056,12 @@ msgstr "FAQ"
 
 #. translators: %s: list of rich snippet types.
 #: assets/js/editor.js:186
-msgid ""
-"Rich snippets from the schema.org data: %s. Google decides itself whether it "
-"shows them."
-msgstr ""
-"Rich Snippets aus den schema.org-Daten: %s. Ob Google sie zeigt, entscheidet "
-"Google selbst."
+msgid "Rich snippets from the schema.org data: %s. Google decides itself whether it shows them."
+msgstr "Rich Snippets aus den schema.org-Daten: %s. Ob Google sie zeigt, entscheidet Google selbst."
 
 #: assets/js/editor.js:186
-msgid ""
-"Google shows FAQ snippets only for a few websites (for example authorities "
-"and health sites). AI assistants still use the questions."
-msgstr ""
-"Google zeigt FAQ-Snippets nur noch bei wenigen Websites (etwa Behörden und "
-"Gesundheitsseiten). KI-Assistenten nutzen die Fragen weiterhin."
+msgid "Google shows FAQ snippets only for a few websites (for example authorities and health sites). AI assistants still use the questions."
+msgstr "Google zeigt FAQ-Snippets nur noch bei wenigen Websites (etwa Behörden und Gesundheitsseiten). KI-Assistenten nutzen die Fragen weiterhin."
 
 #. translators: %s: rating value, e.g. 4.5.
 #: assets/js/editor.js:262
@@ -2449,9 +2142,7 @@ msgid "More options"
 msgstr "Weitere Optionen"
 
 #: assets/js/sidebar.js:119
-msgid ""
-"Social image and texts, robots rules, canonical, schema, event and "
-"translations are in the SEO box below the content."
+msgid "Social image and texts, robots rules, canonical, schema, event and translations are in the SEO box below the content."
 msgstr "Bild und Texte für soziale Medien, Robots-Regeln, Canonical, Schema, Event und Übersetzungen findest du in der SEO-Box unter dem Inhalt."
 
 #: assets/js/sidebar.js:120
@@ -2460,40 +2151,28 @@ msgstr "SEO-Box öffnen"
 
 #~ msgid "The website does not use HTTPS."
 #~ msgstr "Die Website verwendet kein HTTPS."
-
 #~ msgid "Titles & meta"
 #~ msgstr "Titel & Meta"
-
 #~ msgid "Publisher"
 #~ msgstr "Herausgeber"
-
 #~ msgid "Get Pro"
 #~ msgstr "Pro holen"
-
 #~ msgid "View sitemap"
 #~ msgstr "Sitemap ansehen"
-
 #~ msgid "Test with Google"
 #~ msgstr "Mit Google testen"
-
 #~ msgid "SEO settings"
 #~ msgstr "SEO-Einstellungen"
-
 #~ msgid "Save settings"
 #~ msgstr "Einstellungen speichern"
-
 #~ msgid "AI crawlers"
 #~ msgstr "KI-Crawler"
-
 #~ msgid "Operator and purpose"
 #~ msgstr "Betreiber und Zweck"
-
 #~ msgid "Links, images and feed"
 #~ msgstr "Links, Bilder und Feed"
-
 #~ msgid "Languages (hreflang)"
 #~ msgstr "Sprachen (hreflang)"
-
 #~ msgid ""
 #~ "A multilingual plugin (WPML, Polylang or TranslatePress) is active and "
 #~ "prints hreflang itself. These settings are not used."
@@ -2501,7 +2180,498 @@ msgstr "SEO-Box öffnen"
 #~ "Ein Mehrsprachigkeits-Plugin (WPML, Polylang oder TranslatePress) ist "
 #~ "aktiv und gibt hreflang selbst aus. Diese Einstellungen werden nicht "
 #~ "verwendet."
-
 #: inc/class-license.php
 msgid "This licence does not include MomentumLab SEO Pro."
 msgstr "Diese Lizenz enthält MomentumLab SEO Pro nicht. Bitte melde dich bei MomentumLab."
+
+#: inc/admin-pages.php
+msgid "1. Organisation"
+msgstr "1. Organisation"
+
+#: inc/admin-pages.php
+msgid "2. Home page"
+msgstr "2. Startseite"
+
+#: inc/admin-pages.php
+msgid "3. AI and Bing"
+msgstr "3. KI und Bing"
+
+#: inc/admin-pages.php
+msgid "4. Check"
+msgstr "4. Prüfung"
+
+#: inc/options.php
+msgid "Admin bar"
+msgstr "Admin-Leiste"
+
+#: inc/class-dashboard.php
+msgid "All events and rich results have the data Google and Bing need."
+msgstr "Alle Events und Rich Results haben die Angaben, die Google und Bing brauchen."
+
+#: parts/admin/tab-sitemap.php
+msgid "All search engines: listed in robots.txt, they find the sitemap on their own."
+msgstr "Alle Suchmaschinen: In der robots.txt eingetragen, sie finden die Sitemap selbst."
+
+#: parts/admin/search-schema.php
+msgid "Any page"
+msgstr "Jede Seite"
+
+#: inc/class-rich-results.php
+msgid "Applicants apply directly on this page (Indeed)"
+msgstr "Bewerbungen gehen direkt über diese Seite ein (Indeed)"
+
+#: inc/class-rich-results.php
+msgid "Apply URL"
+msgstr "Bewerbungs-URL"
+
+#: inc/class-rich-results.php
+msgid "Apply until"
+msgstr "Bewerbung bis"
+
+#: parts/admin/search-schema.php
+msgid "Article type per content type"
+msgstr "Artikeltyp pro Inhaltstyp"
+
+#: parts/admin/search-schema.php
+msgid "Automatic"
+msgstr "Automatisch"
+
+#: parts/admin/search-schema.php
+msgid "Automatic (YouTube, Vimeo, uploads)"
+msgstr "Automatisch (YouTube, Vimeo, Uploads)"
+
+#: parts/admin/search-schema.php
+msgid "Automatic from the page hierarchy"
+msgstr "Automatisch aus der Seitenstruktur"
+
+#: inc/class-rich-results.php
+msgid "Average rating (1 to 5)"
+msgstr "Durchschnittliche Bewertung (1 bis 5)"
+
+#: parts/admin/page.php
+msgid "Back"
+msgstr "Zurück"
+
+#: inc/class-rich-results.php
+msgid "Best possible rating (empty: 5)"
+msgstr "Beste mögliche Bewertung (leer: 5)"
+
+#: parts/admin/tab-sitemap.php
+msgid "Bing and others: IndexNow is off, so they learn about new pages only at their next visit."
+msgstr "Bing und andere: IndexNow ist aus, sie erfahren erst beim nächsten Besuch von neuen Seiten."
+
+#: parts/admin/tab-sitemap.php
+msgid "Bing, Yandex, Seznam, Naver: new and changed pages are reported right after saving (IndexNow)."
+msgstr "Bing, Yandex, Seznam, Naver: Neue und geänderte Seiten werden direkt nach dem Speichern gemeldet (IndexNow)."
+
+#: inc/class-rich-results.php
+msgid "Calories per serving"
+msgstr "Kalorien pro Portion"
+
+#: inc/class-dashboard.php
+msgid "Complete"
+msgstr "Ergänzen"
+
+#: inc/class-rich-results.php
+msgid "Cooking (minutes)"
+msgstr "Kochzeit (Minuten)"
+
+#: assets/js/editor.js
+msgid "Copy address"
+msgstr "Adresse kopieren"
+
+#: parts/admin/tab-content.php inc/class-pages-table.php
+msgid "Cornerstone"
+msgstr "Cornerstone"
+
+#: inc/class-pages-table.php
+msgid "Cornerstone content"
+msgstr "Cornerstone-Inhalt"
+
+#: parts/meta-box/panel-advanced.php
+msgid "Cornerstone content: one of the most important pages of the website"
+msgstr "Cornerstone-Inhalt: eine der wichtigsten Seiten der Website"
+
+#: inc/class-rich-results.php
+msgid "Course"
+msgstr "Kurs"
+
+#: inc/class-rich-results.php
+msgid "Course name"
+msgstr "Kursname"
+
+#: inc/class-rich-results.php
+msgid "Employer (empty: organisation of the website)"
+msgstr "Arbeitgeber (leer: Organisation der Website)"
+
+#: inc/class-rich-results.php
+msgid "Employment type"
+msgstr "Anstellungsart"
+
+#: parts/admin/tab-content.php
+msgid "Every indexable page is linked from another page or a menu."
+msgstr "Jede indexierbare Seite ist von einer anderen Seite oder einem Menü aus verlinkt."
+
+#: parts/admin/search-schema.php
+msgid "Every page"
+msgstr "Jede Seite"
+
+#: parts/admin/search-schema.php
+msgid "FAQ block in the editor"
+msgstr "FAQ-Block im Editor"
+
+#: parts/admin/setup-finish.php
+msgid "Finish setup"
+msgstr "Setup abschliessen"
+
+#: inc/admin-pages.php
+msgid "Four short steps. Everything saves by itself, and you can skip any step."
+msgstr "Vier kurze Schritte. Alles wird automatisch gespeichert, und du kannst jeden Schritt überspringen."
+
+#: parts/meta-box/panel-schema.php
+msgid "Google and Bing show no event result yet. Missing: %s."
+msgstr "Google und Bing zeigen noch kein Event-Ergebnis. Es fehlt: %s."
+
+#: parts/meta-box/panel-schema.php
+msgid "Google and Bing show no result yet. Missing: %s."
+msgstr "Google und Bing zeigen noch kein Ergebnis. Es fehlt: %s."
+
+#: inc/class-dashboard.php
+msgid "Google results are analysed in MomentumLab Insights: clicks, search terms, chances."
+msgstr "Die Google-Ergebnisse werden in MomentumLab Insights ausgewertet: Klicks, Suchbegriffe, Chancen."
+
+#: parts/admin/tab-sitemap.php
+msgid "Google: no automatic ping exists any more. Submit the address above once in Search Console."
+msgstr "Google: Ein automatisches Ping gibt es nicht mehr. Reiche die Adresse oben einmal in der Search Console ein."
+
+#: inc/class-dashboard.php
+msgid "IndexNow is off. Bing learns about new pages only at its next visit."
+msgstr "IndexNow ist aus. Bing erfährt erst beim nächsten Besuch von neuen Seiten."
+
+#: inc/class-rich-results.php
+msgid "Ingredients (one per line)"
+msgstr "Zutaten (eine pro Zeile)"
+
+#: inc/class-rich-results.php
+msgid "Job description"
+msgstr "Stellenbeschreibung"
+
+#: inc/class-rich-results.php
+msgid "Job number"
+msgstr "Stellennummer"
+
+#: inc/class-rich-results.php
+msgid "Job posting (Google for Jobs, Indeed)"
+msgstr "Stellenanzeige (Google for Jobs, Indeed)"
+
+#: parts/meta-box/panel-schema.php
+msgid "Job posting, recipe, course or review. One type per page. Fields marked * are needed for Google and Bing."
+msgstr "Stellenanzeige, Rezept, Kurs oder Bewertung. Ein Typ pro Seite. Mit * markierte Felder braucht es für Google und Bing."
+
+#: inc/class-rich-results.php
+msgid "Job title"
+msgstr "Stellentitel"
+
+#: parts/meta-box/panel-seo.php
+msgid "Link suggestions"
+msgstr "Link-Vorschläge"
+
+#: parts/meta-box/panel-seo.php
+msgid "Main keyword first, up to 4 more separated by commas"
+msgstr "Hauptkeyword zuerst, bis zu 4 weitere durch Komma getrennt"
+
+#: inc/class-rich-results.php
+msgid "Name of the reviewed item"
+msgstr "Name des bewerteten Objekts"
+
+#: parts/admin/page.php
+msgid "Next"
+msgstr "Weiter"
+
+#: assets/js/editor.js
+msgid "No link yet"
+msgstr "Noch kein Link"
+
+#: parts/admin/tab-content.php
+msgid "No other page and no menu links to these pages. Search engines find them only through the sitemap and rate them as unimportant. Link to them from a related page or add them to a menu."
+msgstr "Keine andere Seite und kein Menü verlinkt diese Seiten. Suchmaschinen finden sie nur über die Sitemap und stufen sie als unwichtig ein. Verlinke sie von einer passenden Seite aus oder nimm sie in ein Menü auf."
+
+#: assets/js/editor.js
+msgid "No suggestions. Set a focus keyword or a more specific title."
+msgstr "Keine Vorschläge. Lege ein Fokus-Keyword oder einen genaueren Titel fest."
+
+#: assets/js/settings.js
+msgid "Not saved."
+msgstr "Nicht gespeichert."
+
+#: parts/admin/setup-finish.php
+msgid "Nothing open. Everything is in order."
+msgstr "Nichts offen. Alles in Ordnung."
+
+#: inc/class-rich-results.php
+msgid "Number of ratings"
+msgstr "Anzahl Bewertungen"
+
+#: parts/meta-box/panel-schema.php
+msgid "On site"
+msgstr "Vor Ort"
+
+#: parts/meta-box/panel-schema.php
+msgid "On site and online"
+msgstr "Vor Ort und online"
+
+#: parts/meta-box/panel-schema.php
+msgid "Online"
+msgstr "Online"
+
+#: parts/meta-box/panel-schema.php inc/class-post-meta.php
+msgid "Online event URL"
+msgstr "URL des Online-Events"
+
+#: parts/meta-box/panel-schema.php
+msgid "Other rich result on this page"
+msgstr "Weiteres Rich Result auf dieser Seite"
+
+#: parts/admin/search-schema.php
+msgid "Page type in the SEO box › Advanced"
+msgstr "Seitentyp im SEO-Feld › Erweitert"
+
+#: parts/admin/search-schema.php
+msgid "Pages and posts"
+msgstr "Seiten und Beiträge"
+
+#: parts/meta-box/panel-seo.php
+msgid "Pages that fit this page and are not linked yet. Pages without any internal link come first. Copy the address and add it as a link in the text."
+msgstr "Seiten, die zu dieser Seite passen und noch nicht verlinkt sind. Seiten ohne internen Link stehen zuoberst. Kopiere die Adresse und füge sie im Text als Link ein."
+
+#: parts/admin/search-schema.php
+msgid "Pages with a video"
+msgstr "Seiten mit einem Video"
+
+#: parts/admin/search-schema.php
+msgid "Pages with an FAQ block"
+msgstr "Seiten mit einem FAQ-Block"
+
+#: parts/admin/search-schema.php
+msgid "Pages with an event"
+msgstr "Seiten mit einem Event"
+
+#: parts/admin/tab-content.php
+msgid "Pages without internal links"
+msgstr "Seiten ohne interne Links"
+
+#: parts/meta-box/panel-schema.php
+msgid "Performer or speaker"
+msgstr "Auftretende oder Referierende"
+
+#: assets/js/settings.js
+msgid "Please try again."
+msgstr "Bitte versuche es erneut."
+
+#: inc/class-rich-results.php
+msgid "Posted on (empty: date of the page)"
+msgstr "Veröffentlicht am (leer: Datum der Seite)"
+
+#: parts/admin/search-schema.php
+msgid "Posts"
+msgstr "Beiträge"
+
+#: inc/class-rich-results.php
+msgid "Preparation (minutes)"
+msgstr "Zubereitung (Minuten)"
+
+#: parts/admin/search-schema.php
+msgid "Preview"
+msgstr "Vorschau"
+
+#: inc/class-rich-results.php
+msgid "Provider"
+msgstr "Anbieter"
+
+#: inc/class-rich-results.php
+msgid "Provider website"
+msgstr "Website des Anbieters"
+
+#: inc/admin-pages.php
+msgid "Quick setup"
+msgstr "Schnelleinrichtung"
+
+#: inc/class-rich-results.php
+msgid "Recipe"
+msgstr "Rezept"
+
+#: inc/class-rich-results.php
+msgid "Remote work possible"
+msgstr "Homeoffice möglich"
+
+#: inc/class-rich-results.php
+msgid "Required"
+msgstr "Pflichtangabe"
+
+#: inc/class-rich-results.php
+msgid "Review"
+msgstr "Bewertung"
+
+#: inc/class-rich-results.php
+msgid "Review text"
+msgstr "Bewertungstext"
+
+#: inc/class-rich-results.php
+msgid "Reviewer (empty: author of the page)"
+msgstr "Bewertende Person (leer: Autor der Seite)"
+
+#: parts/admin/search-schema.php
+msgid "SEO box › Event & schema"
+msgstr "SEO-Feld › Event & schema"
+
+#: inc/class-admin-bar.php
+msgid "SEO: %s"
+msgstr "SEO: %s"
+
+#: inc/class-rich-results.php
+msgid "Salary from"
+msgstr "Lohn ab"
+
+#: inc/class-rich-results.php
+msgid "Salary per"
+msgstr "Lohn pro"
+
+#: inc/class-rich-results.php
+msgid "Salary up to"
+msgstr "Lohn bis"
+
+#: parts/admin/setup-finish.php parts/admin/tab-sitemap.php
+msgid "Search Console"
+msgstr "Search Console"
+
+#: parts/admin/search-schema.php
+msgid "Search appearance › Organisation"
+msgstr "Suchdarstellung › Organisation"
+
+#: inc/class-rich-results.php
+msgid "Servings"
+msgstr "Portionen"
+
+#: parts/admin/search-schema.php
+msgid "Set up"
+msgstr "Einrichten"
+
+#: inc/admin-pages.php
+msgid "Setup"
+msgstr "Setup"
+
+#: inc/class-admin-actions.php
+msgid "Setup finished. You can run it again any time under Setup."
+msgstr "Setup abgeschlossen. Du kannst es jederzeit unter «Setup» erneut durchlaufen."
+
+#: parts/meta-box/panel-seo.php
+msgid "Show suggestions"
+msgstr "Vorschläge anzeigen"
+
+#: inc/options.php
+msgid "Show the SEO score of the page in the admin bar"
+msgstr "SEO-Wert der Seite in der Admin-Leiste anzeigen"
+
+#: parts/admin/search-schema.php
+msgid "Site name"
+msgstr "Name der Website"
+
+#: parts/admin/page.php
+msgid "Skip"
+msgstr "Überspringen"
+
+#: inc/class-rich-results.php
+msgid "Steps (one per line)"
+msgstr "Schritte (einer pro Zeile)"
+
+#: inc/class-admin-bar.php inc/admin-pages.php
+msgid "Structured data"
+msgstr "Strukturierte Daten"
+
+#: parts/admin/search-schema.php
+msgid "Structured data tells Google, Bing and AI assistants what a page is: an article, an event, a product. The plugin prints it automatically as one block (JSON-LD) in the head of each page."
+msgstr "Strukturierte Daten sagen Google, Bing und KI-Assistenten, was eine Seite ist: ein Artikel, ein Event, ein Produkt. Das Plugin gibt sie automatisch als einen Block (JSON-LD) im Kopf jeder Seite aus."
+
+#: parts/admin/setup-finish.php
+msgid "Submit the sitemap once in Google Search Console. Google has no automatic way for this any more."
+msgstr "Reiche die Sitemap einmal in der Google Search Console ein. Google bietet dafür keinen automatischen Weg mehr."
+
+#: parts/meta-box/panel-seo.php
+msgid "Suggests pages to link to from this page. Available with Pro."
+msgstr "Schlägt Seiten vor, die von dieser Seite aus verlinkt werden können. Mit Pro verfügbar."
+
+#: parts/meta-box/panel-schema.php
+msgid "Takes place"
+msgstr "Findet statt"
+
+#: parts/admin/search-schema.php
+msgid "Test at Google"
+msgstr "Bei Google testen"
+
+#: parts/admin/setup-finish.php
+msgid "The basics are set. This is what is still open:"
+msgstr "Die Grundlagen sind gesetzt. Das ist noch offen:"
+
+#: parts/meta-box/panel-schema.php
+msgid "The event is complete. Recommended in addition: %s."
+msgstr "Der Event ist vollständig. Zusätzlich empfohlen: %s."
+
+#: assets/js/analysis.js
+msgid "The keyword \"%s\" does not appear in the text."
+msgstr "Das Keyword «%s» kommt im Text nicht vor."
+
+#: assets/js/analysis.js
+msgid "The keyword \"%s\" is in the text and in the title or description."
+msgstr "Das Keyword «%s» steht im Text und im Titel oder in der Beschreibung."
+
+#: assets/js/analysis.js
+msgid "The keyword \"%s\" is in the text. Use it in the title or description too."
+msgstr "Das Keyword «%s» steht im Text. Nutze es auch im Titel oder in der Beschreibung."
+
+#: inc/class-dashboard.php
+msgid "The quick setup is not finished. Four short steps cover the basics."
+msgstr "Das Setup ist nicht abgeschlossen. Vier kurze Schritte decken die Grundlagen ab."
+
+#: assets/js/editor.js
+msgid "The suggestions could not be loaded."
+msgstr "Die Vorschläge konnten nicht geladen werden."
+
+#: parts/meta-box/panel-advanced.php
+msgid "These pages are listed under Pages › Cornerstone. Link to them from other pages and keep them up to date."
+msgstr "Diese Seiten stehen unter Seiten › Cornerstone. Verlinke sie von anderen Seiten aus und halte sie aktuell."
+
+#: parts/admin/search-schema.php
+msgid "This page is hidden from search engines (noindex), so only the website data is printed."
+msgstr "Diese Seite ist für Suchmaschinen versteckt (noindex), darum werden nur die Daten der Website ausgegeben."
+
+#: inc/class-post-meta.php
+msgid "Tickets or price"
+msgstr "Tickets oder Preis"
+
+#: parts/admin/tab-sitemap.php inc/class-dashboard.php
+msgid "Turn on"
+msgstr "Einschalten"
+
+#: inc/class-rich-results.php
+msgid "Type of the reviewed item"
+msgstr "Typ des bewerteten Objekts"
+
+#: parts/admin/search-schema.php
+msgid "Website only"
+msgstr "Nur Website"
+
+#: parts/admin/tab-sitemap.php
+msgid "Who is told about it"
+msgstr "Wer erfährt davon"
+
+#: inc/class-dashboard.php
+msgid "%d page has no internal link. Search engines rate it as unimportant."
+msgid_plural "%d pages have no internal link. Search engines rate them as unimportant."
+msgstr[0] "%d Seite hat keinen internen Link. Suchmaschinen stufen sie als unwichtig ein."
+msgstr[1] "%d Seiten haben keinen internen Link. Suchmaschinen stufen sie als unwichtig ein."
+
+#: inc/class-dashboard.php
+msgid "%d page misses data Google and Bing need for its event or rich result. Nothing is shown for it."
+msgid_plural "%d pages miss data Google and Bing need for their event or rich result. Nothing is shown for them."
+msgstr[0] "Bei %d Seite fehlen Angaben, die Google und Bing für das Event oder Rich Result brauchen. Es wird nichts angezeigt."
+msgstr[1] "Bei %d Seiten fehlen Angaben, die Google und Bing für das Event oder Rich Result brauchen. Es wird nichts angezeigt."

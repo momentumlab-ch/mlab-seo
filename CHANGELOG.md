@@ -3,6 +3,11 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.12.1] - 2026-11-14
+
+### Geändert
+- Übersetzungen (de_CH, de_CH_informal, de_DE, de_DE_formal, fr_FR, it_IT) für alle neuen Texte ab 1.10.0 nachgetragen, 122 Texte pro Sprache. Bestehende Übersetzungen sind unverändert.
+
 ## [1.12.0] - 2026-11-14
 
 ### Hinzugefügt

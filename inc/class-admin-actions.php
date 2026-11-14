@@ -29,6 +29,7 @@ final class Admin_Actions {
 		add_action( 'admin_post_mlab_seo_redirect_import', array( $this, 'handle_redirect_import' ) );
 		add_action( 'admin_post_mlab_seo_link_check', array( $this, 'handle_link_check' ) );
 		add_action( 'admin_post_mlab_seo_bulk', array( $this, 'handle_bulk' ) );
+		add_action( 'admin_post_mlab_seo_setup_done', array( $this, 'handle_setup_done' ) );
 	}
 
 	/**
@@ -83,6 +84,15 @@ final class Admin_Actions {
 		$values = isset( $_POST['mlab_seo'] ) && is_array( $_POST['mlab_seo'] ) ? $_POST['mlab_seo'] : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Sanitised and unslashed in Settings::sanitize().
 		Settings::save_keys( $values, $keys );
 		$this->back( $page, $segment, 'saved' );
+	}
+
+	/**
+	 * Marks the quick setup as done and returns to the overview.
+	 */
+	public function handle_setup_done() {
+		$this->verify( 'mlab_seo_setup_done' );
+		update_option( Admin::SETUP_DONE, 1, false );
+		$this->back( Admin::PAGE, '', 'setup_done' );
 	}
 
 	/**
@@ -233,6 +243,7 @@ final class Admin_Actions {
 	private static function notice_messages() {
 		return array(
 			'saved'              => array( 'success', __( 'Settings saved.', 'mlab-seo' ) ),
+			'setup_done'         => array( 'success', __( 'Setup finished. You can run it again any time under Setup.', 'mlab-seo' ) ),
 			'checked'            => array( 'success', __( 'Access check finished.', 'mlab-seo' ) ),
 			'license_ok'         => array( 'success', __( 'Licence activated. Pro features are unlocked.', 'mlab-seo' ) ),
 			'license_failed'     => array( 'error', License::data()['message'] ? License::data()['message'] : __( 'The licence could not be activated.', 'mlab-seo' ) ),

@@ -64,6 +64,7 @@ final class Plugin {
 		( new WooCommerce() )->hooks();
 		( new Content_Filters() )->hooks();
 		( new Admin_Bar() )->hooks();
+		( new Link_Suggestions() )->hooks();
 
 		if ( is_admin() ) {
 			( new Meta_Box() )->hooks();
@@ -88,6 +89,7 @@ final class Plugin {
 			add_option( Settings::OPTION, Settings::sanitize( array_merge( Settings::defaults(), array( 'org_name' => get_bloginfo( 'name' ) ) ) ) );
 		}
 		update_option( self::VERSION_OPTION, MLAB_SEO_VERSION, false );
+		set_transient( Admin::SETUP_REDIRECT, 1, 60 );
 	}
 
 	/**

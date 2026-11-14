@@ -281,7 +281,16 @@ final class Dashboard {
 	 * @return array
 	 */
 	private static function setup_checks() {
-		return array(
+		$extra = array();
+		if ( ! get_option( Admin::SETUP_DONE ) ) {
+			$extra[] = self::item( 'ok', __( 'The quick setup is not finished. Four short steps cover the basics.', 'mlab-seo' ), Admin::url( 'mlab-seo-setup' ), __( 'Start', 'mlab-seo' ) );
+		}
+		if ( defined( 'MLAB_INSIGHTS_VERSION' ) && menu_page_url( 'mlab-insights', false ) ) {
+			$extra[] = self::item( 'good', __( 'Google results are analysed in MomentumLab Insights: clicks, search terms, chances.', 'mlab-seo' ), menu_page_url( 'mlab-insights', false ), __( 'Open', 'mlab-seo' ) );
+		}
+		return array_merge(
+			$extra,
+			array(
 			'' !== Settings::get( 'org_name' )
 				? self::item( 'good', __( 'The organisation behind the website is set.', 'mlab-seo' ) )
 				: self::item( 'ok', __( 'Name the organisation or person behind the website. Google and AI assistants use it.', 'mlab-seo' ), Admin::url( 'mlab-seo-search', 'publisher' ), __( 'Add', 'mlab-seo' ) ),
@@ -291,6 +300,7 @@ final class Dashboard {
 			'' !== Settings::get( 'verify_google' )
 				? self::item( 'good', __( 'Google Search Console is verified.', 'mlab-seo' ) )
 				: self::item( 'ok', __( 'Google Search Console is not verified here. Not needed if you verified it another way.', 'mlab-seo' ), Admin::url( 'mlab-seo-settings', 'verify' ), __( 'Verify', 'mlab-seo' ) ),
+			)
 		);
 	}
 

@@ -32,10 +32,12 @@
 		} );
 		loadPreviews( $sections.filter( '[data-segment="' + key + '"]' ) );
 	}
-	$wrap.on( 'click', '.mlab-seo-seg a', function ( e ) {
+	$wrap.on( 'click', '.mlab-seo-seg a, [data-go]', function ( e ) {
+		var key = $( this ).data( 'segment' ) || $( this ).data( 'go' );
 		e.preventDefault();
-		show( $( this ).data( 'segment' ) );
-		history.replaceState( null, '', '#' + $( this ).data( 'segment' ) );
+		show( key );
+		history.replaceState( null, '', '#' + key );
+		window.scrollTo( 0, 0 );
 	} );
 	$( window ).on( 'hashchange', function () {
 		show( window.location.hash.slice( 1 ) );
@@ -87,16 +89,20 @@
 	var $status = $wrap.find( '.mlab-seo-saved' );
 	var timers = {};
 	function save( form ) {
-		$status.removeClass( 'is-error' ).text( __( 'Saving …', 'mlab-seo' ) );
+		clearTimeout( timers.status );
+		$status.removeClass( 'is-error' ).addClass( 'is-saving' ).text( __( 'Saving …', 'mlab-seo' ) );
 		wp.apiFetch( {
 			path: '/mlab-seo/v1/settings',
 			method: 'POST',
 			data: { page: form.getAttribute( 'data-page' ), segment: form.getAttribute( 'data-segment' ), values: formValues( form ) }
 		} ).then( function () {
-			$status.text( __( 'Saved', 'mlab-seo' ) );
+			$status.removeClass( 'is-saving' ).text( __( 'Saved', 'mlab-seo' ) );
+			timers.status = setTimeout( function () {
+				$status.text( '' );
+			}, 4000 );
 			loadPreviews( $( form ).closest( '.mlab-seo-segment' ) );
 		} ).catch( function ( err ) {
-			$status.addClass( 'is-error' ).text( ( err && err.message ) || __( 'Not saved. Please try again.', 'mlab-seo' ) );
+			$status.removeClass( 'is-saving' ).addClass( 'is-error' ).text( __( 'Not saved.', 'mlab-seo' ) + ' ' + ( ( err && err.message ) || __( 'Please try again.', 'mlab-seo' ) ) );
 		} );
 	}
 	function schedule( form, delay ) {

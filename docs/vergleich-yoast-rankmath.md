@@ -27,15 +27,13 @@ Stand 1.10.0. Quelle für Yoast und Rank Math: deren öffentliche Funktionsliste
 
 Umgesetzt in 1.11.0: JobPosting, Rezept-, Kurs- und Bewertungs-Schema, mehrere Fokus-Keywords, verwaiste Seiten, Cornerstone-Inhalte, SEO-Wert in der Admin-Leiste.
 
+Umgesetzt in 1.12.0: Einrichtungsassistent, Link-Vorschläge. Search Console und Bing Webmaster Tools deckt mlab-insights ab.
+
 Offen, siehe Issue «Backlog»:
 
 | Funktion | Vorschlag | Aufwand |
 |---|---|---|
-| Interne Link-Vorschläge | Pro | gross |
 | Software-Schema | Pro | mittel |
-| Search-Console-Anbindung | Pro | gross |
-| Bing-Webmaster-Tools-Anbindung | Pro | gross |
-| Einrichtungsassistent | Free | mittel |
 | Rollen-Verwaltung (Filter `mlab_seo_settings_capability` gibt es schon) | Free | klein |
 
 Nicht geplant: Inhalts-KI, .htaccess-Editor, Analytics-Dashboard.

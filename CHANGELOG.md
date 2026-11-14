@@ -3,6 +3,24 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.12.0] - 2026-11-14
+
+### Hinzugefügt
+- Einrichtungsassistent «Setup» in 4 Schritten (Organisation, Startseite, KI und Bing, Prüfung). Nutzt die bestehenden Felder, speichert automatisch, jeder Schritt lässt sich überspringen. Öffnet einmal nach der Aktivierung (nicht bei Sammel-Aktivierung) und bleibt in der Navigation. Die Übersicht erinnert, bis er abgeschlossen ist.
+- Pro: Link-Vorschläge im SEO-Feld. Passende Seiten nach Fokus-Keyword und Titel, ohne bereits verlinkte, Seiten ohne internen Link und Cornerstone-Seiten zuerst. «Adresse kopieren».
+- Übersicht: Hinweis auf MomentumLab Insights (Google-Auswertung), wenn Insights aktiv ist. Keine eigene Google-Verbindung in diesem Plugin.
+
+### Behoben
+- Deinstallation entfernt jetzt auch die Felder Cornerstone und Rich Results sowie die Liste verwaister Seiten.
+
+## [1.11.2] - 2026-11-14
+
+### Geändert
+- Speicherstatus als Hinweis oben rechts, der beim Scrollen sichtbar bleibt: «Speichert …», «Gespeichert» (verschwindet nach 4 Sekunden) und Fehler mit Grund, der stehen bleibt.
+
+### Behoben
+- Sitemap-Seite: die Blöcke «Wer erfährt davon» und die Einstellungen berührten sich.
+
 ## [1.11.1] - 2026-11-14
 
 ### Hinzugefügt

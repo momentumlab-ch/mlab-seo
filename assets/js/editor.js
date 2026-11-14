@@ -288,6 +288,40 @@
 			.find( 'span' ).css( 'width', Math.min( 100, Math.round( ratio * 100 ) ) + '%' );
 	}
 
+	/* Link suggestions (Pro): pages that fit this page, orphans first. */
+	$box.on( 'click', '.mlab-seo__links-load', function () {
+		var $button = $( this );
+		var $list = $box.find( '.mlab-seo__links' );
+		var query = '?post_id=' + encodeURIComponent( cfg.postId ) + '&focus=' + encodeURIComponent( $focus.val() ) + '&title=' + encodeURIComponent( $title.val() || $title.attr( 'placeholder' ) || editor().title );
+		$button.prop( 'disabled', true );
+		window.wp.apiFetch( { path: '/mlab-seo/v1/link-suggestions' + query } ).then( function ( rows ) {
+			$list.empty();
+			if ( ! rows.length ) {
+				$list.append( $( '<li>' ).text( __( 'No suggestions. Set a focus keyword or a more specific title.', 'mlab-seo' ) ) );
+			}
+			rows.forEach( function ( row ) {
+				var $item = $( '<li>' ).append( $( '<span>' ).text( row.title ) );
+				if ( row.orphan ) {
+					$item.append( ' ', $( '<span class="mlab-seo-badge is-bad">' ).text( __( 'No link yet', 'mlab-seo' ) ) );
+				}
+				$item.append( ' ', $( '<button type="button" class="button-link">' ).text( __( 'Copy address', 'mlab-seo' ) ).data( 'url', row.url ) );
+				$list.append( $item );
+			} );
+		} ).catch( function () {
+			$list.empty().append( $( '<li>' ).text( __( 'The suggestions could not be loaded.', 'mlab-seo' ) ) );
+		} ).then( function () {
+			$button.prop( 'disabled', false );
+		} );
+	} );
+	$box.on( 'click', '.mlab-seo__links .button-link', function () {
+		var $btn = $( this );
+		if ( navigator.clipboard ) {
+			navigator.clipboard.writeText( $btn.data( 'url' ) ).then( function () {
+				$btn.text( __( 'Copied', 'mlab-seo' ) );
+			} );
+		}
+	} );
+
 	/* Rich result type: show only the fields of the chosen type. */
 	$box.on( 'change', '#mlab-seo-rich-type', function () {
 		var type = $( this ).val();

@@ -3,6 +3,14 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.11.2] - 2026-11-14
+
+### Geändert
+- Speicherstatus als Hinweis oben rechts, der beim Scrollen sichtbar bleibt: «Speichert …», «Gespeichert» (verschwindet nach 4 Sekunden) und Fehler mit Grund, der stehen bleibt.
+
+### Behoben
+- Sitemap-Seite: die Blöcke «Wer erfährt davon» und die Einstellungen berührten sich.
+
 ## [1.11.1] - 2026-11-14
 
 ### Hinzugefügt

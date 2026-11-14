@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.11.1
+Stable tag: 1.11.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,10 @@ Developer hooks
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.11.2 =
+* Speicherstatus als Hinweis oben rechts, der beim Scrollen sichtbar bleibt: Speichern, Gespeichert, Fehler mit Grund.
+* Abstand zwischen den Blöcken auf der Sitemap-Seite.
 
 = 1.11.1 =
 * Sitemap: Übersicht, welche Suchmaschinen wie informiert werden (robots.txt, IndexNow, Google über die Search Console). Hinweis in der Übersicht, wenn IndexNow aus ist.

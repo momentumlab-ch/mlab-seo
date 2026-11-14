@@ -36,6 +36,21 @@ defined( 'ABSPATH' ) || exit;
 		<label for="mlab-seo-focus" class="mlab-seo__label"><?php esc_html_e( 'Focus keyword', 'mlab-seo' ); ?></label>
 		<input type="text" class="widefat" id="mlab-seo-focus" name="mlab_seo[focus]" value="<?php echo esc_attr( $focus ); ?>" placeholder="<?php echo esc_attr( $pro ? __( 'Main keyword first, up to 4 more separated by commas', 'mlab-seo' ) : __( 'The search term this page should be found for', 'mlab-seo' ) ); ?>" />
 	</p>
+	<?php if ( AI::enabled() ) : ?>
+		<div class="mlab-seo__ai-box">
+			<p>
+				<button type="button" class="button mlab-seo__ai-write"><?php esc_html_e( 'Write with AI', 'mlab-seo' ); ?></button>
+				<span class="description"><?php esc_html_e( 'Creates 3 drafts. Nothing changes until you choose one and save the page.', 'mlab-seo' ); ?></span>
+			</p>
+			<ul class="mlab-seo__ai" aria-live="polite"></ul>
+			<?php if ( count( Multilingual::languages() ) > 1 ) : ?>
+				<p>
+					<button type="button" class="button mlab-seo__ai-translate"><?php esc_html_e( 'Create translation drafts', 'mlab-seo' ); ?></button>
+					<span class="description"><?php esc_html_e( 'Translates the saved SEO title and description. The drafts wait for your approval under Pages › AI suggestions. Save the page first.', 'mlab-seo' ); ?></span>
+				</p>
+			<?php endif; ?>
+		</div>
+	<?php endif; ?>
 	<p class="mlab-seo__label"><?php esc_html_e( 'SEO check', 'mlab-seo' ); ?></p>
 	<ul class="mlab-seo__checks"></ul>
 	<p class="mlab-seo__label"><?php esc_html_e( 'Link suggestions', 'mlab-seo' ); ?> <span class="mlab-seo__pro<?php echo $pro ? '' : ' is-free'; ?>">Pro</span></p>

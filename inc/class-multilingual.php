@@ -195,6 +195,26 @@ final class Multilingual {
 	}
 
 	/**
+	 * The translation of a page in one language.
+	 *
+	 * @param int    $post_id Post ID.
+	 * @param string $code    Language code.
+	 * @return int Post ID, or 0 when there is none.
+	 */
+	public static function translation( $post_id, $code ) {
+		switch ( self::plugin() ) {
+			case 'mlab-multilingual':
+				$found = mlab_ml_get_translation( (int) $post_id, $code, false );
+				return $found instanceof \WP_Post ? $found->ID : (int) $found;
+			case 'wpml':
+				return (int) apply_filters( 'wpml_object_id', (int) $post_id, get_post_type( $post_id ), false, $code );
+			case 'polylang':
+				return (int) pll_get_post( (int) $post_id, $code );
+		}
+		return 0;
+	}
+
+	/**
 	 * Query arguments that return posts of every language, not just the current one.
 	 *
 	 * @return array

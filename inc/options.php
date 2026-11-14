@@ -24,7 +24,8 @@ function mlab_seo_options(): array {
 		mlab_seo_options_content(),
 		mlab_seo_options_publisher(),
 		mlab_seo_options_crawlers(),
-		mlab_seo_options_sitemap()
+		mlab_seo_options_sitemap(),
+		mlab_seo_options_ai()
 	);
 }
 
@@ -421,6 +422,45 @@ function mlab_seo_options_sitemap(): array {
 			'default' => 1,
 			'label'   => __( 'Video sitemap', 'mlab-seo' ),
 			'text'    => __( 'List YouTube, Vimeo and uploaded videos in /sitemap-videos.xml (for Google video results)', 'mlab-seo' ),
+		),
+	);
+}
+
+/**
+ * AI writing: provider, model, monthly limit and the confirmation. The keys are constants in wp-config.php.
+ *
+ * @return array
+ */
+function mlab_seo_options_ai(): array {
+	return array(
+		'ai_provider' => array(
+			'type'    => 'select',
+			'default' => '',
+			'label'   => __( 'AI provider', 'mlab-seo' ),
+			'choices' => array(
+				''       => __( 'Off', 'mlab-seo' ),
+				'claude' => 'Claude (Anthropic)',
+				'openai' => 'GPT (OpenAI)',
+			),
+		),
+		'ai_model'    => array(
+			'type'        => 'text',
+			'default'     => '',
+			'label'       => __( 'Model', 'mlab-seo' ),
+			'help'        => __( 'Empty: the default of the provider. Model names change, so please check them with the provider.', 'mlab-seo' ),
+			'placeholder' => 'claude-haiku-5-5',
+		),
+		'ai_limit'    => array(
+			'type'    => 'text',
+			'default' => '500000',
+			'label'   => __( 'Monthly limit (characters)', 'mlab-seo' ),
+			'help'    => __( 'Characters sent to the provider per month. When it is reached, AI writing stops until next month or until you raise it.', 'mlab-seo' ),
+		),
+		'ai_consent'  => array(
+			'type'    => 'checkbox',
+			'default' => 0,
+			'label'   => __( 'Confirmation', 'mlab-seo' ),
+			'text'    => __( 'I have a data processing agreement with this provider and may send the content of my pages to it.', 'mlab-seo' ),
 		),
 	);
 }

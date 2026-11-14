@@ -42,6 +42,10 @@ function mlab_seo_admin_pages(): array {
 					'label' => __( 'Content check', 'mlab-seo' ),
 					'part'  => 'tab-content',
 				),
+				'ai'      => array(
+					'label' => __( 'AI suggestions', 'mlab-seo' ),
+					'part'  => 'pages-ai',
+				),
 			),
 		),
 		'mlab-seo-search'    => mlab_seo_admin_page_search(),
@@ -169,6 +173,12 @@ function mlab_seo_admin_page_settings(): array {
 				'label' => __( 'Languages', 'mlab-seo' ),
 				'part'  => 'settings-languages',
 				'keys'  => array( 'hreflang_langs', 'hreflang_default' ),
+			),
+			'ai'        => array(
+				'label' => __( 'AI writing', 'mlab-seo' ),
+				'part'  => 'settings-ai',
+				'keys'  => array( 'ai_provider', 'ai_model', 'ai_limit', 'ai_consent' ),
+				'admin' => true,
 			),
 			'import'    => array(
 				'label' => __( 'Import', 'mlab-seo' ),

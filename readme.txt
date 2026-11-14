@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.13.0
+Stable tag: 1.14.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,7 +59,8 @@ Pro (licence key)
 
 Privacy and security
 
-* No tracking, no external requests except the licence check (key, site URL and plugin version, once a day while a key is set), the access check the administrator starts, IndexNow when switched on (the addresses of changed pages, sent to api.indexnow.org) and the update check against the public GitHub releases of the plugin (when WordPress checks for updates, no site data is sent).
+* No tracking, no external requests except the licence check (key, site URL and plugin version, once a day while a key is set), the access check the administrator starts, IndexNow when switched on (the addresses of changed pages, sent to api.indexnow.org) and the update check against the public GitHub releases of the plugin (when WordPress checks for updates, no site data is sent) and AI writing (Pro), which is off by default: with the key of your own account in wp-config.php and the written confirmation of an administrator, the content of a page (website name, language, title, SEO texts, focus keyword and the first 6,000 characters of the text) is sent to Anthropic (api.anthropic.com) or OpenAI (api.openai.com) when someone presses «Write with AI», and the approved SEO texts when translation drafts are created. Please add the provider to your privacy policy.
+* AI drafts never change the website by themselves: a person approves each one. The log keeps time, user, number of characters and result of the last 100 requests, never texts or keys.
 * All forms use nonces and capability checks (`manage_options` for settings, `edit_post` for the SEO box). All input is sanitised, all output escaped.
 
 Developer hooks
@@ -77,6 +78,12 @@ Developer hooks
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.14.0 =
+* Pro: KI-Schreibhilfe für SEO-Titel und Beschreibungen mit dem eigenen Konto bei Claude oder GPT. Ablauf: Entwurf, prüfen, freigeben, übersetzen. Die KI ändert nie selbst etwas, jede Variante braucht die Freigabe einer Person.
+* Neue Liste «Seiten › KI-Vorschläge» mit Vergleich zu den aktuellen Texten, Freigeben, Ablehnen und «Freigeben und Übersetzungsentwürfe erstellen». Übersetzungen sind ebenfalls Entwürfe und warten dort auf die Freigabe.
+* Einstellungen › KI-Schreibhilfe: Anbieter, Modell, Monatslimit und Bestätigung des Auftragsbearbeitungsvertrags. Die Schlüssel stehen als Konstanten in der wp-config.php.
+* Übersicht: Hinweis, wenn KI-Entwürfe auf die Freigabe warten.
 
 = 1.13.0 =
 * Pro: Software-App als Rich Result (SoftwareApplication) mit Preis, Betriebssystem und Bewertung.

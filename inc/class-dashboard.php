@@ -201,6 +201,9 @@ final class Dashboard {
 			/* translators: 1: number of pages, 2: minimum number of words. */
 			$items[] = self::item( 'ok', sprintf( _n( '%1$d page has fewer than %2$d words. Search engines and AI assistants find little to show for it.', '%1$d pages have fewer than %2$d words. Search engines and AI assistants find little to show for them.', $thin, 'mlab-seo' ), $thin, Content_Audit::THIN ), Admin::url( 'mlab-seo-pages', 'content' ), __( 'Show', 'mlab-seo' ) );
 		}
+		if ( ! IndexNow::active() ) {
+			$items[] = self::item( 'ok', __( 'IndexNow is off. Bing learns about new pages only at its next visit.', 'mlab-seo' ), Admin::url( 'mlab-seo-ai', 'indexnow' ), __( 'Turn on', 'mlab-seo' ) );
+		}
 		$orphans = count( Content_Audit::orphans() );
 		if ( $orphans ) {
 			/* translators: %d: number of pages. */

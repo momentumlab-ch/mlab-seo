@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.11.0
+Stable tag: 1.11.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,9 @@ Developer hooks
 * Define `MLAB_SEO_KEEP_DATA` as `true` to keep all SEO data when the plugin is deleted.
 
 == Changelog ==
+
+= 1.11.1 =
+* Sitemap: Übersicht, welche Suchmaschinen wie informiert werden (robots.txt, IndexNow, Google über die Search Console). Hinweis in der Übersicht, wenn IndexNow aus ist.
 
 = 1.11.0 =
 * Pro: Stellenanzeigen (JobPosting) für Google for Jobs und Indeed, Rezept, Kurs und Bewertung als Rich Results pro Seite, mit Hinweis auf fehlende Pflichtangaben.

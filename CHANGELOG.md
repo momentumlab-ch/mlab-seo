@@ -3,6 +3,12 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.11.1] - 2026-11-14
+
+### Hinzugefügt
+- Sitemap: Bereich «Wer erfährt davon» mit dem Stand für robots.txt, IndexNow (Bing, Yandex, Seznam, Naver) und Google (Search Console).
+- Übersicht: Hinweis, wenn IndexNow aus ist.
+
 ## [1.11.0] - 2026-11-14
 
 ### Hinzugefügt

@@ -27,6 +27,11 @@ $first    = (string) array_key_first( $segments );
 		</div>
 		<span class="mlab-seo-saved" role="status" aria-live="polite"></span>
 	</header>
+	<nav class="mlab-seo-nav" aria-label="<?php esc_attr_e( 'MomentumLab SEO', 'mlab-seo' ); ?>">
+		<?php foreach ( mlab_seo_admin_pages() as $nav_slug => $nav_page ) : ?>
+			<a href="<?php echo esc_url( Admin::url( $nav_slug ) ); ?>" <?php echo $nav_slug === $slug ? 'aria-current="page"' : ''; ?>><?php echo esc_html( $nav_page['menu'] ); ?></a>
+		<?php endforeach; ?>
+	</nav>
 	<?php Admin_Actions::notice(); ?>
 
 	<?php if ( count( $segments ) > 1 ) : ?>

@@ -93,6 +93,10 @@ function mlab_seo_admin_page_search(): array {
 				'part'  => 'tab-titles',
 				'keys'  => array( 'titles', 'author_archive', 'date_archive', 'noindex_empty' ),
 			),
+			'schema'    => array(
+				'label' => __( 'Structured data', 'mlab-seo' ),
+				'part'  => 'search-schema',
+			),
 			'publisher' => array(
 				'label' => __( 'Organisation', 'mlab-seo' ),
 				'part'  => 'tab-publisher',

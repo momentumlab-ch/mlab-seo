@@ -3,6 +3,18 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.14.0] - 2026-11-14
+
+### Hinzugefügt
+- Pro: KI-Schreibhilfe für SEO-Titel und Beschreibungen mit dem eigenen Konto bei Claude (Anthropic) oder GPT (OpenAI). Aus, solange kein Schlüssel, keine Bestätigung und kein Anbieter gesetzt sind.
+- Freigabe-Ablauf: Entwurf (bis 3 Varianten), prüfen im Vergleich mit den aktuellen Texten, freigeben oder ablehnen, übersetzen. Die KI ändert nie selbst etwas.
+- «Mit KI schreiben» im SEO-Feld: Varianten mit Zeichenzahl. «Diese Texte verwenden» füllt die Felder, freigegeben ist es erst mit dem Speichern der Seite.
+- Neue Liste «Seiten › KI-Vorschläge» mit Freigeben, Ablehnen und «Freigeben und Übersetzungsentwürfe erstellen». Die Übersetzungen der Seite (MomentumLab Multilingual, WPML, Polylang) entstehen als Entwürfe auf den übersetzten Seiten und warten in derselben Liste auf die Freigabe. Das Glossar von MomentumLab Multilingual fliesst in die Übersetzung ein, wenn der Filter `mlab_ml_glossary_terms` es liefert.
+- «Übersetzungsentwürfe erstellen» auch im SEO-Feld, aus den gespeicherten Texten.
+- Einstellungen › KI-Schreibhilfe (nur Administratoren): Anbieter, Modell, Monatslimit in Zeichen, Bestätigung des Auftragsbearbeitungsvertrags. Schlüssel nur als Konstante `MLAB_SEO_ANTHROPIC_KEY` oder `MLAB_SEO_OPENAI_KEY` in der wp-config.php.
+- Protokoll der letzten 100 Anfragen (Zeit, Benutzer, Art, Zeichenzahl, Ergebnis), ohne Texte und Schlüssel. Verbrauch pro Monat.
+- Übersicht: Hinweis, wenn KI-Entwürfe warten.
+
 ## [1.13.0] - 2026-11-14
 
 ### Hinzugefügt

@@ -1,7 +1,7 @@
 # Copyright (C) 2026 MomentumLab
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
-msgstr "Project-Id-Version: MomentumLab SEO 1.13.0\nReport-Msgid-Bugs-To: https://wordpress.org/support/plugin/mlab-seo\nLast-Translator: Automatically generated\nLanguage-Team: none\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPOT-Creation-Date: 2026-11-14T15:58:28+00:00\nPO-Revision-Date: 2026-11-14 15:58+0000\nX-Generator: WP-CLI 2.12.0\nX-Domain: mlab-seo\nLanguage: fr\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+msgstr "Project-Id-Version: MomentumLab SEO 1.14.0\nReport-Msgid-Bugs-To: https://wordpress.org/support/plugin/mlab-seo\nLast-Translator: Automatically generated\nLanguage-Team: none\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPOT-Creation-Date: 2026-11-14T16:09:48+00:00\nPO-Revision-Date: 2026-11-14 16:09+0000\nX-Generator: WP-CLI 2.12.0\nX-Domain: mlab-seo\nLanguage: fr\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. Plugin Name of the plugin
 #: mlab-seo.php inc/class-admin.php:92 inc/class-meta-box.php:47
@@ -2709,3 +2709,261 @@ msgstr "Pages qui correspondent à cette page et ne sont pas encore liées. Les 
 #: assets/js/editor.js
 msgid "Select text first"
 msgstr "Sélectionner d’abord du texte"
+
+#: parts/admin/pages-ai.php
+msgid "(no SEO title)"
+msgstr "(pas de titre SEO)"
+
+#: parts/admin/pages-ai.php
+msgid "(no description)"
+msgstr "(pas de description)"
+
+#: inc/options.php
+msgid "AI provider"
+msgstr "Fournisseur d’IA"
+
+#: inc/admin-pages.php
+msgid "AI suggestions"
+msgstr "Suggestions IA"
+
+#: inc/admin-pages.php
+msgid "AI writing"
+msgstr "Rédaction assistée par IA"
+
+#: inc/class-ai.php
+msgid "AI writing is not set up. An administrator can do this under Settings › AI writing."
+msgstr "La rédaction assistée par IA n’est pas configurée. Un administrateur peut le faire sous Réglages › Rédaction assistée par IA."
+
+#: parts/admin/settings-ai.php
+msgid "AI writing is off until Pro, a provider, its key and the confirmation are set."
+msgstr "La rédaction assistée par IA reste désactivée tant que Pro, un fournisseur, sa clé et la confirmation ne sont pas définis."
+
+#: parts/admin/settings-ai.php
+msgid "AI writing is on."
+msgstr "La rédaction assistée par IA est activée."
+
+#: parts/admin/settings-ai.php
+msgid "AI writing needs Pro."
+msgstr "La rédaction assistée par IA nécessite Pro."
+
+#: parts/admin/pages-ai.php
+msgid "Approve"
+msgstr "Valider"
+
+#: parts/admin/pages-ai.php
+msgid "Approve and create translation drafts"
+msgstr "Valider et créer les brouillons de traduction"
+
+#: inc/class-admin-actions.php
+msgid "Approved. The texts are now the SEO title and description."
+msgstr "Validé. Les textes sont désormais le titre SEO et la description."
+
+#: inc/class-admin-actions.php
+msgid "Approved. Translation drafts: %1$d created, %2$d not possible (no translation, no texts, or the AI provider refused). The drafts wait below for approval."
+msgstr "Validé. Brouillons de traduction : %1$d créés, %2$d impossibles (pas de traduction, pas de textes, ou refus du fournisseur d’IA). Les brouillons attendent leur validation ci-dessous."
+
+#: inc/options.php
+msgid "Characters sent to the provider per month. When it is reached, AI writing stops until next month or until you raise it."
+msgstr "Caractères envoyés au fournisseur par mois. Une fois la limite atteinte, la rédaction assistée par IA s’arrête jusqu’au mois suivant ou jusqu’à ce que la limite soit relevée."
+
+#: parts/admin/pages-ai.php
+msgid "Compare with the current texts and choose a variant."
+msgstr "Comparer avec les textes actuels et choisir une variante."
+
+#: inc/options.php
+msgid "Confirmation"
+msgstr "Confirmation"
+
+#: parts/meta-box/panel-seo.php
+msgid "Create translation drafts"
+msgstr "Créer les brouillons de traduction"
+
+#: parts/meta-box/panel-seo.php
+msgid "Creates 3 drafts. Nothing changes until you choose one and save the page."
+msgstr "Crée 3 brouillons. Rien ne change tant qu’un brouillon n’est pas choisi et la page enregistrée."
+
+#: parts/admin/pages-ai.php
+msgid "Current:"
+msgstr "Actuel :"
+
+#: assets/js/editor.js
+msgid "Discard drafts"
+msgstr "Supprimer les brouillons"
+
+#: parts/admin/pages-ai.php
+msgid "Draft"
+msgstr "Brouillon"
+
+#: inc/options.php
+msgid "Empty: the default of the provider. Model names change, so please check them with the provider."
+msgstr "Vide : valeur par défaut du fournisseur. Les noms de modèles changent, à vérifier auprès du fournisseur."
+
+#: parts/admin/settings-ai.php
+msgid "For a draft: the website name, the language, the page title, the current SEO texts, the focus keyword and the first 6,000 characters of the page text. For a translation: only the approved SEO title and description. No user data, no form entries. Please add the provider to your privacy policy. The log keeps the time, user, number of characters and result of the last 100 requests, never the texts or the key."
+msgstr "Pour un brouillon : le nom du site, la langue, le titre de la page, les textes SEO actuels, le mot-clé principal et les 6 000 premiers caractères du texte de la page. Pour une traduction : uniquement le titre SEO et la description validés. Aucune donnée d’utilisateur, aucune saisie de formulaire. Ajouter le fournisseur à la politique de confidentialité. Le journal conserve l’heure, l’utilisateur, le nombre de caractères et le résultat des 100 dernières requêtes, jamais les textes ni la clé."
+
+#: inc/options.php
+msgid "I have a data processing agreement with this provider and may send the content of my pages to it."
+msgstr "J’ai conclu un contrat de sous-traitance avec ce fournisseur et je peux lui transmettre le contenu de mes pages."
+
+#: parts/admin/settings-ai.php
+msgid "Key found."
+msgstr "Clé trouvée."
+
+#: parts/admin/settings-ai.php
+msgid "Keys and use"
+msgstr "Clés et utilisation"
+
+#: inc/options.php
+msgid "Model"
+msgstr "Modèle"
+
+#: inc/options.php
+msgid "Monthly limit (characters)"
+msgstr "Limite mensuelle (caractères)"
+
+#: parts/admin/pages-ai.php
+msgid "New text"
+msgstr "Nouveau texte"
+
+#: parts/admin/pages-ai.php
+msgid "No drafts are waiting. Open a page and press «Write with AI» in the SEO box."
+msgstr "Aucun brouillon en attente. Ouvrir une page et cliquer sur « Rédiger avec l’IA » dans le bloc SEO."
+
+#: parts/admin/settings-ai.php
+msgid "No key. Add define( '%s', '...' ); to wp-config.php."
+msgstr "Pas de clé. Ajouter define( '%s', '...' ); dans wp-config.php."
+
+#: inc/options.php
+msgid "Off"
+msgstr "Désactivé"
+
+#: assets/js/editor.js
+msgid "Open the approval list"
+msgstr "Ouvrir la liste de validation"
+
+#: parts/admin/pages-ai.php
+msgid "Reject"
+msgstr "Rejeter"
+
+#: inc/class-admin-actions.php
+msgid "Rejected. The draft was deleted."
+msgstr "Rejeté. Le brouillon a été supprimé."
+
+#: assets/js/editor.js
+msgid "The AI could not write a draft. Please try again."
+msgstr "L’IA n’a pas pu rédiger de brouillon. Veuillez réessayer."
+
+#: inc/class-ai.php
+msgid "The AI provider asks to slow down. Please try again in a minute."
+msgstr "Le fournisseur d’IA demande de ralentir. Veuillez réessayer dans une minute."
+
+#: inc/class-ai.php
+msgid "The AI provider could not be reached. Please try again in a moment."
+msgstr "Le fournisseur d’IA est injoignable. Veuillez réessayer dans un instant."
+
+#: inc/class-ai.php
+msgid "The AI provider declined this page. Write the texts yourself or try another page."
+msgstr "Le fournisseur d’IA a refusé cette page. Rédiger les textes soi-même ou essayer une autre page."
+
+#: inc/class-ai.php
+msgid "The AI provider did not accept the key. An administrator should check the key in wp-config.php."
+msgstr "Le fournisseur d’IA n’a pas accepté la clé. Un administrateur doit vérifier la clé dans wp-config.php."
+
+#: inc/class-ai.php
+msgid "The AI provider did not accept the request. Check the model name under Settings › AI writing."
+msgstr "Le fournisseur d’IA n’a pas accepté la requête. Vérifier le nom du modèle sous Réglages › Rédaction assistée par IA."
+
+#: inc/class-ai.php
+msgid "The AI provider has a problem right now. Please try again later."
+msgstr "Le fournisseur d’IA rencontre un problème. Veuillez réessayer plus tard."
+
+#: inc/class-ai.php
+msgid "The AI provider returned no text. Please try again."
+msgstr "Le fournisseur d’IA n’a renvoyé aucun texte. Veuillez réessayer."
+
+#: parts/admin/pages-ai.php
+msgid "The AI writes up to 3 variants. Nothing changes on the website."
+msgstr "L’IA rédige jusqu’à 3 variantes. Rien ne change sur le site web."
+
+#: inc/class-ai-suggestions.php
+msgid "The answer could not be read. Please try again."
+msgstr "La réponse n’a pas pu être lue. Veuillez réessayer."
+
+#: inc/class-ai.php
+msgid "The monthly limit for AI writing is reached. An administrator can raise it under Settings › AI writing."
+msgstr "La limite mensuelle de la rédaction assistée par IA est atteinte. Un administrateur peut la relever sous Réglages › Rédaction assistée par IA."
+
+#: inc/class-ai-suggestions.php
+msgid "The page was not found."
+msgstr "La page est introuvable."
+
+#: assets/js/editor.js
+msgid "The texts are in the fields. Save the page to approve them."
+msgstr "Les textes sont dans les champs. Enregistrer la page pour les valider."
+
+#: parts/admin/pages-ai.php
+msgid "The variant becomes the SEO title and description. Or reject it."
+msgstr "La variante devient le titre SEO et la description. Ou la rejeter."
+
+#: inc/class-admin-actions.php
+msgid "This draft does not exist any more. Please reload the list."
+msgstr "Ce brouillon n’existe plus. Veuillez recharger la liste."
+
+#: parts/admin/settings-ai.php
+msgid "This month: %1$s of %2$s characters."
+msgstr "Ce mois-ci : %1$s sur %2$s caractères."
+
+#: parts/admin/pages-ai.php
+msgid "Translate"
+msgstr "Traduire"
+
+#: parts/admin/pages-ai.php
+msgid "Translated from the approved texts of «%s»."
+msgstr "Traduit à partir des textes validés de « %s »."
+
+#: parts/meta-box/panel-seo.php
+msgid "Translates the saved SEO title and description. The drafts wait for your approval under Pages › AI suggestions. Save the page first."
+msgstr "Traduit le titre SEO et la description enregistrés. Les brouillons attendent votre validation sous Pages › Suggestions IA. Enregistrer d’abord la page."
+
+#: parts/admin/pages-ai.php
+msgid "Translation (%s)"
+msgstr "Traduction (%s)"
+
+#: assets/js/editor.js
+msgid "Translation drafts: %1$d created, %2$d not possible."
+msgstr "Brouillons de traduction : %1$d créés, %2$d impossibles."
+
+#: parts/admin/pages-ai.php
+msgid "Translations are drafts as well and appear here for approval."
+msgstr "Les traductions sont aussi des brouillons et apparaissent ici pour validation."
+
+#: assets/js/editor.js
+msgid "Use these texts"
+msgstr "Utiliser ces textes"
+
+#: parts/admin/settings-ai.php
+msgid "What is sent"
+msgstr "Ce qui est envoyé"
+
+#: assets/js/editor.js parts/meta-box/panel-seo.php
+msgid "Write with AI"
+msgstr "Rédiger avec l’IA"
+
+#: parts/admin/settings-ai.php
+msgid "Writes drafts for SEO titles and descriptions with your own account at Claude or OpenAI. A draft changes nothing until a person approves it. Translations of approved texts also wait for approval. This is a Pro feature."
+msgstr "Rédige des brouillons de titres SEO et de descriptions avec votre propre compte chez Claude ou OpenAI. Un brouillon ne change rien tant qu’une personne ne l’a pas validé. Les traductions des textes validés attendent elles aussi leur validation. Fonction Pro."
+
+#: assets/js/editor.js
+msgid "Writing …"
+msgstr "Rédaction en cours …"
+
+#: inc/class-admin-actions.php
+msgid "You are not allowed to do this."
+msgstr "Vous n’avez pas le droit de faire cela."
+
+#: inc/class-dashboard.php
+msgid "%d AI draft waits for your approval."
+msgid_plural "%d AI drafts wait for your approval."
+msgstr[0] "%d brouillon IA attend votre validation."
+msgstr[1] "%d brouillons IA attendent votre validation."

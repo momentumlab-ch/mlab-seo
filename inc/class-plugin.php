@@ -65,6 +65,7 @@ final class Plugin {
 		( new Content_Filters() )->hooks();
 		( new Admin_Bar() )->hooks();
 		( new Link_Suggestions() )->hooks();
+		( new AI_Suggestions() )->hooks();
 
 		if ( is_admin() ) {
 			( new Meta_Box() )->hooks();

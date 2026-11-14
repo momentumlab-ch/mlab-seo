@@ -2836,3 +2836,261 @@ msgstr ""
 #: assets/js/editor.js
 msgid "Select text first"
 msgstr ""
+
+#: parts/admin/pages-ai.php
+msgid "(no SEO title)"
+msgstr ""
+
+#: parts/admin/pages-ai.php
+msgid "(no description)"
+msgstr ""
+
+#: inc/options.php
+msgid "AI provider"
+msgstr ""
+
+#: inc/admin-pages.php
+msgid "AI suggestions"
+msgstr ""
+
+#: inc/admin-pages.php
+msgid "AI writing"
+msgstr ""
+
+#: inc/class-ai.php
+msgid "AI writing is not set up. An administrator can do this under Settings › AI writing."
+msgstr ""
+
+#: parts/admin/settings-ai.php
+msgid "AI writing is off until Pro, a provider, its key and the confirmation are set."
+msgstr ""
+
+#: parts/admin/settings-ai.php
+msgid "AI writing is on."
+msgstr ""
+
+#: parts/admin/settings-ai.php
+msgid "AI writing needs Pro."
+msgstr ""
+
+#: parts/admin/pages-ai.php
+msgid "Approve"
+msgstr ""
+
+#: parts/admin/pages-ai.php
+msgid "Approve and create translation drafts"
+msgstr ""
+
+#: inc/class-admin-actions.php
+msgid "Approved. The texts are now the SEO title and description."
+msgstr ""
+
+#: inc/class-admin-actions.php
+msgid "Approved. Translation drafts: %1$d created, %2$d not possible (no translation, no texts, or the AI provider refused). The drafts wait below for approval."
+msgstr ""
+
+#: inc/options.php
+msgid "Characters sent to the provider per month. When it is reached, AI writing stops until next month or until you raise it."
+msgstr ""
+
+#: parts/admin/pages-ai.php
+msgid "Compare with the current texts and choose a variant."
+msgstr ""
+
+#: inc/options.php
+msgid "Confirmation"
+msgstr ""
+
+#: parts/meta-box/panel-seo.php
+msgid "Create translation drafts"
+msgstr ""
+
+#: parts/meta-box/panel-seo.php
+msgid "Creates 3 drafts. Nothing changes until you choose one and save the page."
+msgstr ""
+
+#: parts/admin/pages-ai.php
+msgid "Current:"
+msgstr ""
+
+#: assets/js/editor.js
+msgid "Discard drafts"
+msgstr ""
+
+#: parts/admin/pages-ai.php
+msgid "Draft"
+msgstr ""
+
+#: inc/options.php
+msgid "Empty: the default of the provider. Model names change, so please check them with the provider."
+msgstr ""
+
+#: parts/admin/settings-ai.php
+msgid "For a draft: the website name, the language, the page title, the current SEO texts, the focus keyword and the first 6,000 characters of the page text. For a translation: only the approved SEO title and description. No user data, no form entries. Please add the provider to your privacy policy. The log keeps the time, user, number of characters and result of the last 100 requests, never the texts or the key."
+msgstr ""
+
+#: inc/options.php
+msgid "I have a data processing agreement with this provider and may send the content of my pages to it."
+msgstr ""
+
+#: parts/admin/settings-ai.php
+msgid "Key found."
+msgstr ""
+
+#: parts/admin/settings-ai.php
+msgid "Keys and use"
+msgstr ""
+
+#: inc/options.php
+msgid "Model"
+msgstr ""
+
+#: inc/options.php
+msgid "Monthly limit (characters)"
+msgstr ""
+
+#: parts/admin/pages-ai.php
+msgid "New text"
+msgstr ""
+
+#: parts/admin/pages-ai.php
+msgid "No drafts are waiting. Open a page and press «Write with AI» in the SEO box."
+msgstr ""
+
+#: parts/admin/settings-ai.php
+msgid "No key. Add define( '%s', '...' ); to wp-config.php."
+msgstr ""
+
+#: inc/options.php
+msgid "Off"
+msgstr ""
+
+#: assets/js/editor.js
+msgid "Open the approval list"
+msgstr ""
+
+#: parts/admin/pages-ai.php
+msgid "Reject"
+msgstr ""
+
+#: inc/class-admin-actions.php
+msgid "Rejected. The draft was deleted."
+msgstr ""
+
+#: assets/js/editor.js
+msgid "The AI could not write a draft. Please try again."
+msgstr ""
+
+#: inc/class-ai.php
+msgid "The AI provider asks to slow down. Please try again in a minute."
+msgstr ""
+
+#: inc/class-ai.php
+msgid "The AI provider could not be reached. Please try again in a moment."
+msgstr ""
+
+#: inc/class-ai.php
+msgid "The AI provider declined this page. Write the texts yourself or try another page."
+msgstr ""
+
+#: inc/class-ai.php
+msgid "The AI provider did not accept the key. An administrator should check the key in wp-config.php."
+msgstr ""
+
+#: inc/class-ai.php
+msgid "The AI provider did not accept the request. Check the model name under Settings › AI writing."
+msgstr ""
+
+#: inc/class-ai.php
+msgid "The AI provider has a problem right now. Please try again later."
+msgstr ""
+
+#: inc/class-ai.php
+msgid "The AI provider returned no text. Please try again."
+msgstr ""
+
+#: parts/admin/pages-ai.php
+msgid "The AI writes up to 3 variants. Nothing changes on the website."
+msgstr ""
+
+#: inc/class-ai-suggestions.php
+msgid "The answer could not be read. Please try again."
+msgstr ""
+
+#: inc/class-ai.php
+msgid "The monthly limit for AI writing is reached. An administrator can raise it under Settings › AI writing."
+msgstr ""
+
+#: inc/class-ai-suggestions.php
+msgid "The page was not found."
+msgstr ""
+
+#: assets/js/editor.js
+msgid "The texts are in the fields. Save the page to approve them."
+msgstr ""
+
+#: parts/admin/pages-ai.php
+msgid "The variant becomes the SEO title and description. Or reject it."
+msgstr ""
+
+#: inc/class-admin-actions.php
+msgid "This draft does not exist any more. Please reload the list."
+msgstr ""
+
+#: parts/admin/settings-ai.php
+msgid "This month: %1$s of %2$s characters."
+msgstr ""
+
+#: parts/admin/pages-ai.php
+msgid "Translate"
+msgstr ""
+
+#: parts/admin/pages-ai.php
+msgid "Translated from the approved texts of «%s»."
+msgstr ""
+
+#: parts/meta-box/panel-seo.php
+msgid "Translates the saved SEO title and description. The drafts wait for your approval under Pages › AI suggestions. Save the page first."
+msgstr ""
+
+#: parts/admin/pages-ai.php
+msgid "Translation (%s)"
+msgstr ""
+
+#: assets/js/editor.js
+msgid "Translation drafts: %1$d created, %2$d not possible."
+msgstr ""
+
+#: parts/admin/pages-ai.php
+msgid "Translations are drafts as well and appear here for approval."
+msgstr ""
+
+#: assets/js/editor.js
+msgid "Use these texts"
+msgstr ""
+
+#: parts/admin/settings-ai.php
+msgid "What is sent"
+msgstr ""
+
+#: assets/js/editor.js parts/meta-box/panel-seo.php
+msgid "Write with AI"
+msgstr ""
+
+#: parts/admin/settings-ai.php
+msgid "Writes drafts for SEO titles and descriptions with your own account at Claude or OpenAI. A draft changes nothing until a person approves it. Translations of approved texts also wait for approval. This is a Pro feature."
+msgstr ""
+
+#: assets/js/editor.js
+msgid "Writing …"
+msgstr ""
+
+#: inc/class-admin-actions.php
+msgid "You are not allowed to do this."
+msgstr ""
+
+#: inc/class-dashboard.php
+msgid "%d AI draft waits for your approval."
+msgid_plural "%d AI drafts wait for your approval."
+msgstr[0] ""
+msgstr[1] ""

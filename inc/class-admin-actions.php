@@ -30,6 +30,7 @@ final class Admin_Actions {
 		add_action( 'admin_post_mlab_seo_link_check', array( $this, 'handle_link_check' ) );
 		add_action( 'admin_post_mlab_seo_bulk', array( $this, 'handle_bulk' ) );
 		add_action( 'admin_post_mlab_seo_setup_done', array( $this, 'handle_setup_done' ) );
+		add_action( 'admin_post_mlab_seo_ai_decide', array( $this, 'handle_ai_decide' ) );
 	}
 
 	/**
@@ -85,6 +86,40 @@ final class Admin_Actions {
 		$values = isset( $_POST['mlab_seo'] ) && is_array( $_POST['mlab_seo'] ) ? $_POST['mlab_seo'] : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Sanitised and unslashed in Settings::sanitize().
 		Settings::save_keys( $values, $keys );
 		$this->back( $page, $segment, 'saved' );
+	}
+
+	/**
+	 * Approves or rejects an AI draft, and creates translation drafts after an approval.
+	 */
+	public function handle_ai_decide() {
+		check_admin_referer( 'mlab_seo_ai_decide' );
+		$post_id  = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
+		$variant  = isset( $_POST['variant'] ) ? absint( $_POST['variant'] ) : 0;
+		$decision = isset( $_POST['decision'] ) ? sanitize_key( wp_unslash( $_POST['decision'] ) ) : '';
+		if ( ! $post_id || ! License::is_pro() || ! current_user_can( 'edit_post', $post_id ) ) {
+			wp_die( esc_html__( 'You are not allowed to do this.', 'mlab-seo' ), 403 );
+		}
+		if ( 'reject' === $decision ) {
+			AI_Suggestions::reject( $post_id );
+			$this->back( 'mlab-seo-pages', 'ai', 'ai_rejected' );
+		}
+		if ( ! AI_Suggestions::approve( $post_id, $variant ) ) {
+			$this->back( 'mlab-seo-pages', 'ai', 'ai_gone' );
+		}
+		if ( 'approve_translate' !== $decision ) {
+			$this->back( 'mlab-seo-pages', 'ai', 'ai_approved' );
+		}
+		$result = AI_Suggestions::translate( $post_id );
+		$ok     = count( array_filter( $result, fn ( $status ) => 'ok' === $status ) );
+		$this->back(
+			'mlab-seo-pages',
+			'ai',
+			'ai_translated',
+			array(
+				'mlab_seo_ok'   => $ok,
+				'mlab_seo_fail' => count( $result ) - $ok,
+			)
+		);
 	}
 
 	/**
@@ -244,6 +279,11 @@ final class Admin_Actions {
 	private static function notice_messages() {
 		return array(
 			'saved'              => array( 'success', __( 'Settings saved.', 'mlab-seo' ) ),
+			'ai_approved'        => array( 'success', __( 'Approved. The texts are now the SEO title and description.', 'mlab-seo' ) ),
+			'ai_rejected'        => array( 'success', __( 'Rejected. The draft was deleted.', 'mlab-seo' ) ),
+			'ai_gone'            => array( 'error', __( 'This draft does not exist any more. Please reload the list.', 'mlab-seo' ) ),
+			/* translators: 1: number of translation drafts created, 2: number that failed. */
+			'ai_translated'      => array( 'success', sprintf( __( 'Approved. Translation drafts: %1$d created, %2$d not possible (no translation, no texts, or the AI provider refused). The drafts wait below for approval.', 'mlab-seo' ), self::query_number( 'mlab_seo_ok' ), self::query_number( 'mlab_seo_fail' ) ) ),
 			'setup_done'         => array( 'success', __( 'Setup finished. You can run it again any time under Setup.', 'mlab-seo' ) ),
 			'checked'            => array( 'success', __( 'Access check finished.', 'mlab-seo' ) ),
 			'license_ok'         => array( 'success', __( 'Licence activated. Pro features are unlocked.', 'mlab-seo' ) ),

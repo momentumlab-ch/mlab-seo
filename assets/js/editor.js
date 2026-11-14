@@ -353,6 +353,63 @@
 		}
 	} );
 
+	/* AI drafts: three variants to choose from. Nothing is saved before the page is saved. */
+	function aiRender( variants ) {
+		var $list = $box.find( '.mlab-seo__ai' ).empty();
+		variants.forEach( function ( v, i ) {
+			var $item = $( '<li>' ).append(
+				$( '<strong>' ).text( v.title ),
+				$( '<small>' ).text( ' ' + fmt( __( '%d characters', 'mlab-seo' ), v.title.length ) ),
+				$( '<br>' ),
+				$( document.createTextNode( v.description ) ),
+				$( '<small>' ).text( ' ' + fmt( __( '%d characters', 'mlab-seo' ), v.description.length ) ),
+				$( '<br>' ),
+				$( '<button type="button" class="button-link mlab-seo__ai-use">' ).text( __( 'Use these texts', 'mlab-seo' ) ).data( 'index', i )
+			);
+			$list.append( $item );
+		} );
+		if ( variants.length ) {
+			$list.append( $( '<li>' ).append( $( '<button type="button" class="button-link mlab-seo__ai-discard">' ).text( __( 'Discard drafts', 'mlab-seo' ) ) ) );
+		}
+		$list.data( 'variants', variants );
+	}
+	function aiError( err ) {
+		$box.find( '.mlab-seo__ai' ).empty().append( $( '<li>' ).text( ( err && err.message ) || __( 'The AI could not write a draft. Please try again.', 'mlab-seo' ) ) );
+	}
+	$box.on( 'click', '.mlab-seo__ai-write', function () {
+		var $button = $( this ).prop( 'disabled', true ).text( __( 'Writing …', 'mlab-seo' ) );
+		window.wp.apiFetch( { path: '/mlab-seo/v1/ai/write', method: 'POST', data: { post_id: cfg.postId } } ).then( function ( r ) {
+			aiRender( r.variants );
+		} ).catch( aiError ).then( function () {
+			$button.prop( 'disabled', false ).text( __( 'Write with AI', 'mlab-seo' ) );
+		} );
+	} );
+	$box.on( 'click', '.mlab-seo__ai-use', function () {
+		var v = $box.find( '.mlab-seo__ai' ).data( 'variants' )[ $( this ).data( 'index' ) ];
+		$title.val( v.title ).trigger( 'input' );
+		$( '#mlab-seo-description' ).val( v.description ).trigger( 'input' );
+		window.wp.apiFetch( { path: '/mlab-seo/v1/ai/discard', method: 'POST', data: { post_id: cfg.postId } } );
+		$box.find( '.mlab-seo__ai' ).empty().append( $( '<li>' ).text( __( 'The texts are in the fields. Save the page to approve them.', 'mlab-seo' ) ) );
+	} );
+	$box.on( 'click', '.mlab-seo__ai-discard', function () {
+		window.wp.apiFetch( { path: '/mlab-seo/v1/ai/discard', method: 'POST', data: { post_id: cfg.postId } } );
+		$box.find( '.mlab-seo__ai' ).empty();
+	} );
+	$box.on( 'click', '.mlab-seo__ai-translate', function () {
+		var $button = $( this ).prop( 'disabled', true );
+		window.wp.apiFetch( { path: '/mlab-seo/v1/ai/translate', method: 'POST', data: { post_id: cfg.postId } } ).then( function ( r ) {
+			$box.find( '.mlab-seo__ai' ).empty().append( $( '<li>' ).append( document.createTextNode( fmt2( __( 'Translation drafts: %1$d created, %2$d not possible.', 'mlab-seo' ), r.ok, r.failed ) + ' ' ), $( '<a>' ).attr( 'href', cfg.aiQueueUrl ).text( __( 'Open the approval list', 'mlab-seo' ) ) ) );
+		} ).catch( aiError ).then( function () {
+			$button.prop( 'disabled', false );
+		} );
+	} );
+	function fmt2( str, a, b ) {
+		return str.replace( '%1$d', a ).replace( '%2$d', b );
+	}
+	if ( cfg.ai && cfg.aiDraft && cfg.aiDraft.length ) {
+		aiRender( cfg.aiDraft );
+	}
+
 	/* A business reviewing itself gets no stars in Google: warn. */
 	function reviewNote() {
 		var self = 'review' === $box.find( '#mlab-seo-rich-type' ).val() && [ 'LocalBusiness', 'Organization' ].indexOf( $box.find( '#mlab-seo-rich-review-item_type' ).val() ) > -1;

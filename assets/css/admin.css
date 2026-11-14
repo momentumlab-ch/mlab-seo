@@ -428,3 +428,14 @@ fieldset[disabled] textarea { cursor: not-allowed; }
 .interface-complementary-area .mlab-seo-tag.is-bad { background: rgba(255,59,48,.12); color: #d70015; }
 .interface-complementary-area .mlab-seo-checks li::before { top: 9px; }
 .mlab-seo-sheet[hidden], .mlab-seo-scrim[hidden] { display: none; }
+
+/* AI drafts */
+.mlab-seo-flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; padding: 0; margin: 0 0 20px; list-style: none; counter-reset: flow; }
+.mlab-seo-flow li { counter-increment: flow; background: var(--ms-card); border-radius: var(--ms-radius); box-shadow: var(--ms-shadow); padding: 12px 14px; color: var(--ms-text-2); }
+.mlab-seo-flow li::before { content: counter(flow); display: inline-block; width: 22px; height: 22px; margin-right: 8px; border-radius: 50%; background: var(--ms-fill); color: var(--ms-text); text-align: center; font-weight: 600; }
+.mlab-seo-flow strong { color: var(--ms-text); display: block; margin: 4px 0; }
+.mlab-seo-draft { padding: 16px 20px; margin-bottom: 16px; }
+.mlab-seo-draft h3 { margin: 0 0 8px; }
+.mlab-seo-variant { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-top: 1px solid var(--ms-sep); }
+.mlab-seo-variant small { color: var(--ms-text-2); margin-left: 6px; }
+@media (max-width: 782px) { .mlab-seo-flow { grid-template-columns: 1fr; } }

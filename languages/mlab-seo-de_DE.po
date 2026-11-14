@@ -1,6 +1,6 @@
 #
 msgid ""
-msgstr "Project-Id-Version: MomentumLab SEO 1.13.0\nReport-Msgid-Bugs-To: https://wordpress.org/support/plugin/mlab-seo\nPOT-Creation-Date: 2026-11-14T15:58:28+00:00\nPO-Revision-Date: 2026-11-14 15:58+0000\nLast-Translator: MomentumLab <support@momentumlab.ch>\nLanguage-Team: German\nLanguage: de_DE\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Domain: mlab-seo\nX-Generator: WP-CLI 2.12.0\n"
+msgstr "Project-Id-Version: MomentumLab SEO 1.14.0\nReport-Msgid-Bugs-To: https://wordpress.org/support/plugin/mlab-seo\nPOT-Creation-Date: 2026-11-14T16:09:48+00:00\nPO-Revision-Date: 2026-11-14 16:09+0000\nLast-Translator: MomentumLab <support@momentumlab.ch>\nLanguage-Team: German\nLanguage: de_DE\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Domain: mlab-seo\nX-Generator: WP-CLI 2.12.0\n"
 
 #. Plugin Name of the plugin
 #: mlab-seo.php inc/class-admin.php:92 inc/class-meta-box.php:47
@@ -2739,3 +2739,261 @@ msgstr "Seiten, die zu dieser Seite passen und noch nicht verlinkt sind. Seiten 
 #: assets/js/editor.js
 msgid "Select text first"
 msgstr "Zuerst Text markieren"
+
+#: parts/admin/pages-ai.php
+msgid "(no SEO title)"
+msgstr "(kein SEO-Titel)"
+
+#: parts/admin/pages-ai.php
+msgid "(no description)"
+msgstr "(keine Beschreibung)"
+
+#: inc/options.php
+msgid "AI provider"
+msgstr "KI-Anbieter"
+
+#: inc/admin-pages.php
+msgid "AI suggestions"
+msgstr "KI-Vorschläge"
+
+#: inc/admin-pages.php
+msgid "AI writing"
+msgstr "KI-Schreibhilfe"
+
+#: inc/class-ai.php
+msgid "AI writing is not set up. An administrator can do this under Settings › AI writing."
+msgstr "Die KI-Schreibhilfe ist nicht eingerichtet. Ein Administrator kann das unter Einstellungen › KI-Schreibhilfe tun."
+
+#: parts/admin/settings-ai.php
+msgid "AI writing is off until Pro, a provider, its key and the confirmation are set."
+msgstr "Die KI-Schreibhilfe ist aus, bis Pro, ein Anbieter, sein Schlüssel und die Bestätigung gesetzt sind."
+
+#: parts/admin/settings-ai.php
+msgid "AI writing is on."
+msgstr "Die KI-Schreibhilfe ist an."
+
+#: parts/admin/settings-ai.php
+msgid "AI writing needs Pro."
+msgstr "Die KI-Schreibhilfe braucht Pro."
+
+#: parts/admin/pages-ai.php
+msgid "Approve"
+msgstr "Freigeben"
+
+#: parts/admin/pages-ai.php
+msgid "Approve and create translation drafts"
+msgstr "Freigeben und Übersetzungsentwürfe erstellen"
+
+#: inc/class-admin-actions.php
+msgid "Approved. The texts are now the SEO title and description."
+msgstr "Freigegeben. Die Texte sind jetzt SEO-Titel und Beschreibung."
+
+#: inc/class-admin-actions.php
+msgid "Approved. Translation drafts: %1$d created, %2$d not possible (no translation, no texts, or the AI provider refused). The drafts wait below for approval."
+msgstr "Freigegeben. Übersetzungsentwürfe: %1$d erstellt, %2$d nicht möglich (keine Übersetzung, keine Texte oder der KI-Anbieter hat abgelehnt). Die Entwürfe warten unten auf die Freigabe."
+
+#: inc/options.php
+msgid "Characters sent to the provider per month. When it is reached, AI writing stops until next month or until you raise it."
+msgstr "Zeichen, die pro Monat an den Anbieter gehen. Ist das Limit erreicht, pausiert die KI-Schreibhilfe bis zum nächsten Monat oder bis du es erhöhst."
+
+#: parts/admin/pages-ai.php
+msgid "Compare with the current texts and choose a variant."
+msgstr "Mit den aktuellen Texten vergleichen und eine Variante wählen."
+
+#: inc/options.php
+msgid "Confirmation"
+msgstr "Bestätigung"
+
+#: parts/meta-box/panel-seo.php
+msgid "Create translation drafts"
+msgstr "Übersetzungsentwürfe erstellen"
+
+#: parts/meta-box/panel-seo.php
+msgid "Creates 3 drafts. Nothing changes until you choose one and save the page."
+msgstr "Erstellt 3 Entwürfe. Es ändert sich nichts, bis du einen wählst und die Seite speicherst."
+
+#: parts/admin/pages-ai.php
+msgid "Current:"
+msgstr "Aktuell:"
+
+#: assets/js/editor.js
+msgid "Discard drafts"
+msgstr "Entwürfe verwerfen"
+
+#: parts/admin/pages-ai.php
+msgid "Draft"
+msgstr "Entwurf"
+
+#: inc/options.php
+msgid "Empty: the default of the provider. Model names change, so please check them with the provider."
+msgstr "Leer: Standard des Anbieters. Modellnamen ändern sich, bitte beim Anbieter prüfen."
+
+#: parts/admin/settings-ai.php
+msgid "For a draft: the website name, the language, the page title, the current SEO texts, the focus keyword and the first 6,000 characters of the page text. For a translation: only the approved SEO title and description. No user data, no form entries. Please add the provider to your privacy policy. The log keeps the time, user, number of characters and result of the last 100 requests, never the texts or the key."
+msgstr "Für einen Entwurf: Name der Website, Sprache, Seitentitel, aktuelle SEO-Texte, Fokus-Keyword und die ersten 6000 Zeichen des Seitentextes. Für eine Übersetzung: nur der freigegebene SEO-Titel und die Beschreibung. Keine Benutzerdaten, keine Formulareingaben. Bitte nimm den Anbieter in die Datenschutzerklärung auf. Das Protokoll speichert Zeit, Benutzer, Zeichenzahl und Ergebnis der letzten 100 Anfragen, nie die Texte oder den Schlüssel."
+
+#: inc/options.php
+msgid "I have a data processing agreement with this provider and may send the content of my pages to it."
+msgstr "Ich habe einen Auftragsbearbeitungsvertrag mit diesem Anbieter und darf die Inhalte meiner Seiten dorthin senden."
+
+#: parts/admin/settings-ai.php
+msgid "Key found."
+msgstr "Schlüssel gefunden."
+
+#: parts/admin/settings-ai.php
+msgid "Keys and use"
+msgstr "Schlüssel und Verbrauch"
+
+#: inc/options.php
+msgid "Model"
+msgstr "Modell"
+
+#: inc/options.php
+msgid "Monthly limit (characters)"
+msgstr "Monatslimit (Zeichen)"
+
+#: parts/admin/pages-ai.php
+msgid "New text"
+msgstr "Neuer Text"
+
+#: parts/admin/pages-ai.php
+msgid "No drafts are waiting. Open a page and press «Write with AI» in the SEO box."
+msgstr "Es warten keine Entwürfe. Öffne eine Seite und klicke im SEO-Feld auf «Mit KI schreiben»."
+
+#: parts/admin/settings-ai.php
+msgid "No key. Add define( '%s', '...' ); to wp-config.php."
+msgstr "Kein Schlüssel. Füge define( '%s', '...' ); in die wp-config.php ein."
+
+#: inc/options.php
+msgid "Off"
+msgstr "Aus"
+
+#: assets/js/editor.js
+msgid "Open the approval list"
+msgstr "Freigabeliste öffnen"
+
+#: parts/admin/pages-ai.php
+msgid "Reject"
+msgstr "Ablehnen"
+
+#: inc/class-admin-actions.php
+msgid "Rejected. The draft was deleted."
+msgstr "Abgelehnt. Der Entwurf wurde gelöscht."
+
+#: assets/js/editor.js
+msgid "The AI could not write a draft. Please try again."
+msgstr "Die KI konnte keinen Entwurf schreiben. Bitte versuche es erneut."
+
+#: inc/class-ai.php
+msgid "The AI provider asks to slow down. Please try again in a minute."
+msgstr "Der KI-Anbieter bittet um eine Pause. Bitte versuche es in einer Minute erneut."
+
+#: inc/class-ai.php
+msgid "The AI provider could not be reached. Please try again in a moment."
+msgstr "Der KI-Anbieter ist nicht erreichbar. Bitte versuche es gleich noch einmal."
+
+#: inc/class-ai.php
+msgid "The AI provider declined this page. Write the texts yourself or try another page."
+msgstr "Der KI-Anbieter hat diese Seite abgelehnt. Schreibe die Texte selbst oder versuche eine andere Seite."
+
+#: inc/class-ai.php
+msgid "The AI provider did not accept the key. An administrator should check the key in wp-config.php."
+msgstr "Der KI-Anbieter hat den Schlüssel nicht akzeptiert. Ein Administrator sollte den Schlüssel in der wp-config.php prüfen."
+
+#: inc/class-ai.php
+msgid "The AI provider did not accept the request. Check the model name under Settings › AI writing."
+msgstr "Der KI-Anbieter hat die Anfrage nicht akzeptiert. Prüfe den Modellnamen unter Einstellungen › KI-Schreibhilfe."
+
+#: inc/class-ai.php
+msgid "The AI provider has a problem right now. Please try again later."
+msgstr "Der KI-Anbieter hat gerade ein Problem. Bitte versuche es später erneut."
+
+#: inc/class-ai.php
+msgid "The AI provider returned no text. Please try again."
+msgstr "Der KI-Anbieter hat keinen Text geliefert. Bitte versuche es erneut."
+
+#: parts/admin/pages-ai.php
+msgid "The AI writes up to 3 variants. Nothing changes on the website."
+msgstr "Die KI schreibt bis zu 3 Varianten. Auf der Website ändert sich nichts."
+
+#: inc/class-ai-suggestions.php
+msgid "The answer could not be read. Please try again."
+msgstr "Die Antwort konnte nicht gelesen werden. Bitte versuche es erneut."
+
+#: inc/class-ai.php
+msgid "The monthly limit for AI writing is reached. An administrator can raise it under Settings › AI writing."
+msgstr "Das Monatslimit der KI-Schreibhilfe ist erreicht. Ein Administrator kann es unter Einstellungen › KI-Schreibhilfe erhöhen."
+
+#: inc/class-ai-suggestions.php
+msgid "The page was not found."
+msgstr "Die Seite wurde nicht gefunden."
+
+#: assets/js/editor.js
+msgid "The texts are in the fields. Save the page to approve them."
+msgstr "Die Texte stehen in den Feldern. Speichere die Seite, um sie freizugeben."
+
+#: parts/admin/pages-ai.php
+msgid "The variant becomes the SEO title and description. Or reject it."
+msgstr "Die Variante wird zu SEO-Titel und Beschreibung. Oder du lehnst sie ab."
+
+#: inc/class-admin-actions.php
+msgid "This draft does not exist any more. Please reload the list."
+msgstr "Diesen Entwurf gibt es nicht mehr. Bitte lade die Liste neu."
+
+#: parts/admin/settings-ai.php
+msgid "This month: %1$s of %2$s characters."
+msgstr "Diesen Monat: %1$s von %2$s Zeichen."
+
+#: parts/admin/pages-ai.php
+msgid "Translate"
+msgstr "Übersetzen"
+
+#: parts/admin/pages-ai.php
+msgid "Translated from the approved texts of «%s»."
+msgstr "Übersetzt aus den freigegebenen Texten von «%s»."
+
+#: parts/meta-box/panel-seo.php
+msgid "Translates the saved SEO title and description. The drafts wait for your approval under Pages › AI suggestions. Save the page first."
+msgstr "Übersetzt den gespeicherten SEO-Titel und die Beschreibung. Die Entwürfe warten unter Seiten › KI-Vorschläge auf deine Freigabe. Speichere die Seite zuerst."
+
+#: parts/admin/pages-ai.php
+msgid "Translation (%s)"
+msgstr "Übersetzung (%s)"
+
+#: assets/js/editor.js
+msgid "Translation drafts: %1$d created, %2$d not possible."
+msgstr "Übersetzungsentwürfe: %1$d erstellt, %2$d nicht möglich."
+
+#: parts/admin/pages-ai.php
+msgid "Translations are drafts as well and appear here for approval."
+msgstr "Übersetzungen sind ebenfalls Entwürfe und erscheinen hier zur Freigabe."
+
+#: assets/js/editor.js
+msgid "Use these texts"
+msgstr "Diese Texte verwenden"
+
+#: parts/admin/settings-ai.php
+msgid "What is sent"
+msgstr "Was gesendet wird"
+
+#: assets/js/editor.js parts/meta-box/panel-seo.php
+msgid "Write with AI"
+msgstr "Mit KI schreiben"
+
+#: parts/admin/settings-ai.php
+msgid "Writes drafts for SEO titles and descriptions with your own account at Claude or OpenAI. A draft changes nothing until a person approves it. Translations of approved texts also wait for approval. This is a Pro feature."
+msgstr "Schreibt Entwürfe für SEO-Titel und Beschreibungen mit deinem eigenen Konto bei Claude oder OpenAI. Ein Entwurf ändert nichts, bis eine Person ihn freigibt. Auch Übersetzungen freigegebener Texte warten auf die Freigabe. Das ist eine Pro-Funktion."
+
+#: assets/js/editor.js
+msgid "Writing …"
+msgstr "Schreibt …"
+
+#: inc/class-admin-actions.php
+msgid "You are not allowed to do this."
+msgstr "Das darfst du nicht."
+
+#: inc/class-dashboard.php
+msgid "%d AI draft waits for your approval."
+msgid_plural "%d AI drafts wait for your approval."
+msgstr[0] "%d KI-Entwurf wartet auf deine Freigabe."
+msgstr[1] "%d KI-Entwürfe warten auf deine Freigabe."

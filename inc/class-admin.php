@@ -87,6 +87,20 @@ final class Admin {
 	}
 
 	/**
+	 * Capability for licence and import: administrators only, even when editors may use the SEO screens.
+	 *
+	 * @return string
+	 */
+	public static function admin_capability() {
+		/**
+		 * Filters the capability needed for licence and import.
+		 *
+		 * @param string $capability Default 'manage_options'.
+		 */
+		return (string) apply_filters( 'mlab_seo_admin_capability', 'manage_options' );
+	}
+
+	/**
 	 * Address of a page, optionally with a segment.
 	 *
 	 * @param string $page    Menu slug.

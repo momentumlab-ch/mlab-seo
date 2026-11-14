@@ -81,6 +81,7 @@ Developer hooks
 = 1.13.0 =
 * Pro: Software-App als Rich Result (SoftwareApplication) mit Preis, Betriebssystem und Bewertung.
 * Einstellungen › Allgemein: «Wer die SEO-Seiten nutzen darf» (nur Administratoren oder auch Redaktoren).
+* Lizenz und Import bleiben Administratoren vorbehalten, auch wenn Redaktoren die SEO-Seiten nutzen dürfen.
 * Hinweis im Editor, wenn eine Bewertung von einer Firma über sich selbst stammt (Google zeigt dafür keine Sterne).
 
 = 1.12.1 =

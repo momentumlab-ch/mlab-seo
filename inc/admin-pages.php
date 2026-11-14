@@ -4,6 +4,7 @@
  *
  * A segment with keys renders its part inside a settings form that saves exactly these keys.
  * A segment without keys renders its part as is (own forms, lists).
+ * A segment with 'admin' is only shown to administrators, even when editors may use the SEO screens.
  *
  * @package MomentumLab\SEO
  */
@@ -13,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Pages of the SEO menu, keyed by menu slug, in menu order.
  *
- * @return array<string,array{title:string,menu:string,intro:string,segments:array<string,array{label:string,part:string,keys?:string[],after?:string}>}>
+ * @return array<string,array{title:string,menu:string,intro:string,segments:array<string,array{label:string,part:string,keys?:string[],after?:string,admin?:bool}>}>
  */
 function mlab_seo_admin_pages(): array {
 	return array(
@@ -172,10 +173,12 @@ function mlab_seo_admin_page_settings(): array {
 			'import'    => array(
 				'label' => __( 'Import', 'mlab-seo' ),
 				'part'  => 'tab-import',
+				'admin' => true,
 			),
 			'license'   => array(
 				'label' => __( 'Licence', 'mlab-seo' ),
 				'part'  => 'tab-license',
+				'admin' => true,
 			),
 		),
 	);

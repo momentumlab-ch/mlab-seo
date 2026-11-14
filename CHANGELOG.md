@@ -11,6 +11,7 @@ The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaki
 - Hinweis im Editor bei Bewertungen von «LocalBusiness» oder «Organization»: Google zeigt dafür keine Sterne.
 
 ### Geändert
+- Redaktoren (wenn erlaubt) sehen Lizenz und Import nicht und können sie nicht ausführen. Das bleibt Administratoren vorbehalten (Filter `mlab_seo_admin_capability`).
 - Pflichtfelder der Rich Results zählen den Wert 0 jetzt als ausgefüllt (wichtig für den Preis gratis).
 
 ## [1.12.1] - 2026-11-14

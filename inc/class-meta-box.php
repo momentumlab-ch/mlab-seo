@@ -111,6 +111,7 @@ final class Meta_Box {
 		$img      = Context::image( $image, 'medium' );
 		$pro      = License::is_pro();
 		$event    = array_merge( self::empty_event(), Post_Meta::get( $id, 'event' ) );
+		$rich     = Post_Meta::get( $id, 'rich' );
 		$crumbs   = wp_list_pluck( array_slice( Breadcrumbs::for_post( $id ), 1, -1 ), 'name' );
 		$date     = self::preview_date( $post );
 
@@ -196,6 +197,9 @@ final class Meta_Box {
 		}
 		if ( License::is_pro() ) {
 			self::store( $post_id, 'event', Post_Meta::sanitize_event( isset( $_POST['mlab_seo_event'] ) ? wp_unslash( $_POST['mlab_seo_event'] ) : array() ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitised in sanitize_event().
+		}
+		if ( License::is_pro() ) {
+			self::store( $post_id, 'rich', Rich_Results::sanitize( isset( $_POST['mlab_seo_rich'] ) ? wp_unslash( $_POST['mlab_seo_rich'] ) : array() ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitised in Rich_Results::sanitize().
 		}
 		if ( Hreflang::languages() && isset( $_POST['mlab_seo_hreflang'] ) ) {
 			self::store( $post_id, 'hreflang', Hreflang::sanitize( wp_unslash( $_POST['mlab_seo_hreflang'] ) ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitised in Hreflang::sanitize().

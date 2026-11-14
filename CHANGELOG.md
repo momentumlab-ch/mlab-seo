@@ -3,6 +3,29 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.11.1] - 2026-11-14
+
+### Hinzugefügt
+- Sitemap: Bereich «Wer erfährt davon» mit dem Stand für robots.txt, IndexNow (Bing, Yandex, Seznam, Naver) und Google (Search Console).
+- Übersicht: Hinweis, wenn IndexNow aus ist.
+
+## [1.11.0] - 2026-11-14
+
+### Hinzugefügt
+- Pro: JobPosting-Schema für Google for Jobs. Indeed liest dieselbe Auszeichnung, dazu `directApply`, `identifier`, Beschäftigungsart und Lohn.
+- Pro: Rezept-, Kurs- und Bewertungs-Schema (ein Typ pro Seite), mit Hinweis im Editor und in der Übersicht, wenn Pflichtangaben fehlen.
+- Pro: Mehrere Fokus-Keywords (bis 5, durch Komma getrennt). Das erste gilt als Hauptkeyword, die weiteren werden im SEO-Check einzeln geprüft.
+- Verwaiste Seiten: Liste unter «Seiten › Inhalts-Check» und Hinweis in der Übersicht. Menüs zählen als Link.
+- Cornerstone-Inhalte markieren (Erweitert), Filter und Stern in der Seitenliste.
+- SEO-Wert in der Admin-Leiste auf der Website und im Editor, mit Links zu Strukturierten Daten und Google-Test. Abschaltbar unter Einstellungen › Allgemein.
+
+## [1.10.1] - 2026-11-14
+
+### Hinzugefügt
+- Navigation über alle SEO-Seiten im Kopf jeder Seite.
+- Bereich «Strukturierte Daten» unter «Suchauftritt»: welche Schema-Typen ausgegeben werden (Free oder Pro), mit Vorschau des JSON-LD pro Seite und Links zu Google-Test und schema.org-Validator.
+- `docs/vergleich-yoast-rankmath.md`: Vergleich mit Yoast und Rank Math, fehlende Funktionen mit Vorschlag Free oder Pro.
+
 ## [1.10.0] - 2026-11-14
 
 ### Hinzugefügt

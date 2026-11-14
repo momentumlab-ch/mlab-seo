@@ -15,6 +15,10 @@ defined( 'ABSPATH' ) || exit;
 		<label><input type="checkbox" name="mlab_seo[noindex]" id="mlab-seo-noindex" value="1" <?php checked( Post_Meta::get( $id, 'noindex' ) ); ?> /> <?php esc_html_e( 'Hide from search engines (noindex)', 'mlab-seo' ); ?></label><br />
 		<label><input type="checkbox" name="mlab_seo[nofollow]" value="1" <?php checked( Post_Meta::get( $id, 'nofollow' ) ); ?> /> <?php esc_html_e( 'Search engines should not follow the links on this page (nofollow)', 'mlab-seo' ); ?></label>
 	</p>
+	<p>
+		<label><input type="checkbox" name="mlab_seo[cornerstone]" value="1" <?php checked( Post_Meta::get( $id, 'cornerstone' ) ); ?> /> <?php esc_html_e( 'Cornerstone content: one of the most important pages of the website', 'mlab-seo' ); ?></label><br />
+		<span class="description"><?php esc_html_e( 'These pages are listed under Pages › Cornerstone. Link to them from other pages and keep them up to date.', 'mlab-seo' ); ?></span>
+	</p>
 	<fieldset class="mlab-seo__robots">
 		<legend class="mlab-seo__label"><?php esc_html_e( 'More robots rules', 'mlab-seo' ); ?></legend>
 		<?php

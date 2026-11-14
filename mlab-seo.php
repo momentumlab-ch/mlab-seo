@@ -3,7 +3,7 @@
  * Plugin Name:       MomentumLab SEO
  * Plugin URI:        https://momentumlab.ch/
  * Description:       Search engine and AI optimisation: titles, meta descriptions, Google preview with SEO check, social previews, schema.org, sitemap, robots.txt and llms.txt for AI assistants.
- * Version:           1.10.0
+ * Version:           1.11.1
  * Requires at least: 6.5
  * Requires PHP:      8.0
  * Author:            MomentumLab
@@ -19,7 +19,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'MLAB_SEO_VERSION', '1.10.0' );
+define( 'MLAB_SEO_VERSION', '1.11.1' );
 define( 'MLAB_SEO_FILE', __FILE__ );
 define( 'MLAB_SEO_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MLAB_SEO_URL', plugin_dir_url( __FILE__ ) );
@@ -35,6 +35,7 @@ require_once MLAB_SEO_DIR . 'inc/class-titles.php';
 require_once MLAB_SEO_DIR . 'inc/class-context.php';
 require_once MLAB_SEO_DIR . 'inc/class-head.php';
 require_once MLAB_SEO_DIR . 'inc/class-schema.php';
+require_once MLAB_SEO_DIR . 'inc/class-rich-results.php';
 require_once MLAB_SEO_DIR . 'inc/class-breadcrumbs.php';
 require_once MLAB_SEO_DIR . 'inc/class-crawlers.php';
 require_once MLAB_SEO_DIR . 'inc/class-sitemap.php';
@@ -53,6 +54,7 @@ require_once MLAB_SEO_DIR . 'inc/class-content-audit.php';
 require_once MLAB_SEO_DIR . 'inc/class-fields.php';
 require_once MLAB_SEO_DIR . 'inc/class-meta-box.php';
 require_once MLAB_SEO_DIR . 'inc/class-quick-edit.php';
+require_once MLAB_SEO_DIR . 'inc/class-admin-bar.php';
 require_once MLAB_SEO_DIR . 'inc/class-dashboard.php';
 require_once MLAB_SEO_DIR . 'inc/class-rest.php';
 require_once MLAB_SEO_DIR . 'inc/class-admin-actions.php';

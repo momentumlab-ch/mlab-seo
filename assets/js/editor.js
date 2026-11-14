@@ -288,11 +288,20 @@
 			.find( 'span' ).css( 'width', Math.min( 100, Math.round( ratio * 100 ) ) + '%' );
 	}
 
+	/* Rich result type: show only the fields of the chosen type. */
+	$box.on( 'change', '#mlab-seo-rich-type', function () {
+		var type = $( this ).val();
+		$box.find( '.mlab-seo__rich' ).each( function () {
+			$( this ).prop( 'hidden', $( this ).data( 'rich' ) !== type );
+		} );
+	} );
+
 	function checks( ed, title, desc, focus ) {
 		var result = A.analyze( {
 			title: title,
 			desc: desc,
 			focus: focus,
+			pro: cfg.pro,
 			content: ed.content,
 			slug: ed.slug,
 			url: ed.url,

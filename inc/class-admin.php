@@ -163,6 +163,7 @@ final class Admin {
 				array(
 					'homeUrl'  => home_url( '/' ),
 					'siteName' => Settings::site_name(),
+					'pro'      => License::is_pro(),
 				)
 			);
 		}

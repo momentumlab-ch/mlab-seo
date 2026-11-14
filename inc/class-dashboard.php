@@ -201,6 +201,14 @@ final class Dashboard {
 			/* translators: 1: number of pages, 2: minimum number of words. */
 			$items[] = self::item( 'ok', sprintf( _n( '%1$d page has fewer than %2$d words. Search engines and AI assistants find little to show for it.', '%1$d pages have fewer than %2$d words. Search engines and AI assistants find little to show for them.', $thin, 'mlab-seo' ), $thin, Content_Audit::THIN ), Admin::url( 'mlab-seo-pages', 'content' ), __( 'Show', 'mlab-seo' ) );
 		}
+		if ( ! IndexNow::active() ) {
+			$items[] = self::item( 'ok', __( 'IndexNow is off. Bing learns about new pages only at its next visit.', 'mlab-seo' ), Admin::url( 'mlab-seo-ai', 'indexnow' ), __( 'Turn on', 'mlab-seo' ) );
+		}
+		$orphans = count( Content_Audit::orphans() );
+		if ( $orphans ) {
+			/* translators: %d: number of pages. */
+			$items[] = self::item( 'ok', sprintf( _n( '%d page has no internal link. Search engines rate it as unimportant.', '%d pages have no internal link. Search engines rate them as unimportant.', $orphans, 'mlab-seo' ), $orphans ), Admin::url( 'mlab-seo-pages', 'content' ), __( 'Show', 'mlab-seo' ) );
+		}
 		return array_merge( $items, self::pro_checks() );
 	}
 
@@ -228,34 +236,43 @@ final class Dashboard {
 	}
 
 	/**
-	 * Events with missing required data. Such events do not appear as rich results in Google or Bing.
+	 * Event and rich result pages with missing required data. Google and Bing show no result for them.
 	 *
 	 * @return array
 	 */
 	private static function event_checks() {
-		$ids = get_posts(
-			array(
-				'post_type'              => Post_Meta::post_types(),
-				'post_status'            => 'publish',
-				'fields'                 => 'ids',
-				'posts_per_page'         => 200,
-				'no_found_rows'          => true,
-				'update_post_term_cache' => false,
-				'meta_key'               => Post_Meta::PREFIX . 'event', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Cached with the other checks, capped at 200 pages.
-			)
-		);
-		$bad = array_filter(
-			$ids,
-			fn ( $id ) => (bool) Post_Meta::event_gaps( (array) Post_Meta::get( $id, 'event' ) )['required']
-		);
-		if ( ! $ids ) {
+		$types = Post_Meta::post_types();
+		$found = 0;
+		$bad   = array();
+		foreach ( array( 'event', 'rich' ) as $field ) {
+			$ids    = get_posts(
+				array(
+					'post_type'              => $types,
+					'post_status'            => 'publish',
+					'fields'                 => 'ids',
+					'posts_per_page'         => 200,
+					'no_found_rows'          => true,
+					'update_post_term_cache' => false,
+					'meta_key'               => Post_Meta::PREFIX . $field, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Capped at 200 pages.
+				)
+			);
+			$found += count( $ids );
+			foreach ( $ids as $id ) {
+				$data = (array) Post_Meta::get( $id, $field );
+				$gaps = 'event' === $field ? Post_Meta::event_gaps( $data )['required'] : Rich_Results::gaps( $data );
+				if ( $gaps ) {
+					$bad[] = $id;
+				}
+			}
+		}
+		if ( ! $found ) {
 			return array();
 		}
 		if ( ! $bad ) {
-			return array( self::item( 'good', __( 'All events have the data Google and Bing need.', 'mlab-seo' ) ) );
+			return array( self::item( 'good', __( 'All events and rich results have the data Google and Bing need.', 'mlab-seo' ) ) );
 		}
 		/* translators: %d: number of pages. */
-		return array( self::item( 'bad', sprintf( _n( '%d event page misses data Google and Bing need. No event result is shown for it.', '%d event pages miss data Google and Bing need. No event result is shown for them.', count( $bad ), 'mlab-seo' ), count( $bad ) ), Admin::url( 'mlab-seo-pages', '', array( 'edit' => (int) reset( $bad ) ) ), __( 'Complete', 'mlab-seo' ) ) );
+		return array( self::item( 'bad', sprintf( _n( '%d page misses data Google and Bing need for its event or rich result. Nothing is shown for it.', '%d pages miss data Google and Bing need for their event or rich result. Nothing is shown for them.', count( $bad ), 'mlab-seo' ), count( $bad ) ), Admin::url( 'mlab-seo-pages', '', array( 'edit' => (int) $bad[0] ) ), __( 'Complete', 'mlab-seo' ) ) );
 	}
 
 	/**

@@ -29,6 +29,7 @@ final class Post_Meta {
 		'image'        => 'integer',
 		'noindex'      => 'boolean',
 		'nofollow'     => 'boolean',
+		'cornerstone'  => 'boolean',
 		'canonical'    => 'string',
 		'page_type'    => 'string',
 		'llms'         => 'string',
@@ -108,7 +109,7 @@ final class Post_Meta {
 					)
 				);
 			}
-			foreach ( array( 'event', 'hreflang' ) as $field ) {
+			foreach ( array( 'event', 'rich', 'hreflang' ) as $field ) {
 				register_post_meta(
 					$type,
 					self::PREFIX . $field,
@@ -182,6 +183,7 @@ final class Post_Meta {
 				return min( 100, absint( $value ) );
 			case 'noindex':
 			case 'nofollow':
+			case 'cornerstone':
 				return $value ? 1 : 0;
 			case 'canonical':
 				return esc_url_raw( (string) $value, array( 'https', 'http' ) );
@@ -194,6 +196,8 @@ final class Post_Meta {
 			case 'robots':
 				$list = is_array( $value ) ? $value : explode( ',', (string) $value );
 				return implode( ',', array_intersect( self::ROBOTS, array_map( 'trim', $list ) ) );
+			case 'focus':
+				return self::focus_keywords( $value );
 			case 'description':
 			case 'og_desc':
 				return sanitize_textarea_field( (string) $value );
@@ -202,6 +206,27 @@ final class Post_Meta {
 			default:
 				return sanitize_text_field( (string) $value );
 		}
+	}
+
+	/**
+	 * Focus keywords: comma separated, up to five with Pro, otherwise one.
+	 *
+	 * @param mixed $value Raw value.
+	 * @return string
+	 */
+	public static function focus_keywords( $value ) {
+		$list = array_filter( array_map( 'trim', explode( ',', sanitize_text_field( (string) $value ) ) ) );
+		return implode( ', ', array_slice( $list, 0, License::is_pro() ? 5 : 1 ) );
+	}
+
+	/**
+	 * The main focus keyword of a page.
+	 *
+	 * @param int $post_id Post ID.
+	 * @return string
+	 */
+	public static function main_focus( $post_id ) {
+		return trim( explode( ',', self::get( $post_id, 'focus' ) )[0] );
 	}
 
 	/**

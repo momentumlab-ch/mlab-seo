@@ -103,6 +103,34 @@ defined( 'ABSPATH' ) || exit;
 		</table>
 		<p><button type="button" class="button mlab-seo__sub-add"><?php esc_html_e( 'Add sub-event', 'mlab-seo' ); ?></button></p>
 
+		<?php $rich_type = (string) ( $rich['type'] ?? '' ); ?>
+		<p class="mlab-seo__label"><label for="mlab-seo-rich-type"><?php esc_html_e( 'Other rich result on this page', 'mlab-seo' ); ?></label></p>
+		<p class="description"><?php esc_html_e( 'Job posting, recipe, course or review. One type per page. Fields marked * are needed for Google and Bing.', 'mlab-seo' ); ?></p>
+		<select id="mlab-seo-rich-type" name="mlab_seo_rich[type]">
+			<option value=""><?php esc_html_e( 'None', 'mlab-seo' ); ?></option>
+			<?php foreach ( Rich_Results::types() as $key => $label ) : ?>
+				<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $rich_type, $key ); ?>><?php echo esc_html( $label ); ?></option>
+			<?php endforeach; ?>
+		</select>
+		<?php $rich_gaps = $rich ? Rich_Results::gaps( $rich ) : array(); ?>
+		<?php if ( $rich_gaps ) : ?>
+			<div class="notice notice-error inline"><p>
+				<?php
+				/* translators: %s: list of missing fields. */
+				echo esc_html( sprintf( __( 'Google and Bing show no result yet. Missing: %s.', 'mlab-seo' ), implode( ', ', $rich_gaps ) ) );
+				?>
+			</p></div>
+		<?php endif; ?>
+		<?php foreach ( array_keys( Rich_Results::types() ) as $key ) : ?>
+			<div class="mlab-seo__grid mlab-seo__rich" data-rich="<?php echo esc_attr( $key ); ?>" <?php echo $rich_type === $key ? '' : 'hidden'; ?>>
+				<?php
+				foreach ( Rich_Results::fields( $key ) as $field_key => $field ) {
+					Rich_Results::input( $key, $field_key, $field, $rich );
+				}
+				?>
+			</div>
+		<?php endforeach; ?>
+
 		<p><label class="mlab-seo__label" for="mlab-seo-schema"><?php esc_html_e( 'Additional schema.org (JSON-LD)', 'mlab-seo' ); ?></label>
 			<textarea class="widefat code" rows="5" id="mlab-seo-schema" name="mlab_seo[schema]" placeholder='{ "@type": "FAQPage", "mainEntity": [] }'><?php echo esc_textarea( Post_Meta::get( $id, 'schema' ) ); ?></textarea>
 			<span class="description"><?php esc_html_e( 'One node or a list of nodes. Invalid JSON is discarded on save.', 'mlab-seo' ); ?></span></p>

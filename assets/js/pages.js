@@ -65,6 +65,7 @@
 			title: A.resolve( v.title, post.name, post.vars ) || post.fallback.title,
 			desc: A.resolve( v.description, post.name, post.vars ),
 			focus: v.focus,
+			pro: cfg.pro,
 			content: post.content,
 			slug: post.slug,
 			url: post.url,

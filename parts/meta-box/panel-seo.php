@@ -40,7 +40,7 @@ defined( 'ABSPATH' ) || exit;
 	<ul class="mlab-seo__checks"></ul>
 	<p class="mlab-seo__label"><?php esc_html_e( 'Link suggestions', 'mlab-seo' ); ?> <span class="mlab-seo__pro<?php echo $pro ? '' : ' is-free'; ?>">Pro</span></p>
 	<?php if ( $pro ) : ?>
-		<p class="description"><?php esc_html_e( 'Pages that fit this page and are not linked yet. Pages without any internal link come first. Copy the address and add it as a link in the text.', 'mlab-seo' ); ?></p>
+		<p class="description"><?php esc_html_e( 'Pages that fit this page and are not linked yet. Pages without any internal link come first. Select text and press Insert link, or copy the address.', 'mlab-seo' ); ?></p>
 		<p><button type="button" class="button mlab-seo__links-load"><?php esc_html_e( 'Show suggestions', 'mlab-seo' ); ?></button></p>
 		<ul class="mlab-seo__links" aria-live="polite"></ul>
 	<?php else : ?>

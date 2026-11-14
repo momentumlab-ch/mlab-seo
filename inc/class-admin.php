@@ -101,6 +101,18 @@ final class Admin {
 	}
 
 	/**
+	 * Button that leads to the licence form, or a note for users who may not open it.
+	 *
+	 * @return string HTML.
+	 */
+	public static function activate_pro_link() {
+		if ( ! current_user_can( self::admin_capability() ) ) {
+			return esc_html__( 'Ask an administrator to activate Pro.', 'mlab-seo' );
+		}
+		return '<a class="button button-primary" href="' . esc_url( self::url( 'mlab-seo-settings', 'license' ) ) . '">' . esc_html__( 'Activate Pro', 'mlab-seo' ) . '</a>';
+	}
+
+	/**
 	 * Address of a page, optionally with a segment.
 	 *
 	 * @param string $page    Menu slug.

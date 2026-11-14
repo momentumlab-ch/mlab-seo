@@ -171,7 +171,7 @@ final class Dashboard {
 		);
 		foreach ( Admin::other_seo_plugins() as $name ) {
 			/* translators: %s: plugin name. */
-			$items[] = self::item( 'bad', sprintf( __( '%s is active as well. Two SEO plugins print duplicate titles and tags. Take over its data, then deactivate it.', 'mlab-seo' ), $name ), Admin::url( 'mlab-seo-settings', 'import' ), __( 'Take over data', 'mlab-seo' ) );
+			$items[] = self::item( 'bad', sprintf( __( '%s is active as well. Two SEO plugins print duplicate titles and tags. Take over its data, then deactivate it. An administrator can do this under Settings › Import.', 'mlab-seo' ), $name ), current_user_can( Admin::admin_capability() ) ? Admin::url( 'mlab-seo-settings', 'import' ) : '', __( 'Take over data', 'mlab-seo' ) );
 		}
 		return $items;
 	}

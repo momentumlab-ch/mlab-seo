@@ -4,7 +4,7 @@ Tags: seo, schema, llms.txt, ai, sitemap
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.12.0
+Stable tag: 1.12.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,11 +78,13 @@ Developer hooks
 
 == Changelog ==
 
+= 1.12.1 =
+* Übersetzungen für alle neuen Texte ab 1.10.0 in Deutsch (CH, DE), Französisch und Italienisch.
+
 = 1.12.0 =
 * Einrichtungsassistent «Setup» in 4 Schritten: Organisation, Startseite, KI und Bing, Prüfung. Jeder Schritt überspringbar, speichert automatisch. Startet einmal nach der Aktivierung.
 * Pro: Link-Vorschläge im SEO-Feld: passende, noch nicht verlinkte Seiten, Seiten ohne internen Link zuerst.
 * Übersicht: Hinweis auf MomentumLab Insights für die Google-Auswertung, wenn Insights aktiv ist.
-* Übersetzungen für alle neuen Texte ab 1.10.0 in Deutsch (CH, DE), Französisch und Italienisch.
 * Deinstallation entfernt jetzt auch Cornerstone, Rich Results und die Liste verwaister Seiten.
 
 = 1.11.2 =

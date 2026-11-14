@@ -3,6 +3,13 @@
 All notable changes to MomentumLab SEO are documented here.
 The project follows [Semantic Versioning](https://semver.org/): MAJOR for breaking changes, MINOR for new features, PATCH for fixes.
 
+## [1.10.1] - 2026-11-14
+
+### Hinzugefügt
+- Navigation über alle SEO-Seiten im Kopf jeder Seite.
+- Bereich «Strukturierte Daten» unter «Suchauftritt»: welche Schema-Typen ausgegeben werden (Free oder Pro), mit Vorschau des JSON-LD pro Seite und Links zu Google-Test und schema.org-Validator.
+- `docs/vergleich-yoast-rankmath.md`: Vergleich mit Yoast und Rank Math, fehlende Funktionen mit Vorschlag Free oder Pro.
+
 ## [1.10.0] - 2026-11-14
 
 ### Hinzugefügt
